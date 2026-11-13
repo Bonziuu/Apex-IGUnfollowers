@@ -99,6 +99,7 @@ jobs:
           gh release create "v$VERSION" \
             "dist/Apex-Unfollowers-$VERSION.zip" \
             dist/Apex-Unfollowers.zip \
+            "dist/Apex-Unfollowers-$VERSION-store.zip" \
             dist/SHA256SUMS.txt \
             --target "$GITHUB_SHA" \
             --title "Apex Unfollowers $VERSION" \
