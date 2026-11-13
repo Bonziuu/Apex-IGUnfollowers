@@ -48,6 +48,9 @@
       'unf.blocked': 'Instagram zablokował tę akcję (zbyt wiele działań). Odobserwowywanie wstrzymane do {time}. Nie ponawiaj ręcznie w aplikacji.',
       'unf.slow': 'Instagram prosi o zwolnienie. Odobserwowywanie wstrzymane do {time}.',
       'unf.failed': 'Instagram nie potwierdził odobserwowania (HTTP {status}, {info}). Sprawdź na profilu tej osoby, czy nadal ją obserwujesz.',
+      'unf.noTokens': 'Nie znaleziono tokenów sesji Instagrama na stronie. Odśwież stronę (F5) i spróbuj ponownie.',
+      'unf.still': 'Instagram odpowiedział, ale nadal obserwujesz @{user}. Spróbuj później albo na profilu tej osoby.',
+      'unf.unconfirmed': 'Instagram przyjął prośbę, ale nie udało się potwierdzić, że @{user} jest odobserwowany. Sprawdź na profilu tej osoby.',
 
       'backup.exported': 'Zapisano kopię zapasową (konta: {n}).',
       'backup.imported': 'Wczytano kopię z {date} (konta: {n}).',
@@ -207,6 +210,9 @@
       'unf.blocked': 'Instagram blocked this action (too many actions). Unfollowing paused until {time}. Do not retry manually in the app.',
       'unf.slow': 'Instagram asks to slow down. Unfollowing paused until {time}.',
       'unf.failed': 'Instagram did not confirm the unfollow (HTTP {status}, {info}). Check that profile to see if you still follow it.',
+      'unf.noTokens': 'Instagram session tokens were not found on the page. Reload the page (F5) and try again.',
+      'unf.still': 'Instagram answered, but you still follow @{user}. Try later or from that profile.',
+      'unf.unconfirmed': 'Instagram accepted the request, but the extension could not confirm that @{user} is unfollowed. Check that profile.',
 
       'backup.exported': 'Backup saved (accounts: {n}).',
       'backup.imported': 'Backup from {date} restored (accounts: {n}).',

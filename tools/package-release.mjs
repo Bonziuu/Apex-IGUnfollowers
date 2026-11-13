@@ -10,7 +10,7 @@ import { fileURLToPath } from 'node:url';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const FILES = [
-  'manifest.json', 'LICENSE', 'PRIVACY.md',
+  'manifest.json', 'LICENSE', 'PRIVACY.md', 'THIRD_PARTY_NOTICES.md',
   'shared/i18n.js', 'content/unfollowers.js',
   '_locales/en/messages.json', '_locales/pl/messages.json',
   'popup/popup.html', 'popup/popup.css', 'popup/popup.js',

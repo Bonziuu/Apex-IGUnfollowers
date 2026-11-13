@@ -43,8 +43,10 @@ const stub = (initial) => `(() => {
 })();`;
 
 // truncate: 'surface' – REST z search_surface ucina listę obserwowanych na 100 kontach, 'all' – każda metoda ją ucina
-async function setup({ colorScheme = 'light', locale = 'pl-PL', rateLimited = false, unfollowResult = 'ok', mem = {}, truncate = null, noInfo = false } = {}) {
-  const data = { followers: range(1, 130), following: range(60, 169) };
+// unfollowResult: 'ok' | 'blocked' | 'noFs' (status ok bez friendship_status) | 'still' (ok, ale nic nie zrobił) | 'html'
+// idMismatch: lista obserwowanych podaje inne ID (tylko nazwa użytkownika się zgadza)
+async function setup({ colorScheme = 'light', locale = 'pl-PL', rateLimited = false, unfollowResult = 'ok', mem = {}, truncate = null, noInfo = false, idMismatch = false, following = range(60, 169) } = {}) {
+  const data = { followers: range(1, 130), following };
   const posts = [];
   const unfollowed = new Set();
   const browser = await chromium.launch();
@@ -59,28 +61,24 @@ async function setup({ colorScheme = 'light', locale = 'pl-PL', rateLimited = fa
     if (url.pathname === '/') {
       return route.fulfill({
         contentType: 'text/html',
-        body: '<html><body style="font-family:sans-serif"><script type="application/json">{"X-IG-App-ID":"936619743392459"}</script><h1>Instagram (symulacja)</h1></body></html>',
+        body: '<html><body style="font-family:sans-serif"><script type="application/json">{"X-IG-App-ID":"936619743392459"} ["DTSGInitialData",[],{"token":"DTSG:abc"}] {"client_revision":1029384}</script><h1>Instagram (symulacja)</h1></body></html>',
       });
     }
     assert.equal(req.headers()['x-ig-app-id'], '936619743392459');
     if (req.method() === 'POST') {
-      posts.push({ path: url.pathname, csrf: req.headers()['x-csrftoken'], claim: req.headers()['x-ig-www-claim'], body: req.postData() });
-      const id = url.pathname.match(/\/(\d+)\/(?:unfollow\/)?$/)[1];
+      const h = req.headers();
+      const form = new URLSearchParams(req.postData() || '');
+      posts.push({ path: url.pathname, csrf: h['x-csrftoken'], claim: h['x-ig-www-claim'], ajax: h['x-instagram-ajax'], asbd: h['x-asbd-id'], session: h['x-web-session-id'], fbDtsg: form.get('fb_dtsg'), jazoest: form.get('jazoest'), userId: form.get('user_id') });
+      const id = (url.pathname.match(/^\/api\/v1\/friendships\/destroy\/(\d+)\/$/) || [])[1];
+      const html = () => route.fulfill({ status: 200, contentType: 'text/html', body: '<!doctype html><html></html>' });
+      // jak prawdziwy Instagram: nieznany adres albo brak fb_dtsg → strona HTML z kodem 200
+      if (!id || !form.get('fb_dtsg') || unfollowResult === 'html') return html();
       if (unfollowResult === 'blocked') return route.fulfill({ status: 400, json: { status: 'fail', message: 'feedback_required', spam: true } });
-      // HTTP 200 z HTML-em zamiast JSON (jak na prawdziwym Instagramie w zgłoszeniu z 1.1.0)
-      if (unfollowResult === 'html-done' && url.pathname.includes('/destroy/')) {
-        unfollowed.add(id);
-        return route.fulfill({ status: 200, contentType: 'text/html', body: '<!doctype html><html></html>' });
-      }
-      if (unfollowResult === 'html-noop' && url.pathname.includes('/destroy/')) {
-        return route.fulfill({ status: 200, contentType: 'text/html', body: '<!doctype html><html></html>' });
-      }
-      if (unfollowResult === 'html-never') return route.fulfill({ status: 200, contentType: 'text/html', body: '<!doctype html><html></html>' });
+      if (unfollowResult === 'still') return route.fulfill({ json: { status: 'ok' } });
       unfollowed.add(id);
+      if (unfollowResult === 'noFs') return route.fulfill({ json: { status: 'ok' } });
       return route.fulfill({ json: { status: 'ok', friendship_status: { following: false } } });
     }
-    const show = url.pathname.match(/^\/api\/v1\/friendships\/show\/(\d+)\/$/);
-    if (show) return route.fulfill({ json: { status: 'ok', following: !unfollowed.has(show[1]) } });
     if (url.pathname === '/api/v1/users/999/info/' && noInfo) return route.fulfill({ status: 404, json: { status: 'fail', message: 'not found' } });
     if (url.pathname === '/api/v1/accounts/current_user/') return route.fulfill({ json: { status: 'ok', user: { pk: 999, username: 'apex.test' } } });
     if (url.pathname === '/api/v1/users/web_profile_info/') {
@@ -92,11 +90,18 @@ async function setup({ colorScheme = 'light', locale = 'pl-PL', rateLimited = fa
     const m = url.pathname.match(/^\/api\/v1\/friendships\/999\/(followers|following)\/$/);
     if (m) {
       if (rateLimited) return route.fulfill({ status: 429, json: { status: 'fail', message: 'Please wait a few minutes before you try again.' } });
+      // wyszukiwarka w oknie „Obserwowani” (weryfikacja odobserwowania)
+      const query = url.searchParams.get('query');
+      if (query) {
+        const found = data.following.filter((i) => `konto.${i}`.includes(query) && !unfollowed.has(String(i)));
+        return route.fulfill({ json: { status: 'ok', users: found.map(user) } });
+      }
       const list = data[m[1]];
       const start = Number(url.searchParams.get('max_id') || 0);
       const count = Number(url.searchParams.get('count'));
       const cut = m[1] === 'following' && (truncate === 'all' || (truncate === 'surface' && url.searchParams.has('search_surface'))) ? 100 : list.length;
-      const body = { status: 'ok', users: list.slice(start, Math.min(start + count, cut)).map(user) };
+      const toUser = m[1] === 'following' && idMismatch ? (i) => ({ ...user(i), pk: i + 5_000_000 }) : user;
+      const body = { status: 'ok', users: list.slice(start, Math.min(start + count, cut)).map(toUser) };
       if (start + count < cut) body.next_max_id = String(start + count);
       return route.fulfill({ json: body });
     }
@@ -203,7 +208,10 @@ test('odobserwowanie: potwierdzenie, zapis, odstęp między akcjami', { timeout:
     await first.locator('.mini.unf').click();
     await root.locator('[data-ref=msg]', { hasText: 'Przestałeś obserwować' }).waitFor();
     assert.match(await msg(), /@konto\.131\. Dziś: 1\/30/);
-    assert.deepEqual(posts.map((p) => [p.path, p.csrf, p.claim]), [['/api/v1/friendships/destroy/131/', 'abc', 'hmac.TEST']]);
+    assert.deepEqual(posts.map((p) => [p.path, p.userId, p.csrf, p.claim, p.ajax, p.asbd, p.fbDtsg]),
+      [['/api/v1/friendships/destroy/131/', '131', 'abc', 'hmac.TEST', '1029384', '359341', 'DTSG:abc']]);
+    assert.match(posts[0].session, /^[a-z0-9]{6}:[a-z0-9]{6}:[a-z0-9]{6}$/);
+    assert.equal(posts[0].jazoest, '2' + [...'DTSG:abc'].reduce((sum, ch) => sum + ch.charCodeAt(0), 0));
     assert.equal((await counts())[0], '38');
     assert.equal(await root.locator('.row .who a').first().textContent(), 'konto.132');
 
@@ -251,9 +259,10 @@ test('odobserwowanie: dzienny limit i blokada akcji przez Instagram', { timeout:
   }
 });
 
-test('odobserwowanie: HTTP 200 bez JSON – weryfikacja stanu, zapasowy adres, czytelny błąd', { timeout: 60_000 }, async () => {
+test('odobserwowanie: potwierdzanie przez listę obserwowanych, HTML z kodem 200, czytelne błędy', { timeout: 90_000 }, async () => {
   const scanData = { ts: Date.now() - DAY, userId: '999', username: 'apex.test', followers: range(1, 5).map(stored), following: range(1, 10).map(stored) };
   const mem = { lastUserId: '999', 'scan:999': scanData };
+  const following = range(1, 10);
   const unf = async (ctx) => {
     await ctx.root.locator('.launcher').click();
     await ctx.root.locator('.row .mini.unf').first().click();
@@ -262,33 +271,33 @@ test('odobserwowanie: HTTP 200 bez JSON – weryfikacja stanu, zapasowy adres, c
     return ctx.msg();
   };
 
-  // 1) Instagram odobserwował, ale odpowiedział HTML-em → wtyczka sprawdza stan i zalicza sukces
-  let ctx = await setup({ unfollowResult: 'html-done', mem });
+  // 1) odpowiedź bez friendship_status → wtyczka szuka konta na liście obserwowanych i zalicza sukces
+  let ctx = await setup({ unfollowResult: 'noFs', mem, following });
   try {
     assert.match(await unf(ctx), /Przestałeś obserwować @konto\.6/);
     assert.deepEqual(ctx.posts.map((p) => p.path), ['/api/v1/friendships/destroy/6/']);
   } finally { await ctx.browser.close(); }
 
-  // 2) główny adres nic nie zrobił → zapasowy /web/friendships/.../unfollow/
-  ctx = await setup({ unfollowResult: 'html-noop', mem });
+  // 2) Instagram mówi „ok”, ale konto nadal jest na liście → bez fałszywego sukcesu
+  ctx = await setup({ unfollowResult: 'still', mem, following });
   try {
-    assert.match(await unf(ctx), /Przestałeś obserwować @konto\.6/);
-    assert.deepEqual(ctx.posts.map((p) => p.path), ['/api/v1/friendships/destroy/6/', '/web/friendships/6/unfollow/']);
+    assert.match(await unf(ctx), /nadal obserwujesz @konto\.6/);
+    assert.equal(await ctx.page.evaluate(() => (window.__mem['unf:999'] || []).length), 0);
   } finally { await ctx.browser.close(); }
 
-  // 3) nic nie działa → komunikat z typem odpowiedzi, a kolejna próba czeka 15 s
-  ctx = await setup({ unfollowResult: 'html-never', mem });
+  // 3) strona HTML z kodem 200 (jak w zgłoszeniu z 1.1.0) → komunikat z typem odpowiedzi, kolejna próba czeka 15 s
+  ctx = await setup({ unfollowResult: 'html', mem, following });
   try {
     assert.match(await unf(ctx), /nie potwierdził odobserwowania \(HTTP 200, text\/html\)/);
     await ctx.root.locator('.row .mini.unf').nth(1).click();
     assert.match(await ctx.msg(), /Odczekaj jeszcze \d+ s/);
-    assert.equal(ctx.posts.length, 2);
+    assert.equal(ctx.posts.length, 1);
   } finally { await ctx.browser.close(); }
 });
 
 test('kompletność list: liczniki z web_profile_info, dociąganie uciętej listy, ostrzeżenie', { timeout: 150_000 }, async () => {
   // Instagram ucina listę obserwowanych (100 ze 110) tylko w wariancie z search_surface → druga metoda ją uzupełnia
-  let ctx = await setup({ truncate: 'surface', noInfo: true });
+  let ctx = await setup({ truncate: 'surface', noInfo: true, idMismatch: true });
   try {
     await ctx.root.locator('.launcher').click();
     await ctx.scan();

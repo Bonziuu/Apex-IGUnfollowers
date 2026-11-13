@@ -95,16 +95,25 @@
     }
   }
 
-  function detectAppId() {
-    const html = document.documentElement.innerHTML;
-    const m = html.match(/"X-IG-App-ID":"(\d+)"/i) || html.match(/"APP_ID":"(\d+)"/);
-    return m ? m[1] : DEFAULT_APP_ID;
+  // Wartości, które strona www Instagrama wysyła w nagłówkach – odczytujemy je ze strony,
+  // a gdy ich tam nie ma, używamy znanych wartości domyślnych.
+  const DEFAULT_ASBD_ID = '359341';
+  let pageInfo = null;
+  function page() {
+    if (!pageInfo) {
+      const html = document.documentElement.innerHTML;
+      const app = html.match(/"X-IG-App-ID":"(\d+)"/i) || html.match(/"APP_ID":"(\d+)"/);
+      const asbd = html.match(/"ASBD_ID"\s*:\s*"?(\d+)/);
+      pageInfo = { appId: app ? app[1] : DEFAULT_APP_ID, asbdId: asbd ? asbd[1] : DEFAULT_ASBD_ID };
+    }
+    return pageInfo;
   }
 
   function normUser(u) {
     const pic = u.profile_pic_url || '';
     return {
-      id: String(u.pk ?? u.pk_id ?? u.id),
+      // pk_id to zawsze tekst; pk bywa liczbą, która przy dużych ID traci precyzję w JSON
+      id: String(u.pk_id ?? u.pk ?? u.id),
       username: u.username || '',
       name: u.full_name || '',
       pic,
@@ -114,11 +123,78 @@
     };
   }
 
+  // Indeks listy kont: dopasowanie po ID albo po nazwie użytkownika (Instagram podaje ID
+  // w różnych listach w różnej postaci, a nazwa użytkownika jest unikalna).
+  function makeIndex(list) {
+    const ids = new Set();
+    const names = new Set();
+    for (const u of list) {
+      ids.add(u.id);
+      if (u.username) names.add(u.username.toLowerCase());
+    }
+    return { has: (u) => ids.has(u.id) || (!!u.username && names.has(u.username.toLowerCase())) };
+  }
+
   // ---------------------------------------------------------------- sieć
+  // X-IG-WWW-Claim: Instagram trzyma go w sessionStorage („www-claim-v2”) i odświeża nagłówkiem
+  // X-IG-Set-WWW-Claim. X-Web-Session-ID: trzy grupy po 6 znaków, jedna na załadowanie strony.
+  let wwwClaim = null;
+  const WEB_SESSION_ID = [0, 0, 0].map(() => Math.random().toString(36).slice(2, 8).padEnd(6, '0')).join(':');
+  function claim() {
+    if (wwwClaim === null) {
+      try { wwwClaim = window.sessionStorage.getItem('www-claim-v2') || '0'; } catch { wwwClaim = '0'; }
+    }
+    return wwwClaim;
+  }
+  function rememberClaim(res) {
+    const c = res.headers.get('x-ig-set-www-claim');
+    if (!c) return;
+    wwwClaim = c;
+    try { window.sessionStorage.setItem('www-claim-v2', c); } catch { /* wystarczy kopia w pamięci */ }
+  }
+
+  function igHeaders(extra = {}) {
+    const h = {
+      'accept': '*/*',
+      'x-ig-app-id': page().appId,
+      'x-asbd-id': page().asbdId,
+      'x-ig-www-claim': claim(),
+      'x-web-session-id': WEB_SESSION_ID,
+      'x-requested-with': 'XMLHttpRequest',
+      ...extra,
+    };
+    const csrf = getCookie('csrftoken');
+    if (csrf) h['x-csrftoken'] = csrf;
+    return h;
+  }
+
+  // Wykonuje zapytanie i czyta odpowiedź jako tekst (Instagram potrafi odpowiedzieć HTML-em z kodem 200).
+  async function igFetch(path, init) {
+    const res = await pageFetch(BASE + path, { credentials: 'include', ...init });
+    rememberClaim(res);
+    const type = res.headers.get('content-type') || '';
+    const text = await res.text().catch(() => '');
+    let data = null;
+    try { data = JSON.parse(text.replace(/^for \(;;\);/, '')); } catch { data = null; }
+    if (data !== null && typeof data !== 'object') data = null;
+    return { res, data, text, type };
+  }
+
+  // Krótki opis odpowiedzi do komunikatu błędu i konsoli (bez danych osobowych).
+  function describe(r) {
+    if (r.data) {
+      const msg = r.data.message || r.data.feedback_message || r.data.error_type || r.data.errorSummary || '';
+      return msg ? String(msg).slice(0, 80) : 'JSON: ' + Object.keys(r.data).slice(0, 5).join(', ');
+    }
+    const type = (r.type.split(';')[0] || 'brak typu').trim();
+    let redirected = '';
+    try { if (r.res.redirected) redirected = ' → ' + new URL(r.res.url).pathname; } catch { /* brak URL */ }
+    return type + redirected;
+  }
+
   function makeCtx(speedKey) {
     const ctx = {
       aborted: false,
-      appId: detectAppId(),
       speed: SPEEDS[speedKey] || SPEEDS.safe,
       onNote: null,
       // czekanie, które da się przerwać przyciskiem "Zatrzymaj"
@@ -130,9 +206,9 @@
         }
         if (ctx.aborted) throw new ScanError(t('err.abort'), 'abort');
       },
-      async pace(page) {
+      async pace(pageNo) {
         const s = ctx.speed;
-        if (page % s.every === 0) {
+        if (pageNo % s.every === 0) {
           const ms = rand(...s.long);
           ctx.onNote?.(t('note.pause', { s: Math.round(ms / 1000) }));
           await ctx.wait(ms);
@@ -145,31 +221,21 @@
     return ctx;
   }
 
-  const igHeaders = (appId) => ({
-    'accept': 'application/json',
-    'x-ig-app-id': appId,
-    'x-requested-with': 'XMLHttpRequest',
-    'x-csrftoken': getCookie('csrftoken') || '',
-  });
-
   async function igGet(path, ctx, attempts = 4) {
-    const url = BASE + path;
     for (let attempt = 1; attempt <= attempts; attempt++) {
       if (ctx.aborted) throw new ScanError(t('err.abort'), 'abort');
       const last = attempt === attempts;
 
-      let res;
+      let r;
       try {
-        res = await pageFetch(url, { method: 'GET', credentials: 'include', headers: igHeaders(ctx.appId) });
+        r = await igFetch(path, { method: 'GET', headers: igHeaders() });
       } catch (e) {
         if (last) throw new ScanError(t('err.network'), 'http');
         ctx.onNote?.(t('note.retryNet', { a: attempt, n: attempts }));
         await ctx.wait(5000 * attempt);
         continue;
       }
-
-      let data = null;
-      try { data = await res.json(); } catch { data = null; }
+      const { res, data } = r;
       const msg = data ? String(data.message || data.feedback_message || '') : '';
 
       if (res.ok && data && data.status !== 'fail') return data;
@@ -181,11 +247,13 @@
         throw new ScanError(t('err.login'), 'auth', res.status);
       }
 
-      const limited = res.status === 429 || (data && data.spam) ||
+      // HTML z kodem 200 zamiast JSON to u Instagrama zwykle chwilowe przyhamowanie
+      const softThrottle = res.ok && !data;
+      const limited = softThrottle || res.status === 429 || (data && data.spam) ||
         /wait|spam|feedback_required|try again|rate.?limit/i.test(msg);
       if (limited || res.status >= 500) {
         if (last) break;
-        const sec = 60 * attempt;
+        const sec = (softThrottle ? 30 : 60) * attempt;
         ctx.onNote?.(t('note.slowDown', { status: res.status, s: sec }));
         await ctx.wait(sec * 1000);
         ctx.onNote?.(null);
@@ -199,15 +267,15 @@
     throw new ScanError(t('err.ratelimit'), 'ratelimit');
   }
 
-  // Metoda główna: REST API używane przez stronę www (lista "Obserwujący"/"Obserwowani").
-  // opts.count – rozmiar strony; opts.surface – parametr search_surface (strona www dodaje go przy listach)
+  // Lista obserwujących / obserwowanych przez REST API strony www.
+  // opts.count – rozmiar strony; opts.surface – parametr search_surface (strona www go dodaje).
   async function fetchListRest(kind, userId, ctx, onCount, opts = {}) {
     const users = [];
-    const seen = new Set();
+    const index = new Set();
     let maxId = null;
     let count = opts.count || PAGE_SIZE;
     const surface = opts.surface !== false;
-    let page = 0;
+    let pageNo = 0;
     for (;;) {
       const q = new URLSearchParams({ count: String(count) });
       if (surface) q.set('search_surface', 'follow_list_page');
@@ -217,87 +285,43 @@
         data = await igGet(`/api/v1/friendships/${userId}/${kind}/?${q}`, ctx);
       } catch (e) {
         if (e.kind === 'http' && e.status === 400 && count !== 12) { count = 12; continue; }
-        e.page = page;
+        e.page = pageNo;
         throw e;
       }
       const batch = data.users || [];
       for (const raw of batch) {
         const u = normUser(raw);
-        if (!seen.has(u.id)) { seen.add(u.id); users.push(u); }
+        if (!index.has(u.id)) { index.add(u.id); users.push(u); }
       }
       onCount(users.length);
-      page++;
-      maxId = data.next_max_id != null && data.next_max_id !== '' ? String(data.next_max_id) : null;
-      if (!maxId || batch.length === 0) break;
-      await ctx.pace(page);
+      pageNo++;
+      const next = data.next_max_id != null && data.next_max_id !== '' ? String(data.next_max_id) : null;
+      // koniec listy, pusta strona albo ten sam kursor drugi raz (zabezpieczenie przed pętlą)
+      if (!next || data.has_more === false || batch.length === 0 || next === maxId) break;
+      maxId = next;
+      await ctx.pace(pageNo);
     }
     return users;
-  }
-
-  // Metoda zapasowa: starsze zapytania GraphQL (gdyby Instagram zmienił REST).
-  const GQL = {
-    followers: { hash: 'c76146de99bb02f6415203be841dd25a', edge: 'edge_followed_by' },
-    following: { hash: '3dec7e2c57367ef3da3d987d89f9dbc8', edge: 'edge_follow' },
-  };
-  async function fetchListGraphql(kind, userId, ctx, onCount) {
-    const { hash, edge } = GQL[kind];
-    const users = [];
-    const seen = new Set();
-    let after = null;
-    let page = 0;
-    for (;;) {
-      const vars = { id: userId, include_reel: false, fetch_mutual: false, first: PAGE_SIZE };
-      if (after) vars.after = after;
-      const data = await igGet(`/graphql/query/?query_hash=${hash}&variables=${encodeURIComponent(JSON.stringify(vars))}`, ctx);
-      const conn = data && data.data && data.data.user && data.data.user[edge];
-      if (!conn) throw new ScanError(t('err.format'), 'parse');
-      for (const e of conn.edges || []) {
-        const u = normUser(e.node);
-        if (!seen.has(u.id)) { seen.add(u.id); users.push(u); }
-      }
-      onCount(users.length);
-      page++;
-      const pi = conn.page_info || {};
-      if (!pi.has_next_page || !pi.end_cursor) break;
-      after = pi.end_cursor;
-      await ctx.pace(page);
-    }
-    return users;
-  }
-
-  async function fetchList(kind, userId, ctx, onCount) {
-    try {
-      return await fetchListRest(kind, userId, ctx, onCount);
-    } catch (e) {
-      if (e.page === 0 && (e.kind === 'http' || e.kind === 'parse')) {
-        console.warn('[Apex IG Unfollowers] REST nie zadziałał, próbuję GraphQL', e);
-        ctx.onNote?.(t('note.fallback'));
-        await ctx.wait(rand(2000, 4000));
-        ctx.onNote?.(null);
-        return await fetchListGraphql(kind, userId, ctx, onCount);
-      }
-      throw e;
-    }
   }
 
   // Lista z kontrolą kompletności: gdy brakuje wyraźnie więcej kont niż wynika z licznika profilu,
-  // dociągamy listę innymi metodami i łączymy wyniki (Instagram bywa niekonsekwentny w stronicowaniu).
+  // pobieramy listę jeszcze raz w innych wariantach (jak strona www) i łączymy wyniki.
   const isShort = (got, expected) => expected > 0 && expected - got > Math.max(2, Math.round(expected * 0.01));
 
   async function fetchComplete(kind, userId, ctx, expected, onCount) {
-    let users = await fetchList(kind, userId, ctx, onCount);
+    let users = await fetchListRest(kind, userId, ctx, onCount);
     if (!isShort(users.length, expected)) return users;
     const variants = [
-      ['rest12', () => fetchListRest(kind, userId, ctx, () => {}, { count: 12, surface: false })],
-      ['graphql', () => fetchListGraphql(kind, userId, ctx, () => {})],
+      ['count12', { count: 12, surface: true }],
+      ['count12-plain', { count: 12, surface: false }],
     ];
-    for (const [name, run] of variants) {
+    for (const [name, opts] of variants) {
       console.warn(`[Apex IG Unfollowers] ${kind}: ${users.length} z ${expected}, dociągam (${name})`);
       ctx.onNote?.(t('note.repair', { got: fmtNum(users.length), expected: fmtNum(expected) }));
       await ctx.wait(rand(...ctx.speed.between));
       let extra;
       try {
-        extra = await run();
+        extra = await fetchListRest(kind, userId, ctx, () => {}, opts);
       } catch (e) {
         if (e.kind === 'abort' || e.kind === 'auth') throw e;
         console.warn(`[Apex IG Unfollowers] ${kind}: ${name} nie zadziałał`, e);
@@ -305,8 +329,8 @@
       }
       // pełniejsza lista wyznacza kolejność, druga uzupełnia braki
       const [base, add] = extra.length > users.length ? [extra, users] : [users, extra];
-      const ids = new Set(base.map((u) => u.id));
-      users = [...base, ...add.filter((u) => !ids.has(u.id))];
+      const idx = makeIndex(base);
+      users = [...base, ...add.filter((u) => !idx.has(u))];
       onCount(users.length);
       if (!isShort(users.length, expected)) break;
     }
@@ -321,7 +345,7 @@
       try {
         const d = await igGet('/api/v1/accounts/current_user/?edit=true', ctx, 1);
         if (d && d.user) {
-          id = d.user.pk != null ? String(d.user.pk) : (d.user.pk_id || null);
+          id = d.user.pk_id || (d.user.pk != null ? String(d.user.pk) : null);
           username = d.user.username || null;
         }
       } catch (e) {
@@ -333,7 +357,7 @@
       if (m) id = m[1];
     }
     if (!id) throw new ScanError(t('err.noAccount'), 'auth');
-    // Liczniki z profilu – tylko do paska postępu, więc błędy ignorujemy.
+    // Liczniki z profilu – do paska postępu i kontroli kompletności list, więc błędy ignorujemy.
     let counts = null;
     try {
       const d = await igGet(`/api/v1/users/${id}/info/`, ctx, 1);
@@ -344,7 +368,6 @@
     } catch (e) {
       if (e.kind === 'abort') throw e;
     }
-    // nazwa konta, gdy /info/ jej nie zwrócił
     if (!username) {
       try {
         const d = await igGet('/api/v1/accounts/current_user/?edit=true', ctx, 1);
@@ -353,7 +376,6 @@
         if (e.kind === 'abort') throw e;
       }
     }
-    // liczniki zapasowo z danych profilu (potrzebne do kontroli kompletności list)
     if (!counts && username) {
       try {
         const d = await igGet(`/api/v1/users/web_profile_info/?username=${encodeURIComponent(username)}`, ctx, 1);
@@ -369,95 +391,114 @@
   }
 
   // ---------------------------------------------------------------- odobserwowanie (sieć)
-  // Nagłówki, które dodaje sama strona www Instagrama przy akcjach na koncie.
-  function actionHeaders() {
-    const h = { ...igHeaders(detectAppId()), 'content-type': 'application/x-www-form-urlencoded' };
-    try {
-      const claim = window.sessionStorage.getItem('www-claim-v2');
-      if (claim) h['x-ig-www-claim'] = claim;
-    } catch { /* brak dostępu do sessionStorage */ }
-    const asbd = document.documentElement.innerHTML.match(/"ASBD_ID"\s*:\s*"?(\d+)/);
-    if (asbd) h['x-asbd-id'] = asbd[1];
-    return h;
+  // Na podstawie davidarroyo1234/InstagramUnfollowers (MIT) – zob. THIRD_PARTY_NOTICES.md.
+  // Tak jak przycisk „Przestań obserwować” na instagram.com (od listopada 2026): POST
+  // /api/v1/friendships/destroy/<id>/ z tokenami sesji strony (fb_dtsg, jazoest) i nagłówkami
+  // strony www. Sam kod 2xx niczego nie dowodzi – Instagram odpowiada stroną HTML z kodem 200,
+  // więc sukces liczymy dopiero po potwierdzeniu.
+  let tokensCache = null;
+
+  function tokensFromHtml(html) {
+    const fbDtsg = (/"DTSGInitialData",\[\],\{"token":"([^"]+)"/.exec(html) || /"dtsg":\{"token":"([^"]+)"/.exec(html) || [])[1];
+    if (!fbDtsg) return null;
+    const rev = /"client_revision":(\d+)/.exec(html) || /"server_revision":(\d+)/.exec(html);
+    return { fbDtsg, revision: rev ? rev[1] : '' };
   }
 
-  // Jedno zapytanie POST, bez ponawiania. Treść czytamy jako tekst, żeby przy błędzie
-  // móc pokazać, co faktycznie odpowiedział Instagram.
-  async function igPost(path, params) {
-    const res = await pageFetch(BASE + path, {
-      method: 'POST',
-      credentials: 'include',
-      headers: actionHeaders(),
-      body: new URLSearchParams(params).toString(),
-    });
-    const text = await res.text().catch(() => '');
-    let data = null;
-    try { data = JSON.parse(text); } catch { data = null; }
-    return { res, data, text, url: res.url, type: res.headers.get('content-type') || '' };
-  }
-
-  // Krótki opis odpowiedzi do komunikatu błędu i konsoli (bez danych osobowych).
-  function describe(r) {
-    if (r.data) {
-      const msg = r.data.message || r.data.feedback_message || r.data.error_type || '';
-      return msg ? String(msg).slice(0, 80) : 'JSON: ' + Object.keys(r.data).slice(0, 5).join(', ');
+  async function sessionTokens(fresh = false) {
+    if (tokensCache && !fresh) return tokensCache;
+    tokensCache = fresh ? null : tokensFromHtml(document.documentElement.innerHTML);
+    if (!tokensCache) {
+      try {
+        const res = await pageFetch(BASE + '/', { credentials: 'include' });
+        tokensCache = tokensFromHtml(await res.text());
+      } catch (e) {
+        console.warn('[Apex IG Unfollowers] nie udało się pobrać tokenów sesji', e);
+      }
     }
-    const type = (r.type.split(';')[0] || 'brak typu').trim();
-    const redirected = r.res.redirected ? ' → ' + new URL(r.url).pathname : '';
-    return type + redirected;
+    return tokensCache;
   }
 
-  function classifyAction(r) {
-    const { res, data } = r;
-    const msg = data ? String(data.message || data.feedback_message || data.feedback_title || '') : '';
-    const fs = data && data.friendship_status;
-    if (res.ok && data && (data.status === 'ok' || (fs && fs.following === false))) return { ok: true };
-    if (data && (data.checkpoint_url || /checkpoint/i.test(msg))) return { ok: false, kind: 'checkpoint' };
-    if (data && (data.require_login || /login_required/i.test(msg))) return { ok: false, kind: 'auth' };
-    if ((data && (data.spam || data.feedback_required)) || /feedback_required|spam|block/i.test(msg)) return { ok: false, kind: 'blocked' };
-    if (res.status === 429 || /wait|try again|rate.?limit/i.test(msg)) return { ok: false, kind: 'slow' };
-    return { ok: false, kind: 'http', status: res.status, info: describe(r) };
+  // Suma kontrolna fb_dtsg używana przez Instagram: „2” + suma kodów znaków.
+  function jazoest(s) {
+    let sum = 0;
+    for (let i = 0; i < s.length; i++) sum += s.charCodeAt(i);
+    return '2' + sum;
   }
 
-  // Faktyczny stan obserwowania (true / false), albo null, gdy nie da się sprawdzić.
-  async function isFollowing(id) {
+  function findFriendshipStatus(node, depth = 0) {
+    if (!node || typeof node !== 'object' || depth > 6) return undefined;
+    if (node.friendship_status && typeof node.friendship_status === 'object') return node.friendship_status;
+    for (const v of Object.values(node)) {
+      const found = findFriendshipStatus(v, depth + 1);
+      if (found !== undefined) return found;
+    }
+    return undefined;
+  }
+
+  // Czy nadal obserwujesz konto: wyszukanie go na Twojej liście obserwowanych (jak wyszukiwarka
+  // w oknie „Obserwowani”). true / false, albo null, gdy nie da się sprawdzić.
+  async function isStillFollowing(u) {
+    const viewer = state.userId || getCookie('ds_user_id');
+    if (!viewer) return null;
+    const q = new URLSearchParams({ count: '12', query: u.username, search_surface: 'follow_list_page' });
     try {
-      const res = await pageFetch(`${BASE}/api/v1/friendships/show/${id}/`, {
-        method: 'GET', credentials: 'include', headers: igHeaders(detectAppId()),
+      const r = await igFetch(`/api/v1/friendships/${viewer}/following/?${q}`, { method: 'GET', headers: igHeaders() });
+      if (!r.res.ok || !r.data || !Array.isArray(r.data.users)) return null;
+      const name = u.username.toLowerCase();
+      return r.data.users.some((x) => {
+        const n = normUser(x);
+        return n.id === u.id || String(x.pk) === u.id || n.username.toLowerCase() === name;
       });
-      const d = await res.json();
-      return typeof d.following === 'boolean' ? d.following : null;
     } catch {
       return null;
     }
   }
 
-  async function unfollowRequest(id) {
-    const tries = [
-      () => igPost(`/api/v1/friendships/destroy/${id}/`, { user_id: id, container_module: 'profile', nav_chain: '' }),
-      () => igPost(`/web/friendships/${id}/unfollow/`, {}),   // starszy adres strony www
-    ];
-    let last = { ok: false, kind: 'network' };
-    for (const send of tries) {
-      let r;
-      try {
-        r = await send();
-      } catch {
-        last = { ok: false, kind: 'network' };
-        continue;
-      }
-      const c = classifyAction(r);
-      if (c.ok) return c;
-      if (c.kind !== 'http') return c;               // blokada / limit / logowanie – nie próbujemy dalej
-      console.warn('[Apex IG Unfollowers] odobserwowanie: nierozpoznana odpowiedź', r.res.status, c.info, r.text.slice(0, 300));
-      // Odpowiedź niejasna (np. HTTP 200 bez JSON) – sprawdzamy, jak jest naprawdę.
-      await sleep(1200);
-      const following = await isFollowing(id);
-      if (following === false) return { ok: true, verified: true };
-      last = c;
-      await sleep(1500);
+  async function unfollowRequest(u) {
+    const tokens = await sessionTokens();
+    if (!tokens) return { ok: false, kind: 'tokens' };
+    const extra = { 'content-type': 'application/x-www-form-urlencoded' };
+    if (tokens.revision) extra['x-instagram-ajax'] = tokens.revision;
+    const body = new URLSearchParams({
+      container_module: 'profile',
+      nav_chain: 'PolarisProfilePostsTabRoot:profilePage:1:via_cold_start',
+      user_id: u.id,
+      jazoest: jazoest(tokens.fbDtsg),
+      fb_dtsg: tokens.fbDtsg,
+    });
+
+    let r;
+    try {
+      r = await igFetch(`/api/v1/friendships/destroy/${u.id}/`, { method: 'POST', headers: igHeaders(extra), body: body.toString() });
+    } catch {
+      return { ok: false, kind: 'network' };
     }
-    return last;
+    const { res, data } = r;
+    const errText = data ? `${JSON.stringify(data.errors || data.error || '')} ${data.message || ''} ${data.feedback_message || ''} ${data.errorSummary || ''}` : '';
+
+    if (data && (data.checkpoint_url || /checkpoint/i.test(errText))) return { ok: false, kind: 'checkpoint' };
+    if (data && (data.require_login || /login_required/i.test(errText))) return { ok: false, kind: 'auth' };
+    if (res.status === 429 || (data && (data.spam === true || data.feedback_required)) ||
+        /feedback_required|action_blocked|spam|try again later|rate.?limit/i.test(errText)) {
+      return { ok: false, kind: res.status === 429 ? 'slow' : 'blocked' };
+    }
+    if (!res.ok || !data || data.errors || data.error || data.status !== 'ok') {
+      console.warn('[Apex IG Unfollowers] odobserwowanie: odpowiedź Instagrama', res.status, describe(r), r.text.slice(0, 300));
+      tokensCache = null; // przy kolejnej próbie pobierzemy świeże tokeny
+      return { ok: false, kind: 'http', status: res.status, info: describe(r) };
+    }
+
+    const fs = findFriendshipStatus(data);
+    if (fs && (fs.following === true || fs.outgoing_request === true)) return { ok: false, kind: 'still' };
+    if (fs && fs.following === false) return { ok: true };
+
+    // brak friendship_status w odpowiedzi – sprawdzamy listę obserwowanych
+    await sleep(1200);
+    const still = await isStillFollowing(u);
+    if (still === false) return { ok: true, verified: true };
+    if (still === true) return { ok: false, kind: 'still' };
+    return { ok: false, kind: 'unconfirmed' };
   }
 
   // ---------------------------------------------------------------- stan
@@ -487,11 +528,11 @@
   };
 
   const countsOf = (scan) => {
-    const fr = new Set(scan.followers.map((u) => u.id));
+    const fr = makeIndex(scan.followers);
     return {
       followers: scan.followers.length,
       following: scan.following.length,
-      mutual: scan.following.filter((u) => fr.has(u.id)).length,
+      mutual: scan.following.filter((u) => fr.has(u)).length,
     };
   };
 
@@ -533,12 +574,12 @@
 
   function computeLists() {
     if (!state.scan) return null;
-    const fr = new Set(state.scan.followers.map((u) => u.id));
-    const fg = new Set(state.scan.following.map((u) => u.id));
+    const fr = makeIndex(state.scan.followers);
+    const fg = makeIndex(state.scan.following);
     return {
-      notBack: state.scan.following.filter((u) => !fr.has(u.id)),
-      fans: state.scan.followers.filter((u) => !fg.has(u.id)),
-      mutual: state.scan.following.filter((u) => fr.has(u.id)),
+      notBack: state.scan.following.filter((u) => !fr.has(u)),
+      fans: state.scan.followers.filter((u) => !fg.has(u)),
+      mutual: state.scan.following.filter((u) => fr.has(u)),
     };
   }
 
@@ -592,10 +633,10 @@
       let change = null;
       // niepełna lista obserwujących dałaby fałszywe „odeszli” – wtedy nie zapisujemy zmian
       if (prev && !isShort(followers.length, totFr)) {
-        const prevIds = new Set(prev.followers.map((u) => u.id));
-        const curIds = new Set(followers.map((u) => u.id));
-        const lost = prev.followers.filter((u) => !curIds.has(u.id));
-        const gained = followers.filter((u) => !prevIds.has(u.id));
+        const prevIdx = makeIndex(prev.followers);
+        const curIdx = makeIndex(followers);
+        const lost = prev.followers.filter((u) => !curIdx.has(u));
+        const gained = followers.filter((u) => !prevIdx.has(u));
         if (lost.length || gained.length) {
           change = { ts: scan.ts, since: prev.ts, lost, gained };
           state.log = [change, ...state.log].slice(0, MAX_LOG);
@@ -679,7 +720,7 @@
     state.busyId = u.id;
     render();
     state.lastUnfAttempt = Date.now();
-    const r = await unfollowRequest(u.id);
+    const r = await unfollowRequest(u);
     state.busyId = null;
 
     if (r.ok) {
@@ -700,6 +741,9 @@
         checkpoint: t('err.checkpoint'),
         network: t('err.network'),
         http: t('unf.failed', { status: r.status, info: r.info || '' }),
+        tokens: t('unf.noTokens'),
+        still: t('unf.still', { user: u.username }),
+        unconfirmed: t('unf.unconfirmed', { user: u.username }),
       };
       ui.message(msgs[r.kind] || msgs.http, 'error');
     }

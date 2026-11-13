@@ -20,7 +20,7 @@
   <a href="LICENSE"><img src="https://img.shields.io/badge/licencja-MIT-cc1670" alt="Licencja MIT"></a>
 </p>
 
-> **Status:** wersja testowa 1.1.1. Wtyczki nie ma w Chrome Web Store – [pobierz ZIP](https://github.com/Bonziuu/Apex-IGUnfollowers/releases/latest/download/Apex-IGUnfollowers.zip) i zainstaluj ją ręcznie w minutę ([instrukcja](#instalacja)). Wszystkie wersje i sumy SHA-256: [Releases](https://github.com/Bonziuu/Apex-IGUnfollowers/releases/latest) · [Co nowego](CHANGELOG.md)
+> **Status:** wersja testowa 1.1.2. Wtyczki nie ma w Chrome Web Store – [pobierz ZIP](https://github.com/Bonziuu/Apex-IGUnfollowers/releases/latest/download/Apex-IGUnfollowers.zip) i zainstaluj ją ręcznie w minutę ([instrukcja](#instalacja)). Wszystkie wersje i sumy SHA-256: [Releases](https://github.com/Bonziuu/Apex-IGUnfollowers/releases/latest) · [Co nowego](CHANGELOG.md)
 
 - 👥 Kto nie obserwuje Cię nawzajem
 - 📉 Kto przestał Cię obserwować od ostatniego skanu
@@ -153,7 +153,7 @@ Każdy push i pull request uruchamia testy w GitHub Actions. **Nowe wydanie:** p
 
 ## Licencja
 
-MIT, © 2026 Konrad Woźniak ([LICENSE](LICENSE)). Apex IG Unfollowers jest projektem niezależnym, niepowiązanym z Instagramem ani Meta Platforms. Instagram jest znakiem towarowym Meta Platforms, Inc.
+MIT, © 2026 Konrad Woźniak ([LICENSE](LICENSE)). Sposób odobserwowywania opracowano na podstawie projektu InstagramUnfollowers (MIT) – [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md). Apex IG Unfollowers jest projektem niezależnym, niepowiązanym z Instagramem ani Meta Platforms. Instagram jest znakiem towarowym Meta Platforms, Inc.
 
 ---
 
@@ -165,7 +165,7 @@ MIT, © 2026 Konrad Woźniak ([LICENSE](LICENSE)). Apex IG Unfollowers jest proj
   <b>A free, open-source browser extension that shows who doesn't follow you back on Instagram.<br>Runs locally in your browser: no account, no server, no Apex telemetry.</b>
 </p>
 
-> **Status:** preview release 1.1.1. Not on the Chrome Web Store – [download the ZIP](https://github.com/Bonziuu/Apex-IGUnfollowers/releases/latest/download/Apex-IGUnfollowers.zip) and install it manually in a minute.
+> **Status:** preview release 1.1.2. Not on the Chrome Web Store – [download the ZIP](https://github.com/Bonziuu/Apex-IGUnfollowers/releases/latest/download/Apex-IGUnfollowers.zip) and install it manually in a minute.
 
 - 👥 See who doesn't follow you back
 - 📉 See who unfollowed you since the last scan

@@ -2,6 +2,20 @@
 
 Wszystkie istotne zmiany w Apex IG Unfollowers. Format: [Keep a Changelog](https://keepachangelog.com/pl/1.1.0/), wersjonowanie: [SemVer](https://semver.org/lang/pl/).
 
+## [1.1.2] – 2026-11-13
+
+Dostosowanie do zmiany w kliencie www Instagrama z listopada 2026.
+
+### Naprawiono
+
+- **Odobserwuj** działa jak przycisk na instagram.com: wysyła tokeny sesji strony (`fb_dtsg`, `jazoest`) i nagłówki klienta www (`X-IG-WWW-Claim`, `X-ASBD-ID`, `X-Web-Session-ID`, `X-Instagram-AJAX`). Bez nich Instagram odpowiadał stroną HTML z kodem 200. Sukces jest liczony dopiero po potwierdzeniu (`friendship_status` albo wyszukanie konta na liście obserwowanych). Usunięto nieistniejący już adres `/web/friendships/…/unfollow/`.
+- **Osoby, które obserwujesz, w „Ty nie obserwujesz”**: konta są dopasowywane po `pk_id`, `pk` i nazwie użytkownika, bo Instagram w różnych listach podaje ID w różnej postaci.
+- Odpowiedź HTML z kodem 200 podczas skanu jest traktowana jak chwilowe przyhamowanie (czekanie i ponowienie), a nie błąd przerywający skan.
+
+### Usunięto
+
+- Zapasowe pobieranie list przez stary GraphQL (`query_hash`) – Instagram zwraca tam dziś puste listy bez błędu.
+
 ## [1.1.1] – 2026-11-13
 
 Poprawki po pierwszych testach na prawdziwym koncie.
