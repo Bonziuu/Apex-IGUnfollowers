@@ -42,9 +42,11 @@ const stub = (initial) => `(() => {
   window.__mem = mem;
 })();`;
 
-async function setup({ colorScheme = 'light', locale = 'pl-PL', rateLimited = false, unfollowResult = 'ok', mem = {} } = {}) {
+// truncate: 'surface' – REST z search_surface ucina listę obserwowanych na 100 kontach, 'all' – każda metoda ją ucina
+async function setup({ colorScheme = 'light', locale = 'pl-PL', rateLimited = false, unfollowResult = 'ok', mem = {}, truncate = null, noInfo = false } = {}) {
   const data = { followers: range(1, 130), following: range(60, 169) };
   const posts = [];
+  const unfollowed = new Set();
   const browser = await chromium.launch();
   const context = await browser.newContext({ viewport: { width: 1200, height: 860 }, colorScheme, locale });
   await context.addCookies([
@@ -62,9 +64,27 @@ async function setup({ colorScheme = 'light', locale = 'pl-PL', rateLimited = fa
     }
     assert.equal(req.headers()['x-ig-app-id'], '936619743392459');
     if (req.method() === 'POST') {
-      posts.push({ path: url.pathname, csrf: req.headers()['x-csrftoken'], body: req.postData() });
+      posts.push({ path: url.pathname, csrf: req.headers()['x-csrftoken'], claim: req.headers()['x-ig-www-claim'], body: req.postData() });
+      const id = url.pathname.match(/\/(\d+)\/(?:unfollow\/)?$/)[1];
       if (unfollowResult === 'blocked') return route.fulfill({ status: 400, json: { status: 'fail', message: 'feedback_required', spam: true } });
+      // HTTP 200 z HTML-em zamiast JSON (jak na prawdziwym Instagramie w zgłoszeniu z 1.1.0)
+      if (unfollowResult === 'html-done' && url.pathname.includes('/destroy/')) {
+        unfollowed.add(id);
+        return route.fulfill({ status: 200, contentType: 'text/html', body: '<!doctype html><html></html>' });
+      }
+      if (unfollowResult === 'html-noop' && url.pathname.includes('/destroy/')) {
+        return route.fulfill({ status: 200, contentType: 'text/html', body: '<!doctype html><html></html>' });
+      }
+      if (unfollowResult === 'html-never') return route.fulfill({ status: 200, contentType: 'text/html', body: '<!doctype html><html></html>' });
+      unfollowed.add(id);
       return route.fulfill({ json: { status: 'ok', friendship_status: { following: false } } });
+    }
+    const show = url.pathname.match(/^\/api\/v1\/friendships\/show\/(\d+)\/$/);
+    if (show) return route.fulfill({ json: { status: 'ok', following: !unfollowed.has(show[1]) } });
+    if (url.pathname === '/api/v1/users/999/info/' && noInfo) return route.fulfill({ status: 404, json: { status: 'fail', message: 'not found' } });
+    if (url.pathname === '/api/v1/accounts/current_user/') return route.fulfill({ json: { status: 'ok', user: { pk: 999, username: 'apex.test' } } });
+    if (url.pathname === '/api/v1/users/web_profile_info/') {
+      return route.fulfill({ json: { status: 'ok', data: { user: { username: 'apex.test', edge_followed_by: { count: data.followers.length }, edge_follow: { count: data.following.length } } } } });
     }
     if (url.pathname === '/api/v1/users/999/info/') {
       return route.fulfill({ json: { status: 'ok', user: { username: 'apex.test', follower_count: data.followers.length, following_count: data.following.length } } });
@@ -75,8 +95,9 @@ async function setup({ colorScheme = 'light', locale = 'pl-PL', rateLimited = fa
       const list = data[m[1]];
       const start = Number(url.searchParams.get('max_id') || 0);
       const count = Number(url.searchParams.get('count'));
-      const body = { status: 'ok', users: list.slice(start, start + count).map(user) };
-      if (start + count < list.length) body.next_max_id = String(start + count);
+      const cut = m[1] === 'following' && (truncate === 'all' || (truncate === 'surface' && url.searchParams.has('search_surface'))) ? 100 : list.length;
+      const body = { status: 'ok', users: list.slice(start, Math.min(start + count, cut)).map(user) };
+      if (start + count < cut) body.next_max_id = String(start + count);
       return route.fulfill({ json: body });
     }
     return route.fulfill({ status: 404, json: { status: 'fail', message: 'not found' } });
@@ -85,6 +106,7 @@ async function setup({ colorScheme = 'light', locale = 'pl-PL', rateLimited = fa
   const errors = [];
   page.on('pageerror', (e) => errors.push(String(e)));
   await page.addInitScript(stub({ settings: { speed: 'normal' }, ...mem }));
+  await page.addInitScript(() => { try { sessionStorage.setItem('www-claim-v2', 'hmac.TEST'); } catch {} });
   await page.goto('https://www.instagram.com/');
   for (const s of SCRIPTS) await page.addScriptTag({ path: s });
   await page.waitForTimeout(200);
@@ -181,7 +203,7 @@ test('odobserwowanie: potwierdzenie, zapis, odstęp między akcjami', { timeout:
     await first.locator('.mini.unf').click();
     await root.locator('[data-ref=msg]', { hasText: 'Przestałeś obserwować' }).waitFor();
     assert.match(await msg(), /@konto\.131\. Dziś: 1\/30/);
-    assert.deepEqual(posts.map((p) => [p.path, p.csrf]), [['/api/v1/friendships/destroy/131/', 'abc']]);
+    assert.deepEqual(posts.map((p) => [p.path, p.csrf, p.claim]), [['/api/v1/friendships/destroy/131/', 'abc', 'hmac.TEST']]);
     assert.equal((await counts())[0], '38');
     assert.equal(await root.locator('.row .who a').first().textContent(), 'konto.132');
 
@@ -227,6 +249,63 @@ test('odobserwowanie: dzienny limit i blokada akcji przez Instagram', { timeout:
   } finally {
     await ctx.browser.close();
   }
+});
+
+test('odobserwowanie: HTTP 200 bez JSON – weryfikacja stanu, zapasowy adres, czytelny błąd', { timeout: 60_000 }, async () => {
+  const scanData = { ts: Date.now() - DAY, userId: '999', username: 'apex.test', followers: range(1, 5).map(stored), following: range(1, 10).map(stored) };
+  const mem = { lastUserId: '999', 'scan:999': scanData };
+  const unf = async (ctx) => {
+    await ctx.root.locator('.launcher').click();
+    await ctx.root.locator('.row .mini.unf').first().click();
+    await ctx.root.locator('.row .mini.unf').first().click();
+    await ctx.root.locator('[data-ref=msg]:not(.hidden)').waitFor({ timeout: 15_000 });
+    return ctx.msg();
+  };
+
+  // 1) Instagram odobserwował, ale odpowiedział HTML-em → wtyczka sprawdza stan i zalicza sukces
+  let ctx = await setup({ unfollowResult: 'html-done', mem });
+  try {
+    assert.match(await unf(ctx), /Przestałeś obserwować @konto\.6/);
+    assert.deepEqual(ctx.posts.map((p) => p.path), ['/api/v1/friendships/destroy/6/']);
+  } finally { await ctx.browser.close(); }
+
+  // 2) główny adres nic nie zrobił → zapasowy /web/friendships/.../unfollow/
+  ctx = await setup({ unfollowResult: 'html-noop', mem });
+  try {
+    assert.match(await unf(ctx), /Przestałeś obserwować @konto\.6/);
+    assert.deepEqual(ctx.posts.map((p) => p.path), ['/api/v1/friendships/destroy/6/', '/web/friendships/6/unfollow/']);
+  } finally { await ctx.browser.close(); }
+
+  // 3) nic nie działa → komunikat z typem odpowiedzi, a kolejna próba czeka 15 s
+  ctx = await setup({ unfollowResult: 'html-never', mem });
+  try {
+    assert.match(await unf(ctx), /nie potwierdził odobserwowania \(HTTP 200, text\/html\)/);
+    await ctx.root.locator('.row .mini.unf').nth(1).click();
+    assert.match(await ctx.msg(), /Odczekaj jeszcze \d+ s/);
+    assert.equal(ctx.posts.length, 2);
+  } finally { await ctx.browser.close(); }
+});
+
+test('kompletność list: liczniki z web_profile_info, dociąganie uciętej listy, ostrzeżenie', { timeout: 150_000 }, async () => {
+  // Instagram ucina listę obserwowanych (100 ze 110) tylko w wariancie z search_surface → druga metoda ją uzupełnia
+  let ctx = await setup({ truncate: 'surface', noInfo: true });
+  try {
+    await ctx.root.locator('.launcher').click();
+    await ctx.scan();
+    assert.match(await ctx.msg(), /Obserwujący: 130, obserwowani: 110\./);
+    assert.doesNotMatch(await ctx.msg(), /Uwaga|liczników/);
+    assert.deepEqual(await ctx.counts(), ['39', '59', '71', '–']);
+    assert.match(await ctx.root.locator('[data-ref=sub]').textContent(), /@apex\.test/);
+  } finally { await ctx.browser.close(); }
+
+  // każda metoda ucina listę → wyraźne ostrzeżenie zamiast cichych błędów
+  ctx = await setup({ truncate: 'all', noInfo: true });
+  try {
+    await ctx.root.locator('.launcher').click();
+    await ctx.scan();
+    assert.match(await ctx.msg(), /obserwowani – pobrano 100 z 110/);
+    assert.match(await ctx.root.locator('[data-ref=msg]').getAttribute('class'), /warn/);
+  } finally { await ctx.browser.close(); }
 });
 
 test('limit zapytań (HTTP 429) podczas skanu: czekanie i przycisk Zatrzymaj', { timeout: 60_000 }, async () => {

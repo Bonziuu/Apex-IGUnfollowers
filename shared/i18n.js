@@ -23,6 +23,7 @@
       'note.retryNet': 'Problem z połączeniem, ponawiam ({a}/{n})…',
       'note.slowDown': 'Instagram prosi o zwolnienie (HTTP {status}). Czekam {s} s i próbuję dalej…',
       'note.fallback': 'Główna metoda nie zadziałała, próbuję zapasowej…',
+      'note.repair': 'Instagram oddał {got} z {expected} kont – dociągam brakujące inną metodą…',
 
       'scan.checking': 'Sprawdzam konto…',
       'scan.followers': 'Obserwujący: {n}',
@@ -33,7 +34,9 @@
       'scan.first': 'To pierwszy skan – przy kolejnych zobaczysz, kto przestał Cię obserwować.',
       'scan.changes': 'Od poprzedniego skanu: −{lost} / +{gained} obserwujących (zakładka „Zmiany”).',
       'scan.noChanges': 'Brak zmian od poprzedniego skanu.',
-      'scan.fewer': 'Pobrano trochę mniej kont niż pokazuje licznik profilu – to normalne (konta zawieszone i dezaktywowane się nie liczą).',
+      'scan.fewer': 'Obserwujący: pobrano {got} z {expected} wg licznika profilu. Niewielka różnica jest normalna (konta zawieszone i dezaktywowane), przy większej powtórz skan później.',
+      'scan.shortFollowing': 'Uwaga: obserwowani – pobrano {got} z {expected} wg licznika profilu. Instagram nie oddał całej listy, więc zakładki mogą być niedokładne. Powtórz skan za kilkanaście minut w tempie „bezpiecznym”.',
+      'scan.noCounts': 'Nie udało się odczytać liczników z profilu, więc wtyczka nie mogła sprawdzić, czy listy są kompletne.',
       'scan.aborted': 'Skan przerwany. Poprzednie wyniki zostały bez zmian.',
 
       'unf.duringScan': 'Poczekaj na koniec skanu.',
@@ -44,7 +47,7 @@
       'unf.done': 'Przestałeś obserwować @{user}. Dziś: {used}/{limit}.',
       'unf.blocked': 'Instagram zablokował tę akcję (zbyt wiele działań). Odobserwowywanie wstrzymane do {time}. Nie ponawiaj ręcznie w aplikacji.',
       'unf.slow': 'Instagram prosi o zwolnienie. Odobserwowywanie wstrzymane do {time}.',
-      'unf.failed': 'Nie udało się odobserwować (HTTP {status}). Spróbuj na profilu tej osoby.',
+      'unf.failed': 'Instagram nie potwierdził odobserwowania (HTTP {status}, {info}). Sprawdź na profilu tej osoby, czy nadal ją obserwujesz.',
 
       'backup.exported': 'Zapisano kopię zapasową (konta: {n}).',
       'backup.imported': 'Wczytano kopię z {date} (konta: {n}).',
@@ -179,6 +182,7 @@
       'note.retryNet': 'Connection problem, retrying ({a}/{n})…',
       'note.slowDown': 'Instagram asks to slow down (HTTP {status}). Waiting {s} s, then continuing…',
       'note.fallback': 'Main method failed, trying the fallback…',
+      'note.repair': 'Instagram returned {got} of {expected} accounts – fetching the rest another way…',
 
       'scan.checking': 'Checking your account…',
       'scan.followers': 'Followers: {n}',
@@ -189,7 +193,9 @@
       'scan.first': 'This is your first scan – next time you will see who unfollowed you.',
       'scan.changes': 'Since the previous scan: −{lost} / +{gained} followers (see Changes).',
       'scan.noChanges': 'No changes since the previous scan.',
-      'scan.fewer': 'Slightly fewer accounts than the profile counter – this is normal (suspended and deactivated accounts are not listed).',
+      'scan.fewer': 'Followers: got {got} of {expected} per the profile counter. A small gap is normal (suspended and deactivated accounts); if it is larger, scan again later.',
+      'scan.shortFollowing': 'Warning: following – got {got} of {expected} per the profile counter. Instagram did not return the full list, so the tabs may be inaccurate. Scan again in 15 minutes at the safe speed.',
+      'scan.noCounts': 'Could not read your profile counters, so the extension could not check that the lists are complete.',
       'scan.aborted': 'Scan stopped. Previous results were kept.',
 
       'unf.duringScan': 'Wait until the scan finishes.',
@@ -200,7 +206,7 @@
       'unf.done': 'Unfollowed @{user}. Today: {used}/{limit}.',
       'unf.blocked': 'Instagram blocked this action (too many actions). Unfollowing paused until {time}. Do not retry manually in the app.',
       'unf.slow': 'Instagram asks to slow down. Unfollowing paused until {time}.',
-      'unf.failed': 'Could not unfollow (HTTP {status}). Try from that profile instead.',
+      'unf.failed': 'Instagram did not confirm the unfollow (HTTP {status}, {info}). Check that profile to see if you still follow it.',
 
       'backup.exported': 'Backup saved (accounts: {n}).',
       'backup.imported': 'Backup from {date} restored (accounts: {n}).',

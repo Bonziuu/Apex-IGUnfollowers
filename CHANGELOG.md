@@ -2,6 +2,21 @@
 
 Wszystkie istotne zmiany w Apex IG Unfollowers. Format: [Keep a Changelog](https://keepachangelog.com/pl/1.1.0/), wersjonowanie: [SemVer](https://semver.org/lang/pl/).
 
+## [1.1.1] – 2026-11-13
+
+Poprawki po pierwszych testach na prawdziwym koncie.
+
+### Naprawiono
+
+- **Odobserwuj zgłaszało błąd „HTTP 200”**, gdy Instagram odpowiadał bez JSON-a. Wtyczka wysyła teraz nagłówki jak strona www (`x-ig-www-claim`, `x-asbd-id`), a przy niejasnej odpowiedzi sprawdza faktyczny stan obserwowania (`friendships/show`) i w razie potrzeby próbuje starszego adresu. Komunikat błędu pokazuje, co odpowiedział Instagram.
+- **Niepełna lista obserwowanych** powodowała, że w zakładce „Ty nie obserwujesz” pojawiały się osoby, które obserwujesz. Wtyczka porównuje wynik z licznikiem profilu i, gdy brakuje kont, dociąga listę dwiema innymi metodami i łączy wyniki. Jeśli nadal brakuje, pokazuje ostrzeżenie zamiast cicho błędnych list.
+- Liczniki i nazwa konta są odczytywane zapasowo z `web_profile_info`, gdy `users/{id}/info` nie działa (brak `@nazwy` w nagłówku panelu).
+
+### Zmieniono
+
+- Przerwa 15 s obowiązuje po każdej próbie odobserwowania, także nieudanej.
+- Gdy lista obserwujących jest niepełna, skan nie zapisuje „Zmian”, żeby nie pokazać fałszywie, że ktoś odszedł.
+
 ## [1.1.0] – 2026-11-13
 
 ### Dodano

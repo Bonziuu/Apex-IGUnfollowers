@@ -200,14 +200,17 @@
   }
 
   // Metoda główna: REST API używane przez stronę www (lista "Obserwujący"/"Obserwowani").
-  async function fetchListRest(kind, userId, ctx, onCount) {
+  // opts.count – rozmiar strony; opts.surface – parametr search_surface (strona www dodaje go przy listach)
+  async function fetchListRest(kind, userId, ctx, onCount, opts = {}) {
     const users = [];
     const seen = new Set();
     let maxId = null;
-    let count = PAGE_SIZE;
+    let count = opts.count || PAGE_SIZE;
+    const surface = opts.surface !== false;
     let page = 0;
     for (;;) {
-      const q = new URLSearchParams({ count: String(count), search_surface: 'follow_list_page' });
+      const q = new URLSearchParams({ count: String(count) });
+      if (surface) q.set('search_surface', 'follow_list_page');
       if (maxId) q.set('max_id', maxId);
       let data;
       try {
@@ -277,6 +280,40 @@
     }
   }
 
+  // Lista z kontrolą kompletności: gdy brakuje wyraźnie więcej kont niż wynika z licznika profilu,
+  // dociągamy listę innymi metodami i łączymy wyniki (Instagram bywa niekonsekwentny w stronicowaniu).
+  const isShort = (got, expected) => expected > 0 && expected - got > Math.max(2, Math.round(expected * 0.01));
+
+  async function fetchComplete(kind, userId, ctx, expected, onCount) {
+    let users = await fetchList(kind, userId, ctx, onCount);
+    if (!isShort(users.length, expected)) return users;
+    const variants = [
+      ['rest12', () => fetchListRest(kind, userId, ctx, () => {}, { count: 12, surface: false })],
+      ['graphql', () => fetchListGraphql(kind, userId, ctx, () => {})],
+    ];
+    for (const [name, run] of variants) {
+      console.warn(`[Apex IG Unfollowers] ${kind}: ${users.length} z ${expected}, dociągam (${name})`);
+      ctx.onNote?.(t('note.repair', { got: fmtNum(users.length), expected: fmtNum(expected) }));
+      await ctx.wait(rand(...ctx.speed.between));
+      let extra;
+      try {
+        extra = await run();
+      } catch (e) {
+        if (e.kind === 'abort' || e.kind === 'auth') throw e;
+        console.warn(`[Apex IG Unfollowers] ${kind}: ${name} nie zadziałał`, e);
+        continue;
+      }
+      // pełniejsza lista wyznacza kolejność, druga uzupełnia braki
+      const [base, add] = extra.length > users.length ? [extra, users] : [users, extra];
+      const ids = new Set(base.map((u) => u.id));
+      users = [...base, ...add.filter((u) => !ids.has(u.id))];
+      onCount(users.length);
+      if (!isShort(users.length, expected)) break;
+    }
+    ctx.onNote?.(null);
+    return users;
+  }
+
   async function resolveAccount(ctx) {
     let id = getCookie('ds_user_id');
     let username = null;
@@ -307,45 +344,120 @@
     } catch (e) {
       if (e.kind === 'abort') throw e;
     }
+    // nazwa konta, gdy /info/ jej nie zwrócił
+    if (!username) {
+      try {
+        const d = await igGet('/api/v1/accounts/current_user/?edit=true', ctx, 1);
+        username = (d && d.user && d.user.username) || null;
+      } catch (e) {
+        if (e.kind === 'abort') throw e;
+      }
+    }
+    // liczniki zapasowo z danych profilu (potrzebne do kontroli kompletności list)
+    if (!counts && username) {
+      try {
+        const d = await igGet(`/api/v1/users/web_profile_info/?username=${encodeURIComponent(username)}`, ctx, 1);
+        const u = d && d.data && d.data.user;
+        if (u && u.edge_followed_by && u.edge_follow) {
+          counts = { followers: u.edge_followed_by.count || 0, following: u.edge_follow.count || 0 };
+        }
+      } catch (e) {
+        if (e.kind === 'abort') throw e;
+      }
+    }
     return { id: String(id), username, counts };
   }
 
-  // Odobserwowanie: jedno zapytanie POST, bez ponawiania.
+  // ---------------------------------------------------------------- odobserwowanie (sieć)
+  // Nagłówki, które dodaje sama strona www Instagrama przy akcjach na koncie.
+  function actionHeaders() {
+    const h = { ...igHeaders(detectAppId()), 'content-type': 'application/x-www-form-urlencoded' };
+    try {
+      const claim = window.sessionStorage.getItem('www-claim-v2');
+      if (claim) h['x-ig-www-claim'] = claim;
+    } catch { /* brak dostępu do sessionStorage */ }
+    const asbd = document.documentElement.innerHTML.match(/"ASBD_ID"\s*:\s*"?(\d+)/);
+    if (asbd) h['x-asbd-id'] = asbd[1];
+    return h;
+  }
+
+  // Jedno zapytanie POST, bez ponawiania. Treść czytamy jako tekst, żeby przy błędzie
+  // móc pokazać, co faktycznie odpowiedział Instagram.
   async function igPost(path, params) {
     const res = await pageFetch(BASE + path, {
       method: 'POST',
       credentials: 'include',
-      headers: { ...igHeaders(detectAppId()), 'content-type': 'application/x-www-form-urlencoded' },
+      headers: actionHeaders(),
       body: new URLSearchParams(params).toString(),
     });
+    const text = await res.text().catch(() => '');
     let data = null;
-    try { data = await res.json(); } catch { data = null; }
-    return { res, data };
+    try { data = JSON.parse(text); } catch { data = null; }
+    return { res, data, text, url: res.url, type: res.headers.get('content-type') || '' };
   }
 
-  function classifyAction({ res, data }) {
+  // Krótki opis odpowiedzi do komunikatu błędu i konsoli (bez danych osobowych).
+  function describe(r) {
+    if (r.data) {
+      const msg = r.data.message || r.data.feedback_message || r.data.error_type || '';
+      return msg ? String(msg).slice(0, 80) : 'JSON: ' + Object.keys(r.data).slice(0, 5).join(', ');
+    }
+    const type = (r.type.split(';')[0] || 'brak typu').trim();
+    const redirected = r.res.redirected ? ' → ' + new URL(r.url).pathname : '';
+    return type + redirected;
+  }
+
+  function classifyAction(r) {
+    const { res, data } = r;
     const msg = data ? String(data.message || data.feedback_message || data.feedback_title || '') : '';
-    if (res.ok && data && data.status === 'ok') return { ok: true };
+    const fs = data && data.friendship_status;
+    if (res.ok && data && (data.status === 'ok' || (fs && fs.following === false))) return { ok: true };
     if (data && (data.checkpoint_url || /checkpoint/i.test(msg))) return { ok: false, kind: 'checkpoint' };
     if (data && (data.require_login || /login_required/i.test(msg))) return { ok: false, kind: 'auth' };
     if ((data && (data.spam || data.feedback_required)) || /feedback_required|spam|block/i.test(msg)) return { ok: false, kind: 'blocked' };
     if (res.status === 429 || /wait|try again|rate.?limit/i.test(msg)) return { ok: false, kind: 'slow' };
-    return { ok: false, kind: 'http', status: res.status };
+    return { ok: false, kind: 'http', status: res.status, info: describe(r) };
+  }
+
+  // Faktyczny stan obserwowania (true / false), albo null, gdy nie da się sprawdzić.
+  async function isFollowing(id) {
+    try {
+      const res = await pageFetch(`${BASE}/api/v1/friendships/show/${id}/`, {
+        method: 'GET', credentials: 'include', headers: igHeaders(detectAppId()),
+      });
+      const d = await res.json();
+      return typeof d.following === 'boolean' ? d.following : null;
+    } catch {
+      return null;
+    }
   }
 
   async function unfollowRequest(id) {
-    try {
-      let r = await igPost(`/api/v1/friendships/destroy/${id}/`, { user_id: id, container_module: 'profile' });
-      let c = classifyAction(r);
-      if (!c.ok && c.kind === 'http' && (r.res.status === 404 || r.res.status === 400)) {
-        // zapasowo: starszy adres strony www
-        r = await igPost(`/web/friendships/${id}/unfollow/`, {});
-        c = classifyAction(r);
+    const tries = [
+      () => igPost(`/api/v1/friendships/destroy/${id}/`, { user_id: id, container_module: 'profile', nav_chain: '' }),
+      () => igPost(`/web/friendships/${id}/unfollow/`, {}),   // starszy adres strony www
+    ];
+    let last = { ok: false, kind: 'network' };
+    for (const send of tries) {
+      let r;
+      try {
+        r = await send();
+      } catch {
+        last = { ok: false, kind: 'network' };
+        continue;
       }
-      return c;
-    } catch {
-      return { ok: false, kind: 'network' };
+      const c = classifyAction(r);
+      if (c.ok) return c;
+      if (c.kind !== 'http') return c;               // blokada / limit / logowanie – nie próbujemy dalej
+      console.warn('[Apex IG Unfollowers] odobserwowanie: nierozpoznana odpowiedź', r.res.status, c.info, r.text.slice(0, 300));
+      // Odpowiedź niejasna (np. HTTP 200 bez JSON) – sprawdzamy, jak jest naprawdę.
+      await sleep(1200);
+      const following = await isFollowing(id);
+      if (following === false) return { ok: true, verified: true };
+      last = c;
+      await sleep(1500);
     }
+    return last;
   }
 
   // ---------------------------------------------------------------- stan
@@ -371,6 +483,7 @@
     confirmId: null,
     confirmTimer: null,
     busyId: null,
+    lastUnfAttempt: 0,   // ostatnia próba odobserwowania (także nieudana)
   };
 
   const countsOf = (scan) => {
@@ -429,6 +542,7 @@
     };
   }
 
+  const lastUnf = () => Math.max(state.lastUnfAttempt, state.unfLog[0] ? state.unfLog[0].ts : 0);
   const unfUsed = () => state.unfLog.filter((e) => e.ts > Date.now() - DAY).length;
 
   // ---------------------------------------------------------------- skan
@@ -454,7 +568,7 @@
       const of = (n, tot) => fmtNum(n) + (tot ? ' / ' + fmtNum(tot) : '');
 
       let frCount = 0;
-      const followers = await fetchList('followers', acc.id, ctx, (n) => {
+      const followers = await fetchComplete('followers', acc.id, ctx, totFr, (n) => {
         frCount = n;
         ui.progress(frac(n), t('scan.followers', { n: of(n, totFr) }));
       });
@@ -462,7 +576,7 @@
       ui.progress(frac(frCount), t('scan.followersDone', { n: fmtNum(frCount) }));
       await ctx.wait(rand(...ctx.speed.between));
 
-      const following = await fetchList('following', acc.id, ctx, (n) => {
+      const following = await fetchComplete('following', acc.id, ctx, totFg, (n) => {
         ui.progress(frac(frCount + n), t('scan.following', { f: fmtNum(frCount), n: of(n, totFg) }));
       });
 
@@ -476,7 +590,8 @@
       };
 
       let change = null;
-      if (prev) {
+      // niepełna lista obserwujących dałaby fałszywe „odeszli” – wtedy nie zapisujemy zmian
+      if (prev && !isShort(followers.length, totFr)) {
         const prevIds = new Set(prev.followers.map((u) => u.id));
         const curIds = new Set(followers.map((u) => u.id));
         const lost = prev.followers.filter((u) => !curIds.has(u.id));
@@ -501,8 +616,14 @@
       if (!prev) msg += ' ' + t('scan.first');
       else if (change) msg += ' ' + t('scan.changes', { lost: change.lost.length, gained: change.gained.length });
       else msg += ' ' + t('scan.noChanges');
-      if (totFr && followers.length < totFr * 0.95) msg += ' ' + t('scan.fewer');
-      ui.message(msg, 'ok');
+      if (!acc.counts) msg += ' ' + t('scan.noCounts');
+      if (isShort(following.length, totFg)) {
+        msg += ' ' + t('scan.shortFollowing', { got: fmtNum(following.length), expected: fmtNum(totFg) });
+      } else if (isShort(followers.length, totFr)) {
+        msg += ' ' + t('scan.fewer', { got: fmtNum(followers.length), expected: fmtNum(totFr) });
+      }
+      const shortList = isShort(following.length, totFg) || isShort(followers.length, totFr);
+      ui.message(msg, shortList || !acc.counts ? 'warn' : 'ok');
     } catch (e) {
       if (e.kind === 'abort') ui.message(t('scan.aborted'), 'warn');
       else ui.message(e.message || String(e), 'error');
@@ -534,8 +655,8 @@
     else if (cookieId && cookieId !== state.userId) problem = [t('unf.otherAccount'), 'warn'];
     else if (state.unfBlock && now < state.unfBlock) problem = [t('unf.blockedUntil', { time: fmtTime(state.unfBlock) }), 'error'];
     else if (used >= limit) problem = [t('unf.limit', { used, limit }), 'warn'];
-    else if (state.unfLog[0] && now - state.unfLog[0].ts < UNF.cooldownMs) {
-      problem = [t('unf.cooldown', { s: Math.ceil((UNF.cooldownMs - (now - state.unfLog[0].ts)) / 1000) }), 'warn'];
+    else if (now - lastUnf() < UNF.cooldownMs) {
+      problem = [t('unf.cooldown', { s: Math.ceil((UNF.cooldownMs - (now - lastUnf())) / 1000) }), 'warn'];
     }
     if (problem) {
       state.confirmId = null;
@@ -557,6 +678,7 @@
     state.confirmId = null;
     state.busyId = u.id;
     render();
+    state.lastUnfAttempt = Date.now();
     const r = await unfollowRequest(u.id);
     state.busyId = null;
 
@@ -577,7 +699,7 @@
         auth: t('err.login'),
         checkpoint: t('err.checkpoint'),
         network: t('err.network'),
-        http: t('unf.failed', { status: r.status }),
+        http: t('unf.failed', { status: r.status, info: r.info || '' }),
       };
       ui.message(msgs[r.kind] || msgs.http, 'error');
     }
