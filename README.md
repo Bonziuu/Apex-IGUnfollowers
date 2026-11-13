@@ -15,8 +15,8 @@
 </p>
 
 <p align="center">
-  <a href="manifest.json"><img src="https://img.shields.io/github/manifest-json/v/Bonziuu/Apex-IGUnfollowers?label=wersja&color=b8145f" alt="Wersja"></a>
-  <a href="LICENSE"><img src="https://img.shields.io/badge/licencja-MIT-b8145f" alt="Licencja MIT"></a>
+  <a href="manifest.json"><img src="https://img.shields.io/github/manifest-json/v/Bonziuu/Apex-IGUnfollowers?label=wersja&color=cc1670" alt="Wersja"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/licencja-MIT-cc1670" alt="Licencja MIT"></a>
 </p>
 
 > **Status:** wersja testowa 1.0.0. Wtyczki nie ma w Chrome Web Store, instaluje się ją ręcznie z tego repozytorium. Zmiany: [CHANGELOG.md](CHANGELOG.md)

@@ -425,7 +425,7 @@
     /* Typografia i układ jak w Apex AdBlocker; paleta różowa o tej samej głębi co morska paleta AdBlockera */
     .wrap {
       --bg: #ffffff; --surface: #f6f6f9; --fg: #17171c; --muted: #6b6b76; --line: #e7e7ee;
-      --accent: #b8145f; --accent-strong: #9e1051; --accent-soft: #fbe7f0; --on-accent: #ffffff;
+      --accent: #cc1670; --accent-strong: #b01361; --accent-soft: #fde6f1; --on-accent: #ffffff;
       --ok: #1f9d55; --ok-soft: #e6f6ec; --warn: #b7791f; --warn-soft: #fdf3e1; --err: #d14343; --err-soft: #fdeaea;
       --shadow: 0 12px 40px rgba(20, 20, 40, .22);
       font: 13px/1.4 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
@@ -435,7 +435,7 @@
     @media (prefers-color-scheme: dark) {
       .wrap {
         --bg: #16161b; --surface: #202028; --fg: #f2f2f6; --muted: #a2a2ae; --line: #2c2c36;
-        --accent: #ec5f9f; --accent-strong: #f27fb3; --accent-soft: #3a1628; --on-accent: #2a0a18;
+        --accent: #f266a8; --accent-strong: #f78bbf; --accent-soft: #3d1529; --on-accent: #2a0a18;
         --ok: #4cc785; --ok-soft: #1c3327; --warn: #e3ad55; --warn-soft: #3a2f1c; --err: #ff7a7a; --err-soft: #3d2022;
         --shadow: 0 12px 40px rgba(0, 0, 0, .5);
       }
@@ -448,13 +448,13 @@
     .launcher {
       position: fixed; right: 20px; bottom: 96px; width: 48px; height: 48px; border-radius: 50%;
       border: 0; color: #fff; display: flex; align-items: center; justify-content: center;
-      background: linear-gradient(160deg, #e64a94, #b8145f);
-      box-shadow: 0 4px 14px rgba(184, 20, 95, .35); z-index: 2147483646; transition: transform .15s ease;
+      background: linear-gradient(160deg, #f2559f, #cc1670);
+      box-shadow: 0 4px 14px rgba(204, 22, 112, .35); z-index: 2147483646; transition: transform .15s ease;
     }
     .launcher:hover { transform: scale(1.06); }
     .launcher.busy::after {
       content: ""; position: absolute; inset: -5px; border-radius: 50%;
-      border: 3px solid transparent; border-top-color: #e64a94; animation: spin 1s linear infinite;
+      border: 3px solid transparent; border-top-color: #f2559f; animation: spin 1s linear infinite;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
 
@@ -496,7 +496,7 @@
 
     .progress { padding: 0 14px 10px; }
     .bar { height: 6px; border-radius: 3px; background: var(--surface); overflow: hidden; position: relative; }
-    .fill { height: 100%; width: 0; background: linear-gradient(90deg, #e64a94, #b8145f); transition: width .3s; }
+    .fill { height: 100%; width: 0; background: linear-gradient(90deg, #f2559f, #cc1670); transition: width .3s; }
     .bar.indet .fill { width: 35%; position: absolute; animation: indet 1.2s ease-in-out infinite; }
     @keyframes indet { from { left: -35%; } to { left: 100%; } }
     .ptext { font-size: 12.5px; margin-top: 6px; font-variant-numeric: tabular-nums; }
@@ -567,7 +567,7 @@
 
   const ICON = '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="4"/><path d="M2 21c0-3.9 3.1-7 7-7s7 3.1 7 7"/><path d="M17 11h6"/></svg>';
 
-  const LOGO = '<svg class="logo" viewBox="0 0 128 128" aria-hidden="true"><defs><linearGradient id="apx-g" x1="0" y1="0" x2="0.42" y2="1"><stop offset="0" stop-color="#e64a94"/><stop offset="1" stop-color="#b8145f"/></linearGradient></defs><g transform="translate(0 4.5)"><path fill="url(#apx-g)" fill-rule="evenodd" d="M64 7 116 112H91L64 59 37 112H12L64 7Zm0 34-12 25h24L64 41Z"/><circle cx="94" cy="88" r="19" fill="#b8145f" stroke="#8f0d4c" stroke-width="4"/><circle cx="94" cy="82.68" r="5.7" fill="#fff"/><path fill="#fff" d="M82.22 99.78C82.22 90.28 105.78 90.28 105.78 99.78Z"/></g></svg>';
+  const LOGO = '<svg class="logo" viewBox="0 0 128 128" aria-hidden="true"><defs><linearGradient id="apx-g" x1="0" y1="0" x2="0.42" y2="1"><stop offset="0" stop-color="#f2559f"/><stop offset="1" stop-color="#cc1670"/></linearGradient></defs><g transform="translate(0 4.5)"><path fill="url(#apx-g)" fill-rule="evenodd" d="M64 7 116 112H91L64 59 37 112H12L64 7Zm0 34-12 25h24L64 41Z"/></g></svg>';
 
   const TEMPLATE = `
     <div class="wrap">
