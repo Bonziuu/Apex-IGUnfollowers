@@ -38,6 +38,10 @@ The background script only opens the welcome screen after installation or on req
 
 Apex Unfollowers **does not send** any data to the publisher or to third parties, contains no analytics, ads or remotely loaded code, and does not sell data.
 
+## Chrome Web Store User Data Policy (Limited Use)
+
+Apex Unfollowers’ use of information complies with the Chrome Web Store User Data Policy, including the Limited Use requirements. Data handled automatically by the extension is used only to provide its single purpose — showing the follow relationships of the user’s own Instagram account and letting the user manually unfollow selected accounts. The extension does not sell this data or automatically transfer it to Apex Software or third parties, and it is not used for advertising, creditworthiness or lending purposes. Humans do not read this data unless the user explicitly chooses to send a file, report or message.
+
 ## Permissions
 
 - `storage`, `unlimitedStorage` – local storage of results (large accounts can have tens of thousands of followers),
@@ -89,6 +93,10 @@ Skrypt tła tylko otwiera ekran powitalny po instalacji albo na prośbę panelu.
 **Zgłaszanie problemów.** Przyciski „Zgłoś problem” i „Napisz e-mail” otwierają gotowe zgłoszenie na GitHubie albo szkic wiadomości w przeglądarce lub programie pocztowym użytkownika. Zawierają wersję wtyczki, nazwę i wersję przeglądarki, język interfejsu i treść ostatniego błędu – bez nazw kont i list. Nic nie zostaje wysłane, dopóki użytkownik sam nie wyśle zgłoszenia lub wiadomości. Jeśli to zrobi, GitHub lub odbiorca wiadomości otrzyma jej treść i dane nadawcy, jak przy każdej wiadomości.
 
 Apex Unfollowers **nie przesyła** żadnych danych wydawcy ani stronom trzecim, nie zawiera analityki, reklam ani zdalnie pobieranego kodu i nie sprzedaje danych.
+
+## Zasady Chrome Web Store dotyczące danych użytkownika (Limited Use)
+
+Sposób, w jaki Apex Unfollowers korzysta z informacji, jest zgodny z zasadami Chrome Web Store dotyczącymi danych użytkownika (Chrome Web Store User Data Policy), w tym z wymogami ograniczonego użytkowania (Limited Use). Dane automatycznie przetwarzane przez rozszerzenie służą wyłącznie realizacji jego jedynego celu — pokazywaniu relacji obserwowania na własnym koncie Instagram użytkownika i ręcznemu odobserwowaniu wybranych kont. Rozszerzenie nie sprzedaje tych danych ani nie przekazuje ich automatycznie Apex Software lub osobom trzecim i nie używa ich do reklam, oceny zdolności kredytowej ani w celach pożyczkowych. Ludzie nie odczytują tych danych, chyba że użytkownik sam zdecyduje się przesłać plik, raport lub wiadomość.
 
 ## Uprawnienia
 
