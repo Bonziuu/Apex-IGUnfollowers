@@ -35,9 +35,10 @@ jobs:
 
       - name: Składnia i manifest
         run: |
-          node --check content/unfollowers.js
-          node --check popup/popup.js
-          node -e "JSON.parse(require('fs').readFileSync('manifest.json','utf8'))"
+          # wszystkie pliki JS z repozytorium (bez listy na sztywno, żeby podział na moduły jej nie psuł)
+          git ls-files '*.js' '*.mjs' | while read -r f; do node --check "$f" || exit 1; done
+          # manifest: poprawny JSON i każdy plik, na który wskazuje, istnieje w repozytorium
+          node tools/check-manifest.mjs
 
       - name: npm test
         run: npm test
