@@ -1,0 +1,18 @@
+{
+  "name": "apex-igunfollowers",
+  "private": true,
+  "description": "Apex IG Unfollowers – sprawdza, kto nie obserwuje Cię na Instagramie (Manifest V3). Narzędzia deweloperskie: ikony, testy, paczka.",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "test": "node --test tests/panel.test.mjs",
+    "icons": "node tools/build-icons.mjs",
+    "package:release": "node tools/package-release.mjs"
+  },
+  "devDependencies": {
+    "playwright": "1.63.0"
+  },
+  "license": "MIT"
+}

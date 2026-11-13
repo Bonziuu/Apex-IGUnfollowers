@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 128 128">
+  <defs><linearGradient id="g-logo" x1="0" y1="0" x2="0.42" y2="1"><stop offset="0" stop-color="#e64a94"/><stop offset="1" stop-color="#b8145f"/></linearGradient></defs>
+  <g transform="translate(0 4.5) scale(1)">
+    <path fill="url(#g-logo)" fill-rule="evenodd" d="M64 7 116 112H91L64 59 37 112H12L64 7Zm0 34-12 25h24L64 41Z"/>
+    <circle cx="94" cy="88" r="19" fill="#b8145f" stroke="#8f0d4c" stroke-width="4"/>
+    <circle cx="94" cy="82.68" r="5.7" fill="#fff"/><path fill="#fff" d="M82.22 99.78C82.22 90.28 105.78 90.28 105.78 99.78Z"/>
+  </g>
+</svg>

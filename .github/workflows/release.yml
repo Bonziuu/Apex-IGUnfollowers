@@ -1,0 +1,80 @@
+# Apex IG Unfollowers – automatyczne wydanie po utworzeniu tagu vX.Y.Z.
+# Sprawdza zgodność tagu z manifest.json, uruchamia testy, buduje paczkę i publikuje wydanie
+# na GitHubie z opisem z sekcji CHANGELOG.md dla tej wersji.
+#
+# Jak wydać nową wersję:
+#   1. podbij "version" w manifest.json i dopisz sekcję do CHANGELOG.md, wypchnij na main,
+#   2. utwórz tag:  git tag v1.0.1 && git push origin v1.0.1
+
+name: Wydanie
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release:
+    name: Testy, paczka i wydanie
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Zgodność tagu z wersją w manifest.json
+        shell: bash
+        run: |
+          tag="${GITHUB_REF_NAME}"
+          version="$(node -p "require('./manifest.json').version")"
+          if [ "v$version" != "$tag" ]; then
+            echo "::error::Tag $tag nie zgadza się z wersją w manifest.json ($version)."
+            exit 1
+          fi
+          echo "VERSION=$version" >> "$GITHUB_ENV"
+
+      - name: Instalacja zależności
+        run: npm ci --no-audit --no-fund
+
+      - name: Instalacja Chromium (Playwright)
+        run: npx playwright install --with-deps chromium
+
+      - name: npm test
+        run: npm test
+
+      - name: Paczka dla użytkownika
+        run: npm run package:release
+
+      - name: Opis wydania
+        shell: bash
+        run: |
+          awk -v v="$VERSION" '
+            $0 ~ "^## \\[" v "\\]" { on = 1; next }
+            on && /^## \[/ { exit }
+            on { print }
+          ' CHANGELOG.md > "$RUNNER_TEMP/notes.md"
+          printf '\n---\nInstalacja: rozpakuj `Apex-IGUnfollowers-%s.zip`, otwórz `chrome://extensions`, włącz Tryb dewelopera i kliknij **Załaduj rozpakowane**. Sumy kontrolne: `SHA256SUMS.txt`.\n' "$VERSION" >> "$RUNNER_TEMP/notes.md"
+
+      - name: Publikacja wydania
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" \
+            "dist/Apex-IGUnfollowers-$VERSION.zip" \
+            dist/Apex-IGUnfollowers.zip \
+            dist/SHA256SUMS.txt \
+            --title "Apex IG Unfollowers $VERSION" \
+            --notes-file "$RUNNER_TEMP/notes.md" \
+            --verify-tag \
+            --latest
