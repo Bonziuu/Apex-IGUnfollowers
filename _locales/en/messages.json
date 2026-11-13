@@ -1,4 +1,11 @@
 {
-  "extName": { "message": "Apex IG Unfollowers" },
-  "extDescription": { "message": "See who doesn't follow you back on Instagram, who you don't follow and who unfollowed you. Local, no account, no telemetry." }
+  "extName": {
+    "message": "Apex Unfollowers for Instagram"
+  },
+  "extShortName": {
+    "message": "Apex Unfollowers"
+  },
+  "extDescription": {
+    "message": "See who doesn't follow you back on Instagram, who you don't follow and who unfollowed you. Local, no account, no telemetry."
+  }
 }

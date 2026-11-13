@@ -2,7 +2,7 @@
 
 ## InstagramUnfollowers (David Arroyo)
 
-Sposób wywołania odobserwowania w `content/unfollowers.js` (tokeny sesji `fb_dtsg` / `jazoest`,
+Sposób wywołania odobserwowania w `content/net.js` (tokeny sesji `fb_dtsg` / `jazoest`,
 nagłówki klienta www Instagrama, potwierdzanie przez wyszukanie konta na liście obserwowanych)
 został opracowany na podstawie projektu
 [davidarroyo1234/InstagramUnfollowers](https://github.com/davidarroyo1234/InstagramUnfollowers),

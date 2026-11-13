@@ -1,4 +1,4 @@
-# Apex IG Unfollowers – CI: każdy push i Pull Request.
+# Apex Unfollowers – CI: każdy push i Pull Request.
 # Instalacja zależności, Chromium dla Playwright, test end-to-end na symulowanym Instagramie
 # i budowa paczki dla użytkownika.
 
@@ -47,5 +47,5 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: Apex-IGUnfollowers
+          name: Apex-Unfollowers
           path: dist/

@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="pl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light dark">
+  <title data-i18n="page.title">Witaj w Apex Unfollowers</title>
+  <link rel="stylesheet" href="welcome.css">
+</head>
+<body>
+  <main class="wrap">
+    <header class="brand">
+      <img src="../icons/logo.svg" alt="" width="56" height="56">
+      <div>
+        <h1 data-i18n="page.title">Witaj w Apex Unfollowers</h1>
+        <p class="muted" data-i18n="page.tagline"></p>
+      </div>
+    </header>
+
+    <p class="lead" data-i18n="page.lead"></p>
+
+    <section aria-labelledby="howTitle">
+      <h2 id="howTitle" data-i18n="page.howTitle"></h2>
+      <ol class="steps">
+        <li data-i18n="welcome.step1"></li>
+        <li data-i18n="welcome.step2"></li>
+        <li data-i18n="welcome.step3"></li>
+      </ol>
+    </section>
+
+    <section aria-labelledby="featTitle">
+      <h2 id="featTitle" data-i18n="page.featTitle"></h2>
+      <ul class="features">
+        <li data-i18n-html="page.feat1"></li>
+        <li data-i18n-html="page.feat2"></li>
+        <li data-i18n-html="page.feat3"></li>
+        <li data-i18n-html="page.feat4"></li>
+      </ul>
+    </section>
+
+    <section class="risk" aria-labelledby="riskTitle">
+      <h2 id="riskTitle" data-i18n="welcome.riskTitle"></h2>
+      <p data-i18n="welcome.riskText"></p>
+      <ul>
+        <li data-i18n="welcome.risk1"></li>
+        <li data-i18n="welcome.risk2"></li>
+        <li data-i18n="welcome.risk3"></li>
+      </ul>
+    </section>
+
+    <label class="accept"><input type="checkbox" id="accept"> <span data-i18n="welcome.accept"></span></label>
+    <div class="actions">
+      <button id="start" class="primary" type="button" data-i18n="welcome.start" disabled></button>
+      <a id="open" class="button" href="https://www.instagram.com/" hidden data-i18n="page.open"></a>
+    </div>
+    <p id="done" class="done" role="status" hidden data-i18n="page.done"></p>
+
+    <section aria-labelledby="privacyTitle">
+      <h2 id="privacyTitle" data-i18n="page.privacyTitle"></h2>
+      <p class="muted" data-i18n="page.privacyText"></p>
+    </section>
+
+    <section class="author" aria-labelledby="authorTitle">
+      <h2 id="authorTitle" data-i18n="set.authorTitle"></h2>
+      <p><strong>Konrad Woźniak</strong></p>
+      <p><a href="mailto:konrad.wozniak.1996@gmail.com">konrad.wozniak.1996@gmail.com</a></p>
+      <p><a href="https://www.linkedin.com/in/konrad-wo%C5%BAniak-23a5b831a" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer" data-i18n="set.linkedin" data-i18n-aria-label="set.linkedinLabel"></a></p>
+      <p class="links">
+        <a href="https://apexsoftware.app" target="_blank" rel="noopener noreferrer">apexsoftware.app</a> ·
+        <a href="https://github.com/Bonziuu/Apex-IGUnfollowers" target="_blank" rel="noopener noreferrer" data-i18n="page.source"></a> ·
+        <a href="https://github.com/Bonziuu/Apex-IGUnfollowers/blob/main/PRIVACY.md" target="_blank" rel="noopener noreferrer" data-i18n="page.policy"></a>
+      </p>
+      <p class="muted version" id="version"></p>
+    </section>
+  </main>
+  <script src="../shared/i18n.js"></script>
+  <script src="welcome.js"></script>
+</body>
+</html>

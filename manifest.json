@@ -1,9 +1,9 @@
 {
   "manifest_version": 3,
   "name": "__MSG_extName__",
-  "short_name": "Apex IGU",
+  "short_name": "__MSG_extShortName__",
   "author": "Konrad Woźniak",
-  "version": "1.1.2",
+  "version": "1.2.0",
   "description": "__MSG_extDescription__",
   "default_locale": "en",
   "minimum_chrome_version": "121",
@@ -14,6 +14,12 @@
   "host_permissions": [
     "https://www.instagram.com/*"
   ],
+  "background": {
+    "service_worker": "background.js",
+    "scripts": [
+      "background.js"
+    ]
+  },
   "content_scripts": [
     {
       "matches": [
@@ -21,14 +27,19 @@
       ],
       "js": [
         "shared/i18n.js",
-        "content/unfollowers.js"
+        "content/core.js",
+        "content/net.js",
+        "content/actions.js",
+        "content/ui.js",
+        "content/views.js",
+        "content/main.js"
       ],
       "run_at": "document_idle"
     }
   ],
   "action": {
     "default_popup": "popup/popup.html",
-    "default_title": "Apex IG Unfollowers",
+    "default_title": "__MSG_extName__",
     "default_icon": {
       "16": "icons/icon16.png",
       "32": "icons/icon32.png",
@@ -43,8 +54,8 @@
   },
   "browser_specific_settings": {
     "gecko": {
-      "id": "apex-igunfollowers@apexsoftware.app",
-      "strict_min_version": "128.0",
+      "id": "apex-unfollowers@apexsoftware.app",
+      "strict_min_version": "142.0",
       "data_collection_permissions": {
         "required": [
           "none"

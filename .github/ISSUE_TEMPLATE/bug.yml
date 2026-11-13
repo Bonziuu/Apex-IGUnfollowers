@@ -1,0 +1,38 @@
+name: Problem z wtyczką / Bug report
+description: Coś nie działa w Apex Unfollowers / Something doesn't work in Apex Unfollowers
+title: "[wersja] krótki opis"
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Dziękuję za zgłoszenie! Przycisk „Zgłoś problem” w panelu wtyczki wypełnia wersję, przeglądarkę i treść błędu automatycznie.
+        **Nie wklejaj nazw kont ani zrzutów z danymi innych osób.**
+        Thanks for reporting! The extension's "Report a problem" button fills in the version, browser and error automatically. **Please don't paste account names or screenshots with other people's data.**
+  - type: input
+    id: version
+    attributes:
+      label: Wersja wtyczki / Extension version
+      placeholder: "1.2.0"
+    validations:
+      required: true
+  - type: input
+    id: browser
+    attributes:
+      label: Przeglądarka / Browser
+      placeholder: "Google Chrome 142"
+    validations:
+      required: true
+  - type: textarea
+    id: error
+    attributes:
+      label: Komunikat błędu / Error message
+      description: Treść komunikatu z panelu, a jeśli możesz – linie z konsoli (F12 → Console) zaczynające się od [Apex Unfollowers].
+      render: text
+  - type: textarea
+    id: steps
+    attributes:
+      label: Co robiłeś? / What were you doing?
+      description: Np. skan, odobserwowanie, wczytanie kopii zapasowej. Jak duże jest konto (mniej więcej)?
+    validations:
+      required: true

@@ -1,4 +1,4 @@
-# Apex IG Unfollowers – automatyczne wydanie na GitHubie.
+# Apex Unfollowers – automatyczne wydanie na GitHubie.
 #
 # Wydanie powstaje samo, gdy na main trafi wersja z manifest.json, która nie ma jeszcze wydania
 # (np. po podbiciu "version"). Można je też wywołać tagiem vX.Y.Z albo ręcznie: Actions → Wydanie → Run workflow.
@@ -9,7 +9,7 @@
 #   2. wypchnij na main – reszta dzieje się sama.
 #
 # Stały link do najnowszej paczki (README):
-#   https://github.com/Bonziuu/Apex-IGUnfollowers/releases/latest/download/Apex-IGUnfollowers.zip
+#   https://github.com/Bonziuu/Apex-IGUnfollowers/releases/latest/download/Apex-Unfollowers.zip
 
 name: Wydanie
 
@@ -83,7 +83,7 @@ jobs:
         shell: bash
         run: |
           {
-            printf '**Pobierz:** `Apex-IGUnfollowers.zip` poniżej (sekcja Assets), rozpakuj, otwórz `chrome://extensions`, włącz **Tryb dewelopera**, kliknij **Załaduj rozpakowane** i wskaż folder `Apex-IGUnfollowers`. Pełna instrukcja: [README](https://github.com/%s#instalacja).\n\n' "$GITHUB_REPOSITORY"
+            printf '**Pobierz:** `Apex-Unfollowers.zip` poniżej (sekcja Assets), rozpakuj, otwórz `chrome://extensions`, włącz **Tryb dewelopera**, kliknij **Załaduj rozpakowane** i wskaż folder `Apex-Unfollowers`. Pełna instrukcja: [README](https://github.com/%s#instalacja).\n\n' "$GITHUB_REPOSITORY"
             awk -v v="$VERSION" '
               $0 ~ "^## \\[" v "\\]" { on = 1; next }
               on && /^## \[/ { exit }
@@ -97,10 +97,10 @@ jobs:
         shell: bash
         run: |
           gh release create "v$VERSION" \
-            "dist/Apex-IGUnfollowers-$VERSION.zip" \
-            dist/Apex-IGUnfollowers.zip \
+            "dist/Apex-Unfollowers-$VERSION.zip" \
+            dist/Apex-Unfollowers.zip \
             dist/SHA256SUMS.txt \
             --target "$GITHUB_SHA" \
-            --title "Apex IG Unfollowers $VERSION" \
+            --title "Apex Unfollowers $VERSION" \
             --notes-file "$RUNNER_TEMP/notes.md" \
             --latest

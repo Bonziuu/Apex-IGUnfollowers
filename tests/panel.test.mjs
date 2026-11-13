@@ -13,7 +13,8 @@ import { fileURLToPath } from 'node:url';
 import { chromium } from 'playwright';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const SCRIPTS = ['shared/i18n.js', 'content/unfollowers.js'].map((f) => path.join(ROOT, f));
+// skrypty wtyczki w kolejności z manifest.json
+const SCRIPTS = JSON.parse(fs.readFileSync(path.join(ROOT, 'manifest.json'), 'utf8')).content_scripts[0].js.map((f) => path.join(ROOT, f));
 const VERSION = JSON.parse(fs.readFileSync(path.join(ROOT, 'manifest.json'), 'utf8')).version;
 const SHOTS = process.env.SCREENSHOTS ? path.join(ROOT, 'docs', 'screens') : null;
 const range = (a, b) => Array.from({ length: b - a + 1 }, (_, i) => a + i);
@@ -48,6 +49,7 @@ const stub = (initial) => `(() => {
 async function setup({ colorScheme = 'light', locale = 'pl-PL', rateLimited = false, unfollowResult = 'ok', mem = {}, truncate = null, noInfo = false, idMismatch = false, following = range(60, 169) } = {}) {
   const data = { followers: range(1, 130), following };
   const posts = [];
+  const requests = [];
   const unfollowed = new Set();
   const browser = await chromium.launch();
   const context = await browser.newContext({ viewport: { width: 1200, height: 860 }, colorScheme, locale });
@@ -58,6 +60,7 @@ async function setup({ colorScheme = 'light', locale = 'pl-PL', rateLimited = fa
   await context.route('https://www.instagram.com/**', async (route) => {
     const req = route.request();
     const url = new URL(req.url());
+    requests.push(url.pathname);
     if (url.pathname === '/') {
       return route.fulfill({
         contentType: 'text/html',
@@ -110,12 +113,12 @@ async function setup({ colorScheme = 'light', locale = 'pl-PL', rateLimited = fa
   const page = await context.newPage();
   const errors = [];
   page.on('pageerror', (e) => errors.push(String(e)));
-  await page.addInitScript(stub({ settings: { speed: 'normal' }, ...mem }));
+  await page.addInitScript(stub({ settings: { speed: 'normal', onboarded: true }, ...mem }));
   await page.addInitScript(() => { try { sessionStorage.setItem('www-claim-v2', 'hmac.TEST'); } catch {} });
   await page.goto('https://www.instagram.com/');
   for (const s of SCRIPTS) await page.addScriptTag({ path: s });
   await page.waitForTimeout(200);
-  const root = page.locator('#apex-igunfollowers-root');
+  const root = page.locator('#apex-unfollowers-root');
   const msg = () => root.locator('[data-ref=msg]').textContent();
   const counts = () => root.locator('nav .cnt').allTextContents();
   const scan = async () => {
@@ -123,7 +126,7 @@ async function setup({ colorScheme = 'light', locale = 'pl-PL', rateLimited = fa
     await root.locator('[data-ref=scan]').click();
     await root.locator('[data-ref=msg]:not(.hidden)').waitFor({ timeout: 60_000 });
   };
-  return { browser, page, root, data, posts, errors, msg, counts, scan };
+  return { browser, context, page, root, data, posts, requests, errors, msg, counts, scan };
 }
 
 const shot = async (page, name) => {
@@ -204,6 +207,9 @@ test('odobserwowanie: potwierdzenie, zapis, odstęp między akcjami', { timeout:
     assert.equal(await first.locator('.who a').textContent(), 'konto.131');
     await first.locator('.mini.unf').click();
     assert.equal(await first.locator('.mini.unf').textContent(), 'Na pewno?');
+    // napis musi być widoczny także pod kursorem (biały na czerwonym tle)
+    await first.locator('.mini.unf').hover();
+    assert.equal(await first.locator('.mini.unf').evaluate((b) => getComputedStyle(b).color), 'rgb(255, 255, 255)');
     assert.equal(posts.length, 0);
     await first.locator('.mini.unf').click();
     await root.locator('[data-ref=msg]', { hasText: 'Przestałeś obserwować' }).waitFor();
@@ -233,7 +239,7 @@ test('odobserwowanie: dzienny limit i blokada akcji przez Instagram', { timeout:
   const scanData = { ts: now - DAY, userId: '999', username: 'apex.test', followers: range(1, 5).map(stored), following: range(1, 10).map(stored) };
   // 10 odobserwowań w ostatnich 24 h przy limicie 10
   const full = range(1, 10).map((i) => ({ ts: now - 3600e3 * i, id: String(500 + i), username: `x${i}` }));
-  let ctx = await setup({ mem: { lastUserId: '999', 'scan:999': scanData, 'unf:999': full, settings: { speed: 'normal', unfLimit: 10 } } });
+  let ctx = await setup({ mem: { lastUserId: '999', 'scan:999': scanData, 'unf:999': full, settings: { speed: 'normal', unfLimit: 10, onboarded: true } } });
   try {
     await ctx.root.locator('.launcher').click();
     await ctx.root.locator('.row .mini.unf').first().click();
@@ -317,6 +323,76 @@ test('kompletność list: liczniki z web_profile_info, dociąganie uciętej list
   } finally { await ctx.browser.close(); }
 });
 
+test('ekran powitalny: panel czeka na akceptację ryzyka', { timeout: 60_000 }, async () => {
+  const { browser, root, page } = await setup({ mem: { settings: { speed: 'normal', onboarded: false } } });
+  try {
+    await root.locator('.launcher').click();
+    assert.equal(await root.locator('[data-ref=vWelcome]').isVisible(), true);
+    assert.equal(await root.locator('[data-ref=scan]').isVisible(), false);
+    assert.equal(await root.locator('[data-ref=welcomeStart]').isDisabled(), true);
+    await shot(page, 'welcome-panel.png');
+    await root.locator('[data-ref=acceptRisk]').check();
+    await root.locator('[data-ref=welcomeStart]').click();
+    assert.equal(await root.locator('[data-ref=scan]').isVisible(), true);
+    assert.equal(await root.locator('[data-ref=vLists]').isVisible(), true);
+    assert.equal(await page.evaluate(() => window.__mem.settings.onboarded), true);
+  } finally {
+    await browser.close();
+  }
+});
+
+test('wznawianie skanu po zatrzymaniu, szacowany czas', { timeout: 120_000 }, async () => {
+  const { browser, root, page, requests, msg, counts } = await setup();
+  try {
+    await root.locator('.launcher').click();
+    await root.locator('[data-ref=scan]').click();
+    // szacowany czas pojawia się po co najmniej 3 stronach
+    await page.waitForFunction(() => /zostało ok\./.test(document.querySelector('#apex-unfollowers-root').shadowRoot.querySelector('[data-ref=ptext]').textContent), null, { timeout: 60_000 });
+    // zatrzymanie w trakcie listy obserwowanych (po pierwszej stronie)
+    await page.waitForFunction(() => /Obserwowani: [1-9]/.test(document.querySelector('#apex-unfollowers-root').shadowRoot.querySelector('[data-ref=ptext]').textContent), null, { timeout: 60_000 });
+    await root.locator('[data-ref=scan]').click();
+    await root.locator('[data-ref=msg]', { hasText: 'Skan wstrzymany' }).waitFor({ timeout: 15_000 });
+    assert.match(await msg(), /Postęp zapisany \(1[0-9]{2} kont\)/);
+    assert.equal(await root.locator('[data-ref=scan]').textContent(), 'Wznów skan');
+    assert.equal(await root.locator('[data-ref=resumeRow]').isVisible(), true);
+    const saved = await page.evaluate(() => window.__mem['resume:999']);
+    assert.equal(saved.phase, 'following');
+    assert.equal(saved.followers.length, 130);
+
+    const before = requests.filter((p) => p.endsWith('/followers/')).length;
+    await root.locator('[data-ref=scan]').click();
+    await root.locator('[data-ref=msg]', { hasText: 'Obserwujący: 130, obserwowani: 110' }).waitFor({ timeout: 60_000 });
+    assert.equal(requests.filter((p) => p.endsWith('/followers/')).length, before, 'obserwujący nie są pobierani drugi raz');
+    assert.deepEqual(await counts(), ['39', '59', '71', '–']);
+    assert.equal(await page.evaluate(() => 'resume:999' in window.__mem), false);
+    assert.equal(await root.locator('[data-ref=scan]').textContent(), 'Skanuj');
+  } finally {
+    await browser.close();
+  }
+});
+
+test('zgłoszenie problemu: przycisk przy błędzie otwiera gotowe zgłoszenie bez nazw kont', { timeout: 60_000 }, async () => {
+  const scanData = { ts: Date.now() - DAY, userId: '999', username: 'apex.test', followers: range(1, 5).map(stored), following: range(1, 10).map(stored) };
+  const ctx = await setup({ unfollowResult: 'html', mem: { lastUserId: '999', 'scan:999': scanData }, following: range(1, 10) });
+  try {
+    await ctx.root.locator('.launcher').click();
+    await ctx.root.locator('.row .mini.unf').first().click();
+    await ctx.root.locator('.row .mini.unf').first().click();
+    await ctx.context.route('https://github.com/**', (r) => r.fulfill({ contentType: 'text/html', body: 'ok' }));
+    const report = ctx.root.locator('[data-ref=msg] .linkbtn');
+    await report.waitFor({ timeout: 15_000 });
+    const [tab] = await Promise.all([ctx.context.waitForEvent('page'), report.click()]);
+    const url = new URL(tab.url());
+    assert.equal(url.origin + url.pathname, 'https://github.com/Bonziuu/Apex-IGUnfollowers/issues/new');
+    assert.equal(url.searchParams.get('template'), 'bug.yml');
+    assert.match(url.searchParams.get('version'), /^\d+\.\d+\.\d+$/);
+    assert.match(url.searchParams.get('error'), /HTTP 200, text\/html[\s\S]*unfollow http HTTP 200/);
+    assert.doesNotMatch(url.searchParams.get('error') + url.searchParams.get('title'), /konto\.\d/);
+  } finally {
+    await ctx.browser.close();
+  }
+});
+
 test('limit zapytań (HTTP 429) podczas skanu: czekanie i przycisk Zatrzymaj', { timeout: 60_000 }, async () => {
   const { browser, root, page, msg } = await setup({ rateLimited: true });
   try {
@@ -359,7 +435,7 @@ test('kopia zapasowa: zapis, wyczyszczenie danych, wczytanie', { timeout: 90_000
     const [download] = await Promise.all([page.waitForEvent('download'), root.locator('[data-ref=export]').click()]);
     const file = await download.path();
     const backup = JSON.parse(fs.readFileSync(file, 'utf8'));
-    assert.equal(backup.app, 'apex-igunfollowers');
+    assert.equal(backup.app, 'apex-unfollowers');
     assert.ok(backup.data['scan:999'] && backup.data['hist:999'] && backup.data.settings);
 
     await root.locator('[data-ref=wipe]').click();

@@ -1,0 +1,11 @@
+name: Pomysł na funkcję / Feature request
+description: Zaproponuj nową funkcję albo zmianę / Suggest a new feature or change
+labels: [enhancement]
+body:
+  - type: textarea
+    id: idea
+    attributes:
+      label: Pomysł / Idea
+      description: Co powinna robić wtyczka i dlaczego? / What should the extension do and why?
+    validations:
+      required: true

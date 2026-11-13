@@ -1,6 +1,26 @@
 # Changelog
 
-Wszystkie istotne zmiany w Apex IG Unfollowers. Format: [Keep a Changelog](https://keepachangelog.com/pl/1.1.0/), wersjonowanie: [SemVer](https://semver.org/lang/pl/).
+Wszystkie istotne zmiany w Apex Unfollowers dla Instagrama (do wersji 1.1.2: Apex IG Unfollowers). Format: [Keep a Changelog](https://keepachangelog.com/pl/1.1.0/), wersjonowanie: [SemVer](https://semver.org/lang/pl/).
+
+## [1.2.0] – 2026-11-13
+
+Wersja przygotowana do publikacji w sklepach.
+
+### Zmieniono
+
+- **Nowa nazwa: Apex Unfollowers dla Instagrama / for Instagram** (wcześniej Apex IG Unfollowers). Paczka nazywa się `Apex-Unfollowers.zip`, a folder w niej `Apex-Unfollowers`. Dane z 1.1.x zostają, kopie zapasowe z 1.1.x można wczytać.
+- Kod panelu podzielony na moduły `content/core.js`, `net.js`, `actions.js`, `ui.js`, `views.js`, `main.js` (zamiast jednego pliku ok. 1600 linii).
+- Polityka prywatności po angielsku i po polsku.
+- Minimalna wersja Firefoksa: 142.
+
+### Dodano
+
+- **Ekran powitalny** po instalacji (osobna karta) i w panelu przy pierwszym uruchomieniu: jak zacząć, zasady bezpieczeństwa konta i akceptacja ryzyka przed pierwszym skanem; autor i kontakt.
+- **Zgłoś problem**: przycisk przy każdym błędzie i w ustawieniach – gotowe zgłoszenie na GitHubie (szablon z wersją, przeglądarką i treścią błędu, bez nazw kont) albo e-mail do autora. Szablony zgłoszeń w repozytorium.
+- **Wznawianie skanu**: postęp zapisuje się w trakcie (co ok. 20 s i przy przerwaniu); „Wznów skan” dokańcza pracę bez ponownego pobierania gotowej listy, „Zacznij od nowa” startuje od zera. Punkt wznowienia jest ważny 12 h.
+- **Szacowany pozostały czas** skanu na pasku postępu.
+- **Ustawienia → O wtyczce**: autor (Konrad Woźniak), e-mail, LinkedIn, apexsoftware.app, zgłaszanie problemów i ponowne otwarcie ekranu powitalnego.
+- Materiały do sklepów: opisy PL/EN, uzasadnienia uprawnień, deklaracje prywatności, zrzuty 1280×800 i grafiki promocyjne (`docs/webstore/`, `store/`).
 
 ## [1.1.2] – 2026-11-13
 

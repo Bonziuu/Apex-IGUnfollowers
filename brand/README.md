@@ -1,4 +1,4 @@
-# Logo Apex IG Unfollowers
+# Logo Apex Unfollowers
 
 Materiały marki – **nie trafiają do paczki rozszerzenia**. Generowane razem z ikonami: `npm run icons` (źródło: `tools/build-icons.mjs`).
 
@@ -6,6 +6,6 @@ Sam znak „Apex A” jak w [Apex AdBlocker](https://github.com/Bonziuu/Apex-AdB
 
 | Plik | Do czego |
 |---|---|
-| `apex-igunfollowers-logo.svg` | logo wektorowe – dowolny rozmiar, README, materiały |
-| `apex-igunfollowers-logo-512.png` | logo w wysokiej rozdzielczości, przezroczyste tło |
-| `apex-igunfollowers-store-icon-128.png` | ikona do sklepów: 96 px znaku + 16 px przezroczystego marginesu |
+| `apex-unfollowers-logo.svg` | logo wektorowe – dowolny rozmiar, README, materiały |
+| `apex-unfollowers-logo-512.png` | logo w wysokiej rozdzielczości, przezroczyste tło |
+| `apex-unfollowers-store-icon-128.png` | ikona do sklepów: 96 px znaku + 16 px przezroczystego marginesu |

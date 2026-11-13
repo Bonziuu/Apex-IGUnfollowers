@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Apex IG Unfollowers – ikony w stylu marki Apex: znak „Apex A”, różowy gradient (#f2559f → #cc1670) o tej samej
+// Apex Unfollowers – ikony w stylu marki Apex: znak „Apex A”, różowy gradient (#f2559f → #cc1670) o tej samej
 // głębi co morski gradient Apex AdBlocker (#22b8a8 → #0f7f8c). Sam znak, bez badge'a –
 // od Apex AdBlocker odróżnia go kolor.
 //
@@ -51,7 +51,7 @@ export async function buildIcons() {
     out.push(rel);
   };
   write('icons/logo.svg', logoSvg(128));
-  write('brand/apex-igunfollowers-logo.svg', logoSvg(1024));
+  write('brand/apex-unfollowers-logo.svg', logoSvg(1024));
 
   const browser = await chromium.launch();
   try {
@@ -64,8 +64,8 @@ export async function buildIcons() {
       out.push(rel);
     };
     for (const s of SIZES) await shot(`icons/icon${s}.png`, iconSvg(s), s);
-    await shot('brand/apex-igunfollowers-logo-512.png', logoSvg(512), 512);
-    await shot('brand/apex-igunfollowers-store-icon-128.png', logoSvg(128, { padding: 16 }), 128);
+    await shot('brand/apex-unfollowers-logo-512.png', logoSvg(512), 512);
+    await shot('brand/apex-unfollowers-store-icon-128.png', logoSvg(128, { padding: 16 }), 128);
   } finally {
     await browser.close();
   }
