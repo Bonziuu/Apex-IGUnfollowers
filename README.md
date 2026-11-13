@@ -144,7 +144,7 @@ npm run package:release            # dist/Apex-IGUnfollowers-<wersja>.zip + SHA2
 
 **Gdy Instagram zmieni API:** cała komunikacja z siecią jest w sekcji `// sieć` w `content/unfollowers.js`. `fetchListRest` to metoda główna (`/api/v1/friendships/{id}/followers|following/`), `fetchListGraphql` to metoda zapasowa (`query_hash`), `unfollowRequest` to odobserwowanie (`/api/v1/friendships/destroy/{id}/`, zapasowo `/web/friendships/{id}/unfollow/`), a `DEFAULT_APP_ID` to nagłówek `x-ig-app-id`. Aktualne zapytania podejrzysz w DevTools (F12), w zakładce **Network**, po otwarciu listy „Obserwujący” na instagram.com.
 
-Każdy push i pull request uruchamia testy w GitHub Actions. Tag `vX.Y.Z` zgodny z wersją w `manifest.json` publikuje wydanie z paczką ZIP i `SHA256SUMS.txt`.
+Każdy push i pull request uruchamia testy w GitHub Actions. **Nowe wydanie:** podbij `version` w `manifest.json`, dopisz sekcję w `CHANGELOG.md` i wypchnij na `main` – workflow „Wydanie” sam uruchomi testy i opublikuje paczkę ZIP z `SHA256SUMS.txt` (można też ręcznie: Actions → Wydanie → Run workflow).
 
 ## Wsparcie
 
