@@ -11,7 +11,8 @@ import { fileURLToPath } from 'node:url';
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const FILES = [
   'manifest.json', 'LICENSE', 'PRIVACY.md',
-  'content/unfollowers.js',
+  'shared/i18n.js', 'content/unfollowers.js',
+  '_locales/en/messages.json', '_locales/pl/messages.json',
   'popup/popup.html', 'popup/popup.css', 'popup/popup.js',
   'icons/icon16.png', 'icons/icon32.png', 'icons/icon48.png', 'icons/icon128.png',
 ];

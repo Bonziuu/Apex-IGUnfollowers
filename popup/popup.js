@@ -3,7 +3,12 @@ const ext = (typeof browser !== 'undefined' && browser.runtime) ? browser : chro
 
 (async () => {
   const $ = (id) => document.getElementById(id);
+  const settings = (await ext.storage.local.get('settings')).settings || {};
+  const L = globalThis.ApexIGU_i18n.make(settings.lang || 'auto');
+  const t = (k) => L.t(k);
+  document.documentElement.lang = L.lang;
   $('version').textContent = 'v' + ext.runtime.getManifest().version;
+  $('title').textContent = t('popup.opening');
 
   const [tab] = await ext.tabs.query({ active: true, currentWindow: true });
   const onInstagram = !!(tab && tab.url && /^https:\/\/www\.instagram\.com\//.test(tab.url));
@@ -19,14 +24,14 @@ const ext = (typeof browser !== 'undefined' && browser.runtime) ? browser : chro
 
   const btn = $('action');
   if (onInstagram) {
-    $('title').textContent = 'Odśwież stronę Instagrama';
-    $('text').textContent = 'Wtyczka załaduje się po odświeżeniu karty. Potem kliknij ikonę jeszcze raz.';
-    btn.textContent = 'Odśwież stronę';
+    $('title').textContent = t('popup.reloadTitle');
+    $('text').textContent = t('popup.reloadText');
+    btn.textContent = t('popup.reloadBtn');
     btn.onclick = async () => { await ext.tabs.reload(tab.id); window.close(); };
   } else {
-    $('title').textContent = 'Otwórz Instagram';
-    $('text').textContent = 'Wtyczka działa na instagram.com. Zaloguj się, a potem kliknij ikonę wtyczki albo przycisk Apex w prawym dolnym rogu strony.';
-    btn.textContent = 'Otwórz instagram.com';
+    $('title').textContent = t('popup.openTitle');
+    $('text').textContent = t('popup.openText');
+    btn.textContent = t('popup.openBtn');
     btn.onclick = async () => { await ext.tabs.create({ url: 'https://www.instagram.com/' }); window.close(); };
   }
   btn.hidden = false;

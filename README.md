@@ -19,11 +19,14 @@
   <a href="LICENSE"><img src="https://img.shields.io/badge/licencja-MIT-cc1670" alt="Licencja MIT"></a>
 </p>
 
-> **Status:** wersja testowa 1.0.0. Wtyczki nie ma w Chrome Web Store, instaluje się ją ręcznie z tego repozytorium. Zmiany: [CHANGELOG.md](CHANGELOG.md)
+> **Status:** wersja testowa 1.1.0. Wtyczki nie ma w Chrome Web Store, instaluje się ją ręcznie z tego repozytorium. Zmiany: [CHANGELOG.md](CHANGELOG.md)
 
 - 👥 Kto nie obserwuje Cię nawzajem
 - 📉 Kto przestał Cię obserwować od ostatniego skanu
+- 📊 Statystyki i wykres obserwujących
+- 🔎 Filtry, sortowanie, biała lista, CSV
 - 🔒 Bez konta, serwera i telemetrii Apex
+- 🌍 Interfejs PL / EN
 - 🧩 Manifest V3
 - 🐢 Bezpieczne tempo zapytań
 - 💻 Chrome 121+, Edge, Brave, Opera, Firefox 128+
@@ -31,17 +34,21 @@
 - 🇵🇱 Rozwijany w Polsce
 
 <p align="center">
-  <img src="docs/screens/panel.png" alt="Panel Apex IG Unfollowers: 39 osób nie obserwuje Cię nawzajem" width="270">
+  <img src="docs/screens/panel.png" alt="Panel Apex IG Unfollowers: 39 osób nie obserwuje Cię nawzajem, filtry i przyciski Ukryj / Odobserwuj" width="270">
+  <img src="docs/screens/stats.png" alt="Statystyki: liczniki, bilans 7 i 30 dni, wykres obserwujących w czasie" width="270">
   <img src="docs/screens/changes.png" alt="Zakładka Zmiany: kto odszedł i kto doszedł od poprzedniego skanu" width="270">
-  <img src="docs/screens/panel-dark.png" alt="Panel w ciemnym motywie" width="270">
 </p>
-<p align="center"><sub>Prawdziwy interfejs wersji 1.0.0 na symulowanym Instagramie z testów (<code>npm test</code>). Konta na zrzutach są fikcyjne.</sub></p>
+<p align="center">
+  <img src="docs/screens/settings.png" alt="Ustawienia: język, limit odobserwowań, kopia zapasowa" width="270">
+  <img src="docs/screens/stats-dark.png" alt="Statystyki w ciemnym motywie" width="270">
+</p>
+<p align="center"><sub>Prawdziwy interfejs wersji 1.1.0 na symulowanym Instagramie z testów (<code>npm test</code>). Konta na zrzutach są fikcyjne.</sub></p>
 
 ## Dlaczego Apex IG Unfollowers
 
 - **Bez podawania hasła.** Wtyczka korzysta z sesji, w której już jesteś zalogowany na instagram.com. Nie ma zewnętrznego serwisu, który prosi o login i hasło.
 - **Twoje dane zostają u Ciebie.** Listy obserwujących zapisują się wyłącznie w profilu przeglądarki. Nic nie jest wysyłane do autora ani do nikogo innego.
-- **Tylko odczyt.** Wtyczka nie odobserwowuje, nie lajkuje i nie wykonuje żadnych akcji na koncie. Decyzje podejmujesz sam, klikając w profil.
+- **Bez automatów.** Skan tylko czyta listy. Jedyna akcja na koncie to ręczne „Odobserwuj” przy pojedynczej osobie: z potwierdzeniem, przerwą między kliknięciami i limitem dziennym. Nie ma masowego odobserwowywania ani lajkowania.
 - **Ostrożna wobec konta.** Zapytania idą wolno, z losowymi przerwami. Gdy Instagram prosi o zwolnienie, wtyczka czeka zamiast próbować dalej.
 
 ## Funkcje
@@ -52,17 +59,21 @@
 | **Ty nie obserwujesz** | Konta, które Cię obserwują, a których Ty nie obserwujesz. |
 | **Wzajemni** | Konta, które obserwujecie nawzajem. |
 | **Zmiany** | Kto przestał Cię obserwować i kto doszedł. Historia zapisuje się od drugiego skanu. |
+| **Odobserwuj** | Przycisk przy każdym koncie, które obserwujesz. Wymaga potwierdzenia, ma 15 s przerwy między akcjami i dzienny limit (domyślnie 30 w ciągu 24 h, do zmiany w ustawieniach). |
 | **Biała lista** | „Ukryj” chowa konta, od których nie oczekujesz obserwacji, np. celebrytów i marki. |
+| **Filtry i sortowanie** | Zweryfikowane, prywatne, publiczne, bez zdjęcia profilowego; od najnowszych albo alfabetycznie. |
+| **Statystyki** | Liczniki ze zmianą od poprzedniego skanu, bilans 7 i 30 dni, wykres obserwujących w czasie i tabela historii skanów. |
 | **Wyszukiwarka i CSV** | Filtrowanie po nazwie i eksport widocznej listy do pliku CSV (Excel, Google Sheets). |
+| **Kopia zapasowa** | Zapis i wczytanie wyników, historii, białej listy i ustawień w pliku JSON, np. przy zmianie komputera. |
 | **Tempo** | „Bezpieczne” (domyślne) albo „szybsze” dla małych kont. Skan można zatrzymać w każdej chwili. |
-| **Jasny i ciemny motyw** | Panel dopasowuje się do motywu systemu. |
+| **PL / EN, jasny i ciemny motyw** | Język wg przeglądarki albo wybrany w ustawieniach; motyw wg systemu. |
 
 ## Prywatność
 
 - **Bez konta** – nie ma rejestracji ani logowania do Apex.
 - **Bez telemetrii Apex** – wtyczka nie wysyła autorowi żadnych danych ani statystyk.
-- **Bez backendu Apex** – wyniki skanów, biała lista i ustawienia zostają w `chrome.storage.local`. Usuniesz je przyciskiem „Wyczyść dane” w panelu albo usuwając wtyczkę.
-- **Jedyny adresat zapytań to instagram.com** – te same zapytania wysyła strona Instagrama, gdy otwierasz listę obserwujących.
+- **Bez backendu Apex** – wyniki skanów, historia, biała lista, licznik odobserwowań i ustawienia zostają w `chrome.storage.local`. Usuniesz je w ustawieniach panelu („Wyczyść dane”) albo usuwając wtyczkę.
+- **Jedyny adresat zapytań to instagram.com** – te same zapytania wysyła strona Instagrama, gdy otwierasz listę obserwujących albo klikasz „Przestań obserwować”.
 
 Uprawnienia: `storage`, `unlimitedStorage` (duże listy obserwujących) i dostęp wyłącznie do `https://www.instagram.com/*`. Szczegóły: [polityka prywatności](PRIVACY.md).
 
@@ -72,9 +83,10 @@ Wtyczka korzysta z wewnętrznego API strony instagram.com, tego samego, którego
 
 - losowe przerwy między stronami wyników i dłuższa pauza co kilka stron,
 - automatyczne czekanie (60, 120, 180 s), gdy Instagram zwróci „zwolnij” (HTTP 429), a po trzech próbach przerwanie skanu,
-- brak jakichkolwiek akcji zapisu: wtyczka nie odobserwowuje ani nie obserwuje kont.
+- odobserwowanie wyłącznie ręczne, pojedynczo i z potwierdzeniem: 15 s przerwy między akcjami, limit dzienny (10–100, domyślnie 30),
+- gdy Instagram zablokuje akcję („feedback_required”), wtyczka sama wstrzymuje odobserwowywanie na 6 godzin, a po HTTP 429 na godzinę.
 
-Zalecenie: skanuj najwyżej raz dziennie. Przy kontach powyżej 10 tys. obserwujących zostaw tempo „bezpieczne”. Orientacyjny czas skanu w tempie „bezpiecznym” to około minuty na 1000 kont (obserwujący i obserwowani łącznie).
+Zalecenie: skanuj najwyżej raz dziennie i nie odobserwowuj dziesiątek kont naraz, zwłaszcza na nowym koncie. Przy kontach powyżej 10 tys. obserwujących zostaw tempo „bezpieczne”. Orientacyjny czas skanu w tempie „bezpiecznym” to około minuty na 1000 kont (obserwujący i obserwowani łącznie).
 
 <a id="instalacja"></a>
 
@@ -101,10 +113,11 @@ Nie usuwaj ani nie przenoś folderu po instalacji, bo przeglądarka korzysta z n
 1. Otwórz [instagram.com](https://www.instagram.com) i zaloguj się.
 2. Kliknij różowy przycisk w prawym dolnym rogu strony albo ikonę wtyczki na pasku przeglądarki.
 3. Kliknij **Skanuj**. Panel możesz zamknąć w trakcie skanu, ale nie zamykaj karty.
+4. Ikona wykresu w nagłówku panelu otwiera **statystyki**, a koło zębate **ustawienia** (język, limit odobserwowań, kopia zapasowa).
 
 ## Aktualizacja
 
-Pobierz nową wersję, zastąp pliki w tym samym folderze i kliknij **Odśwież** przy Apex IG Unfollowers w `chrome://extensions`. Wyniki skanów i biała lista zostają w profilu przeglądarki.
+Pobierz nową wersję, zastąp pliki w tym samym folderze i kliknij **Odśwież** przy Apex IG Unfollowers w `chrome://extensions`. Wyniki skanów, historia i biała lista zostają w profilu przeglądarki. Przy przenosinach na inny komputer użyj kopii zapasowej z ustawień panelu.
 
 ## Dla programistów
 
@@ -118,12 +131,14 @@ npm run package:release            # dist/Apex-IGUnfollowers-<wersja>.zip + SHA2
 | Plik | Rola |
 |---|---|
 | `manifest.json` | konfiguracja wtyczki (Manifest V3) |
-| `content/unfollowers.js` | pobieranie list, porównanie, historia zmian, panel (Shadow DOM) |
+| `content/unfollowers.js` | pobieranie list, porównanie, historia, statystyki, odobserwowanie, kopia zapasowa, panel (Shadow DOM) |
+| `shared/i18n.js` | teksty interfejsu PL / EN (panel i okienko) |
+| `_locales/` | nazwa i opis wtyczki w sklepie / `chrome://extensions` |
 | `popup/` | okienko na pasku: otwiera i zamyka panel |
 | `icons/`, `brand/` | ikony i logo (generowane przez `npm run icons`) |
-| `tests/panel.test.mjs` | test end-to-end: skan, listy, biała lista, zmiany, CSV, HTTP 429 |
+| `tests/panel.test.mjs` | testy end-to-end: skan, filtry, statystyki, odobserwowanie (limit, przerwa, blokada), PL/EN, kopia zapasowa, HTTP 429 |
 
-**Gdy Instagram zmieni API:** cała komunikacja z siecią jest w sekcji `// sieć` w `content/unfollowers.js`. `fetchListRest` to metoda główna (`/api/v1/friendships/{id}/followers|following/`), `fetchListGraphql` to metoda zapasowa (`query_hash`), a `DEFAULT_APP_ID` to nagłówek `x-ig-app-id`. Aktualne zapytania podejrzysz w DevTools (F12), w zakładce **Network**, po otwarciu listy „Obserwujący” na instagram.com.
+**Gdy Instagram zmieni API:** cała komunikacja z siecią jest w sekcji `// sieć` w `content/unfollowers.js`. `fetchListRest` to metoda główna (`/api/v1/friendships/{id}/followers|following/`), `fetchListGraphql` to metoda zapasowa (`query_hash`), `unfollowRequest` to odobserwowanie (`/api/v1/friendships/destroy/{id}/`, zapasowo `/web/friendships/{id}/unfollow/`), a `DEFAULT_APP_ID` to nagłówek `x-ig-app-id`. Aktualne zapytania podejrzysz w DevTools (F12), w zakładce **Network**, po otwarciu listy „Obserwujący” na instagram.com.
 
 Każdy push i pull request uruchamia testy w GitHub Actions. Tag `vX.Y.Z` zgodny z wersją w `manifest.json` publikuje wydanie z paczką ZIP i `SHA256SUMS.txt`.
 
@@ -146,11 +161,14 @@ MIT, © 2026 Konrad Woźniak ([LICENSE](LICENSE)). Apex IG Unfollowers jest proj
   <b>A free, open-source browser extension that shows who doesn't follow you back on Instagram.<br>Runs locally in your browser: no account, no server, no Apex telemetry.</b>
 </p>
 
-> **Status:** preview release 1.0.0. Not on the Chrome Web Store; install it manually from this repository.
+> **Status:** preview release 1.1.0. Not on the Chrome Web Store; install it manually from this repository.
 
 - 👥 See who doesn't follow you back
 - 📉 See who unfollowed you since the last scan
+- 📊 Stats and a follower chart
+- 🔎 Filters, sorting, whitelist, CSV export, JSON backup
 - 🔒 No account, no server, no Apex telemetry
+- 🌍 English and Polish interface
 - 🧩 Manifest V3
 - 🐢 Rate-limit-friendly scanning
 - 💻 Chrome 121+, Edge, Brave, Opera, Firefox 128+
@@ -158,15 +176,15 @@ MIT, © 2026 Konrad Woźniak ([LICENSE](LICENSE)). Apex IG Unfollowers jest proj
 
 ### How it works
 
-The extension uses the session you are already logged into on instagram.com and reads your followers and following lists through the same internal endpoints the Instagram website uses. It never asks for your password and never follows, unfollows or likes anything. Results, your whitelist and settings are stored only in `chrome.storage.local`. The interface is currently in Polish.
+The extension uses the session you are already logged into on instagram.com and reads your followers and following lists through the same internal endpoints the Instagram website uses. It never asks for your password. The only action it can take on your account is a manual **Unfollow** next to a single person, with a confirmation step, a 15-second break between unfollows and a daily limit (30 per 24 h by default). There is no bulk unfollowing. Results, history, your whitelist and settings are stored only in `chrome.storage.local`. The interface follows your browser language (English or Polish) or the language chosen in Settings.
 
-Instagram's terms prohibit automated data collection, so **use it at your own risk**. Requests are paced with random delays, and the extension backs off automatically when Instagram responds with HTTP 429. Scanning at most once a day is recommended.
+Instagram's terms prohibit automated data collection, so **use it at your own risk**. Requests are paced with random delays, the extension backs off automatically when Instagram responds with HTTP 429, and it pauses unfollowing for 6 hours if Instagram blocks an action. Scanning at most once a day is recommended.
 
 ### Installation (Chrome, Edge, Brave, Opera)
 
 1. Download this repository as ZIP (**Code**, then **Download ZIP**) and unpack it to a permanent folder.
 2. Open `chrome://extensions`, enable **Developer mode**, click **Load unpacked** and select the folder with `manifest.json`.
-3. Open instagram.com, log in, click the pink button in the bottom-right corner and press **Skanuj** (Scan).
+3. Open instagram.com, log in, click the pink button in the bottom-right corner and press **Scan**.
 
 On Firefox, load it temporarily from `about:debugging` or get it signed for free on [addons.mozilla.org](https://addons.mozilla.org/developers/).
 

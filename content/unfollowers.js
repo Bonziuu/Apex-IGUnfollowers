@@ -1,9 +1,12 @@
 /*
  * Apex IG Unfollowers – content script (Chrome / Edge / Brave / Opera / Firefox, Manifest V3)
  *
- * Działa wyłącznie na www.instagram.com, korzysta z Twojej zalogowanej sesji
- * i tylko CZYTA listy obserwujących / obserwowanych. Niczego nie odobserwowuje
- * i nigdzie nie wysyła danych – wszystko zostaje w chrome.storage.local.
+ * Działa wyłącznie na www.instagram.com i korzysta z Twojej zalogowanej sesji.
+ * Skan tylko CZYTA listy obserwujących / obserwowanych. Jedyna akcja na koncie to
+ * ręczne „Odobserwuj” przy pojedynczym koncie: z potwierdzeniem, odstępem i limitem dziennym.
+ * Nic nie jest wysyłane poza instagram.com – dane zostają w chrome.storage.local.
+ *
+ * Teksty interfejsu: shared/i18n.js (PL / EN), ładowany wcześniej jako content script.
  */
 (() => {
   'use strict';
@@ -18,17 +21,35 @@
     ? content.fetch.bind(content)
     : window.fetch.bind(window);
 
+  const I18N = globalThis.ApexIGU_i18n;
+  let L = I18N.make('auto');
+  const t = (key, vars) => L.t(key, vars);
+
   // ---------------------------------------------------------------- stałe
   const BASE = 'https://www.instagram.com';
+  const REPO = 'https://github.com/Bonziuu/Apex-IGUnfollowers';
   const DEFAULT_APP_ID = '936619743392459'; // publiczny identyfikator aplikacji webowej Instagrama
   const PAGE_SIZE = 50;
   const RENDER_STEP = 150;
   const MAX_LOG = 100;
+  const MAX_HIST = 400;
+  const MAX_UNF_LOG = 500;
+  const DAY = 24 * 3600 * 1000;
   const SPEEDS = {
     // [min, max] w milisekundach
     safe:   { page: [1500, 3000], every: 8,  long: [10000, 18000], between: [5000, 9000] },
     normal: { page: [700, 1500],  every: 12, long: [5000, 9000],   between: [3000, 5000] },
   };
+  const UNF = {
+    cooldownMs: 15000,                 // minimalny odstęp między odobserwowaniami
+    limits: [10, 20, 30, 50, 100],     // dozwolone limity na 24 h
+    defaultLimit: 30,
+    blockFeedbackMs: 6 * 3600 * 1000,  // Instagram zablokował akcję („feedback_required”)
+    blockSlowMs: 3600 * 1000,          // Instagram prosi o zwolnienie (HTTP 429)
+  };
+  // domyślne (anonimowe) zdjęcie profilowe Instagrama
+  const DEFAULT_PIC_RE = /44884218_345707102882519_2446069589734326272_n/;
+  const BACKUP_KEY_RE = /^(settings|lastUserId|(scan|log|wl|hist|unf|unfBlock):\d+)$/;
 
   // ---------------------------------------------------------------- pomocnicze
   const rand = (a, b) => Math.round(a + Math.random() * (b - a));
@@ -37,14 +58,18 @@
     const m = document.cookie.match(new RegExp('(?:^|;\\s*)' + name + '=([^;]*)'));
     return m ? decodeURIComponent(m[1]) : null;
   };
-  const fmtDate = (ts) =>
-    new Date(ts).toLocaleString('pl-PL', { dateStyle: 'medium', timeStyle: 'short' });
+  const fmtDate = (ts) => new Date(ts).toLocaleString(L.locale, { dateStyle: 'medium', timeStyle: 'short' });
+  const fmtDay = (ts) => new Date(ts).toLocaleDateString(L.locale, { day: 'numeric', month: 'short' });
+  const fmtTime = (ts) => new Date(ts).toLocaleTimeString(L.locale, { hour: '2-digit', minute: '2-digit' });
+  const fmtNum = (n) => Number(n).toLocaleString(L.locale);
+  const signed = (n) => (n > 0 ? '+' : n < 0 ? '−' : '±') + fmtNum(Math.abs(n));
   const el = (tag, cls, text) => {
     const n = document.createElement(tag);
     if (cls) n.className = cls;
     if (text != null) n.textContent = text;
     return n;
   };
+  const isNoPic = (u) => (u.noPic != null ? u.noPic : DEFAULT_PIC_RE.test(u.pic || ''));
 
   const store = {
     async get(key, def) {
@@ -56,7 +81,9 @@
         return def;
       }
     },
+    all: () => ext.storage.local.get(null),
     set: (key, val) => ext.storage.local.set({ [key]: val }),
+    setMany: (obj) => ext.storage.local.set(obj),
     remove: (keys) => ext.storage.local.remove(keys),
   };
 
@@ -75,13 +102,15 @@
   }
 
   function normUser(u) {
+    const pic = u.profile_pic_url || '';
     return {
       id: String(u.pk ?? u.pk_id ?? u.id),
       username: u.username || '',
       name: u.full_name || '',
-      pic: u.profile_pic_url || '',
+      pic,
       verified: !!u.is_verified,
       priv: !!u.is_private,
+      noPic: !!u.has_anonymous_profile_picture || DEFAULT_PIC_RE.test(pic),
     };
   }
 
@@ -96,16 +125,16 @@
       async wait(ms) {
         const end = Date.now() + ms;
         while (Date.now() < end) {
-          if (ctx.aborted) throw new ScanError('Skan przerwany.', 'abort');
+          if (ctx.aborted) throw new ScanError(t('err.abort'), 'abort');
           await sleep(Math.min(250, end - Date.now()));
         }
-        if (ctx.aborted) throw new ScanError('Skan przerwany.', 'abort');
+        if (ctx.aborted) throw new ScanError(t('err.abort'), 'abort');
       },
       async pace(page) {
         const s = ctx.speed;
         if (page % s.every === 0) {
           const ms = rand(...s.long);
-          ctx.onNote?.(`Krótka przerwa (${Math.round(ms / 1000)} s), żeby nie przeciążać Instagrama…`);
+          ctx.onNote?.(t('note.pause', { s: Math.round(ms / 1000) }));
           await ctx.wait(ms);
           ctx.onNote?.(null);
         } else {
@@ -116,27 +145,25 @@
     return ctx;
   }
 
+  const igHeaders = (appId) => ({
+    'accept': 'application/json',
+    'x-ig-app-id': appId,
+    'x-requested-with': 'XMLHttpRequest',
+    'x-csrftoken': getCookie('csrftoken') || '',
+  });
+
   async function igGet(path, ctx, attempts = 4) {
     const url = BASE + path;
     for (let attempt = 1; attempt <= attempts; attempt++) {
-      if (ctx.aborted) throw new ScanError('Skan przerwany.', 'abort');
+      if (ctx.aborted) throw new ScanError(t('err.abort'), 'abort');
       const last = attempt === attempts;
 
       let res;
       try {
-        res = await pageFetch(url, {
-          method: 'GET',
-          credentials: 'include',
-          headers: {
-            'accept': 'application/json',
-            'x-ig-app-id': ctx.appId,
-            'x-requested-with': 'XMLHttpRequest',
-            'x-csrftoken': getCookie('csrftoken') || '',
-          },
-        });
+        res = await pageFetch(url, { method: 'GET', credentials: 'include', headers: igHeaders(ctx.appId) });
       } catch (e) {
-        if (last) throw new ScanError('Brak połączenia z Instagramem.', 'http');
-        ctx.onNote?.(`Problem z połączeniem, ponawiam (${attempt}/${attempts})…`);
+        if (last) throw new ScanError(t('err.network'), 'http');
+        ctx.onNote?.(t('note.retryNet', { a: attempt, n: attempts }));
         await ctx.wait(5000 * attempt);
         continue;
       }
@@ -148,10 +175,10 @@
       if (res.ok && data && data.status !== 'fail') return data;
 
       if (data && (data.checkpoint_url || /checkpoint/i.test(msg))) {
-        throw new ScanError('Instagram chce potwierdzić, że to Ty. Otwórz instagram.com, przejdź weryfikację i spróbuj później.', 'auth', res.status);
+        throw new ScanError(t('err.checkpoint'), 'auth', res.status);
       }
       if (data && (data.require_login || /login_required/i.test(msg))) {
-        throw new ScanError('Instagram wymaga ponownego zalogowania. Zaloguj się i spróbuj jeszcze raz.', 'auth', res.status);
+        throw new ScanError(t('err.login'), 'auth', res.status);
       }
 
       const limited = res.status === 429 || (data && data.spam) ||
@@ -159,19 +186,17 @@
       if (limited || res.status >= 500) {
         if (last) break;
         const sec = 60 * attempt;
-        ctx.onNote?.(`Instagram prosi o zwolnienie (HTTP ${res.status}). Czekam ${sec} s i próbuję dalej…`);
+        ctx.onNote?.(t('note.slowDown', { status: res.status, s: sec }));
         await ctx.wait(sec * 1000);
         ctx.onNote?.(null);
         continue;
       }
 
-      if (res.status === 401 || res.status === 403) {
-        throw new ScanError('Brak dostępu – upewnij się, że jesteś zalogowany na instagram.com, i odśwież stronę.', 'auth', res.status);
-      }
-      if (!data) throw new ScanError(`Instagram zwrócił nieoczekiwaną odpowiedź (HTTP ${res.status}).`, 'parse', res.status);
-      throw new ScanError(`Błąd Instagrama (HTTP ${res.status})${msg ? ': ' + msg : ''}`, 'http', res.status);
+      if (res.status === 401 || res.status === 403) throw new ScanError(t('err.noAccess'), 'auth', res.status);
+      if (!data) throw new ScanError(t('err.unexpected', { status: res.status }), 'parse', res.status);
+      throw new ScanError(t('err.ig', { status: res.status, msg: msg ? ': ' + msg : '' }), 'http', res.status);
     }
-    throw new ScanError('Instagram wciąż ogranicza zapytania. Odczekaj 15–30 minut i spróbuj ponownie w tempie „bezpiecznym”.', 'ratelimit');
+    throw new ScanError(t('err.ratelimit'), 'ratelimit');
   }
 
   // Metoda główna: REST API używane przez stronę www (lista "Obserwujący"/"Obserwowani").
@@ -222,7 +247,7 @@
       if (after) vars.after = after;
       const data = await igGet(`/graphql/query/?query_hash=${hash}&variables=${encodeURIComponent(JSON.stringify(vars))}`, ctx);
       const conn = data && data.data && data.data.user && data.data.user[edge];
-      if (!conn) throw new ScanError('Instagram zmienił format danych – wtyczka wymaga aktualizacji.', 'parse');
+      if (!conn) throw new ScanError(t('err.format'), 'parse');
       for (const e of conn.edges || []) {
         const u = normUser(e.node);
         if (!seen.has(u.id)) { seen.add(u.id); users.push(u); }
@@ -243,7 +268,7 @@
     } catch (e) {
       if (e.page === 0 && (e.kind === 'http' || e.kind === 'parse')) {
         console.warn('[Apex IG Unfollowers] REST nie zadziałał, próbuję GraphQL', e);
-        ctx.onNote?.('Główna metoda nie zadziałała, próbuję zapasowej…');
+        ctx.onNote?.(t('note.fallback'));
         await ctx.wait(rand(2000, 4000));
         ctx.onNote?.(null);
         return await fetchListGraphql(kind, userId, ctx, onCount);
@@ -270,9 +295,7 @@
       const m = document.documentElement.innerHTML.match(/"viewerId":"(\d+)"/);
       if (m) id = m[1];
     }
-    if (!id) {
-      throw new ScanError('Nie wykryto zalogowanego konta. Zaloguj się na instagram.com i odśwież stronę.', 'auth');
-    }
+    if (!id) throw new ScanError(t('err.noAccount'), 'auth');
     // Liczniki z profilu – tylko do paska postępu, więc błędy ignorujemy.
     let counts = null;
     try {
@@ -287,31 +310,105 @@
     return { id: String(id), username, counts };
   }
 
+  // Odobserwowanie: jedno zapytanie POST, bez ponawiania.
+  async function igPost(path, params) {
+    const res = await pageFetch(BASE + path, {
+      method: 'POST',
+      credentials: 'include',
+      headers: { ...igHeaders(detectAppId()), 'content-type': 'application/x-www-form-urlencoded' },
+      body: new URLSearchParams(params).toString(),
+    });
+    let data = null;
+    try { data = await res.json(); } catch { data = null; }
+    return { res, data };
+  }
+
+  function classifyAction({ res, data }) {
+    const msg = data ? String(data.message || data.feedback_message || data.feedback_title || '') : '';
+    if (res.ok && data && data.status === 'ok') return { ok: true };
+    if (data && (data.checkpoint_url || /checkpoint/i.test(msg))) return { ok: false, kind: 'checkpoint' };
+    if (data && (data.require_login || /login_required/i.test(msg))) return { ok: false, kind: 'auth' };
+    if ((data && (data.spam || data.feedback_required)) || /feedback_required|spam|block/i.test(msg)) return { ok: false, kind: 'blocked' };
+    if (res.status === 429 || /wait|try again|rate.?limit/i.test(msg)) return { ok: false, kind: 'slow' };
+    return { ok: false, kind: 'http', status: res.status };
+  }
+
+  async function unfollowRequest(id) {
+    try {
+      let r = await igPost(`/api/v1/friendships/destroy/${id}/`, { user_id: id, container_module: 'profile' });
+      let c = classifyAction(r);
+      if (!c.ok && c.kind === 'http' && (r.res.status === 404 || r.res.status === 400)) {
+        // zapasowo: starszy adres strony www
+        r = await igPost(`/web/friendships/${id}/unfollow/`, {});
+        c = classifyAction(r);
+      }
+      return c;
+    } catch {
+      return { ok: false, kind: 'network' };
+    }
+  }
+
   // ---------------------------------------------------------------- stan
   const state = {
     userId: null,
     scan: null,          // { ts, userId, username, followers: [user], following: [user] }
     log: [],             // [{ ts, since, lost: [user], gained: [user] }]
+    hist: [],            // [{ ts, followers, following, mutual }]
+    unfLog: [],          // [{ ts, id, username }] – odobserwowania z wtyczki
+    unfBlock: 0,         // do kiedy wstrzymać odobserwowywanie (blokada akcji Instagrama)
     whitelist: new Set(),
-    settings: { speed: 'safe', hideLauncher: false },
+    settings: { speed: 'safe', hideLauncher: false, lang: 'auto', unfLimit: UNF.defaultLimit },
+    view: 'lists',       // lists | stats | settings
     tab: 'notBack',
     query: '',
+    filter: 'all',       // all | verified | private | public | nopic
+    sort: 'default',     // default | az | za
     showHidden: false,
     limit: RENDER_STEP,
     scanning: false,
     ctx: null,
     loaded: false,
+    confirmId: null,
+    confirmTimer: null,
+    busyId: null,
+  };
+
+  const countsOf = (scan) => {
+    const fr = new Set(scan.followers.map((u) => u.id));
+    return {
+      followers: scan.followers.length,
+      following: scan.following.length,
+      mutual: scan.following.filter((u) => fr.has(u.id)).length,
+    };
   };
 
   async function loadAccount(userId) {
     state.userId = userId;
     state.scan = null;
     state.log = [];
+    state.hist = [];
+    state.unfLog = [];
+    state.unfBlock = 0;
     state.whitelist = new Set();
     if (!userId) return;
     state.scan = await store.get('scan:' + userId, null);
     state.log = await store.get('log:' + userId, []);
+    state.hist = await store.get('hist:' + userId, []);
+    state.unfLog = await store.get('unf:' + userId, []);
+    state.unfBlock = await store.get('unfBlock:' + userId, 0);
     state.whitelist = new Set(await store.get('wl:' + userId, []));
+    // skany z wersji 1.0.0 nie miały historii liczników – zaczynamy ją od ostatniego skanu
+    if (!state.hist.length && state.scan) {
+      state.hist = [{ ts: state.scan.ts, ...countsOf(state.scan) }];
+      await store.set('hist:' + userId, state.hist);
+    }
+  }
+
+  async function loadSettings() {
+    const saved = await store.get('settings', {});
+    state.settings = { ...state.settings, ...saved };
+    if (!UNF.limits.includes(state.settings.unfLimit)) state.settings.unfLimit = UNF.defaultLimit;
+    L = I18N.make(state.settings.lang);
   }
 
   async function ensureLoaded() {
@@ -332,16 +429,18 @@
     };
   }
 
+  const unfUsed = () => state.unfLog.filter((e) => e.ts > Date.now() - DAY).length;
+
   // ---------------------------------------------------------------- skan
   async function startScan() {
     if (state.scanning) return;
     state.scanning = true;
     const ctx = makeCtx(state.settings.speed);
-    ctx.onNote = (t) => ui.note(t);
+    ctx.onNote = (text) => ui.note(text);
     state.ctx = ctx;
     ui.setScanning(true);
     ui.message(null);
-    ui.progress(null, 'Sprawdzam konto…');
+    ui.progress(null, t('scan.checking'));
     render();
 
     try {
@@ -352,18 +451,19 @@
       const totFg = acc.counts ? acc.counts.following : 0;
       const total = totFr + totFg;
       const frac = (n) => (total ? Math.min(1, n / total) : null);
+      const of = (n, tot) => fmtNum(n) + (tot ? ' / ' + fmtNum(tot) : '');
 
       let frCount = 0;
       const followers = await fetchList('followers', acc.id, ctx, (n) => {
         frCount = n;
-        ui.progress(frac(n), `Obserwujący: ${n}${totFr ? ' / ' + totFr : ''}`);
+        ui.progress(frac(n), t('scan.followers', { n: of(n, totFr) }));
       });
 
-      ui.progress(frac(frCount), `Obserwujący: ${frCount} ✓ · za chwilę obserwowani…`);
+      ui.progress(frac(frCount), t('scan.followersDone', { n: fmtNum(frCount) }));
       await ctx.wait(rand(...ctx.speed.between));
 
       const following = await fetchList('following', acc.id, ctx, (n) => {
-        ui.progress(frac(frCount + n), `Obserwujący: ${frCount} ✓ · Obserwowani: ${n}${totFg ? ' / ' + totFg : ''}`);
+        ui.progress(frac(frCount + n), t('scan.following', { f: fmtNum(frCount), n: of(n, totFg) }));
       });
 
       const prev = state.scan && state.scan.userId === acc.id ? state.scan : null;
@@ -384,25 +484,27 @@
         if (lost.length || gained.length) {
           change = { ts: scan.ts, since: prev.ts, lost, gained };
           state.log = [change, ...state.log].slice(0, MAX_LOG);
-          await store.set('log:' + acc.id, state.log);
         }
       }
 
       state.scan = scan;
-      await store.set('scan:' + acc.id, scan);
-      await store.set('lastUserId', acc.id);
+      state.hist = [...state.hist, { ts: scan.ts, ...countsOf(scan) }].slice(-MAX_HIST);
+      await store.setMany({
+        ['scan:' + acc.id]: scan,
+        ['log:' + acc.id]: state.log,
+        ['hist:' + acc.id]: state.hist,
+        lastUserId: acc.id,
+      });
 
-      ui.progress(1, 'Gotowe');
-      let msg = `Gotowe! ${followers.length} obserwujących, ${following.length} obserwowanych.`;
-      if (!prev) msg += ' To pierwszy skan – przy kolejnych zobaczysz, kto przestał Cię obserwować.';
-      else if (change) msg += ` Od poprzedniego skanu: −${change.lost.length} / +${change.gained.length} obserwujących (zakładka „Zmiany”).`;
-      else msg += ' Brak zmian od poprzedniego skanu.';
-      if (totFr && followers.length < totFr * 0.95) {
-        msg += ' Pobrano trochę mniej kont niż pokazuje licznik profilu – to normalne (konta zawieszone/dezaktywowane się nie liczą).';
-      }
+      ui.progress(1, t('scan.done'));
+      let msg = t('scan.result', { fr: fmtNum(followers.length), fg: fmtNum(following.length) });
+      if (!prev) msg += ' ' + t('scan.first');
+      else if (change) msg += ' ' + t('scan.changes', { lost: change.lost.length, gained: change.gained.length });
+      else msg += ' ' + t('scan.noChanges');
+      if (totFr && followers.length < totFr * 0.95) msg += ' ' + t('scan.fewer');
       ui.message(msg, 'ok');
     } catch (e) {
-      if (e.kind === 'abort') ui.message('Skan przerwany. Poprzednie wyniki zostały bez zmian.', 'warn');
+      if (e.kind === 'abort') ui.message(t('scan.aborted'), 'warn');
       else ui.message(e.message || String(e), 'error');
       console.warn('[Apex IG Unfollowers]', e);
     } finally {
@@ -419,10 +521,128 @@
     if (state.ctx) state.ctx.aborted = true;
   }
 
-  // ---------------------------------------------------------------- UI
+  // ---------------------------------------------------------------- odobserwowanie
+  async function unfollow(u) {
+    if (state.busyId) return;
+    const now = Date.now();
+    const limit = state.settings.unfLimit;
+    const used = unfUsed();
+    const cookieId = getCookie('ds_user_id');
+
+    let problem = null;
+    if (state.scanning) problem = [t('unf.duringScan'), 'warn'];
+    else if (cookieId && cookieId !== state.userId) problem = [t('unf.otherAccount'), 'warn'];
+    else if (state.unfBlock && now < state.unfBlock) problem = [t('unf.blockedUntil', { time: fmtTime(state.unfBlock) }), 'error'];
+    else if (used >= limit) problem = [t('unf.limit', { used, limit }), 'warn'];
+    else if (state.unfLog[0] && now - state.unfLog[0].ts < UNF.cooldownMs) {
+      problem = [t('unf.cooldown', { s: Math.ceil((UNF.cooldownMs - (now - state.unfLog[0].ts)) / 1000) }), 'warn'];
+    }
+    if (problem) {
+      state.confirmId = null;
+      ui.message(...problem);
+      render();
+      return;
+    }
+
+    // pierwsze kliknięcie = prośba o potwierdzenie
+    if (state.confirmId !== u.id) {
+      state.confirmId = u.id;
+      clearTimeout(state.confirmTimer);
+      state.confirmTimer = setTimeout(() => { state.confirmId = null; render(); }, 4000);
+      render();
+      return;
+    }
+
+    clearTimeout(state.confirmTimer);
+    state.confirmId = null;
+    state.busyId = u.id;
+    render();
+    const r = await unfollowRequest(u.id);
+    state.busyId = null;
+
+    if (r.ok) {
+      state.unfLog = [{ ts: Date.now(), id: u.id, username: u.username }, ...state.unfLog].slice(0, MAX_UNF_LOG);
+      state.scan.following = state.scan.following.filter((x) => x.id !== u.id);
+      await store.setMany({ ['unf:' + state.userId]: state.unfLog, ['scan:' + state.userId]: state.scan });
+      ui.message(t('unf.done', { user: u.username, used: used + 1, limit }), 'ok');
+    } else {
+      const block = r.kind === 'blocked' ? UNF.blockFeedbackMs : r.kind === 'slow' ? UNF.blockSlowMs : 0;
+      if (block) {
+        state.unfBlock = Date.now() + block;
+        await store.set('unfBlock:' + state.userId, state.unfBlock);
+      }
+      const msgs = {
+        blocked: t('unf.blocked', { time: fmtTime(state.unfBlock) }),
+        slow: t('unf.slow', { time: fmtTime(state.unfBlock) }),
+        auth: t('err.login'),
+        checkpoint: t('err.checkpoint'),
+        network: t('err.network'),
+        http: t('unf.failed', { status: r.status }),
+      };
+      ui.message(msgs[r.kind] || msgs.http, 'error');
+    }
+    render();
+  }
+
+  // ---------------------------------------------------------------- kopia zapasowa
+  async function exportBackup() {
+    const all = await store.all();
+    const data = {};
+    for (const [k, v] of Object.entries(all)) if (BACKUP_KEY_RE.test(k)) data[k] = v;
+    const payload = {
+      app: 'apex-igunfollowers',
+      format: 1,
+      version: manifestVersion(),
+      exportedAt: new Date().toISOString(),
+      data,
+    };
+    download(
+      new Blob([JSON.stringify(payload)], { type: 'application/json' }),
+      `apex-igunfollowers-backup-${new Date().toISOString().slice(0, 10)}.json`,
+    );
+    const accounts = Object.keys(data).filter((k) => k.startsWith('scan:')).length;
+    ui.message(t('backup.exported', { n: accounts }), 'ok');
+  }
+
+  async function importBackup(file) {
+    try {
+      const payload = JSON.parse(await file.text());
+      if (!payload || payload.app !== 'apex-igunfollowers' || typeof payload.data !== 'object') throw new Error('format');
+      const data = {};
+      for (const [k, v] of Object.entries(payload.data)) if (BACKUP_KEY_RE.test(k)) data[k] = v;
+      if (!Object.keys(data).length) throw new Error('empty');
+      await store.setMany(data);
+      await loadSettings();
+      const id = getCookie('ds_user_id') || data.lastUserId || state.userId;
+      await loadAccount(id);
+      const accounts = Object.keys(data).filter((k) => k.startsWith('scan:')).length;
+      ui.rebuild();
+      ui.message(t('backup.imported', { date: fmtDate(Date.parse(payload.exportedAt) || Date.now()), n: accounts }), 'ok');
+    } catch (e) {
+      console.warn('[Apex IG Unfollowers] import', e);
+      ui.message(t('backup.invalid'), 'error');
+    }
+  }
+
+  function manifestVersion() {
+    try { return ext.runtime.getManifest().version; } catch { return ''; }
+  }
+
+  function download(blob, name) {
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = name;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 5000);
+  }
+
+  // ---------------------------------------------------------------- UI: style
   const CSS = `
     :host { all: initial; }
-    /* Typografia i układ jak w Apex AdBlocker; paleta różowa o tej samej głębi co morska paleta AdBlockera */
+    /* Typografia i układ jak w Apex AdBlocker; paleta różowa o podobnej głębi co morska paleta AdBlockera */
     .wrap {
       --bg: #ffffff; --surface: #f6f6f9; --fg: #17171c; --muted: #6b6b76; --line: #e7e7ee;
       --accent: #cc1670; --accent-strong: #b01361; --accent-soft: #fde6f1; --on-accent: #ffffff;
@@ -443,7 +663,9 @@
     * { box-sizing: border-box; font: inherit; }
     .hidden { display: none !important; }
     button { cursor: pointer; color: inherit; }
+    button:disabled { cursor: default; opacity: .55; }
     :focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+    a { color: var(--accent); }
 
     .launcher {
       position: fixed; right: 20px; bottom: 96px; width: 48px; height: 48px; border-radius: 50%;
@@ -459,17 +681,21 @@
     @keyframes spin { to { transform: rotate(360deg); } }
 
     .panel {
-      position: fixed; top: 16px; right: 16px; bottom: 16px; width: 400px; max-width: calc(100vw - 32px);
+      position: fixed; top: 16px; right: 16px; bottom: 16px; width: 440px; max-width: calc(100vw - 32px);
       background: var(--bg); color: var(--fg); border-radius: 14px; overflow: hidden; border: 1px solid var(--line);
       box-shadow: var(--shadow); display: flex; flex-direction: column; z-index: 2147483647;
     }
-    header { display: flex; align-items: center; gap: 8px; padding: 12px 14px 10px; }
+    header { display: flex; align-items: center; gap: 8px; padding: 12px 10px 10px 14px; }
     header .logo { width: 24px; height: 24px; flex: none; }
-    .brand { font-weight: 650; font-size: 14px; letter-spacing: -.01em; }
+    .brand { font-weight: 650; font-size: 14px; letter-spacing: -.01em; white-space: nowrap; }
     .version { color: var(--muted); font-size: 11px; font-variant-numeric: tabular-nums; margin-left: 2px; }
     .grow { flex: 1; min-width: 0; }
-    .x { border: 0; background: transparent; color: var(--muted); font-size: 16px; line-height: 1; padding: 5px 7px; border-radius: 8px; }
-    .x:hover { background: var(--surface); color: var(--fg); }
+    .ib {
+      display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px;
+      border: 0; background: transparent; color: var(--muted); border-radius: 8px; flex: none; font-size: 15px; line-height: 1;
+    }
+    .ib:hover { background: var(--surface); color: var(--fg); }
+    .ib.on { background: var(--accent-soft); color: var(--accent); }
 
     .account {
       display: flex; align-items: center; gap: 10px; margin: 0 12px 10px; padding: 10px 12px;
@@ -489,7 +715,7 @@
     .primary.stop { background: var(--err); color: #fff; }
     select, input[type="search"] {
       height: 36px; border: 1px solid var(--line); background: var(--bg); color: var(--fg);
-      border-radius: 10px; padding: 0 10px; outline: none; font-size: 12.5px;
+      border-radius: 10px; padding: 0 10px; outline: none; font-size: 12.5px; min-width: 0;
     }
     select:focus, input[type="search"]:focus { border-color: var(--accent); }
     select:disabled { opacity: .55; }
@@ -507,9 +733,12 @@
     .msg.warn { background: var(--warn-soft); color: var(--warn); }
     .msg.error { background: var(--err-soft); color: var(--err); }
 
+    .view { flex: 1; min-height: 0; display: flex; flex-direction: column; }
+    .scroll { flex: 1; min-height: 0; overflow-y: auto; border-top: 1px solid var(--line); }
+
     nav { display: flex; border-bottom: 1px solid var(--line); padding: 0 6px; }
     nav button {
-      flex: 1; border: 0; background: transparent; color: var(--muted); padding: 8px 4px 8px;
+      flex: 1; border: 0; background: transparent; color: var(--muted); padding: 8px 2px;
       font-size: 11.5px; font-weight: 550; border-bottom: 2px solid transparent; white-space: nowrap;
     }
     nav button:hover { color: var(--fg); }
@@ -520,16 +749,19 @@
     }
     nav button.on .cnt { color: var(--accent); }
 
-    .tools { display: flex; gap: 8px; align-items: center; padding: 10px 12px; border-bottom: 1px solid var(--line); }
-    .tools input[type="search"] { flex: 1; min-width: 0; }
-    .tools label { font-size: 11.5px; color: var(--muted); display: flex; gap: 5px; align-items: center; white-space: nowrap; cursor: pointer; }
-    .tools label input { accent-color: var(--accent); margin: 0; }
+    .tools { display: grid; gap: 8px; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+    .tools .line { display: flex; gap: 8px; align-items: center; }
+    .tools input[type="search"] { flex: 1; }
+    .tools select { flex: 1; }
+    .chk { font-size: 11.5px; color: var(--muted); display: flex; gap: 5px; align-items: center; white-space: nowrap; cursor: pointer; }
+    .chk input { accent-color: var(--accent); margin: 0; }
     .btn {
       display: inline-flex; align-items: center; justify-content: center; gap: 6px;
       height: 36px; padding: 0 12px; border-radius: 10px; background: var(--bg); border: 1px solid var(--line);
       font-weight: 550; font-size: 12.5px; white-space: nowrap;
     }
-    .btn:hover { border-color: var(--accent); color: var(--accent); }
+    .btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+    .btn.danger:hover:not(:disabled) { border-color: var(--err); color: var(--err); }
 
     ul { list-style: none; margin: 0; padding: 0; overflow-y: auto; flex: 1; }
     .row { display: flex; align-items: center; gap: 10px; padding: 8px 14px; border-bottom: 1px solid var(--line); }
@@ -543,9 +775,12 @@
     .ver { color: var(--accent); margin-left: 3px; font-size: 11px; }
     .mini {
       height: 28px; border: 1px solid var(--line); background: var(--bg); color: var(--muted);
-      border-radius: 8px; padding: 0 9px; font-size: 11.5px; font-weight: 550; flex: none;
+      border-radius: 8px; padding: 0 9px; font-size: 11.5px; font-weight: 550; flex: none; white-space: nowrap;
     }
-    .mini:hover { border-color: var(--accent); color: var(--accent); }
+    .mini:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+    .mini.unf:hover:not(:disabled) { border-color: var(--err); color: var(--err); }
+    .mini.confirm { background: var(--err); border-color: var(--err); color: #fff; }
+    .mini.confirm:hover { color: #fff; }
     .group {
       padding: 9px 14px 6px; font-size: 11px; font-weight: 650; color: var(--muted);
       letter-spacing: .02em; background: var(--surface); border-bottom: 1px solid var(--line);
@@ -556,38 +791,79 @@
     .empty { padding: 28px 22px; text-align: center; color: var(--muted); }
     .more { padding: 10px 14px; text-align: center; }
 
+    /* statystyki */
+    .pad { padding: 12px; display: grid; gap: 12px; align-content: start; }
+    .h { font-size: 11px; font-weight: 650; color: var(--muted); letter-spacing: .02em; text-transform: uppercase; margin: 2px 2px -4px; }
+    .tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .tiles.three { grid-template-columns: 1fr 1fr 1fr; }
+    .tile { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; min-width: 0; }
+    .tile .v { font-size: 22px; font-weight: 700; letter-spacing: -.02em; font-variant-numeric: tabular-nums; line-height: 1.15; }
+    .tile .l { color: var(--muted); font-size: 11.5px; }
+    .tile .d { font-size: 11.5px; font-weight: 600; font-variant-numeric: tabular-nums; color: var(--muted); }
+    .tile .d.up { color: var(--ok); }
+    .tile .d.down { color: var(--err); }
+    .card { background: var(--bg); border: 1px solid var(--line); border-radius: 12px; padding: 10px 10px 6px; }
+    .card .ct { font-weight: 600; font-size: 12.5px; margin: 0 2px 4px; }
+    .card .cs { color: var(--muted); font-size: 11.5px; margin: -2px 2px 6px; }
+    .chart { position: relative; }
+    .chart svg { display: block; width: 100%; height: auto; overflow: visible; }
+    .chart .axis { fill: var(--muted); font-size: 10.5px; font-variant-numeric: tabular-nums; }
+    .chart .grid { stroke: var(--line); stroke-width: 1; }
+    .chart .line { fill: none; stroke: var(--accent); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+    .chart .pt { fill: var(--accent); stroke: var(--bg); stroke-width: 2; }
+    .chart .cross { stroke: var(--muted); stroke-width: 1; stroke-dasharray: 3 3; }
+    .tip {
+      position: absolute; pointer-events: none; transform: translate(-50%, calc(-100% - 10px));
+      background: var(--fg); color: var(--bg); border-radius: 8px; padding: 5px 9px; font-size: 11.5px;
+      white-space: nowrap; box-shadow: 0 4px 12px rgba(0,0,0,.18); font-variant-numeric: tabular-nums;
+    }
+    .tip b { font-weight: 700; }
+    .note { color: var(--muted); font-size: 12px; padding: 14px 4px; text-align: center; }
+    table { width: 100%; border-collapse: collapse; font-size: 12px; font-variant-numeric: tabular-nums; }
+    th { text-align: right; color: var(--muted); font-weight: 600; font-size: 11px; padding: 6px 4px; border-bottom: 1px solid var(--line); }
+    td { text-align: right; padding: 6px 4px; border-bottom: 1px solid var(--line); }
+    th:first-child, td:first-child { text-align: left; }
+    td.up { color: var(--ok); } td.down { color: var(--err); }
+
+    /* ustawienia */
+    .set { display: grid; gap: 6px; }
+    .set h3 { margin: 0; font-size: 12.5px; font-weight: 650; }
+    .set p { margin: 0; color: var(--muted); font-size: 12px; }
+    .set .line { display: flex; gap: 8px; flex-wrap: wrap; }
+    .set select { width: 100%; }
+    .about { color: var(--muted); font-size: 11.5px; text-align: center; margin: 4px 0 0; }
+
     footer {
-      display: flex; gap: 10px; justify-content: space-between; align-items: center;
       padding: 8px 14px; border-top: 1px solid var(--line); font-size: 11px; color: var(--muted);
     }
-    footer button { border: 0; background: transparent; color: var(--muted); font-size: 11px; padding: 2px 0; }
-    footer button:hover { color: var(--accent); text-decoration: underline; }
-    footer .links { display: flex; gap: 12px; flex: none; }
   `;
 
-  const ICON = '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="4"/><path d="M2 21c0-3.9 3.1-7 7-7s7 3.1 7 7"/><path d="M17 11h6"/></svg>';
-
   const LOGO = '<svg class="logo" viewBox="0 0 128 128" aria-hidden="true"><defs><linearGradient id="apx-g" x1="0" y1="0" x2="0.42" y2="1"><stop offset="0" stop-color="#f2559f"/><stop offset="1" stop-color="#cc1670"/></linearGradient></defs><g transform="translate(0 4.5)"><path fill="url(#apx-g)" fill-rule="evenodd" d="M64 7 116 112H91L64 59 37 112H12L64 7Zm0 34-12 25h24L64 41Z"/></g></svg>';
+  const ICON_PERSON = '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="4"/><path d="M2 21c0-3.9 3.1-7 7-7s7 3.1 7 7"/><path d="M17 11h6"/></svg>';
+  const ICON_STATS = '<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>';
+  const ICON_GEAR = '<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1Z"/></svg>';
 
-  const TEMPLATE = `
+  const template = () => `
     <div class="wrap">
-      <button class="launcher" title="Apex IG Unfollowers" aria-label="Apex IG Unfollowers">${ICON}</button>
+      <button class="launcher" title="Apex IG Unfollowers" aria-label="Apex IG Unfollowers">${ICON_PERSON}</button>
       <section class="panel hidden" role="dialog" aria-label="Apex IG Unfollowers">
         <header>
           ${LOGO}
           <span class="brand">Apex IG Unfollowers</span>
           <span class="version grow" data-ref="version"></span>
-          <button class="x" data-ref="close" title="Zamknij (Esc)" aria-label="Zamknij">✕</button>
+          <button class="ib" data-ref="statsBtn" title="${t('ui.stats')}" aria-label="${t('ui.stats')}">${ICON_STATS}</button>
+          <button class="ib" data-ref="settingsBtn" title="${t('ui.settings')}" aria-label="${t('ui.settings')}">${ICON_GEAR}</button>
+          <button class="ib" data-ref="close" title="${t('ui.close')}" aria-label="${t('ui.close')}">✕</button>
         </header>
         <div class="account" data-ref="account">
           <span class="dot" aria-hidden="true"></span>
           <span class="sub" data-ref="sub"></span>
         </div>
         <div class="controls">
-          <button class="primary" data-ref="scan">Skanuj</button>
-          <select data-ref="speed" title="Tempo pobierania">
-            <option value="safe">Tempo: bezpieczne</option>
-            <option value="normal">Tempo: szybsze</option>
+          <button class="primary" data-ref="scan">${t('ui.scan')}</button>
+          <select data-ref="speed" title="${t('ui.speedTitle')}">
+            <option value="safe">${t('ui.speedSafe')}</option>
+            <option value="normal">${t('ui.speedNormal')}</option>
           </select>
         </div>
         <div class="progress hidden" data-ref="progress">
@@ -595,63 +871,137 @@
           <div class="ptext" data-ref="ptext"></div>
           <div class="pnote hidden" data-ref="pnote"></div>
         </div>
-        <div class="msg hidden" data-ref="msg"></div>
-        <nav data-ref="tabs">
-          <button data-tab="notBack"><span class="cnt">–</span>Nie obserwują Cię</button>
-          <button data-tab="fans"><span class="cnt">–</span>Ty nie obserwujesz</button>
-          <button data-tab="mutual"><span class="cnt">–</span>Wzajemni</button>
-          <button data-tab="changes"><span class="cnt">–</span>Zmiany</button>
-        </nav>
-        <div class="tools">
-          <input type="search" data-ref="search" placeholder="Szukaj nazwy…">
-          <label data-ref="hiddenWrap" title="Pokaż też konta ukryte (biała lista)"><input type="checkbox" data-ref="showHidden"> ukryte</label>
-          <button class="btn" data-ref="csv" title="Pobierz widoczną listę jako CSV">CSV</button>
+        <div class="msg hidden" data-ref="msg" role="status"></div>
+
+        <div class="view" data-ref="vLists">
+          <nav data-ref="tabs">
+            <button data-tab="notBack"><span class="cnt">–</span>${t('tab.notBack')}</button>
+            <button data-tab="fans"><span class="cnt">–</span>${t('tab.fans')}</button>
+            <button data-tab="mutual"><span class="cnt">–</span>${t('tab.mutual')}</button>
+            <button data-tab="changes"><span class="cnt">–</span>${t('tab.changes')}</button>
+          </nav>
+          <div class="tools">
+            <div class="line">
+              <input type="search" data-ref="search" placeholder="${t('ui.search')}">
+              <button class="btn" data-ref="csv" title="${t('ui.csvTitle')}">CSV</button>
+            </div>
+            <div class="line">
+              <select data-ref="filter" title="${t('ui.filterTitle')}">
+                <option value="all">${t('filter.all')}</option>
+                <option value="verified">${t('filter.verified')}</option>
+                <option value="private">${t('filter.private')}</option>
+                <option value="public">${t('filter.public')}</option>
+                <option value="nopic">${t('filter.nopic')}</option>
+              </select>
+              <select data-ref="sort" title="${t('ui.sortTitle')}">
+                <option value="default">${t('sort.default')}</option>
+                <option value="az">${t('sort.az')}</option>
+                <option value="za">${t('sort.za')}</option>
+              </select>
+              <label class="chk" data-ref="hiddenWrap" title="${t('ui.hiddenTitle')}"><input type="checkbox" data-ref="showHidden"> ${t('ui.hidden')}</label>
+            </div>
+          </div>
+          <ul data-ref="list"></ul>
         </div>
-        <ul data-ref="list"></ul>
-        <footer>
-          <span>Dane zostają tylko w Twojej przeglądarce.</span>
-          <span class="links">
-            <button data-ref="hideLauncher"></button>
-            <button data-ref="wipe">Wyczyść dane</button>
-          </span>
-        </footer>
+
+        <div class="view hidden" data-ref="vStats"><div class="scroll"><div class="pad" data-ref="stats"></div></div></div>
+
+        <div class="view hidden" data-ref="vSettings"><div class="scroll"><div class="pad">
+          <section class="set">
+            <h3>${t('set.lang')}</h3>
+            <select data-ref="lang">
+              <option value="auto">${t('set.langAuto')}</option>
+              <option value="pl">Polski</option>
+              <option value="en">English</option>
+            </select>
+          </section>
+          <section class="set">
+            <h3>${t('set.unf')}</h3>
+            <p>${t('set.unfHint')}</p>
+            <select data-ref="unfLimit">
+              ${UNF.limits.map((n) => `<option value="${n}">${t('set.unfOption', { n })}</option>`).join('')}
+            </select>
+          </section>
+          <section class="set">
+            <h3>${t('set.launcher')}</h3>
+            <label class="chk"><input type="checkbox" data-ref="showLauncher"> ${t('set.launcherLabel')}</label>
+          </section>
+          <section class="set">
+            <h3>${t('set.backup')}</h3>
+            <p>${t('set.backupHint')}</p>
+            <div class="line">
+              <button class="btn" data-ref="export">${t('set.export')}</button>
+              <button class="btn" data-ref="import">${t('set.import')}</button>
+              <input type="file" accept=".json,application/json" data-ref="importFile" hidden>
+            </div>
+          </section>
+          <section class="set">
+            <h3>${t('set.data')}</h3>
+            <p>${t('set.dataHint')}</p>
+            <div class="line"><button class="btn danger" data-ref="wipe">${t('set.wipe')}</button></div>
+          </section>
+          <p class="about">Apex IG Unfollowers <span data-ref="aboutVersion"></span> · <a href="${REPO}" target="_blank" rel="noopener noreferrer">GitHub</a> · MIT</p>
+        </div></div></div>
+
+        <footer>${t('ui.footer')}</footer>
       </section>
     </div>`;
 
+  // ---------------------------------------------------------------- UI: budowa
   const ui = {
     host: null,
+    shadow: null,
     r: {},
     launcher: null,
     panel: null,
+    wipeArmed: false,
 
     build() {
-      const host = document.createElement('div');
-      host.id = 'apex-igunfollowers-root';
-      const shadow = host.attachShadow({ mode: 'open' });
+      if (!this.host) {
+        const host = document.createElement('div');
+        host.id = 'apex-igunfollowers-root';
+        this.shadow = host.attachShadow({ mode: 'open' });
+        this.host = host;
+        (document.body || document.documentElement).appendChild(host);
+        document.addEventListener('keydown', (e) => {
+          if (e.key === 'Escape' && this.panel && !this.panel.classList.contains('hidden')) togglePanel(false);
+        });
+      }
       const style = document.createElement('style');
       style.textContent = CSS;
-      shadow.appendChild(style);
       const tpl = document.createElement('template');
-      tpl.innerHTML = TEMPLATE;
-      shadow.appendChild(tpl.content);
-      shadow.querySelectorAll('[data-ref]').forEach((n) => { this.r[n.dataset.ref] = n; });
-      this.launcher = shadow.querySelector('.launcher');
-      try { this.r.version.textContent = 'v' + ext.runtime.getManifest().version; } catch { /* brak manifestu w testach */ }
-      this.panel = shadow.querySelector('.panel');
-      this.host = host;
-      (document.body || document.documentElement).appendChild(host);
+      tpl.innerHTML = template();
+      this.shadow.replaceChildren(style, tpl.content);
+      this.r = {};
+      this.shadow.querySelectorAll('[data-ref]').forEach((n) => { this.r[n.dataset.ref] = n; });
+      this.launcher = this.shadow.querySelector('.launcher');
+      this.panel = this.shadow.querySelector('.panel');
+      const v = manifestVersion();
+      this.r.version.textContent = v ? 'v' + v : '';
+      this.r.aboutVersion.textContent = v ? 'v' + v : '';
       this.bind();
+      this.applySettings();
+      this.setScanning(state.scanning);
+    },
+
+    // przebudowa po zmianie języka (panel zostaje otwarty, jeśli był)
+    rebuild() {
+      const open = this.panel && !this.panel.classList.contains('hidden');
+      const msg = this.r.msg ? [this.r.msg.textContent, (this.r.msg.className.match(/\b(ok|warn|error)\b/) || [])[1]] : null;
+      this.build();
+      if (open) this.panel.classList.remove('hidden');
+      if (msg && msg[0]) this.message(msg[0], msg[1]);
+      render();
     },
 
     bind() {
       const r = this.r;
       this.launcher.addEventListener('click', () => togglePanel());
       r.close.addEventListener('click', () => togglePanel(false));
+      r.statsBtn.addEventListener('click', () => setView(state.view === 'stats' ? 'lists' : 'stats'));
+      r.settingsBtn.addEventListener('click', () => setView(state.view === 'settings' ? 'lists' : 'settings'));
       r.scan.addEventListener('click', () => (state.scanning ? stopScan() : startScan()));
-      r.speed.addEventListener('change', async () => {
-        state.settings.speed = r.speed.value;
-        await store.set('settings', state.settings);
-      });
+      r.speed.addEventListener('change', () => saveSetting('speed', r.speed.value));
       r.tabs.addEventListener('click', (e) => {
         const b = e.target.closest('button[data-tab]');
         if (!b) return;
@@ -660,51 +1010,62 @@
         r.list.scrollTop = 0;
         render();
       });
-      let t;
+      let timer;
+      r.search.value = state.query;
       r.search.addEventListener('input', () => {
-        clearTimeout(t);
-        t = setTimeout(() => { state.query = r.search.value.trim().toLowerCase(); state.limit = RENDER_STEP; render(); }, 120);
+        clearTimeout(timer);
+        timer = setTimeout(() => { state.query = r.search.value.trim().toLowerCase(); state.limit = RENDER_STEP; render(); }, 120);
       });
+      r.filter.addEventListener('change', () => { state.filter = r.filter.value; state.limit = RENDER_STEP; render(); });
+      r.sort.addEventListener('change', () => { state.sort = r.sort.value; state.limit = RENDER_STEP; render(); });
       r.showHidden.addEventListener('change', () => { state.showHidden = r.showHidden.checked; render(); });
       r.csv.addEventListener('click', exportCsv);
-      r.hideLauncher.addEventListener('click', async () => {
-        state.settings.hideLauncher = !state.settings.hideLauncher;
-        await store.set('settings', state.settings);
-        this.applySettings();
+
+      // ustawienia
+      r.lang.addEventListener('change', async () => {
+        await saveSetting('lang', r.lang.value);
+        L = I18N.make(state.settings.lang);
+        this.rebuild();
       });
-      let wipeArmed = false;
+      r.unfLimit.addEventListener('change', () => saveSetting('unfLimit', Number(r.unfLimit.value)));
+      r.showLauncher.addEventListener('change', () => saveSetting('hideLauncher', !r.showLauncher.checked));
+      r.export.addEventListener('click', exportBackup);
+      r.import.addEventListener('click', () => r.importFile.click());
+      r.importFile.addEventListener('change', async () => {
+        const f = r.importFile.files && r.importFile.files[0];
+        r.importFile.value = '';
+        if (f) await importBackup(f);
+      });
       r.wipe.addEventListener('click', async () => {
         if (state.scanning) return;
-        if (!wipeArmed) {
-          wipeArmed = true;
-          r.wipe.textContent = 'Na pewno? Kliknij jeszcze raz';
-          setTimeout(() => { wipeArmed = false; r.wipe.textContent = 'Wyczyść dane'; }, 4000);
+        if (!this.wipeArmed) {
+          this.wipeArmed = true;
+          r.wipe.textContent = t('set.wipeConfirm');
+          setTimeout(() => { this.wipeArmed = false; if (r.wipe.isConnected) r.wipe.textContent = t('set.wipe'); }, 4000);
           return;
         }
-        wipeArmed = false;
-        r.wipe.textContent = 'Wyczyść dane';
-        if (state.userId) await store.remove(['scan:' + state.userId, 'log:' + state.userId, 'wl:' + state.userId]);
+        this.wipeArmed = false;
+        r.wipe.textContent = t('set.wipe');
+        if (state.userId) {
+          await store.remove(['scan:', 'log:', 'wl:', 'hist:', 'unf:', 'unfBlock:'].map((p) => p + state.userId));
+        }
         await loadAccount(state.userId);
-        this.message('Usunięto zapisane wyniki tego konta.', 'warn');
+        this.message(t('set.wiped'), 'warn');
         render();
-      });
-      // Esc zamyka panel
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && !this.panel.classList.contains('hidden')) togglePanel(false);
       });
     },
 
     applySettings() {
-      this.r.speed.value = state.settings.speed;
+      const r = this.r;
+      r.speed.value = state.settings.speed;
+      r.lang.value = state.settings.lang;
+      r.unfLimit.value = String(state.settings.unfLimit);
+      r.showLauncher.checked = !state.settings.hideLauncher;
       this.launcher.classList.toggle('hidden', !!state.settings.hideLauncher);
-      this.r.hideLauncher.textContent = state.settings.hideLauncher ? 'Pokaż przycisk' : 'Ukryj przycisk';
-      this.r.hideLauncher.title = state.settings.hideLauncher
-        ? 'Pokaż okrągły przycisk na stronie Instagrama'
-        : 'Ukryj okrągły przycisk – panel otworzysz ikoną wtyczki na pasku przeglądarki';
     },
 
     setScanning(on) {
-      this.r.scan.textContent = on ? 'Zatrzymaj' : 'Skanuj';
+      this.r.scan.textContent = on ? t('ui.stop') : t('ui.scan');
       this.r.scan.classList.toggle('stop', on);
       this.r.speed.disabled = on;
       this.launcher.classList.toggle('busy', on);
@@ -731,8 +1092,19 @@
     },
   };
 
+  async function saveSetting(key, value) {
+    state.settings[key] = value;
+    await store.set('settings', state.settings);
+    ui.applySettings();
+  }
+
+  function setView(view) {
+    state.view = view;
+    render();
+  }
+
   async function togglePanel(force) {
-    if (!ui.host || !ui.host.isConnected) ui.build(), ui.applySettings();
+    if (!ui.host || !ui.host.isConnected) { ui.host = null; ui.build(); }
     const open = force === undefined ? ui.panel.classList.contains('hidden') : force;
     if (open) {
       await ensureLoaded();
@@ -743,29 +1115,42 @@
     }
   }
 
+  // ---------------------------------------------------------------- UI: listy
   function matches(u) {
-    if (!state.query) return true;
-    return u.username.toLowerCase().includes(state.query) || u.name.toLowerCase().includes(state.query);
+    if (state.query && !(u.username.toLowerCase().includes(state.query) || u.name.toLowerCase().includes(state.query))) return false;
+    switch (state.filter) {
+      case 'verified': return u.verified;
+      case 'private': return u.priv;
+      case 'public': return !u.priv;
+      case 'nopic': return isNoPic(u);
+      default: return true;
+    }
+  }
+
+  function sorted(list) {
+    if (state.sort === 'default') return list;
+    const dir = state.sort === 'za' ? -1 : 1;
+    return [...list].sort((a, b) => dir * a.username.localeCompare(b.username, 'en'));
   }
 
   function currentItems() {
-    const L = computeLists();
     if (state.tab === 'changes') {
       const rows = [];
       for (const entry of state.log) {
-        const lost = entry.lost.filter(matches);
-        const gained = entry.gained.filter(matches);
+        const lost = sorted(entry.lost.filter(matches));
+        const gained = sorted(entry.gained.filter(matches));
         if (!lost.length && !gained.length) continue;
-        rows.push({ group: `Skan ${fmtDate(entry.ts)} (porównanie z ${fmtDate(entry.since)})` });
+        rows.push({ group: t('changes.group', { date: fmtDate(entry.ts), since: fmtDate(entry.since) }) });
         lost.forEach((u) => rows.push({ user: u, type: 'lost', ts: entry.ts }));
         gained.forEach((u) => rows.push({ user: u, type: 'gained', ts: entry.ts }));
       }
       return rows;
     }
-    if (!L) return [];
-    let list = L[state.tab] || [];
+    const L2 = computeLists();
+    if (!L2) return [];
+    let list = L2[state.tab] || [];
     if (state.tab === 'notBack' && !state.showHidden) list = list.filter((u) => !state.whitelist.has(u.id));
-    return list.filter(matches).map((u) => ({ user: u }));
+    return sorted(list.filter(matches)).map((u) => ({ user: u }));
   }
 
   function userRow(item) {
@@ -788,21 +1173,29 @@
     a.target = '_blank';
     a.rel = 'noopener noreferrer';
     line.appendChild(a);
-    if (u.verified) line.appendChild(el('span', 'ver', '✔'));
-    if (u.priv) line.appendChild(el('span', 'tag', '🔒'));
+    if (u.verified) { const v = el('span', 'ver', '✔'); v.title = t('filter.verified'); line.appendChild(v); }
+    if (u.priv) { const p = el('span', 'tag', '🔒'); p.title = t('filter.private'); line.appendChild(p); }
     who.appendChild(line);
     if (u.name) who.appendChild(el('div', 'nm', u.name));
     li.appendChild(who);
 
-    if (item.type === 'lost') li.appendChild(el('span', 'pill lost', 'odszedł'));
-    if (item.type === 'gained') li.appendChild(el('span', 'pill gained', 'nowy'));
+    if (item.type === 'lost') li.appendChild(el('span', 'pill lost', t('changes.lost')));
+    if (item.type === 'gained') li.appendChild(el('span', 'pill gained', t('changes.gained')));
 
     if (state.tab === 'notBack') {
-      const b = el('button', 'mini', hidden ? 'Przywróć' : 'Ukryj');
-      b.title = hidden
-        ? 'Usuń z białej listy'
-        : 'Dodaj do białej listy (np. celebryci, marki) – nie będzie pokazywane w tej zakładce';
+      const b = el('button', 'mini', hidden ? t('row.unhide') : t('row.hide'));
+      b.title = hidden ? t('row.unhideTitle') : t('row.hideTitle');
       b.addEventListener('click', () => toggleWhitelist(u.id));
+      li.appendChild(b);
+    }
+    if (state.tab === 'notBack' || state.tab === 'mutual') {
+      const confirming = state.confirmId === u.id;
+      const busy = state.busyId === u.id;
+      const b = el('button', 'mini unf' + (confirming ? ' confirm' : ''),
+        busy ? '…' : confirming ? t('row.unfConfirm') : t('row.unf'));
+      b.title = t('row.unfTitle');
+      b.disabled = busy || (!!state.busyId && !busy);
+      b.addEventListener('click', () => unfollow(u));
       li.appendChild(b);
     }
     return li;
@@ -816,48 +1209,32 @@
   }
 
   function emptyText() {
-    if (state.tab === 'changes') {
-      return state.scan
-        ? 'Brak zarejestrowanych zmian. Uruchom skan ponownie za jakiś czas – tu zobaczysz, kto przestał Cię obserwować, a kto doszedł.'
-        : 'Najpierw zrób pierwszy skan.';
-    }
-    if (!state.scan && state.scanning) return 'Trwa pobieranie list…';
-    if (!state.scan) {
-      return 'Kliknij „Skanuj”, żeby pobrać listy. Przy dużych kontach może to potrwać kilka minut – możesz zamknąć panel, ale nie zamykaj karty Instagrama.';
-    }
-    if (state.query) return 'Brak wyników dla tego wyszukiwania.';
-    return { notBack: 'Wszyscy, których obserwujesz, obserwują Cię 🎉', fans: 'Obserwujesz wszystkich swoich obserwujących.', mutual: 'Brak wzajemnych obserwacji.' }[state.tab];
+    if (state.tab === 'changes') return state.scan ? t('empty.changes') : t('empty.firstScan');
+    if (!state.scan && state.scanning) return t('empty.scanning');
+    if (!state.scan) return t('empty.noScan');
+    if (state.query || state.filter !== 'all') return t('empty.noResults');
+    return t('empty.' + state.tab);
   }
 
-  function render() {
-    if (!ui.host || ui.panel.classList.contains('hidden')) return;
+  function renderLists() {
     const r = ui.r;
-
-    // nagłówek
-    r.account.classList.toggle('has', !!state.scan);
-    if (state.scan) {
-      r.sub.textContent = `${state.scan.username ? '@' + state.scan.username + ' · ' : ''}ostatni skan: ${fmtDate(state.scan.ts)}`;
-    } else {
-      r.sub.textContent = 'Brak skanu – kliknij „Skanuj”.';
-    }
-
-    // zakładki
-    const L = computeLists();
+    const L2 = computeLists();
     const counts = {
-      notBack: L ? L.notBack.filter((u) => !state.whitelist.has(u.id)).length : '–',
-      fans: L ? L.fans.length : '–',
-      mutual: L ? L.mutual.length : '–',
-      changes: state.log.length ? state.log.reduce((s, e) => s + e.lost.length, 0) : '–',
+      notBack: L2 ? fmtNum(L2.notBack.filter((u) => !state.whitelist.has(u.id)).length) : '–',
+      fans: L2 ? fmtNum(L2.fans.length) : '–',
+      mutual: L2 ? fmtNum(L2.mutual.length) : '–',
+      changes: state.log.length ? fmtNum(state.log.reduce((s, e) => s + e.lost.length, 0)) : '–',
     };
     r.tabs.querySelectorAll('button[data-tab]').forEach((b) => {
       b.classList.toggle('on', b.dataset.tab === state.tab);
       b.querySelector('.cnt').textContent = counts[b.dataset.tab];
     });
-    r.tabs.querySelector('[data-tab="changes"]').title = 'Liczba osób, które przestały Cię obserwować (wg historii skanów)';
+    r.tabs.querySelector('[data-tab="changes"]').title = t('tab.changesTitle');
     r.hiddenWrap.classList.toggle('hidden', state.tab !== 'notBack');
     r.showHidden.checked = state.showHidden;
+    r.filter.value = state.filter;
+    r.sort.value = state.sort;
 
-    // lista
     const scroll = r.list.scrollTop;
     const items = currentItems();
     const frag = document.createDocumentFragment();
@@ -874,7 +1251,7 @@
       const totalUsers = items.filter((i) => i.user).length;
       if (totalUsers > shown) {
         const li = el('li', 'more');
-        const b = el('button', 'btn', `Pokaż więcej (${totalUsers - shown})`);
+        const b = el('button', 'btn', t('ui.more', { n: fmtNum(totalUsers - shown) }));
         b.addEventListener('click', () => { state.limit += RENDER_STEP; render(); });
         li.appendChild(b);
         frag.appendChild(li);
@@ -884,30 +1261,207 @@
     r.list.scrollTop = scroll;
   }
 
+  // ---------------------------------------------------------------- UI: statystyki
+  function niceTicks(min, max, count) {
+    if (min === max) { min -= 1; max += 1; }
+    const raw = (max - min) / count;
+    const mag = 10 ** Math.floor(Math.log10(raw));
+    const norm = raw / mag;
+    const step = Math.max(1, (norm <= 1 ? 1 : norm <= 2 ? 2 : norm <= 5 ? 5 : 10) * mag);
+    const out = [];
+    for (let v = Math.floor(min / step) * step; v <= Math.ceil(max / step) * step + step / 2; v += step) out.push(v);
+    return out;
+  }
+
+  // Wykres liniowy jednej serii (obserwujący w czasie): jedna oś, cienka linia, crosshair + tooltip.
+  function buildChart(points) {
+    const NS = 'http://www.w3.org/2000/svg';
+    const W = 400, H = 170, PL = 46, PR = 14, PT = 12, PB = 24;
+    const mk = (tag, attrs, cls) => {
+      const n = document.createElementNS(NS, tag);
+      for (const [k, v] of Object.entries(attrs)) n.setAttribute(k, v);
+      if (cls) n.setAttribute('class', cls);
+      return n;
+    };
+    let x0 = points[0].ts, x1 = points[points.length - 1].ts;
+    if (x0 === x1) { x0 -= 3600e3; x1 += 3600e3; }
+    const ticks = niceTicks(Math.min(...points.map((p) => p.v)), Math.max(...points.map((p) => p.v)), 4);
+    const y0 = ticks[0], y1 = ticks[ticks.length - 1];
+    const X = (ts) => PL + ((ts - x0) / (x1 - x0)) * (W - PL - PR);
+    const Y = (v) => PT + (1 - (v - y0) / (y1 - y0)) * (H - PT - PB);
+
+    const wrap = el('div', 'chart');
+    const svg = mk('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': t('stats.chartAria', { n: fmtNum(points[points.length - 1].v) }) });
+    for (const v of ticks) {
+      svg.appendChild(mk('line', { x1: PL, x2: W - PR, y1: Y(v), y2: Y(v) }, 'grid'));
+      const lbl = mk('text', { x: PL - 8, y: Y(v) + 3.5, 'text-anchor': 'end' }, 'axis');
+      lbl.textContent = fmtNum(v);
+      svg.appendChild(lbl);
+    }
+    const first = mk('text', { x: PL, y: H - 6, 'text-anchor': 'start' }, 'axis');
+    first.textContent = fmtDay(points[0].ts);
+    svg.appendChild(first);
+    if (points.length > 1) {
+      const last = mk('text', { x: W - PR, y: H - 6, 'text-anchor': 'end' }, 'axis');
+      last.textContent = fmtDay(points[points.length - 1].ts);
+      svg.appendChild(last);
+    }
+    svg.appendChild(mk('path', { d: points.map((p, i) => `${i ? 'L' : 'M'}${X(p.ts).toFixed(1)} ${Y(p.v).toFixed(1)}`).join('') }, 'line'));
+    const lp = points[points.length - 1];
+    svg.appendChild(mk('circle', { cx: X(lp.ts), cy: Y(lp.v), r: 4 }, 'pt'));
+
+    // warstwa hover
+    const cross = mk('line', { x1: 0, x2: 0, y1: PT, y2: H - PB, visibility: 'hidden' }, 'cross');
+    const dot = mk('circle', { cx: 0, cy: 0, r: 4.5, visibility: 'hidden' }, 'pt');
+    const hit = mk('rect', { x: PL - 10, y: 0, width: W - PL - PR + 20, height: H, fill: 'transparent' });
+    svg.append(cross, dot, hit);
+    const tip = el('div', 'tip hidden');
+    wrap.append(svg, tip);
+
+    const show = (clientX) => {
+      const box = svg.getBoundingClientRect();
+      const sx = ((clientX - box.left) / box.width) * W;
+      let best = points[0];
+      for (const p of points) if (Math.abs(X(p.ts) - sx) < Math.abs(X(best.ts) - sx)) best = p;
+      const px = X(best.ts), py = Y(best.v);
+      cross.setAttribute('x1', px); cross.setAttribute('x2', px); cross.setAttribute('visibility', 'visible');
+      dot.setAttribute('cx', px); dot.setAttribute('cy', py); dot.setAttribute('visibility', 'visible');
+      tip.replaceChildren(el('b', null, fmtNum(best.v)), document.createTextNode(' · ' + fmtDate(best.ts)));
+      tip.classList.remove('hidden');
+      const scale = box.width / W;
+      tip.style.left = Math.min(Math.max(px * scale, 70), box.width - 70) + 'px';
+      tip.style.top = py * scale + 'px';
+    };
+    const hide = () => {
+      cross.setAttribute('visibility', 'hidden');
+      dot.setAttribute('visibility', 'hidden');
+      tip.classList.add('hidden');
+    };
+    hit.addEventListener('mousemove', (e) => show(e.clientX));
+    hit.addEventListener('mouseleave', hide);
+    return wrap;
+  }
+
+  function tile(value, label, delta) {
+    const d = el('div', 'tile');
+    d.appendChild(el('div', 'v', value));
+    d.appendChild(el('div', 'l', label));
+    if (delta != null) {
+      const s = el('div', 'd' + (delta > 0 ? ' up' : delta < 0 ? ' down' : ''), t('stats.vsPrev', { d: signed(delta) }));
+      d.appendChild(s);
+    }
+    return d;
+  }
+
+  function balance(days) {
+    const from = Date.now() - days * DAY;
+    let lost = 0, gained = 0;
+    for (const e of state.log) if (e.ts >= from) { lost += e.lost.length; gained += e.gained.length; }
+    return { lost, gained };
+  }
+
+  function renderStats() {
+    const box = ui.r.stats;
+    const frag = document.createDocumentFragment();
+    if (!state.scan) {
+      frag.appendChild(el('div', 'note', t('empty.noScan')));
+      box.replaceChildren(frag);
+      return;
+    }
+    const c = countsOf(state.scan);
+    const L2 = computeLists();
+    const prev = state.hist.length > 1 ? state.hist[state.hist.length - 2] : null;
+    const last = state.hist[state.hist.length - 1] || { ts: state.scan.ts, ...c };
+
+    frag.appendChild(el('div', 'h', t('stats.now')));
+    const tiles = el('div', 'tiles');
+    tiles.append(
+      tile(fmtNum(c.followers), t('stats.followers'), prev ? last.followers - prev.followers : null),
+      tile(fmtNum(c.following), t('stats.following'), prev ? last.following - prev.following : null),
+      tile(fmtNum(c.mutual), t('stats.mutual', { p: c.following ? Math.round((c.mutual / c.following) * 100) : 0 })),
+      tile(fmtNum(L2.notBack.length), t('stats.notBack')),
+    );
+    frag.appendChild(tiles);
+
+    frag.appendChild(el('div', 'h', t('stats.balance')));
+    const bal = el('div', 'tiles three');
+    for (const days of [7, 30]) {
+      const b = balance(days);
+      bal.appendChild(tile(signed(b.gained - b.lost), t('stats.balanceDays', { days, gained: b.gained, lost: b.lost })));
+    }
+    bal.appendChild(tile(`${unfUsed()} / ${state.settings.unfLimit}`, t('stats.unf24')));
+    frag.appendChild(bal);
+
+    const card = el('div', 'card');
+    card.appendChild(el('div', 'ct', t('stats.chartTitle')));
+    if (state.hist.length < 2) {
+      card.appendChild(el('div', 'note', t('stats.chartEmpty')));
+    } else {
+      card.appendChild(el('div', 'cs', t('stats.chartSub', { n: state.hist.length })));
+      card.appendChild(buildChart(state.hist.map((h) => ({ ts: h.ts, v: h.followers }))));
+    }
+    frag.appendChild(card);
+
+    // tabela historii (widok tabelaryczny wykresu)
+    frag.appendChild(el('div', 'h', t('stats.history')));
+    const table = el('table');
+    const head = el('tr');
+    [t('stats.colDate'), t('stats.colFollowers'), t('stats.colFollowing'), t('stats.colChange')].forEach((h) => head.appendChild(el('th', null, h)));
+    table.appendChild(head);
+    const rows = state.hist.slice(-30).reverse();
+    rows.forEach((h, i) => {
+      const older = state.hist[state.hist.length - 2 - i];
+      const tr = el('tr');
+      tr.appendChild(el('td', null, fmtDate(h.ts)));
+      tr.appendChild(el('td', null, fmtNum(h.followers)));
+      tr.appendChild(el('td', null, fmtNum(h.following)));
+      const diff = older ? h.followers - older.followers : null;
+      tr.appendChild(el('td', diff > 0 ? 'up' : diff < 0 ? 'down' : null, diff == null ? '–' : signed(diff)));
+      table.appendChild(tr);
+    });
+    frag.appendChild(table);
+    box.replaceChildren(frag);
+  }
+
+  // ---------------------------------------------------------------- UI: render
+  function render() {
+    if (!ui.host || !ui.panel || ui.panel.classList.contains('hidden')) return;
+    const r = ui.r;
+
+    r.account.classList.toggle('has', !!state.scan);
+    r.sub.textContent = state.scan
+      ? `${state.scan.username ? '@' + state.scan.username + ' · ' : ''}${t('ui.lastScan', { date: fmtDate(state.scan.ts) })}`
+      : t('ui.noScan');
+
+    r.vLists.classList.toggle('hidden', state.view !== 'lists');
+    r.vStats.classList.toggle('hidden', state.view !== 'stats');
+    r.vSettings.classList.toggle('hidden', state.view !== 'settings');
+    r.statsBtn.classList.toggle('on', state.view === 'stats');
+    r.settingsBtn.classList.toggle('on', state.view === 'settings');
+
+    if (state.view === 'lists') renderLists();
+    else if (state.view === 'stats') renderStats();
+  }
+
   function exportCsv() {
     const items = currentItems().filter((i) => i.user);
-    if (!items.length) { ui.message('Brak danych do eksportu w tej zakładce.', 'warn'); return; }
+    if (!items.length) { ui.message(t('csv.empty'), 'warn'); return; }
     const q = (v) => '"' + String(v ?? '').replace(/"/g, '""') + '"';
     const changes = state.tab === 'changes';
-    const head = ['username', 'imie_nazwisko', 'link', 'zweryfikowany', 'prywatny'];
-    if (changes) head.push('zmiana', 'data');
+    const head = t('csv.head').split(',');
+    if (changes) head.push(...t('csv.headChanges').split(','));
     const lines = [head.map(q).join(',')];
     for (const it of items) {
       const u = it.user;
-      const row = [u.username, u.name, `${BASE}/${u.username}/`, u.verified ? 'tak' : 'nie', u.priv ? 'tak' : 'nie'];
-      if (changes) row.push(it.type === 'lost' ? 'przestal_obserwowac' : 'nowy_obserwujacy', new Date(it.ts).toISOString());
+      const row = [u.username, u.name, `${BASE}/${u.username}/`, u.verified ? t('csv.yes') : t('csv.no'), u.priv ? t('csv.yes') : t('csv.no')];
+      if (changes) row.push(it.type === 'lost' ? t('csv.lost') : t('csv.gained'), new Date(it.ts).toISOString());
       lines.push(row.map(q).join(','));
     }
-    const blob = new Blob(['﻿' + lines.join('\r\n')], { type: 'text/csv;charset=utf-8' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    const names = { notBack: 'nie-obserwuja-cie', fans: 'ty-nie-obserwujesz', mutual: 'wzajemni', changes: 'zmiany' };
-    a.href = url;
-    a.download = `instagram-${names[state.tab]}-${new Date().toISOString().slice(0, 10)}.csv`;
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    setTimeout(() => URL.revokeObjectURL(url), 5000);
+    const names = { notBack: 'csv.fileNotBack', fans: 'csv.fileFans', mutual: 'csv.fileMutual', changes: 'csv.fileChanges' };
+    download(
+      new Blob(['﻿' + lines.join('\r\n')], { type: 'text/csv;charset=utf-8' }),
+      `instagram-${t(names[state.tab])}-${new Date().toISOString().slice(0, 10)}.csv`,
+    );
   }
 
   // ---------------------------------------------------------------- start
@@ -919,9 +1473,7 @@
   });
 
   (async () => {
-    const saved = await store.get('settings', {});
-    state.settings = { ...state.settings, ...saved };
+    await loadSettings();
     if (!ui.host) ui.build();
-    ui.applySettings();
   })();
 })();
