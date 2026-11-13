@@ -40,7 +40,7 @@ if (process.platform === 'win32') {
 }
 fs.copyFileSync(zipPath, path.join(dist, 'Apex-Unfollowers.zip'));
 
-// Paczka do sklepów (Chrome Web Store, Firefox Add-ons, Edge Add-ons): manifest.json w głównym katalogu ZIP-a.
+// Paczka do sklepów (Chrome Web Store, Edge Add-ons): manifest.json w głównym katalogu ZIP-a.
 const storeZip = path.join(dist, `Apex-Unfollowers-${version}-store.zip`);
 if (process.platform === 'win32') {
   execFileSync('powershell', ['-NoProfile', '-Command', `Compress-Archive -Path '${stage}\\*' -DestinationPath '${storeZip}'`], { stdio: 'inherit' });

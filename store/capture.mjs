@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Apex Unfollowers – zrzuty i grafiki do sklepów (Chrome Web Store, Firefox Add-ons, Edge Add-ons).
+// Apex Unfollowers – zrzuty i grafiki do sklepów (Chrome Web Store, Edge Add-ons).
 //
 //   npm run store
 //

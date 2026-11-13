@@ -17,14 +17,6 @@
 5. **Dystrybucja:** publiczna, wszystkie regiony (lub wybrane), bezpłatna.
 6. Wyślij do sprawdzenia. Wtyczki z dostępem do konkretnej witryny i akcjami na koncie mogą być sprawdzane dłużej; odpowiadaj na pytania recenzentów zgodnie z dokumentacją.
 
-## Firefox Add-ons (AMO)
-
-1. Konto: https://addons.mozilla.org/developers/ (bezpłatne).
-2. „Submit a New Add-on” → „On this site” (publicznie) albo „On your own” (tylko podpis, dystrybucja z GitHuba).
-3. Wgraj ten sam `-store.zip`. Kod nie jest minifikowany ani budowany, więc źródła nie są wymagane osobno.
-4. Opis EN/PL, kategoria Social & Communication, zrzuty, URL polityki, licencja MIT, strona wsparcia (GitHub Issues).
-5. Ostrzeżenia lintera (`npx web-ext lint`) w 1.2.0: `service_worker` ignorowany przez Firefoksa (używa `scripts`) i `innerHTML` w szablonie panelu (stałe teksty z paczki) – opisz je w uwagach dla recenzenta.
-
 ## Microsoft Edge Add-ons
 
 1. Konto Partner Center: https://partner.microsoft.com/dashboard/microsoftedge (bezpłatne).

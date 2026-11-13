@@ -37,5 +37,3 @@ Brak serwera i telemetrii nie oznacza braku dostępu do danych. Wtyczka przetwar
 Nic z tego nie jest przesyłane wydawcy ani stronom trzecim. Przyciski „Zgłoś problem” / „Napisz e-mail” otwierają szkic zgłoszenia lub wiadomości u użytkownika (wersja, przeglądarka, treść błędu) – wysyła go tylko użytkownik.
 
 **Chrome Web Store, zakładka „Prywatność”:** przejrzyj wszystkie kategorie według aktualnych definicji Google. Jeżeli formularz traktuje lokalne przetwarzanie danych osobowych innych osób (nazwy i zdjęcia obserwujących) jako „zbieranie”, zaznacz odpowiednio „Dane osobowe” i/lub „Treść witryny”. Zaświadczenia, które są zgodne z działaniem wtyczki: dane nie są sprzedawane, nie są używane ani przekazywane w celach niezwiązanych z jedynym przeznaczeniem, nie służą do oceny zdolności kredytowej.
-
-**Firefox Add-ons:** w manifeście `data_collection_permissions.required = ["none"]` – według definicji Mozilli wtyczka nie przesyła danych poza urządzenie (do wydawcy lub stron trzecich).

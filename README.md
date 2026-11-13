@@ -29,7 +29,7 @@
 - ⏯️ Wznawianie przerwanego skanu przy dużych kontach
 - 🔒 Bez konta, serwera i telemetrii Apex
 - 🌍 Interfejs PL / EN
-- 🧩 Manifest V3 · Chrome 121+, Edge, Brave, Opera, Firefox 142+
+- 🧩 Manifest V3 · Chrome 121+ (także Edge, Brave, Opera)
 - 🔓 Open source · 🇵🇱 Rozwijany w Polsce
 
 <p align="center">
@@ -107,12 +107,6 @@ Nie usuwaj ani nie przenoś folderu po instalacji, bo przeglądarka korzysta z n
 
 **Weryfikacja pliku (opcjonalnie):** porównaj sumę SHA-256 z `SHA256SUMS.txt` z [tego samego wydania](https://github.com/Bonziuu/Apex-IGUnfollowers/releases/latest), np. `Get-FileHash .\Apex-Unfollowers.zip -Algorithm SHA256` (Windows) lub `shasum -a 256 Apex-Unfollowers.zip` (macOS, Linux).
 
-### Firefox
-
-- **Na próbę:** rozpakuj ten sam ZIP, wejdź na `about:debugging#/runtime/this-firefox`, kliknij **Załaduj tymczasowy dodatek** i wskaż `manifest.json` w folderze `Apex-Unfollowers`. Dodatek zniknie po zamknięciu Firefoksa.
-- **Na stałe:** dodatek musi być podpisany przez Mozillę – materiały do zgłoszenia są w [docs/webstore](docs/webstore/README.md).
-- Jeśli panel się nie pojawia: `about:addons`, potem Apex Unfollowers, zakładka **Uprawnienia** i włącz dostęp do `www.instagram.com`.
-
 ## Użycie
 
 1. Otwórz [instagram.com](https://www.instagram.com) i zaloguj się.
@@ -185,7 +179,7 @@ MIT, © 2026 Konrad Woźniak ([LICENSE](LICENSE)). Sposób odobserwowywania opra
 - ⏯️ Resumable scans for large accounts, with a time estimate
 - 🔒 No account, no server, no Apex telemetry
 - 🌍 English and Polish interface
-- 🧩 Manifest V3 · Chrome 121+, Edge, Brave, Opera, Firefox 142+
+- 🧩 Manifest V3 · Chrome 121+ (also Edge, Brave, Opera)
 
 ### How it works
 
@@ -198,8 +192,6 @@ Instagram's terms prohibit automated data collection, so **use it at your own ri
 1. **[Download `Apex-Unfollowers.zip`](https://github.com/Bonziuu/Apex-IGUnfollowers/releases/latest/download/Apex-Unfollowers.zip)** (always the latest release) and unpack it to a permanent folder.
 2. Open `chrome://extensions`, enable **Developer mode**, click **Load unpacked** and select the `Apex-Unfollowers` folder.
 3. Accept the welcome screen, open instagram.com, click the pink button in the bottom-right corner and press **Scan**.
-
-On Firefox, load it temporarily from `about:debugging` or get it signed for free on [addons.mozilla.org](https://addons.mozilla.org/developers/).
 
 ### Support and licence
 
