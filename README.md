@@ -9,17 +9,18 @@
 </p>
 
 <p align="center">
-  <a href="#instalacja"><b>Instalacja (ZIP)</b></a>
+  <a href="https://github.com/Bonziuu/Apex-IGUnfollowers/releases/latest/download/Apex-IGUnfollowers.zip"><b>⬇️ Pobierz ZIP</b></a>
+  &nbsp;·&nbsp; <a href="#instalacja">Instalacja w 1 minutę</a>
   &nbsp;·&nbsp; <a href="https://github.com/Bonziuu/Apex-AdBlocker">Apex AdBlocker</a>
   &nbsp;·&nbsp; <a href="#eng">English ↓</a>
 </p>
 
 <p align="center">
-  <a href="manifest.json"><img src="https://img.shields.io/github/manifest-json/v/Bonziuu/Apex-IGUnfollowers?label=wersja&color=cc1670" alt="Wersja"></a>
+  <a href="https://github.com/Bonziuu/Apex-IGUnfollowers/releases/latest"><img src="https://img.shields.io/github/v/release/Bonziuu/Apex-IGUnfollowers?label=wersja&color=cc1670" alt="Najnowsza wersja"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/licencja-MIT-cc1670" alt="Licencja MIT"></a>
 </p>
 
-> **Status:** wersja testowa 1.1.0. Wtyczki nie ma w Chrome Web Store, instaluje się ją ręcznie z tego repozytorium. Zmiany: [CHANGELOG.md](CHANGELOG.md)
+> **Status:** wersja testowa 1.1.0. Wtyczki nie ma w Chrome Web Store – [pobierz ZIP](https://github.com/Bonziuu/Apex-IGUnfollowers/releases/latest/download/Apex-IGUnfollowers.zip) i zainstaluj ją ręcznie w minutę ([instrukcja](#instalacja)). Wszystkie wersje i sumy SHA-256: [Releases](https://github.com/Bonziuu/Apex-IGUnfollowers/releases/latest) · [Co nowego](CHANGELOG.md)
 
 - 👥 Kto nie obserwuje Cię nawzajem
 - 📉 Kto przestał Cię obserwować od ostatniego skanu
@@ -94,17 +95,20 @@ Zalecenie: skanuj najwyżej raz dziennie i nie odobserwowuj dziesiątek kont nar
 
 ### Chrome, Edge, Brave, Opera
 
-1. Pobierz ZIP: zielony przycisk **Code** i **Download ZIP** na tej stronie albo plik z [Releases](https://github.com/Bonziuu/Apex-IGUnfollowers/releases), gdy pojawi się wydanie.
-2. Rozpakuj ZIP w stałym miejscu na dysku, np. `Dokumenty/Apex-IGUnfollowers`.
-3. Otwórz `chrome://extensions` (w Edge: `edge://extensions`).
+1. **[Pobierz `Apex-IGUnfollowers.zip`](https://github.com/Bonziuu/Apex-IGUnfollowers/releases/latest/download/Apex-IGUnfollowers.zip)** (zawsze najnowsza wersja).
+2. Rozpakuj ZIP w stałym miejscu na dysku, np. w `Dokumenty`. Powstanie folder `Apex-IGUnfollowers`.
+3. Wklej w pasek adresu `chrome://extensions` (w Edge: `edge://extensions`) i naciśnij Enter.
 4. Włącz **Tryb dewelopera** w prawym górnym rogu.
-5. Kliknij **Załaduj rozpakowane** i wskaż folder z plikiem `manifest.json`.
+5. Kliknij **Załaduj rozpakowane** i wskaż folder `Apex-IGUnfollowers`.
+6. Otwórz [instagram.com](https://www.instagram.com) – w prawym dolnym rogu pojawi się różowy przycisk.
 
-Nie usuwaj ani nie przenoś folderu po instalacji, bo przeglądarka korzysta z niego podczas działania wtyczki.
+Nie usuwaj ani nie przenoś folderu po instalacji, bo przeglądarka korzysta z niego podczas działania wtyczki. Chrome może przy starcie pokazywać komunikat o rozszerzeniach w trybie dewelopera – to normalne dla wtyczek spoza sklepu.
+
+**Weryfikacja pliku (opcjonalnie):** porównaj sumę SHA-256 z `SHA256SUMS.txt` z [tego samego wydania](https://github.com/Bonziuu/Apex-IGUnfollowers/releases/latest), np. `Get-FileHash .\Apex-IGUnfollowers.zip -Algorithm SHA256` (Windows) lub `shasum -a 256 Apex-IGUnfollowers.zip` (macOS, Linux).
 
 ### Firefox
 
-- **Na próbę:** `about:debugging#/runtime/this-firefox`, potem **Załaduj tymczasowy dodatek** i wskaż `manifest.json`. Dodatek zniknie po zamknięciu Firefoksa.
+- **Na próbę:** rozpakuj ten sam ZIP, wejdź na `about:debugging#/runtime/this-firefox`, kliknij **Załaduj tymczasowy dodatek** i wskaż `manifest.json` w folderze `Apex-IGUnfollowers`. Dodatek zniknie po zamknięciu Firefoksa.
 - **Na stałe:** dodatek musi być podpisany przez Mozillę. Wyślij ZIP na [addons.mozilla.org/developers](https://addons.mozilla.org/developers/) jako dodatek do samodzielnej dystrybucji. To bezpłatne.
 - Jeśli panel się nie pojawia: `about:addons`, potem Apex IG Unfollowers, zakładka **Uprawnienia** i włącz dostęp do `www.instagram.com`.
 
@@ -117,7 +121,7 @@ Nie usuwaj ani nie przenoś folderu po instalacji, bo przeglądarka korzysta z n
 
 ## Aktualizacja
 
-Pobierz nową wersję, zastąp pliki w tym samym folderze i kliknij **Odśwież** przy Apex IG Unfollowers w `chrome://extensions`. Wyniki skanów, historia i biała lista zostają w profilu przeglądarki. Przy przenosinach na inny komputer użyj kopii zapasowej z ustawień panelu.
+[Pobierz nowy ZIP](https://github.com/Bonziuu/Apex-IGUnfollowers/releases/latest/download/Apex-IGUnfollowers.zip), zastąp pliki w tym samym folderze i kliknij **Odśwież** przy Apex IG Unfollowers w `chrome://extensions`. Wyniki skanów, historia i biała lista zostają w profilu przeglądarki. Przy przenosinach na inny komputer użyj kopii zapasowej z ustawień panelu.
 
 ## Dla programistów
 
@@ -161,7 +165,7 @@ MIT, © 2026 Konrad Woźniak ([LICENSE](LICENSE)). Apex IG Unfollowers jest proj
   <b>A free, open-source browser extension that shows who doesn't follow you back on Instagram.<br>Runs locally in your browser: no account, no server, no Apex telemetry.</b>
 </p>
 
-> **Status:** preview release 1.1.0. Not on the Chrome Web Store; install it manually from this repository.
+> **Status:** preview release 1.1.0. Not on the Chrome Web Store – [download the ZIP](https://github.com/Bonziuu/Apex-IGUnfollowers/releases/latest/download/Apex-IGUnfollowers.zip) and install it manually in a minute.
 
 - 👥 See who doesn't follow you back
 - 📉 See who unfollowed you since the last scan
@@ -182,8 +186,8 @@ Instagram's terms prohibit automated data collection, so **use it at your own ri
 
 ### Installation (Chrome, Edge, Brave, Opera)
 
-1. Download this repository as ZIP (**Code**, then **Download ZIP**) and unpack it to a permanent folder.
-2. Open `chrome://extensions`, enable **Developer mode**, click **Load unpacked** and select the folder with `manifest.json`.
+1. **[Download `Apex-IGUnfollowers.zip`](https://github.com/Bonziuu/Apex-IGUnfollowers/releases/latest/download/Apex-IGUnfollowers.zip)** (always the latest release) and unpack it to a permanent folder.
+2. Open `chrome://extensions`, enable **Developer mode**, click **Load unpacked** and select the `Apex-IGUnfollowers` folder.
 3. Open instagram.com, log in, click the pink button in the bottom-right corner and press **Scan**.
 
 On Firefox, load it temporarily from `about:debugging` or get it signed for free on [addons.mozilla.org](https://addons.mozilla.org/developers/).
