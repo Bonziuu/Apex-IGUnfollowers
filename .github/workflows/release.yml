@@ -1,8 +1,9 @@
 # Apex Unfollowers – automatyczne wydanie na GitHubie.
 #
 # Wydanie powstaje samo, gdy na main trafi wersja z manifest.json, która nie ma jeszcze wydania
-# (np. po podbiciu "version"). Można je też wywołać tagiem vX.Y.Z albo ręcznie: Actions → Wydanie → Run workflow.
-# Workflow uruchamia testy, buduje paczkę i publikuje wydanie z opisem z sekcji CHANGELOG.md dla tej wersji.
+# (np. po podbiciu "version") – ale dopiero wtedy, gdy pełne CI dla tego commita zakończy się sukcesem
+# (wyzwalacz workflow_run). Można je też uruchomić ręcznie: Actions → Wydanie → Run workflow.
+# Workflow ponownie uruchamia testy, buduje paczkę i publikuje wydanie z opisem z CHANGELOG.md.
 #
 # Jak wydać nową wersję:
 #   1. podbij "version" w manifest.json i dopisz sekcję do CHANGELOG.md,
@@ -14,14 +15,10 @@
 name: Wydanie
 
 on:
-  push:
-    branches:
-      - main
-    paths:
-      - manifest.json
-      - .github/workflows/release.yml
-    tags:
-      - 'v*.*.*'
+  workflow_run:
+    workflows: [CI]
+    types: [completed]
+    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -34,12 +31,18 @@ concurrency:
 jobs:
   release:
     name: Testy, paczka i wydanie
+    # tylko po udanym CI dla pushu na main (albo ręcznie)
+    if: github.event_name == 'workflow_dispatch' || (github.event.workflow_run.conclusion == 'success' && github.event.workflow_run.event == 'push')
     runs-on: ubuntu-latest
     timeout-minutes: 30
     env:
       GH_TOKEN: ${{ github.token }}
+      # commit, dla którego CI przeszło (przy ręcznym uruchomieniu: bieżący)
+      TARGET_SHA: ${{ github.event.workflow_run.head_sha || github.sha }}
     steps:
       - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
 
       - uses: actions/setup-node@v4
         with:
@@ -101,7 +104,7 @@ jobs:
             dist/Apex-Unfollowers.zip \
             "dist/Apex-Unfollowers-$VERSION-store.zip" \
             dist/SHA256SUMS.txt \
-            --target "$GITHUB_SHA" \
+            --target "$TARGET_SHA" \
             --title "Apex Unfollowers $VERSION" \
             --notes-file "$RUNNER_TEMP/notes.md" \
             --latest

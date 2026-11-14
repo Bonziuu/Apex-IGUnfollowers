@@ -2,6 +2,21 @@
 
 Wszystkie istotne zmiany w Apex Unfollowers dla Instagrama (do wersji 1.1.2: Apex IG Unfollowers). Format: [Keep a Changelog](https://keepachangelog.com/pl/1.1.0/), wersjonowanie: [SemVer](https://semver.org/lang/pl/).
 
+## [1.2.2] – 2026-11-14
+
+Dalsze poprawki po przeglądzie kodu.
+
+### Bezpieczeństwo i prywatność
+
+- **Konto sprawdzane przy każdym otwarciu panelu i przed odobserwowaniem.** Gdy w tej samej karcie zmienisz konto albo się wylogujesz, panel nie pokaże list poprzedniego konta, a odobserwowanie bez aktywnej sesji jest blokowane.
+- **CSV:** ochrona przed formułami obejmuje też wartości, w których przed `=`, `+`, `-`, `@` stoją spacje, nowe linie lub inne białe znaki (w tym niełamliwa spacja i znaki zerowej szerokości).
+- **Wszystkie przyciski i pola panelu** (także karty, filtry, wyszukiwarka, język, ukrycie przycisku, Esc) reagują tylko na prawdziwe działania użytkownika (`event.isTrusted`).
+
+### Proces wydań
+
+- Wydanie na GitHubie powstaje dopiero po udanym pełnym CI dla danego commita na `main` (`workflow_run`).
+- `SHA256SUMS.txt` obejmuje też paczkę do Chrome Web Store.
+
 ## [1.2.1] – 2026-11-14
 
 Poprawki bezpieczeństwa i prywatności po przeglądzie kodu.

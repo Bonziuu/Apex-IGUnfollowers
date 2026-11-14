@@ -392,7 +392,7 @@ var ui = {
       this.host = host;
       (document.body || document.documentElement).appendChild(host);
       document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && this.panel && !this.panel.classList.contains('hidden')) togglePanel(false);
+        if (e.isTrusted && e.key === 'Escape' && this.panel && !this.panel.classList.contains('hidden')) togglePanel(false);
       });
     }
     const style = document.createElement('style');
@@ -426,10 +426,10 @@ var ui = {
 
   bind() {
     const r = this.r;
-    this.launcher.addEventListener('click', () => togglePanel());
-    r.close.addEventListener('click', () => togglePanel(false));
-    r.statsBtn.addEventListener('click', () => setView(state.view === 'stats' ? 'lists' : 'stats'));
-    r.settingsBtn.addEventListener('click', () => setView(state.view === 'settings' ? 'lists' : 'settings'));
+    this.launcher.addEventListener('click', userOnly(() => togglePanel()));
+    r.close.addEventListener('click', userOnly(() => togglePanel(false)));
+    r.statsBtn.addEventListener('click', userOnly(() => setView(state.view === 'stats' ? 'lists' : 'stats')));
+    r.settingsBtn.addEventListener('click', userOnly(() => setView(state.view === 'settings' ? 'lists' : 'settings')));
     r.scan.addEventListener('click', userOnly(() => (state.scanning ? stopScan() : startScan())));
     r.restart.addEventListener('click', userOnly(() => { if (!state.scanning) startScan({ fresh: true }); }));
     r.acceptRisk.addEventListener('change', (e) => { r.welcomeStart.disabled = !(e.isTrusted && r.acceptRisk.checked); });
@@ -439,38 +439,38 @@ var ui = {
       state.view = 'lists';
       render();
     }));
-    r.welcomeMore.addEventListener('click', openWelcomePage);
-    r.showWelcome.addEventListener('click', openWelcomePage);
+    r.welcomeMore.addEventListener('click', userOnly(openWelcomePage));
+    r.showWelcome.addEventListener('click', userOnly(openWelcomePage));
     r.reportGithub.addEventListener('click', userOnly(() => openReport('github')));
     r.reportMail.addEventListener('click', userOnly(() => openReport('mail')));
     r.speed.addEventListener('change', userOnly(() => saveSetting('speed', r.speed.value)));
-    r.tabs.addEventListener('click', (e) => {
+    r.tabs.addEventListener('click', userOnly((e) => {
       const b = e.target.closest('button[data-tab]');
       if (!b) return;
       state.tab = b.dataset.tab;
       state.limit = RENDER_STEP;
       r.list.scrollTop = 0;
       render();
-    });
+    }));
     let timer;
     r.search.value = state.query;
-    r.search.addEventListener('input', () => {
+    r.search.addEventListener('input', userOnly(() => {
       clearTimeout(timer);
       timer = setTimeout(() => { state.query = r.search.value.trim().toLowerCase(); state.limit = RENDER_STEP; render(); }, 120);
-    });
-    r.filter.addEventListener('change', () => { state.filter = r.filter.value; state.limit = RENDER_STEP; render(); });
-    r.sort.addEventListener('change', () => { state.sort = r.sort.value; state.limit = RENDER_STEP; render(); });
-    r.showHidden.addEventListener('change', () => { state.showHidden = r.showHidden.checked; render(); });
+    }));
+    r.filter.addEventListener('change', userOnly(() => { state.filter = r.filter.value; state.limit = RENDER_STEP; render(); }));
+    r.sort.addEventListener('change', userOnly(() => { state.sort = r.sort.value; state.limit = RENDER_STEP; render(); }));
+    r.showHidden.addEventListener('change', userOnly(() => { state.showHidden = r.showHidden.checked; render(); }));
     r.csv.addEventListener('click', userOnly(exportCsv));
 
     // ustawienia
-    r.lang.addEventListener('change', async () => {
+    r.lang.addEventListener('change', userOnly(async () => {
       await saveSetting('lang', r.lang.value);
       L = I18N.make(state.settings.lang);
       this.rebuild();
-    });
+    }));
     r.unfLimit.addEventListener('change', userOnly(() => saveSetting('unfLimit', Number(r.unfLimit.value))));
-    r.showLauncher.addEventListener('change', () => saveSetting('hideLauncher', !r.showLauncher.checked));
+    r.showLauncher.addEventListener('change', userOnly(() => saveSetting('hideLauncher', !r.showLauncher.checked)));
     r.export.addEventListener('click', userOnly(exportBackup));
     r.import.addEventListener('click', userOnly(() => r.importFile.click()));
     r.importFile.addEventListener('change', userOnly(async () => {
@@ -536,7 +536,7 @@ var ui = {
       state.lastError = { text, detail: detail || '', at: Date.now() };
       const b = el('button', 'linkbtn', t('report.button'));
       b.title = t('report.buttonTitle');
-      b.addEventListener('click', () => openReport('github'));
+      b.addEventListener('click', userOnly(() => openReport('github')));
       m.appendChild(b);
     }
   },

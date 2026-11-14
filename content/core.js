@@ -211,12 +211,15 @@ async function loadSettings() {
   L = I18N.make(state.settings.lang);
 }
 
+// Wywoływane przy każdym otwarciu panelu: panel pokazuje dane tylko konta zalogowanego teraz.
+// Po wylogowaniu albo zmianie konta bez przeładowania karty dane poprzedniego konta znikają z
+// widoku (zostają w pamięci wtyczki i wracają po zalogowaniu na to konto).
 async function ensureLoaded() {
-  if (state.loaded) return;
+  const id = getCookie('ds_user_id');
+  if (state.loaded && (state.scanning || id === state.userId)) return;
   state.loaded = true;
-  // tylko konto zalogowane teraz: po wylogowaniu panel nie pokazuje wcześniejszych wyników
-  // (dane zostają w pamięci i wracają po ponownym zalogowaniu na to konto)
-  await loadAccount(getCookie('ds_user_id'));
+  state.confirmId = null;
+  await loadAccount(id);
 }
 
 function computeLists() {

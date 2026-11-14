@@ -11,13 +11,15 @@ for (const f of ['shared/i18n.js', 'content/core.js', 'content/backup.js']) vm.r
 const { csvCell, validateBackup, BACKUP_LIMITS } = ctx;
 
 test('CSV: formuły i znaki sterujące są neutralizowane', () => {
-  for (const evil of ['=HYPERLINK("http://x","y")', '+1+1', '-2+3', '@SUM(A1)', '\t=1', '\r=1', '＝1', '＋1', '－1', '＠1']) {
+  for (const evil of ['=HYPERLINK("http://x","y")', '+1+1', '-2+3', '@SUM(A1)', '\t=1', '\r=1', '\n=1', '\n', ' =1', '   +1', '\u00A0=1', '\u3000@1', '\uFEFF=1', '\u200B=1', ' \n -1', '＝1', '＋1', '－1', '＠1']) {
     const cell = csvCell(evil);
     assert.ok(cell.startsWith(`"'`), `${JSON.stringify(evil)} → ${cell}`);
   }
   assert.equal(csvCell('a\u0000b\u0007c'), '"abc"');
   assert.equal(csvCell('Anna "Ania" Nowak'), '"Anna ""Ania"" Nowak"');
   assert.equal(csvCell('konto.1'), '"konto.1"');
+  assert.equal(csvCell('Anna Nowak'), '"Anna Nowak"');
+  assert.equal(csvCell('Anna = Ania'), '"Anna = Ania"');
   assert.equal(csvCell(''), '""');
   assert.equal(csvCell(null), '""');
 });

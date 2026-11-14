@@ -129,6 +129,16 @@ async function setup({ colorScheme = 'light', locale = 'pl-PL', rateLimited = fa
   return { browser, context, page, root, data, posts, requests, errors, msg, counts, scan };
 }
 
+// <select> zmieniany klawiaturą: panel reaguje tylko na prawdziwe zdarzenia (isTrusted),
+// a locator.selectOption() wysyła zdarzenie ze skryptu
+async function choose(locator, value) {
+  const [cur, idx] = await locator.evaluate((sel, v) => [sel.selectedIndex, [...sel.options].findIndex((o) => o.value === v)], value);
+  assert.ok(idx >= 0, `brak opcji ${value}`);
+  await locator.focus();
+  for (let i = 0; i < Math.abs(idx - cur); i++) await locator.page().keyboard.press(idx > cur ? 'ArrowDown' : 'ArrowUp');
+  assert.equal(await locator.inputValue(), value);
+}
+
 const shot = async (page, name) => {
   if (!SHOTS) return;
   fs.mkdirSync(SHOTS, { recursive: true });
@@ -146,14 +156,14 @@ test('skan, listy, filtry, sortowanie, biała lista, zmiany, statystyki i CSV', 
     await shot(page, 'panel.png');
 
     // filtry i sortowanie (zakładka „Nie obserwują Cię”: konta 131–169)
-    await root.locator('[data-ref=filter]').selectOption('verified');
+    await choose(root.locator('[data-ref=filter]'), 'verified');
     assert.deepEqual(await root.locator('.who a').allTextContents(), ['konto.136', 'konto.153']);
-    await root.locator('[data-ref=filter]').selectOption('nopic');
+    await choose(root.locator('[data-ref=filter]'), 'nopic');
     assert.deepEqual(await root.locator('.who a').allTextContents(), ['konto.133', 'konto.140', 'konto.147', 'konto.154', 'konto.161', 'konto.168']);
-    await root.locator('[data-ref=filter]').selectOption('all');
-    await root.locator('[data-ref=sort]').selectOption('za');
+    await choose(root.locator('[data-ref=filter]'), 'all');
+    await choose(root.locator('[data-ref=sort]'), 'za');
     assert.equal(await root.locator('.who a').first().textContent(), 'konto.169');
-    await root.locator('[data-ref=sort]').selectOption('default');
+    await choose(root.locator('[data-ref=sort]'), 'default');
 
     // biała lista
     await root.locator('.row .mini', { hasText: 'Ukryj' }).first().click();
@@ -416,7 +426,7 @@ test('język: automatycznie EN dla przeglądarki po angielsku, przełączanie w 
     assert.equal(await root.locator('[data-ref=scan]').textContent(), 'Scan');
     assert.match(await root.locator('nav').textContent(), /Don’t follow back/);
     await root.locator('[data-ref=settingsBtn]').click();
-    await root.locator('[data-ref=lang]').selectOption('pl');
+    await choose(root.locator('[data-ref=lang]'), 'pl');
     assert.equal(await root.locator('[data-ref=scan]').textContent(), 'Skanuj');
     assert.equal(await root.locator('[data-ref=vSettings]').isVisible(), true);
     assert.match(await root.locator('[data-ref=vSettings]').textContent(), /Kopia zapasowa/);
@@ -497,6 +507,29 @@ test('prywatność: po wylogowaniu panel nie pokazuje wyników poprzedniego kont
     assert.match(await root.locator('.empty').first().textContent(), /Zaloguj się na Instagramie/);
     assert.doesNotMatch(await root.locator('[data-ref=sub]').textContent(), /apex\.test/);
     assert.ok(await page.evaluate(() => 'scan:999' in window.__mem), 'dane zostają w pamięci');
+  } finally {
+    await browser.close();
+  }
+});
+
+test('konto zmienione bez przeładowania karty: panel i odobserwowanie sprawdzają bieżącą sesję', { timeout: 90_000 }, async () => {
+  const { browser, context, root, page, posts, msg, scan } = await setup();
+  try {
+    await root.locator('.launcher').click();
+    await scan();
+    assert.ok(await root.locator('.row').count() > 0);
+    // wylogowanie w tej samej karcie: odobserwowanie jest zablokowane
+    await context.clearCookies({ name: 'ds_user_id' });
+    await root.locator('.row .mini.unf').first().click();
+    assert.match(await msg(), /zalogowania/);
+    assert.equal(posts.length, 0);
+    // inne konto bez przeładowania: po ponownym otwarciu panel nie pokazuje list konta 999
+    await context.addCookies([{ name: 'ds_user_id', value: '888', domain: 'www.instagram.com', path: '/' }]);
+    await root.locator('[data-ref=close]').click();
+    await root.locator('.launcher').click();
+    assert.equal(await root.locator('.row').count(), 0);
+    assert.doesNotMatch(await root.locator('[data-ref=sub]').textContent(), /apex\.test/);
+    assert.ok(await page.evaluate(() => 'scan:999' in window.__mem), 'dane konta 999 zostają w pamięci');
   } finally {
     await browser.close();
   }

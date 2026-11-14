@@ -10,7 +10,9 @@
 // Excel, Google Sheets i LibreOffice traktują komórkę zaczynającą się od = + - @ (także tab/CR
 // i ich pełnoszerokie odpowiedniki) jako formułę. Taka wartość dostaje na początku apostrof,
 // więc arkusz pokaże ją jako zwykły tekst. Znaki sterujące (poza \t \n \r) są usuwane.
-var CSV_FORMULA_RE = /^[=+\-@\t\r＝＋－＠]/;
+// Także gdy przed takim znakiem stoją spacje, nowe linie lub inne białe znaki (\s obejmuje m.in.
+// \u00A0, \u2000–\u200A, \u3000, \uFEFF) – część programów je pomija.
+var CSV_FORMULA_RE = /^[\s\u200B\u180E]*[=+\-@\uFF1D\uFF0B\uFF0D\uFF20]|^[\t\r\n]/;
 var CONTROL_RE = /[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g;
 
 function csvCell(value) {

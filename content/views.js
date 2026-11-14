@@ -143,7 +143,7 @@ function renderLists() {
     if (totalUsers > shown) {
       const li = el('li', 'more');
       const b = el('button', 'btn', t('ui.more', { n: fmtNum(totalUsers - shown) }));
-      b.addEventListener('click', () => { state.limit += RENDER_STEP; render(); });
+      b.addEventListener('click', userOnly(() => { state.limit += RENDER_STEP; render(); }));
       li.appendChild(b);
       frag.appendChild(li);
     }

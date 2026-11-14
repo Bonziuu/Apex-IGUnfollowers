@@ -164,7 +164,8 @@ async function unfollow(u) {
 
   let problem = null;
   if (state.scanning) problem = [t('unf.duringScan'), 'warn'];
-  else if (cookieId && cookieId !== state.userId) problem = [t('unf.otherAccount'), 'warn'];
+  else if (!cookieId) problem = [t('err.login'), 'error'];
+  else if (cookieId !== state.userId) problem = [t('unf.otherAccount'), 'warn'];
   else if (state.unfBlock && now < state.unfBlock) problem = [t('unf.blockedUntil', { time: fmtTime(state.unfBlock) }), 'error'];
   else if (used >= limit) problem = [t('unf.limit', { used, limit }), 'warn'];
   else if (now - lastUnf() < UNF.cooldownMs) {

@@ -49,7 +49,7 @@ if (process.platform === 'win32') {
 }
 fs.rmSync(stage, { recursive: true, force: true });
 
-const sums = ['Apex-Unfollowers.zip', zipName].map((n) => {
+const sums = ['Apex-Unfollowers.zip', zipName, path.basename(storeZip)].map((n) => {
   const hash = crypto.createHash('sha256').update(fs.readFileSync(path.join(dist, n))).digest('hex');
   return `${hash}  ${n}`;
 });
