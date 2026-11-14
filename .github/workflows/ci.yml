@@ -50,3 +50,14 @@ jobs:
         with:
           name: Apex-Unfollowers
           path: dist/
+
+      - name: Zrzuty do Chrome Web Store (PL + EN)
+        run: npm run store
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Apex-Unfollowers-CWS
+          path: |
+            store/screenshots/en/*.jpg
+            store/screenshots/pl/*.jpg
+          if-no-files-found: error
