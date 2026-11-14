@@ -9,7 +9,8 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/Bonziuu/Apex-IGUnfollowers/releases/latest/download/Apex-Unfollowers.zip"><b>⬇️ Pobierz ZIP</b></a>
+  <a href="https://chromewebstore.google.com/detail/apex-unfollowers-for-inst/figleldcaegociodlepepehcfhkhpeho"><b>➕ Dodaj do Chrome</b></a> ·
+  <a href="https://github.com/Bonziuu/Apex-IGUnfollowers/releases/latest/download/Apex-Unfollowers.zip">⬇️ ZIP</a>
   &nbsp;·&nbsp; <a href="#instalacja">Instalacja w 1 minutę</a>
   &nbsp;·&nbsp; <a href="https://apexsoftware.app/pl/unfollowers/">Strona produktu</a>
   &nbsp;·&nbsp; <a href="#eng">English ↓</a>
@@ -20,7 +21,7 @@
   <a href="LICENSE"><img src="https://img.shields.io/badge/licencja-MIT-cc1670" alt="Licencja MIT"></a>
 </p>
 
-> **Status:** wersja 1.2.0. Do czasu publikacji w sklepach wtyczkę instaluje się ręcznie z [paczki ZIP](https://github.com/Bonziuu/Apex-IGUnfollowers/releases/latest/download/Apex-Unfollowers.zip) – zajmuje to minutę ([instrukcja](#instalacja)). Wszystkie wersje i sumy SHA-256: [Releases](https://github.com/Bonziuu/Apex-IGUnfollowers/releases/latest) · [Co nowego](CHANGELOG.md)
+> **Status:** dostępna w [Chrome Web Store](https://chromewebstore.google.com/detail/apex-unfollowers-for-inst/figleldcaegociodlepepehcfhkhpeho) – instalacja jednym kliknięciem, aktualizacje przychodzą same. Ręczna instalacja z [paczki ZIP](https://github.com/Bonziuu/Apex-IGUnfollowers/releases/latest/download/Apex-Unfollowers.zip) nadal działa ([instrukcja](#instalacja-ręczna-z-zip)). Wszystkie wersje i sumy SHA-256: [Releases](https://github.com/Bonziuu/Apex-IGUnfollowers/releases/latest) · [Co nowego](CHANGELOG.md)
 
 - 👥 Kto nie obserwuje Cię nawzajem
 - 📉 Kto przestał Cię obserwować od ostatniego skanu
@@ -94,7 +95,13 @@ Zalecenie: skanuj najwyżej raz dziennie i nie odobserwowuj dziesiątek kont nar
 
 ## Instalacja
 
-### Chrome, Edge, Brave, Opera
+### Chrome Web Store (zalecane)
+
+Otwórz **[Apex Unfollowers w Chrome Web Store](https://chromewebstore.google.com/detail/apex-unfollowers-for-inst/figleldcaegociodlepepehcfhkhpeho)**, kliknij **Dodaj do Chrome** i potwierdź. Otworzy się ekran powitalny – zaakceptuj go i otwórz [instagram.com](https://www.instagram.com). Aktualizacje instalują się automatycznie.
+
+### Instalacja ręczna z ZIP
+
+Gdy chcesz zainstalować konkretną wersję z wydania i sprawdzić ją sumą SHA-256 (taka instalacja nie aktualizuje się sama):
 
 1. **[Pobierz `Apex-Unfollowers.zip`](https://github.com/Bonziuu/Apex-IGUnfollowers/releases/latest/download/Apex-Unfollowers.zip)** (zawsze najnowsza wersja).
 2. Rozpakuj ZIP w stałym miejscu na dysku, np. w `Dokumenty`. Powstanie folder `Apex-Unfollowers`.
@@ -116,7 +123,9 @@ Nie usuwaj ani nie przenoś folderu po instalacji, bo przeglądarka korzysta z n
 
 ## Aktualizacja
 
-[Pobierz nowy ZIP](https://github.com/Bonziuu/Apex-IGUnfollowers/releases/latest/download/Apex-Unfollowers.zip), zastąp pliki w tym samym folderze i kliknij **Odśwież** przy Apex Unfollowers w `chrome://extensions`. Wyniki skanów, historia i biała lista zostają w profilu przeglądarki. Przy przenosinach na inny komputer użyj kopii zapasowej z ustawień panelu.
+Z Chrome Web Store: nic nie trzeba robić – Chrome aktualizuje wtyczkę sam.
+
+Instalacja ręczna: [pobierz nowy ZIP](https://github.com/Bonziuu/Apex-IGUnfollowers/releases/latest/download/Apex-Unfollowers.zip), zastąp pliki w tym samym folderze i kliknij **Odśwież** przy Apex Unfollowers w `chrome://extensions`. Wyniki skanów, historia i biała lista zostają w profilu przeglądarki. Przy przenosinach na inny komputer użyj kopii zapasowej z ustawień panelu.
 
 > Aktualizacja z wersji 1.1.x: folder w paczce nazywa się teraz `Apex-Unfollowers`. Najprościej skopiuj jego zawartość do starego folderu i kliknij **Odśwież**. Jeśli instalujesz wtyczkę w nowym miejscu, Chrome potraktuje ją jak nową – przed usunięciem starej zapisz kopię zapasową (ustawienia panelu) i wczytaj ją w nowej.
 
@@ -187,7 +196,11 @@ The extension uses the session you are already logged into on instagram.com and 
 
 Instagram's terms prohibit automated data collection, so **use it at your own risk** – the welcome screen asks you to confirm this on first run. Requests are paced with random delays, the extension backs off automatically when Instagram responds with HTTP 429, and it pauses unfollowing for 6 hours if Instagram blocks an action. Scanning at most once a day is recommended.
 
-### Installation (Chrome, Edge, Brave, Opera)
+### Installation
+
+**Chrome Web Store (recommended):** open **[Apex Unfollowers in the Chrome Web Store](https://chromewebstore.google.com/detail/apex-unfollowers-for-inst/figleldcaegociodlepepehcfhkhpeho)** and click **Add to Chrome**. Updates install automatically.
+
+**Manual install from ZIP:**
 
 1. **[Download `Apex-Unfollowers.zip`](https://github.com/Bonziuu/Apex-IGUnfollowers/releases/latest/download/Apex-Unfollowers.zip)** (always the latest release) and unpack it to a permanent folder.
 2. Open `chrome://extensions`, enable **Developer mode**, click **Load unpacked** and select the `Apex-Unfollowers` folder.
