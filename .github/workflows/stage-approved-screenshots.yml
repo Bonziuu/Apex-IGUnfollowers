@@ -1,0 +1,63 @@
+name: Stage approved Unfollowers screenshots
+on:
+  push:
+    branches:
+      - assets/final-approved-screenshots-staging
+
+permissions:
+  actions: read
+  contents: write
+
+jobs:
+  render:
+    if: "!contains(github.event.head_commit.message, '[rendered]')"
+    runs-on: ubuntu-latest
+    timeout-minutes: 18
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install rendering dependencies and original Inter fonts
+        run: |
+          sudo apt-get update -qq
+          sudo apt-get install -y fonts-inter
+          python -m pip install --disable-pip-version-check Pillow numpy cairosvg
+          ls -la /usr/share/fonts/opentype/inter || true
+          fc-list | grep -i inter | head -10 || true
+
+      - name: Download authentic panel captures from successful CI
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p /tmp/apex-cws-source
+          gh run download 43600889146 --repo Bonziuu/Apex-IGUnfollowers --name Apex-Unfollowers-CWS --dir /tmp/apex-cws-source
+          find /tmp/apex-cws-source -type f | sort
+
+      - name: Render ten approved pixel-locked screenshots (PL/EN)
+        env:
+          APEX_SOURCE: /tmp/apex-cws-source
+          APEX_OUTPUT: store/screenshots
+        run: python tools/render-approved-screenshots.py
+
+      - name: Commit only screenshot files to the staging branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add store/screenshots/en/0*.jpg store/screenshots/pl/0*.jpg
+          git diff --cached --name-only
+          git diff --cached --quiet && exit 0
+          git commit -m "assets: final pixel-locked CWS screenshots PL and EN [rendered]"
+          git push origin HEAD:assets/final-approved-screenshots-staging
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Approved-Apex-Unfollowers-Screenshots
+          path: |
+            store/screenshots/en/0*.jpg
+            store/screenshots/pl/0*.jpg
+          if-no-files-found: error
