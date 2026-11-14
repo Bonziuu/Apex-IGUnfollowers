@@ -50,8 +50,25 @@ jobs:
         with:
           name: Apex-Unfollowers
           path: dist/
+  
+  screenshots:
+    name: Chrome Web Store (PL + EN)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
 
-      - name: Zrzuty do Chrome Web Store (PL + EN)
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Instalacja zależności
+        run: npm ci --no-audit --no-fund
+
+      - name: Instalacja Chromium (Playwright)
+        run: npx playwright install --with-deps chromium
+
+      - name: Wygeneruj screenshoty w obu językach
         run: npm run store
 
       - uses: actions/upload-artifact@v4
