@@ -430,20 +430,20 @@ var ui = {
     r.close.addEventListener('click', () => togglePanel(false));
     r.statsBtn.addEventListener('click', () => setView(state.view === 'stats' ? 'lists' : 'stats'));
     r.settingsBtn.addEventListener('click', () => setView(state.view === 'settings' ? 'lists' : 'settings'));
-    r.scan.addEventListener('click', () => (state.scanning ? stopScan() : startScan()));
-    r.restart.addEventListener('click', () => { if (!state.scanning) startScan({ fresh: true }); });
-    r.acceptRisk.addEventListener('change', () => { r.welcomeStart.disabled = !r.acceptRisk.checked; });
-    r.welcomeStart.addEventListener('click', async () => {
+    r.scan.addEventListener('click', userOnly(() => (state.scanning ? stopScan() : startScan())));
+    r.restart.addEventListener('click', userOnly(() => { if (!state.scanning) startScan({ fresh: true }); }));
+    r.acceptRisk.addEventListener('change', (e) => { r.welcomeStart.disabled = !(e.isTrusted && r.acceptRisk.checked); });
+    r.welcomeStart.addEventListener('click', userOnly(async () => {
       if (!r.acceptRisk.checked) return;
       await saveSetting('onboarded', true);
       state.view = 'lists';
       render();
-    });
+    }));
     r.welcomeMore.addEventListener('click', openWelcomePage);
     r.showWelcome.addEventListener('click', openWelcomePage);
-    r.reportGithub.addEventListener('click', () => openReport('github'));
-    r.reportMail.addEventListener('click', () => openReport('mail'));
-    r.speed.addEventListener('change', () => saveSetting('speed', r.speed.value));
+    r.reportGithub.addEventListener('click', userOnly(() => openReport('github')));
+    r.reportMail.addEventListener('click', userOnly(() => openReport('mail')));
+    r.speed.addEventListener('change', userOnly(() => saveSetting('speed', r.speed.value)));
     r.tabs.addEventListener('click', (e) => {
       const b = e.target.closest('button[data-tab]');
       if (!b) return;
@@ -461,7 +461,7 @@ var ui = {
     r.filter.addEventListener('change', () => { state.filter = r.filter.value; state.limit = RENDER_STEP; render(); });
     r.sort.addEventListener('change', () => { state.sort = r.sort.value; state.limit = RENDER_STEP; render(); });
     r.showHidden.addEventListener('change', () => { state.showHidden = r.showHidden.checked; render(); });
-    r.csv.addEventListener('click', exportCsv);
+    r.csv.addEventListener('click', userOnly(exportCsv));
 
     // ustawienia
     r.lang.addEventListener('change', async () => {
@@ -469,16 +469,16 @@ var ui = {
       L = I18N.make(state.settings.lang);
       this.rebuild();
     });
-    r.unfLimit.addEventListener('change', () => saveSetting('unfLimit', Number(r.unfLimit.value)));
+    r.unfLimit.addEventListener('change', userOnly(() => saveSetting('unfLimit', Number(r.unfLimit.value))));
     r.showLauncher.addEventListener('change', () => saveSetting('hideLauncher', !r.showLauncher.checked));
-    r.export.addEventListener('click', exportBackup);
-    r.import.addEventListener('click', () => r.importFile.click());
-    r.importFile.addEventListener('change', async () => {
+    r.export.addEventListener('click', userOnly(exportBackup));
+    r.import.addEventListener('click', userOnly(() => r.importFile.click()));
+    r.importFile.addEventListener('change', userOnly(async () => {
       const f = r.importFile.files && r.importFile.files[0];
       r.importFile.value = '';
       if (f) await importBackup(f);
-    });
-    r.wipe.addEventListener('click', async () => {
+    }));
+    r.wipe.addEventListener('click', userOnly(async () => {
       if (state.scanning) return;
       if (!this.wipeArmed) {
         this.wipeArmed = true;
@@ -494,7 +494,7 @@ var ui = {
       await loadAccount(state.userId);
       this.message(t('set.wiped'), 'warn');
       render();
-    });
+    }));
   },
 
   applySettings() {

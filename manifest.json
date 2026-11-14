@@ -3,7 +3,7 @@
   "name": "__MSG_extName__",
   "short_name": "__MSG_extShortName__",
   "author": "Konrad Woźniak",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "__MSG_extDescription__",
   "default_locale": "en",
   "minimum_chrome_version": "121",
@@ -28,6 +28,7 @@
       "js": [
         "shared/i18n.js",
         "content/core.js",
+        "content/backup.js",
         "content/net.js",
         "content/actions.js",
         "content/ui.js",

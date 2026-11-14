@@ -110,6 +110,7 @@
       'backup.exported': 'Zapisano kopię zapasową (konta: {n}).',
       'backup.imported': 'Wczytano kopię z {date} (konta: {n}).',
       'backup.invalid': 'To nie jest kopia zapasowa Apex Unfollowers albo plik jest uszkodzony.',
+      'backup.tooBig': 'Plik kopii jest za duży (maks. {mb} MB).',
 
       'ui.stats': 'Statystyki',
       'ui.settings': 'Ustawienia',
@@ -178,6 +179,7 @@
       'empty.changes': 'Brak zarejestrowanych zmian. Uruchom skan ponownie za jakiś czas – tu zobaczysz, kto przestał Cię obserwować, a kto doszedł.',
       'empty.firstScan': 'Najpierw zrób pierwszy skan.',
       'empty.scanning': 'Trwa pobieranie list…',
+      'empty.loggedOut': 'Zaloguj się na Instagramie, żeby zobaczyć swoje wyniki. Zapisane skany zostają w pamięci wtyczki i wrócą po zalogowaniu na to samo konto.',
       'empty.noScan': 'Kliknij „Skanuj”, żeby pobrać listy. Przy dużych kontach może to potrwać kilka minut – możesz zamknąć panel, ale nie zamykaj karty Instagrama.',
       'empty.noResults': 'Brak kont dla tego wyszukiwania lub filtra.',
       'empty.notBack': 'Wszyscy, których obserwujesz, obserwują Cię 🎉',
@@ -327,6 +329,7 @@
       'backup.exported': 'Backup saved (accounts: {n}).',
       'backup.imported': 'Backup from {date} restored (accounts: {n}).',
       'backup.invalid': 'This is not an Apex Unfollowers backup or the file is damaged.',
+      'backup.tooBig': 'The backup file is too large (max {mb} MB).',
 
       'ui.stats': 'Statistics',
       'ui.settings': 'Settings',
@@ -395,6 +398,7 @@
       'empty.changes': 'No changes recorded yet. Scan again later – this is where you will see who unfollowed you and who joined.',
       'empty.firstScan': 'Run your first scan first.',
       'empty.scanning': 'Fetching lists…',
+      'empty.loggedOut': 'Log in to Instagram to see your results. Saved scans stay in the extension and come back when you log in to the same account.',
       'empty.noScan': 'Click Scan to fetch your lists. Large accounts can take a few minutes – you can close the panel, but keep the Instagram tab open.',
       'empty.noResults': 'No accounts match this search or filter.',
       'empty.notBack': 'Everyone you follow follows you back 🎉',

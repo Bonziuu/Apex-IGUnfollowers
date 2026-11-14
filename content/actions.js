@@ -243,18 +243,16 @@ async function exportBackup() {
 
 async function importBackup(file) {
   try {
-    const payload = JSON.parse(await file.text());
-    if (!payload || !BACKUP_APPS.includes(payload.app) || typeof payload.data !== 'object') throw new Error('format');
-    const data = {};
-    for (const [k, v] of Object.entries(payload.data)) if (BACKUP_KEY_RE.test(k)) data[k] = v;
-    if (!Object.keys(data).length) throw new Error('empty');
+    if (file.size > BACKUP_LIMITS.bytes) { ui.message(t('backup.tooBig', { mb: BACKUP_LIMITS.bytes / 1048576 }), 'error'); return; }
+    // cała kopia jest sprawdzana i oczyszczana przed zapisem; jeden zapis = wszystko albo nic
+    const data = validateBackup(JSON.parse(await file.text()));
     await store.setMany(data);
     await loadSettings();
-    const id = getCookie('ds_user_id') || data.lastUserId || state.userId;
+    const id = getCookie('ds_user_id');
     await loadAccount(id);
     const accounts = Object.keys(data).filter((k) => k.startsWith('scan:')).length;
     ui.rebuild();
-    ui.message(t('backup.imported', { date: fmtDate(Date.parse(payload.exportedAt) || Date.now()), n: accounts }), 'ok');
+    ui.message(t('backup.imported', { date: fmtDate(Date.now()), n: accounts }), 'ok');
   } catch (e) {
     console.warn('[Apex Unfollowers] import', e);
     ui.message(t('backup.invalid'), 'error');

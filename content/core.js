@@ -54,6 +54,12 @@ var BACKUP_APPS = ['apex-unfollowers', 'apex-igunfollowers'];   // druga nazwa: 
 // ---------------------------------------------------------------- pomocnicze
 var rand = (a, b) => Math.round(a + Math.random() * (b - a));
 var sleep = (ms) => new Promise((r) => setTimeout(r, ms));
+// Działania na koncie i w danych wtyczki wykonuje tylko prawdziwy użytkownik: zdarzenia
+// wywołane skryptem strony (element.click(), dispatchEvent) mają isTrusted = false i są ignorowane.
+var userOnly = (fn) => function (event) {
+  if (!event || event.isTrusted !== true) return undefined;
+  return fn.apply(this, arguments);
+};
 var getCookie = (name) => {
   const m = document.cookie.match(new RegExp('(?:^|;\\s*)' + name + '=([^;]*)'));
   return m ? decodeURIComponent(m[1]) : null;
@@ -208,8 +214,9 @@ async function loadSettings() {
 async function ensureLoaded() {
   if (state.loaded) return;
   state.loaded = true;
-  const id = getCookie('ds_user_id') || (await store.get('lastUserId', null));
-  await loadAccount(id);
+  // tylko konto zalogowane teraz: po wylogowaniu panel nie pokazuje wcześniejszych wyników
+  // (dane zostają w pamięci i wracają po ponownym zalogowaniu na to konto)
+  await loadAccount(getCookie('ds_user_id'));
 }
 
 function computeLists() {

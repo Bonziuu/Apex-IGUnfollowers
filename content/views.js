@@ -75,7 +75,7 @@ function userRow(item) {
   if (state.tab === 'notBack') {
     const b = el('button', 'mini', hidden ? t('row.unhide') : t('row.hide'));
     b.title = hidden ? t('row.unhideTitle') : t('row.hideTitle');
-    b.addEventListener('click', () => toggleWhitelist(u.id));
+    b.addEventListener('click', userOnly(() => toggleWhitelist(u.id)));
     li.appendChild(b);
   }
   if (state.tab === 'notBack' || state.tab === 'mutual') {
@@ -85,7 +85,7 @@ function userRow(item) {
       busy ? '…' : confirming ? t('row.unfConfirm') : t('row.unf'));
     b.title = t('row.unfTitle');
     b.disabled = busy || (!!state.busyId && !busy);
-    b.addEventListener('click', () => unfollow(u));
+    b.addEventListener('click', userOnly(() => unfollow(u)));
     li.appendChild(b);
   }
   return li;
@@ -99,6 +99,7 @@ async function toggleWhitelist(id) {
 }
 
 function emptyText() {
+  if (!state.userId && !state.scanning) return t('empty.loggedOut');
   if (state.tab === 'changes') return state.scan ? t('empty.changes') : t('empty.firstScan');
   if (!state.scan && state.scanning) return t('empty.scanning');
   if (!state.scan) return t('empty.noScan');
@@ -348,7 +349,7 @@ function render() {
 function exportCsv() {
   const items = currentItems().filter((i) => i.user);
   if (!items.length) { ui.message(t('csv.empty'), 'warn'); return; }
-  const q = (v) => '"' + String(v ?? '').replace(/"/g, '""') + '"';
+  const q = csvCell;   // cudzysłowy + ochrona przed formułami w arkuszach (content/backup.js)
   const changes = state.tab === 'changes';
   const head = t('csv.head').split(',');
   if (changes) head.push(...t('csv.headChanges').split(','));

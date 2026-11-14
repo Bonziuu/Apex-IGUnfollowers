@@ -7,7 +7,7 @@
     "node": ">=20"
   },
   "scripts": {
-    "test": "node --test tests/panel.test.mjs",
+    "test": "node --test tests/security.test.mjs tests/panel.test.mjs",
     "icons": "node tools/build-icons.mjs",
     "package:release": "node tools/package-release.mjs",
     "store": "node store/capture.mjs"

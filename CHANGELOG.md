@@ -2,6 +2,24 @@
 
 Wszystkie istotne zmiany w Apex Unfollowers dla Instagrama (do wersji 1.1.2: Apex IG Unfollowers). Format: [Keep a Changelog](https://keepachangelog.com/pl/1.1.0/), wersjonowanie: [SemVer](https://semver.org/lang/pl/).
 
+## [1.2.1] – 2026-11-14
+
+Poprawki bezpieczeństwa i prywatności po przeglądzie kodu.
+
+### Bezpieczeństwo
+
+- **Eksport CSV odporny na formuły („CSV injection”).** Wartości zaczynające się od `=`, `+`, `-`, `@`, tabulatora lub CR (także ich pełnoszerokich odpowiedników) dostają apostrof na początku, więc Excel, Google Sheets i LibreOffice pokażą je jako tekst. Znaki sterujące są usuwane.
+- **Pełna walidacja kopii zapasowej przed wczytaniem.** Limit 64 MB na plik, maks. 20 kont i 250 000 kont na liście; sprawdzane są typy, identyfikatory, nazwy użytkowników, daty, liczniki i długości wszystkich list. Nieznane pola są pomijane, zdjęcia profilowe spoza serwerów Instagrama usuwane. Kopia jest zapisywana jednym zapisem dopiero po sprawdzeniu całości – wadliwy plik niczego nie zmienia.
+- **Działania wykonuje tylko użytkownik.** Odobserwowanie, skan, biała lista, usuwanie danych, import/eksport, zgłoszenie problemu, akceptacja ekranu powitalnego i zmiana limitów reagują wyłącznie na prawdziwe kliknięcia (`event.isTrusted`). Kliknięcia wywołane skryptem strony są ignorowane.
+
+### Prywatność
+
+- **Po wylogowaniu z Instagrama panel nie pokazuje wyników poprzedniego konta.** Wcześniej wtyczka sięgała wtedy po ostatnio używane konto. Dane zostają w pamięci wtyczki i wracają po zalogowaniu na to samo konto.
+
+### Testy
+
+- Testy jednostkowe CSV i walidacji kopii (`tests/security.test.mjs`) oraz testy panelu: kliknięcia ze skryptu strony i stan po wylogowaniu. CI sprawdza składnię wszystkich plików JS i pliki wskazane w manifeście.
+
 ## [1.2.0] – 2026-11-13
 
 Wersja przygotowana do publikacji w sklepach.

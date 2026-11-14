@@ -46,7 +46,7 @@ const stub = (initial) => `(() => {
 // truncate: 'surface' – REST z search_surface ucina listę obserwowanych na 100 kontach, 'all' – każda metoda ją ucina
 // unfollowResult: 'ok' | 'blocked' | 'noFs' (status ok bez friendship_status) | 'still' (ok, ale nic nie zrobił) | 'html'
 // idMismatch: lista obserwowanych podaje inne ID (tylko nazwa użytkownika się zgadza)
-async function setup({ colorScheme = 'light', locale = 'pl-PL', rateLimited = false, unfollowResult = 'ok', mem = {}, truncate = null, noInfo = false, idMismatch = false, following = range(60, 169) } = {}) {
+async function setup({ colorScheme = 'light', locale = 'pl-PL', rateLimited = false, unfollowResult = 'ok', mem = {}, truncate = null, noInfo = false, idMismatch = false, following = range(60, 169), loggedOut = false } = {}) {
   const data = { followers: range(1, 130), following };
   const posts = [];
   const requests = [];
@@ -54,7 +54,7 @@ async function setup({ colorScheme = 'light', locale = 'pl-PL', rateLimited = fa
   const browser = await chromium.launch();
   const context = await browser.newContext({ viewport: { width: 1200, height: 860 }, colorScheme, locale });
   await context.addCookies([
-    { name: 'ds_user_id', value: '999', domain: 'www.instagram.com', path: '/' },
+    ...(loggedOut ? [] : [{ name: 'ds_user_id', value: '999', domain: 'www.instagram.com', path: '/' }]),
     { name: 'csrftoken', value: 'abc', domain: 'www.instagram.com', path: '/' },
   ]);
   await context.route('https://www.instagram.com/**', async (route) => {
@@ -450,8 +450,53 @@ test('kopia zapasowa: zapis, wyczyszczenie danych, wczytanie', { timeout: 90_000
 
     // plik spoza wtyczki jest odrzucany
     await root.locator('[data-ref=settingsBtn]').click();
-    await root.locator('[data-ref=importFile]').setInputFiles({ name: 'x.json', mimeType: 'application/json', buffer: Buffer.from('{"foo":1}') });
+    // (plik z dysku: wybór pliku przez użytkownika daje zaufane zdarzenie; plik podstawiony skryptem – nie)
+    const bogus = path.join(path.dirname(file), 'x.json');
+    fs.writeFileSync(bogus, '{"foo":1}');
+    await root.locator('[data-ref=importFile]').setInputFiles(bogus);
     await root.locator('[data-ref=msg]', { hasText: 'To nie jest kopia' }).waitFor();
+  } finally {
+    await browser.close();
+  }
+});
+
+test('zabezpieczenia: kliknięcia ze skryptu strony są ignorowane', { timeout: 90_000 }, async () => {
+  const { browser, root, page, posts, scan } = await setup();
+  try {
+    await root.locator('.launcher').click();
+    await scan();
+    // skrypt strony próbuje kliknąć „Odobserwuj” dwa razy (potwierdzenie) i „Skanuj”, „Usuń dane”, „Ukryj”
+    const before = await page.evaluate(() => JSON.stringify(window.__mem));
+    await page.evaluate(() => {
+      const sr = document.querySelector('#apex-unfollowers-root').shadowRoot;
+      const unf = sr.querySelector('.row .mini.unf');
+      unf.click(); unf.click();
+      unf.dispatchEvent(new MouseEvent('click', { bubbles: true }));
+      sr.querySelector('.row .mini:not(.unf)').click();
+      sr.querySelector('[data-ref=wipe]').click(); sr.querySelector('[data-ref=wipe]').click();
+      sr.querySelector('[data-ref=scan]').click();
+      const lim = sr.querySelector('[data-ref=unfLimit]'); lim.value = '100'; lim.dispatchEvent(new Event('change', { bubbles: true }));
+    });
+    await page.waitForTimeout(600);
+    assert.equal(posts.length, 0, 'brak zapytania odobserwowania');
+    assert.equal(await root.locator('.row .mini.unf').first().textContent(), 'Odobserwuj');
+    assert.equal(await page.evaluate(() => JSON.stringify(window.__mem)), before, 'pamięć wtyczki bez zmian');
+    assert.equal(await root.locator('[data-ref=scan]').textContent(), 'Skanuj');
+  } finally {
+    await browser.close();
+  }
+});
+
+test('prywatność: po wylogowaniu panel nie pokazuje wyników poprzedniego konta', { timeout: 60_000 }, async () => {
+  // zapisany skan konta 999 i lastUserId, ale brak ciasteczka ds_user_id (wylogowany)
+  const scanData = { ts: Date.now() - DAY, userId: '999', username: 'apex.test', followers: range(1, 5).map(stored), following: range(1, 10).map(stored) };
+  const { browser, root, page } = await setup({ loggedOut: true, mem: { lastUserId: '999', 'scan:999': scanData } });
+  try {
+    await root.locator('.launcher').click();
+    assert.equal(await root.locator('.row').count(), 0);
+    assert.match(await root.locator('.empty').first().textContent(), /Zaloguj się na Instagramie/);
+    assert.doesNotMatch(await root.locator('[data-ref=sub]').textContent(), /apex\.test/);
+    assert.ok(await page.evaluate(() => 'scan:999' in window.__mem), 'dane zostają w pamięci');
   } finally {
     await browser.close();
   }
