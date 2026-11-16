@@ -1,0 +1,60 @@
+# Apex Unfollowers na iPhone'a – projekt Xcode generowany przez XcodeGen:
+#   brew install xcodegen && npm run mobile && cd ios && xcodegen generate && open ApexUnfollowers.xcodeproj
+name: ApexUnfollowers
+options:
+  bundleIdPrefix: app.apexsoftware
+  deploymentTarget:
+    iOS: "15.0"
+  developmentLanguage: en
+settings:
+  base:
+    MARKETING_VERSION: "1.2.2"
+    CURRENT_PROJECT_VERSION: "10202"
+    SWIFT_VERSION: "5.0"
+targets:
+  ApexUnfollowers:
+    type: application
+    platform: iOS
+    sources:
+      - path: ApexUnfollowers
+        excludes:
+          - "Resources/apex-unfollowers.js"
+      - path: ApexUnfollowers/Resources/apex-unfollowers.js
+        buildPhase: resources
+    info:
+      path: ApexUnfollowers/Info.plist
+      properties:
+        CFBundleDisplayName: Apex Unfollowers
+        CFBundleShortVersionString: $(MARKETING_VERSION)
+        CFBundleVersion: $(CURRENT_PROJECT_VERSION)
+        CFBundleDevelopmentRegion: en
+        CFBundleLocalizations: [en, pl]
+        ITSAppUsesNonExemptEncryption: false
+        UILaunchScreen: {}
+        UIRequiresFullScreen: false
+        UISupportedInterfaceOrientations:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+        UISupportedInterfaceOrientations~ipad:
+          - UIInterfaceOrientationPortrait
+          - UIInterfaceOrientationPortraitUpsideDown
+          - UIInterfaceOrientationLandscapeLeft
+          - UIInterfaceOrientationLandscapeRight
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: app.apexsoftware.unfollowers
+        PRODUCT_NAME: ApexUnfollowers
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        TARGETED_DEVICE_FAMILY: "1,2"
+        CODE_SIGN_STYLE: Automatic
+        ENABLE_BITCODE: NO
+schemes:
+  ApexUnfollowers:
+    build:
+      targets:
+        ApexUnfollowers: all
+    run:
+      config: Debug
+    archive:
+      config: Release

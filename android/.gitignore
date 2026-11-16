@@ -1,0 +1,9 @@
+.gradle/
+build/
+local.properties
+*.keystore
+*.jks
+.idea/
+*.iml
+# generowane przez npm run mobile
+app/src/main/assets/apex-unfollowers.js

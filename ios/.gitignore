@@ -1,0 +1,7 @@
+*.xcodeproj/
+build/
+DerivedData/
+Payload/
+*.ipa
+# generowane przez npm run mobile
+ApexUnfollowers/Resources/apex-unfollowers.js

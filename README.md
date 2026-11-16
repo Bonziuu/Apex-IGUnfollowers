@@ -31,6 +31,7 @@
 - 🔒 Bez konta, serwera i telemetrii Apex
 - 🌍 Interfejs PL / EN
 - 🧩 Manifest V3 · Chrome 121+ (także Edge, Brave, Opera)
+- 📱 Aplikacja na telefon: [Android (APK)](https://github.com/Bonziuu/Apex-IGUnfollowers/releases/latest/download/Apex-Unfollowers.apk) i [iPhone (IPA)](https://github.com/Bonziuu/Apex-IGUnfollowers/releases/latest/download/Apex-Unfollowers.ipa) – bez reklam, [instrukcja](mobile/README.md)
 - 🔓 Open source · 🇵🇱 Rozwijany w Polsce
 
 <p align="center">
@@ -44,6 +45,15 @@
   <img src="docs/screens/stats-dark.png" alt="Statystyki w ciemnym motywie" width="270">
 </p>
 <p align="center"><sub>Prawdziwy interfejs wersji 1.2.0 na symulowanym Instagramie z testów (<code>npm test</code>). Konta na zrzutach są fikcyjne.</sub></p>
+
+## Aplikacja na telefon
+
+Ten sam panel jako aplikacja na **Androida** i **iPhone'a** – bez reklam, analityki i konta. Logujesz się na zwykłym ekranie Instagrama w aplikacji, a wyniki zostają na telefonie.
+
+- **Android:** pobierz [Apex-Unfollowers.apk](https://github.com/Bonziuu/Apex-IGUnfollowers/releases/latest/download/Apex-Unfollowers.apk) na telefonie, otwórz i zezwól na instalację.
+- **iPhone:** [Apex-Unfollowers.ipa](https://github.com/Bonziuu/Apex-IGUnfollowers/releases/latest/download/Apex-Unfollowers.ipa) instalujesz przez AltStore, Sideloadly albo Xcode (Apple wymaga podpisu Twoim Apple ID).
+
+Szczegóły, zrzuty ekranu i budowanie: [mobile/README.md](mobile/README.md).
 
 ## Dlaczego Apex Unfollowers
 
@@ -137,6 +147,7 @@ SCREENSHOTS=1 npm test             # dodatkowo odświeża zrzuty w docs/screens/
 npm run icons                      # ikony i logo z tools/build-icons.mjs
 npm run store                      # zrzuty i grafiki do sklepów (store/)
 npm run package:release            # dist/Apex-Unfollowers-<wersja>.zip + SHA256SUMS.txt
+npm run mobile                     # skrypt aplikacji na telefon (android/, ios/) – zobacz mobile/README.md
 ```
 
 | Plik | Rola |
@@ -152,6 +163,7 @@ npm run package:release            # dist/Apex-Unfollowers-<wersja>.zip + SHA256
 | `popup/` | okienko na pasku: otwiera i zamyka panel |
 | `icons/`, `brand/`, `store/`, `docs/webstore/` | grafika, materiały i teksty do sklepów |
 | `tests/panel.test.mjs` | testy end-to-end |
+| `mobile/`, `android/`, `ios/`, `tests/mobile.test.mjs` | aplikacja na telefon ([mobile/README.md](mobile/README.md)) |
 
 Moduły `content/*.js` ładują się po kolei (kolejność w `manifest.json`) i dzielą jedną przestrzeń nazw skryptów wtyczki, dlatego deklaracje na najwyższym poziomie używają `var` / `function`.
 
@@ -189,6 +201,7 @@ MIT, © 2026 Konrad Woźniak ([LICENSE](LICENSE)). Sposób odobserwowywania opra
 - 🔒 No account, no server, no Apex telemetry
 - 🌍 English and Polish interface
 - 🧩 Manifest V3 · Chrome 121+ (also Edge, Brave, Opera)
+- 📱 Phone app, ad-free: [Android (APK)](https://github.com/Bonziuu/Apex-IGUnfollowers/releases/latest/download/Apex-Unfollowers.apk) and [iPhone (IPA)](https://github.com/Bonziuu/Apex-IGUnfollowers/releases/latest/download/Apex-Unfollowers.ipa) – the same panel in a WebView with Instagram's own login; see [mobile/README.md](mobile/README.md) (Polish)
 
 ### How it works
 
