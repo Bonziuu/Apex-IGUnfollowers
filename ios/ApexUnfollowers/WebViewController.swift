@@ -5,7 +5,7 @@ import WebKit
 ///
 /// WKWebView z mobilną stroną instagram.com (logujesz się na ekranie Instagrama, hasło nie trafia do
 /// aplikacji) i ten sam panel co we wtyczce Chrome: skrypt apex-unfollowers.js (budowany przez
-/// tools/build-mobile.mjs z content/*.js). Bez reklam, analityki i usług zewnętrznych.
+/// tools/build-mobile.mjs z plików content wtyczki). Bez reklam, analityki i usług zewnętrznych.
 ///
 /// Most skrypt ↔ aplikacja: window.webkit.messageHandlers.apexUnf (WKScriptMessageHandlerWithReply),
 /// przyjmowany tylko z głównej ramki https://www.instagram.com. Protokół opisuje mobile/web/bridge.js.

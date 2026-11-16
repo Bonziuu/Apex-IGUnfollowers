@@ -47,7 +47,7 @@ import java.util.concurrent.Executors
  *
  * Aplikacja to WebView z mobilną stroną instagram.com (logujesz się na ekranie Instagrama, hasło nie
  * trafia do aplikacji) i ten sam panel co we wtyczce Chrome: skrypt assets/apex-unfollowers.js
- * (budowany przez tools/build-mobile.mjs z content/*.js). Bez reklam, analityki i usług zewnętrznych –
+ * (budowany przez tools/build-mobile.mjs z plików content wtyczki). Bez reklam, analityki i usług zewnętrznych –
  * jedyne połączenia to Instagram (i Facebook, jeśli logujesz się przez Facebooka).
  *
  * Most skrypt ↔ aplikacja: obiekt ApexUnfNative (WebViewCompat.addWebMessageListener), dostępny
@@ -217,7 +217,7 @@ class MainActivity : ComponentActivity() {
         }
 
         webView.webChromeClient = object : WebChromeClient() {
-            override fun onShowFileChooser(view: WebView, callback: ValueCallback<Array<Uri>>, params: FileChooserParams): Boolean {
+            override fun onShowFileChooser(view: WebView, callback: ValueCallback<Array<Uri>>, params: WebChromeClient.FileChooserParams): Boolean {
                 fileCallback?.onReceiveValue(null)
                 fileCallback = callback
                 return try {
