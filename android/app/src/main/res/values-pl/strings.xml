@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Apex Unfollowers</string>
+    <string name="offline_title">Brak połączenia z Instagramem</string>
+    <string name="offline_text">Sprawdź internet i spróbuj ponownie.</string>
+    <string name="retry">Spróbuj ponownie</string>
+    <string name="no_app">Brak aplikacji, która otworzy ten link.</string>
+    <string name="saved">Zapisano plik.</string>
+    <string name="save_failed">Nie udało się zapisać pliku.</string>
+    <string name="webview_old">Zaktualizuj „Android System WebView” w Sklepie Play – ta wersja jest zbyt stara dla aplikacji.</string>
+</resources>

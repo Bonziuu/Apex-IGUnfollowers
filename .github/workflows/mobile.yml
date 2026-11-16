@@ -1,0 +1,166 @@
+# Apex Unfollowers – aplikacje na telefon: Android (APK) i iPhone (IPA bez podpisu).
+#
+# Każdy push i Pull Request: test paczki skryptu na ekranie telefonu, budowa APK i IPA, pliki w „Artifacts” przebiegu.
+# Push na main i nowe wydanie (workflow „Wydanie”): APK i IPA trafiają też do wydania vX.Y.Z z manifest.json,
+# pod stałymi linkami:
+#   https://github.com/Bonziuu/Apex-IGUnfollowers/releases/latest/download/Apex-Unfollowers.apk
+#   https://github.com/Bonziuu/Apex-IGUnfollowers/releases/latest/download/Apex-Unfollowers.ipa
+#
+# Podpis APK (jednorazowo, Settings → Secrets and variables → Actions):
+#   ANDROID_KEYSTORE_BASE64   – plik .jks zakodowany base64 (alias klucza: apex)
+#   ANDROID_KEYSTORE_PASSWORD – hasło do pliku i klucza
+# Bez sekretów APK jest podpisany kluczem testowym z bieżącego przebiegu – działa, ale kolejnej wersji
+# nie da się zainstalować „na” nią bez odinstalowania (instrukcja: mobile/README.md).
+
+name: Aplikacje mobilne
+
+on:
+  push:
+  pull_request:
+  workflow_run:
+    workflows: [Wydanie]
+    types: [completed]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: mobile-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  bundle:
+    name: Skrypt panelu + test na telefonie
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: npm ci --no-audit --no-fund
+      - run: npx playwright install --with-deps chromium
+      - name: Paczka skryptu
+        run: npm run mobile
+      - name: Test na ekranie telefonu
+        run: node --test tests/mobile.test.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: apex-unfollowers-js
+          path: mobile/dist/apex-unfollowers.js
+
+  android:
+    name: Android (APK)
+    needs: bundle
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+      - uses: actions/download-artifact@v4
+        with:
+          name: apex-unfollowers-js
+          path: android/app/src/main/assets
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: 17
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: "8.11.1"
+      - name: Klucz do podpisu
+        env:
+          KEYSTORE_B64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+        run: |
+          if [ -n "$KEYSTORE_B64" ]; then
+            echo "$KEYSTORE_B64" | base64 -d > "$RUNNER_TEMP/apex.jks"
+            echo "APEX_KEYSTORE=$RUNNER_TEMP/apex.jks" >> "$GITHUB_ENV"
+            echo "Podpis: klucz wydania z sekretów repozytorium."
+          else
+            echo "::warning::Brak sekretu ANDROID_KEYSTORE_BASE64 – APK podpisany kluczem testowym (zobacz mobile/README.md)."
+          fi
+      - name: Budowa APK
+        env:
+          APEX_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+        run: gradle -p android --no-daemon assembleRelease
+      - name: Nazwa pliku
+        run: |
+          version="$(node -p "require('./manifest.json').version")"
+          mkdir -p out
+          cp android/app/build/outputs/apk/release/app-release.apk "out/Apex-Unfollowers-$version.apk"
+          ls -l out
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Apex-Unfollowers-Android
+          path: out/*.apk
+
+  ios:
+    name: iPhone (IPA bez podpisu)
+    needs: bundle
+    runs-on: macos-15
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+      - uses: actions/download-artifact@v4
+        with:
+          name: apex-unfollowers-js
+          path: ios/ApexUnfollowers/Resources
+      - name: XcodeGen
+        run: brew install xcodegen && cd ios && xcodegen generate
+      - name: Budowa (bez podpisu)
+        run: |
+          version="$(node -p "require('./manifest.json').version")"
+          code="$(node -p "const [a,b,c]=require('./manifest.json').version.split('.').map(Number); a*10000+b*100+(c||0)")"
+          cd ios
+          xcodebuild -project ApexUnfollowers.xcodeproj -scheme ApexUnfollowers -configuration Release \
+            -sdk iphoneos -destination 'generic/platform=iOS' -derivedDataPath build \
+            MARKETING_VERSION="$version" CURRENT_PROJECT_VERSION="$code" \
+            CODE_SIGNING_ALLOWED=NO CODE_SIGNING_REQUIRED=NO CODE_SIGN_IDENTITY="" build | tail -n 40
+          test -d build/Build/Products/Release-iphoneos/ApexUnfollowers.app
+          test -f build/Build/Products/Release-iphoneos/ApexUnfollowers.app/apex-unfollowers.js
+          mkdir -p Payload ../out
+          cp -R build/Build/Products/Release-iphoneos/ApexUnfollowers.app Payload/
+          zip -qry "../out/Apex-Unfollowers-$version.ipa" Payload
+          ls -l ../out
+      - uses: actions/upload-artifact@v4
+        with:
+          name: Apex-Unfollowers-iOS
+          path: out/*.ipa
+
+  publish:
+    name: Dołącz do wydania
+    needs: [android, ios]
+    # push na main albo nowe wydanie; ręcznie: Actions → Aplikacje mobilne → Run workflow (na main)
+    if: (github.event_name == 'push' && github.ref == 'refs/heads/main') || github.event_name == 'workflow_run' || (github.event_name == 'workflow_dispatch' && github.ref == 'refs/heads/main')
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    env:
+      GH_TOKEN: ${{ github.token }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.workflow_run.head_sha || github.sha }}
+      - uses: actions/download-artifact@v4
+        with:
+          path: out
+          pattern: Apex-Unfollowers-*
+          merge-multiple: true
+      - name: Wysyłka do wydania
+        run: |
+          version="$(node -p "require('./manifest.json').version")"
+          tag="v$version"
+          if ! gh release view "$tag" >/dev/null 2>&1; then
+            echo "Wydanie $tag jeszcze nie istnieje – APK i IPA dołączy przebieg po workflow „Wydanie”."
+            exit 0
+          fi
+          cp "out/Apex-Unfollowers-$version.apk" out/Apex-Unfollowers.apk
+          cp "out/Apex-Unfollowers-$version.ipa" out/Apex-Unfollowers.ipa
+          ( cd out && sha256sum *.apk *.ipa > SHA256SUMS-mobile.txt && cat SHA256SUMS-mobile.txt )
+          gh release upload "$tag" out/*.apk out/*.ipa out/SHA256SUMS-mobile.txt --clobber

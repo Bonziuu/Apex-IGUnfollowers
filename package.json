@@ -1,16 +1,18 @@
 {
   "name": "apex-unfollowers",
   "private": true,
-  "description": "Apex Unfollowers dla Instagrama – sprawdza, kto nie obserwuje Cię na Instagramie (Manifest V3). Narzędzia deweloperskie: ikony, testy, materiały do sklepów, paczka.",
+  "description": "Apex Unfollowers dla Instagrama – sprawdza, kto nie obserwuje Cię na Instagramie (Manifest V3). Narzędzia deweloperskie: ikony, testy, materiały do sklepów, paczka, skrypt aplikacji na telefon.",
   "type": "module",
   "engines": {
     "node": ">=20"
   },
   "scripts": {
     "test": "node --test tests/security.test.mjs tests/panel.test.mjs",
+    "test:mobile": "node --test tests/mobile.test.mjs",
     "icons": "node tools/build-icons.mjs",
     "package:release": "node tools/package-release.mjs",
-    "store": "node store/capture.mjs"
+    "store": "node store/capture.mjs",
+    "mobile": "node tools/build-mobile.mjs"
   },
   "devDependencies": {
     "playwright": "1.63.0"
