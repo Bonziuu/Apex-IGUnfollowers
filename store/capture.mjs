@@ -172,23 +172,101 @@ const BASE_CSS = `
   .demo { position: absolute; font-size: 13px; color: #9a9aa6; }
 `;
 
-function screenshotHtml(t, [, title, points], panel) {
+
+const CWS_COPY = {
+  en: {
+    lists: {
+      head: ["See who doesn't", "follow you back."],
+      desc: "Compare your followers and following in one clear view.",
+      chips: ["Free", "No password", "In your browser"],
+    },
+    changes: {
+      head: ["See who unfollowed.", "See who joined."],
+      desc: "Compare scans to spot changes. History starts after your second scan.",
+      chips: ["Changes since last scan", "Local history"],
+    },
+    stats: {
+      head: ["Track your followers", "over time."],
+      desc: "See your 7- and 30-day balance, follower chart and scan history.",
+      chips: ["Follower chart", "Scan history"],
+    },
+    unfollow: {
+      head: ["Unfollow accounts.", "Stay in control."],
+      desc: "One account at a time, with confirmation, breaks and a daily limit.",
+      chips: ["Manual only", "No mass unfollow"],
+    },
+    welcome: {
+      head: ["No password.", "No Apex account."],
+      desc: "Uses your Instagram session. Your scan results stay in your browser.",
+      chips: ["No telemetry", "Open source", "Free"],
+    },
+  },
+  pl: {
+    lists: {
+      head: ["Kto nie obserwuje", "Cię z powrotem?"],
+      desc: "Porównaj obserwujących i obserwowanych w jednym panelu.",
+      chips: ["Za darmo", "Bez hasła", "W przeglądarce"],
+    },
+    changes: {
+      head: ["Widzisz, kto odszedł.", "Widzisz, kto doszedł."],
+      desc: "Porównuj skany i wykrywaj zmiany. Historia działa od drugiego skanu.",
+      chips: ["Zmiany od skanu", "Historia lokalna"],
+    },
+    stats: {
+      head: ["Śledź obserwujących", "w czasie."],
+      desc: "Zobacz bilans z 7 i 30 dni, wykres i historię skanów.",
+      chips: ["Wykres", "Historia skanów"],
+    },
+    unfollow: {
+      head: ["Odobserwuj ręcznie.", "Z pełną kontrolą."],
+      desc: "Jedno konto naraz, z potwierdzeniem, przerwami i limitem dziennym.",
+      chips: ["Bez masowych akcji", "Ty decydujesz"],
+    },
+    welcome: {
+      head: ["Bez hasła.", "Bez konta Apex."],
+      desc: "Korzysta z sesji Instagrama. Wyniki zostają w Twojej przeglądarce.",
+      chips: ["Bez telemetrii", "Otwarty kod", "Za darmo"],
+    },
+  },
+};
+
+// Ten sam układ sprzedażowy co Apex AdBlocker: marka u góry, czytelna obietnica
+// (ciemna pierwsza linia + kolorowy akcent), krótki opis i prawdziwy panel.
+// Różowy akcent odróżnia Unfollowers od turkusowego AdBlockera.
+function screenshotHtml(lang, t, item, panel) {
+  const c = CWS_COPY[lang][item[0]];
+  if (!c) throw new Error('Unknown store screenshot: ' + item[0]);
   return `<!doctype html><html><head><meta charset="utf-8"><style>${BASE_CSS}
-    body { width: 1280px; height: 800px; position: relative; overflow: hidden; }
-    .left { position: absolute; left: 80px; top: 0; bottom: 0; width: 600px; display: flex; flex-direction: column; justify-content: center; gap: 26px; }
-    .brand { display: flex; align-items: center; gap: 14px; }
-    .brand .logo { width: 52px; height: 52px; }
-    .brand .name { font-size: 26px; }
-    .brand .sub { font-size: 16px; }
-    h1 { font-size: 50px; line-height: 1.08; letter-spacing: -.03em; font-weight: 780; }
-    ul { gap: 14px; font-size: 22px; }
-    .panel { position: absolute; right: 90px; top: 40px; height: 720px; }
-    .demo { right: 92px; bottom: 12px; }
-  </style></head><body><div class="bg"></div>
-    <div class="left">
-      <div class="brand"><div class="logo">${LOGO}</div><div><div class="name">${esc(t.name)}</div><div class="sub">${esc(t.sub)}</div></div></div>
-      <h1>${esc(title)}</h1>
-      <ul>${points.map((p) => `<li>${esc(p)}</li>`).join('')}</ul>
+    body { width:1280px; height:800px; position:relative; overflow:hidden; color:#201a20; }
+    .bg { background:
+      radial-gradient(900px 570px at 83% 16%, #fce2ef 0%, rgba(252,226,239,0) 68%),
+      linear-gradient(150deg, #fff9fc 0%, #ffffff 58%, #fff6fa 100%); }
+    .brand { position:absolute; left:72px; top:62px; display:flex; align-items:center; gap:12px; }
+    .brand .logo { width:33px; height:33px; }
+    .brand .name { font-size:20px; font-weight:750; letter-spacing:-.02em; color:#b41465; }
+    .hero { position:absolute; left:72px; top:145px; width:630px; }
+    h1 { font-size:51px; line-height:1.065; letter-spacing:-.034em; font-weight:790; }
+    h1 span { display:block; }
+    h1 .accent { color:#bb1269; }
+    .lead { margin-top:26px; max-width:550px; color:#514451; font-size:21px;
+            line-height:1.46; font-weight:450; }
+    .chips { margin-top:28px; display:flex; flex-wrap:wrap; gap:10px; max-width:610px; }
+    .chip { background:rgba(255,255,255,.82); border:1.5px solid #f0cede; color:#9b1558;
+            border-radius:22px; font-size:15px; font-weight:720; padding:9px 14px;
+            white-space:nowrap; }
+    .chip::before { content:""; display:inline-block; width:7px; height:7px;
+                    margin-right:9px; background:#d61b79; border-radius:50%; vertical-align:2px; }
+    .panel { position:absolute; right:82px; top:36px; height:728px; width:auto;
+             border-radius:20px; box-shadow:0 30px 72px rgba(113,15,62,.20),
+             0 3px 14px rgba(24,11,20,.07); }
+    .demo { right:88px; bottom:14px; color:#8f7887; font-size:14px; }
+  </style></head><body>
+    <div class="bg"></div>
+    <div class="brand"><div class="logo">${LOGO}</div><div class="name">Apex Unfollowers</div></div>
+    <div class="hero">
+      <h1><span>${esc(c.head[0])}</span><span class="accent">${esc(c.head[1])}</span></h1>
+      <p class="lead">${esc(c.desc)}</p>
+      <div class="chips">${c.chips.map((v) => `<span class="chip">${esc(v)}</span>`).join('')}</div>
     </div>
     <img class="panel" src="${img(panel)}">
     <div class="demo">${esc(t.demo)}</div>
@@ -251,7 +329,7 @@ export async function buildStoreAssets() {
       let n = 1;
       for (const item of t.shots) {
         const file = path.join(OUT, 'screenshots', lang, `${String(n++).padStart(2, '0')}-${item[0]}-1280x800.jpg`);
-        written.push(await render(browser, screenshotHtml(t, item, shots[item[0]]), { width: 1280, height: 800 }, file));
+        written.push(await render(browser, screenshotHtml(lang, t, item, shots[item[0]]), { width: 1280, height: 800 }, file));
       }
       const suffix = lang === 'pl' ? '-pl' : '';
       written.push(await render(browser, smallTileHtml(t), { width: 440, height: 280 }, path.join(OUT, 'promo', `small-tile-440x280${suffix}.jpg`)));
