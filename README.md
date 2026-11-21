@@ -161,6 +161,8 @@ Każdy push i pull request uruchamia testy w GitHub Actions. **Nowe wydanie:** p
 
 ## Wsparcie
 
+Apex Unfollowers jest w całości darmowy. Dobrowolna wpłata pomaga utrzymywać i rozwijać rozszerzenie. [Wesprzyj Apex na Ko-fi](https://ko-fi.com/konradwozniak1996)
+
 - Problem z wtyczką: przycisk **Zgłoś problem** w panelu albo [zgłoszenie na GitHubie](https://github.com/Bonziuu/Apex-IGUnfollowers/issues/new/choose).
 - Autor: **Konrad Woźniak** · konrad.wozniak.1996@gmail.com · [LinkedIn](https://www.linkedin.com/in/konrad-wo%C5%BAniak-23a5b831a) · [apexsoftware.app](https://apexsoftware.app)
 - Prywatność: support@apexsoftware.app
@@ -207,5 +209,7 @@ Instagram's terms prohibit automated data collection, so **use it at your own ri
 3. Accept the welcome screen, open instagram.com, click the pink button in the bottom-right corner and press **Scan**.
 
 ### Support and licence
+
+All Apex Unfollowers features are free. A voluntary contribution helps maintain and develop the extension. [Support Apex on Ko-fi](https://ko-fi.com/konradwozniak1996)
 
 Report a problem from the panel or on [GitHub](https://github.com/Bonziuu/Apex-IGUnfollowers/issues/new/choose). Author: Konrad Woźniak · konrad.wozniak.1996@gmail.com. MIT, © 2026 Konrad Woźniak. Not affiliated with Instagram or Meta Platforms. Instagram is a trademark of Meta Platforms, Inc.
