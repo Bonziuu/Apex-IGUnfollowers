@@ -72,11 +72,18 @@ test('Chromium loads its packaged locales and refreshes all extension surfaces w
   await checkText(welcome.locator('h1'), automatic.page_title.message);
 
   const instagram = await context.newPage();
+  await instagram.setViewportSize({ width: 320, height: 800 });
   await instagram.goto('https://www.instagram.com/');
   const panel = instagram.locator('#apex-unfollowers-root');
   const launcher = panel.locator('.launcher');
   await launcher.click();
   await checkText(panel.locator('[data-ref=scan]'), automatic.ui_scan.message);
+  const versionLines = await panel.locator('[data-ref=version]').evaluate((label) => {
+    const text = document.createRange();
+    text.selectNodeContents(label);
+    return text.getClientRects().length;
+  });
+  assert.equal(versionLines, 1, 'the version stays on one line above the support banner');
   await panel.locator('[data-ref=settingsBtn]').click();
   const select = panel.locator('[data-ref=lang]');
   assert.equal(await select.inputValue(), 'auto');

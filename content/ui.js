@@ -59,6 +59,7 @@ var CSS = `
   .brand { font-weight: 650; font-size: 14px; letter-spacing: -.01em; }
   .version { color: var(--muted); font-size: 11px; font-variant-numeric: tabular-nums; margin-inline-start: 2px; }
   .grow { flex: 1; min-width: 0; }
+  header .version { flex: 1 0 auto; white-space: nowrap; }
   .ib {
     display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px;
     border: 0; background: transparent; color: var(--muted); border-radius: 8px; flex: none; font-size: 15px; line-height: 1;
@@ -239,6 +240,7 @@ var CSS = `
     padding: 8px 14px; border-top: 1px solid var(--line); font-size: 11px; color: var(--muted);
   }
   @media (max-width: 420px) {
+    header { gap: 6px; padding-inline: 12px 8px; }
     .tools .line:has(select) { display: grid; }
     .controls select { padding-inline: 8px; }
     .row { gap: 6px; padding-inline: 10px; }
