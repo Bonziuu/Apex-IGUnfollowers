@@ -11,6 +11,9 @@ const ext = (typeof browser !== 'undefined' && browser.runtime) ? browser : chro
   const render = () => {
     document.documentElement.lang = language.locale;
     document.documentElement.dir = language.dir;
+    $('supportLink').textContent = language.t('support.link');
+    $('supportHint').textContent = language.t('support.hint');
+    $('supportCard').hidden = false;
     if (state === 'opening') {
       $('title').textContent = language.t('popup.opening');
       return;

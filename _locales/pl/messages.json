@@ -116,6 +116,8 @@
   "ui_hiddenTitle": {"message":"Pokaż też konta ukryte (biała lista)"},
   "ui_hidden": {"message":"ukryte"},
   "ui_footer": {"message":"Dane zostają tylko w Twojej przeglądarce."},
+  "support_link": {"message":"Wesprzyj Apex na Ko-fi"},
+  "support_hint": {"message":"Dobrowolna wpłata. Wszystkie funkcje są darmowe."},
   "ui_more": {"message":"Pokaż więcej ({n})"},
   "ui_lastScan": {"message":"ostatni skan: {date}"},
   "ui_noScan": {"message":"Brak skanu – kliknij „Skanuj”."},

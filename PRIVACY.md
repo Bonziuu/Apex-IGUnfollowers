@@ -36,6 +36,8 @@ The background script opens the welcome screen and reads translation files inclu
 
 **Reporting a problem.** The "Report a problem" and "Send an e-mail" buttons open a GitHub issue form or an e-mail draft. The pre-filled text includes the extension version, browser name and version, and diagnostic details such as an HTTP status. The e-mail draft also includes the interface language. Account names, lists and raw Instagram responses are excluded. Opening the GitHub form passes its pre-filled information to GitHub. The user decides whether to submit the issue or send the e-mail.
 
+**Voluntary contributions.** The Ko-fi link opens the developer’s public profile after the user activates it. Ko-fi and its payment provider handle payment details on their own pages. The extension does not handle payment details.
+
 Apex Unfollowers has no publisher backend, analytics, ads or remotely loaded code. It does not sell data.
 
 ## Chrome Web Store User Data Policy (Limited Use)
@@ -91,6 +93,8 @@ Wtyczka pobiera listy i wysyła żądania odobserwowania do `https://www.instagr
 Skrypt tła otwiera ekran powitalny i odczytuje tłumaczenia dołączone do rozszerzenia. Preferencja języka jest zapisywana lokalnie.
 
 **Zgłaszanie problemów.** Przyciski „Zgłoś problem” i „Napisz e-mail” otwierają formularz zgłoszenia na GitHubie lub szkic e-maila. Wstępnie uzupełniona treść zawiera wersję wtyczki, nazwę i wersję przeglądarki oraz dane diagnostyczne, np. kod HTTP. Szkic e-maila zawiera też język interfejsu. Nazwy kont, listy i treść odpowiedzi Instagrama są pomijane. Otwarcie formularza przekazuje wstępnie wypełniane informacje do GitHuba. Użytkownik decyduje, czy wysłać zgłoszenie lub wiadomość.
+
+**Dobrowolne wpłaty.** Link Ko-fi otwiera publiczny profil autora po wybraniu go przez użytkownika. Dane płatności są obsługiwane na stronach Ko-fi i jego operatora płatności. Wtyczka nie ma dostępu do tych danych.
 
 Apex Unfollowers działa bez serwera wydawcy, analityki, reklam i zdalnie ładowanego kodu. Wtyczka nie sprzedaje danych.
 

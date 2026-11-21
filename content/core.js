@@ -23,6 +23,7 @@ var localized = (key, vars) => () => t(key, typeof vars === 'function' ? vars() 
 var BASE = 'https://www.instagram.com';
 var REPO = 'https://github.com/Bonziuu/Apex-IGUnfollowers';
 var SITE = 'https://apexsoftware.app';
+var SUPPORT_URL = 'https://ko-fi.com/konradwozniak1996';
 var AUTHOR = {
   name: 'Konrad Woźniak',
   email: 'konrad.wozniak.1996@gmail.com',

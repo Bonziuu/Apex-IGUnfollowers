@@ -95,6 +95,12 @@
   "set_linkedinLabel": {
     "message": "Hồ sơ LinkedIn của nhà phát triển (mở trong thẻ mới)"
   },
+  "support_link": {
+    "message": "Ủng hộ Apex trên Ko-fi"
+  },
+  "support_hint": {
+    "message": "Đóng góp tự nguyện. Mọi tính năng đều miễn phí."
+  },
   "set_reportHint": {
     "message": "Tiện ích gặp sự cố? Bản nháp báo cáo có thông tin chẩn đoán, phiên bản tiện ích và trình duyệt, không kèm tên tài khoản. Bản nháp email cũng có thông tin về ngôn ngữ giao diện."
   },

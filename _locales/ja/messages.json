@@ -622,5 +622,11 @@
   },
   "err_generic": {
     "message": "問題が発生しました。"
+  },
+  "support_link": {
+    "message": "Ko-fiでApexを応援"
+  },
+  "support_hint": {
+    "message": "支援は任意です。すべての機能を無料で使えます。"
   }
 }

@@ -21,6 +21,7 @@ const ext = (typeof browser !== 'undefined' && browser.runtime) ? browser : chro
     });
     document.querySelectorAll('[data-i18n-aria-label]').forEach((n) => n.setAttribute('aria-label', L.t(n.dataset.i18nAriaLabel)));
     document.getElementById('versionName').textContent = L.t('ext.name');
+    document.getElementById('supportCard').hidden = false;
   }
   document.getElementById('versionNumber').textContent = `v${ext.runtime.getManifest().version} · MIT`;
   const accept = document.getElementById('accept');

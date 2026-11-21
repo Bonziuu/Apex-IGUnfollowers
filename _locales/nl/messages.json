@@ -107,6 +107,12 @@
   "set_showWelcome": {
     "message": "Welkomstscherm tonen"
   },
+  "support_link": {
+    "message": "Steun Apex op Ko-fi"
+  },
+  "support_hint": {
+    "message": "Een bijdrage is vrijwillig. Alle functies zijn gratis."
+  },
   "report_button": {
     "message": "Probleem melden"
   },

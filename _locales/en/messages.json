@@ -116,6 +116,8 @@
   "ui_hiddenTitle": {"message":"Also show hidden accounts (whitelist)"},
   "ui_hidden": {"message":"hidden"},
   "ui_footer": {"message":"Your data stays in your browser only."},
+  "support_link": {"message":"Support Apex on Ko-fi"},
+  "support_hint": {"message":"Voluntary contribution. All features are free."},
   "ui_more": {"message":"Show more ({n})"},
   "ui_lastScan": {"message":"last scan: {date}"},
   "ui_noScan": {"message":"No scan yet – click Scan."},

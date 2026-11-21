@@ -622,5 +622,11 @@
   },
   "err_generic": {
     "message": "發生錯誤。"
+  },
+  "support_link": {
+    "message": "透過 Ko-fi 贊助 Apex"
+  },
+  "support_hint": {
+    "message": "贊助完全自願，所有功能都可免費使用。"
   }
 }

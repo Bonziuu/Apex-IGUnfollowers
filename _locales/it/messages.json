@@ -86,6 +86,12 @@
   "set_about": {
     "message": "Informazioni sull’estensione"
   },
+  "support_link": {
+    "message": "Sostieni Apex su Ko-fi"
+  },
+  "support_hint": {
+    "message": "Contributo volontario. Tutte le funzioni sono gratuite."
+  },
   "set_authorTitle": {
     "message": "Sviluppatore e contatti"
   },

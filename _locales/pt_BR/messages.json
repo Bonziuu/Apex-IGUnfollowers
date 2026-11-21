@@ -86,6 +86,12 @@
   "set_about": {
     "message": "Sobre a extensão"
   },
+  "support_link": {
+    "message": "Apoie o Apex no Ko-fi"
+  },
+  "support_hint": {
+    "message": "Contribuição voluntária. Todos os recursos são gratuitos."
+  },
   "set_authorTitle": {
     "message": "Desenvolvedor e contato"
   },

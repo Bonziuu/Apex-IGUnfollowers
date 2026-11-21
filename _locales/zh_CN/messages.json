@@ -622,5 +622,11 @@
   },
   "err_generic": {
     "message": "出错了。"
+  },
+  "support_link": {
+    "message": "在 Ko-fi 上支持 Apex"
+  },
+  "support_hint": {
+    "message": "赞助完全自愿，所有功能均可免费使用。"
   }
 }

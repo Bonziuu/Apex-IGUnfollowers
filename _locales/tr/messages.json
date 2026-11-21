@@ -107,6 +107,12 @@
   "set_showWelcome": {
     "message": "Hoş geldin ekranını göster"
   },
+  "support_link": {
+    "message": "Ko-fi’de Apex’i destekle"
+  },
+  "support_hint": {
+    "message": "Destek isteğe bağlıdır. Tüm özellikler ücretsizdir."
+  },
   "report_button": {
     "message": "Sorun bildir"
   },

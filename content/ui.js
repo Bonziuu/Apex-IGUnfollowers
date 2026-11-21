@@ -66,6 +66,16 @@ var CSS = `
   .ib:hover { background: var(--surface); color: var(--fg); }
   .ib.on { background: var(--accent-soft); color: var(--accent); }
 
+  .support-band {
+    display: grid; gap: 2px; margin: 0 12px 10px; padding: 8px 12px; border-radius: 10px;
+    background: var(--accent-soft); border-inline-start: 3px solid var(--accent);
+  }
+  .support-band a {
+    justify-self: start; color: var(--accent-strong); font-weight: 700;
+    text-decoration: underline; text-underline-offset: 2px;
+  }
+  .support-band p { margin: 0; color: var(--fg); font-size: 11.5px; }
+
   .account {
     display: flex; align-items: center; gap: 10px; margin: 0 12px 10px; padding: 10px 12px;
     border-radius: 12px; background: var(--surface); border: 1px solid var(--line);
@@ -261,6 +271,11 @@ var template = () => {
         <button class="ib" data-ref="settingsBtn" title="${text('ui.settings')}" aria-label="${text('ui.settings')}">${ICON_GEAR}</button>
         <button class="ib" data-ref="close" title="${text('ui.close')}" aria-label="${text('ui.close')}">✕</button>
       </header>
+      <div class="support-band">
+        <a data-ref="support" href="${SUPPORT_URL}" target="_blank" rel="noopener noreferrer"
+          aria-describedby="apex-support-hint">${text('support.link')}</a>
+        <p data-ref="supportHint" id="apex-support-hint">${text('support.hint')}</p>
+      </div>
       <div class="account" data-ref="account">
         <span class="dot" aria-hidden="true"></span>
         <span class="sub" data-ref="sub"></span>
@@ -461,6 +476,9 @@ var ui = {
 
   bind() {
     const r = this.r;
+    const blockSyntheticSupport = (event) => { if (!event.isTrusted) event.preventDefault(); };
+    r.support.addEventListener('click', blockSyntheticSupport);
+    r.support.addEventListener('auxclick', blockSyntheticSupport);
     this.launcher.addEventListener('click', userOnly(() => togglePanel()));
     r.close.addEventListener('click', userOnly(() => togglePanel(false)));
     r.statsBtn.addEventListener('click', userOnly(() => setView(state.view === 'stats' ? 'lists' : 'stats')));

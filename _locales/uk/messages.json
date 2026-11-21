@@ -107,6 +107,12 @@
   "set_showWelcome": {
     "message": "Показати екран привітання"
   },
+  "support_link": {
+    "message": "Підтримати Apex на Ko-fi"
+  },
+  "support_hint": {
+    "message": "Добровільний внесок. Усі функції безкоштовні."
+  },
   "report_button": {
     "message": "Повідомити про проблему"
   },

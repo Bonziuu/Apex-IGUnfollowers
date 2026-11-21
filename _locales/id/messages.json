@@ -95,6 +95,12 @@
   "set_linkedinLabel": {
     "message": "Profil LinkedIn pengembang (terbuka di tab baru)"
   },
+  "support_link": {
+    "message": "Dukung Apex di Ko-fi"
+  },
+  "support_hint": {
+    "message": "Kontribusi bersifat sukarela. Semua fitur gratis."
+  },
   "set_reportHint": {
     "message": "Ada kendala? Draf laporan memuat detail diagnostik, versi ekstensi, dan browser, tanpa nama akun. Draf email juga menyertakan bahasa antarmuka."
   },

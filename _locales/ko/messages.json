@@ -622,5 +622,11 @@
   },
   "err_generic": {
     "message": "문제가 발생했습니다."
+  },
+  "support_link": {
+    "message": "Ko-fi에서 Apex 후원하기"
+  },
+  "support_hint": {
+    "message": "후원은 선택 사항입니다. 모든 기능을 무료로 이용할 수 있습니다."
   }
 }

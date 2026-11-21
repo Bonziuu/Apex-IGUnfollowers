@@ -8,10 +8,22 @@ import { chromium } from 'playwright';
 
 const root = fileURLToPath(new URL('..', import.meta.url));
 const readCatalog = async (lang) => JSON.parse(await readFile(path.join(root, '_locales', lang, 'messages.json'), 'utf8'));
+const supportUrl = 'https://ko-fi.com/konradwozniak1996';
 
 async function checkText(locator, expected) {
   await locator.filter({ hasText: expected }).waitFor({ state: 'visible' });
   assert.equal(await locator.textContent(), expected);
+}
+
+async function checkSupport(surfaces, catalog) {
+  for (const { link, hint } of surfaces) {
+    await checkText(link, catalog.support_link.message);
+    await checkText(hint, catalog.support_hint.message);
+    assert.equal(await link.getAttribute('href'), supportUrl);
+    assert.equal(await link.getAttribute('target'), '_blank');
+    const rel = (await link.getAttribute('rel')).split(/\s+/);
+    assert.ok(rel.includes('noopener') && rel.includes('noreferrer'));
+  }
 }
 
 test('Chromium loads its packaged locales and refreshes all extension surfaces when the language changes', { timeout: 45_000 }, async (t) => {
@@ -28,6 +40,11 @@ test('Chromium loads its packaged locales and refreshes all extension surfaces w
     args: [`--disable-extensions-except=${root}`, `--load-extension=${root}`],
   });
   context.setDefaultTimeout(10_000);
+  const supportRequests = [];
+  await context.route('https://ko-fi.com/**', (route) => {
+    supportRequests.push(route.request().url());
+    return route.fulfill({ contentType: 'text/html', body: '<!doctype html><title>Mock Ko-fi</title>' });
+  });
   await context.route('https://www.instagram.com/**', (route) => route.fulfill({
     contentType: 'text/html',
     body: '<!doctype html><html lang="en"><title>Mock Instagram</title><h1>Mock Instagram</h1></html>',
@@ -68,12 +85,25 @@ test('Chromium loads its packaged locales and refreshes all extension surfaces w
   const popup = await context.newPage();
   await popup.goto(new URL('popup/popup.html', base).href);
   await checkText(popup.locator('#title'), automatic.popup_openTitle.message);
+  const panelSupport = panel.locator('[data-ref=support]');
+  const surfaces = [
+    { link: panelSupport, hint: panel.locator('[data-ref=supportHint]') },
+    { link: welcome.locator('#supportLink'), hint: welcome.locator('#supportHint') },
+    { link: popup.locator('#supportLink'), hint: popup.locator('#supportHint') },
+  ];
+  await checkSupport(surfaces, automatic);
+  // Instagram's page scripts can reach the open shadow root. A synthetic click must not leave the site.
+  assert.equal(await panelSupport.evaluate((link) => link.dispatchEvent(new MouseEvent('click', {
+    bubbles: true,
+    cancelable: true,
+  }))), false);
   await instagram.bringToFront();
   await select.press('p');
   assert.equal(await select.inputValue(), 'pl');
   await checkText(panel.locator('[data-ref=scan]'), polish.ui_scan.message);
   await checkText(welcome.locator('h1'), polish.page_title.message);
   await checkText(popup.locator('#title'), polish.popup_openTitle.message);
+  await checkSupport(surfaces, polish);
   await welcome.waitForFunction(async () => (await chrome.storage.local.get('settings')).settings?.lang === 'pl');
   const saved = await worker.evaluate(async () => (await chrome.storage.local.get('settings')).settings);
   assert.equal(saved.lang, 'pl');
@@ -86,6 +116,7 @@ test('Chromium loads its packaged locales and refreshes all extension surfaces w
   await checkText(panel.locator('[data-ref=scan]'), arabic.ui_scan.message);
   await checkText(welcome.locator('h1'), arabic.page_title.message);
   await checkText(popup.locator('#title'), arabic.popup_openTitle.message);
+  await checkSupport(surfaces, arabic);
   assert.equal(await panel.locator('.wrap').getAttribute('dir'), 'rtl');
   assert.equal(await panel.locator('.wrap').evaluate((el) => getComputedStyle(el).direction), 'rtl');
   assert.equal(await instagram.locator('html').getAttribute('lang'), 'en');
@@ -95,4 +126,13 @@ test('Chromium loads its packaged locales and refreshes all extension surfaces w
   await instagram.reload();
   await launcher.click();
   await checkText(panel.locator('[data-ref=scan]'), arabic.ui_scan.message);
+  assert.deepEqual(supportRequests, [], 'the extension does not visit Ko-fi before user activation');
+  const [support] = await Promise.all([
+    context.waitForEvent('page'),
+    panelSupport.press('Enter'),
+  ]);
+  await support.waitForURL(supportUrl);
+  assert.equal(await support.title(), 'Mock Ko-fi');
+  assert.deepEqual(supportRequests, [supportUrl]);
+  assert.equal(instagram.url(), 'https://www.instagram.com/');
 });

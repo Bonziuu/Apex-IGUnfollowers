@@ -107,6 +107,12 @@
   "set_showWelcome": {
     "message": "Willkommensseite anzeigen"
   },
+  "support_link": {
+    "message": "Apex auf Ko-fi unterstützen"
+  },
+  "support_hint": {
+    "message": "Freiwilliger Beitrag. Alle Funktionen sind kostenlos."
+  },
   "report_button": {
     "message": "Problem melden"
   },
