@@ -17,6 +17,7 @@ var CSS = `
     font: 13px/1.4 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
     -webkit-font-smoothing: antialiased;
     color: var(--fg);
+    color-scheme: light;
   }
   @media (prefers-color-scheme: dark) {
     .wrap {
@@ -24,6 +25,7 @@ var CSS = `
       --accent: #f266a8; --accent-strong: #f78bbf; --accent-soft: #3d1529; --on-accent: #2a0a18;
       --ok: #4cc785; --ok-soft: #1c3327; --warn: #e3ad55; --warn-soft: #3a2f1c; --err: #ff7a7a; --err-soft: #3d2022;
       --shadow: 0 12px 40px rgba(0, 0, 0, .5);
+      color-scheme: dark;
     }
   }
   * { box-sizing: border-box; font: inherit; }
@@ -50,12 +52,14 @@ var CSS = `
     position: fixed; top: 16px; right: 16px; bottom: 16px; width: 440px; max-width: calc(100vw - 32px);
     background: var(--bg); color: var(--fg); border-radius: 14px; overflow: hidden; border: 1px solid var(--line);
     box-shadow: var(--shadow); display: flex; flex-direction: column; z-index: 2147483647;
+    overflow-wrap: anywhere;
   }
-  header { display: flex; align-items: center; gap: 8px; padding: 12px 10px 10px 14px; }
+  header { display: flex; align-items: center; gap: 8px; padding-block: 12px 10px; padding-inline: 14px 10px; }
   header .logo { width: 24px; height: 24px; flex: none; }
-  .brand { font-weight: 650; font-size: 14px; letter-spacing: -.01em; white-space: nowrap; }
-  .version { color: var(--muted); font-size: 11px; font-variant-numeric: tabular-nums; margin-left: 2px; }
+  .brand { font-weight: 650; font-size: 14px; letter-spacing: -.01em; }
+  .version { color: var(--muted); font-size: 11px; font-variant-numeric: tabular-nums; margin-inline-start: 2px; }
   .grow { flex: 1; min-width: 0; }
+  header .version { flex: 1 0 auto; white-space: nowrap; }
   .ib {
     display: inline-flex; align-items: center; justify-content: center; width: 30px; height: 30px;
     border: 0; background: transparent; color: var(--muted); border-radius: 8px; flex: none; font-size: 15px; line-height: 1;
@@ -63,18 +67,28 @@ var CSS = `
   .ib:hover { background: var(--surface); color: var(--fg); }
   .ib.on { background: var(--accent-soft); color: var(--accent); }
 
+  .support-band {
+    display: grid; gap: 2px; margin: 0 12px 10px; padding: 8px 12px; border-radius: 10px;
+    background: var(--accent-soft); border-inline-start: 3px solid var(--accent);
+  }
+  .support-band a {
+    justify-self: start; color: var(--accent-strong); font-weight: 700;
+    text-decoration: underline; text-underline-offset: 2px;
+  }
+  .support-band p { margin: 0; color: var(--fg); font-size: 11.5px; }
+
   .account {
     display: flex; align-items: center; gap: 10px; margin: 0 12px 10px; padding: 10px 12px;
     border-radius: 12px; background: var(--surface); border: 1px solid var(--line);
   }
   .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--muted); flex: none; }
   .account.has .dot { background: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); }
-  .sub { font-size: 12.5px; color: var(--muted); }
+  .sub { font-size: 12.5px; color: var(--muted); min-width: 0; }
   .account.has .sub { color: var(--fg); }
 
-  .controls { display: flex; gap: 8px; padding: 0 12px 10px; }
+  .controls { display: flex; align-items: stretch; gap: 8px; padding: 0 12px 10px; }
   .primary {
-    flex: 1; height: 36px; border: 0; border-radius: 10px; padding: 0 12px; font-weight: 600; font-size: 13px;
+    flex: 1; min-width: 0; min-height: 36px; border: 0; border-radius: 10px; padding: 5px 12px; font-weight: 600; font-size: 13px;
     background: var(--accent); color: var(--on-accent);
   }
   .primary:hover { background: var(--accent-strong); }
@@ -85,11 +99,13 @@ var CSS = `
   }
   select:focus, input[type="search"]:focus { border-color: var(--accent); }
   select:disabled { opacity: .55; }
+  .controls select { max-width: 68%; height: auto; min-height: 36px; }
 
   .progress { padding: 0 14px 10px; }
   .bar { height: 6px; border-radius: 3px; background: var(--surface); overflow: hidden; position: relative; }
   .fill { height: 100%; width: 0; background: linear-gradient(90deg, #f2559f, #cc1670); transition: width .3s; }
   .bar.indet .fill { width: 35%; position: absolute; animation: indet 1.2s ease-in-out infinite; }
+  [dir="rtl"] .bar.indet .fill { animation-direction: reverse; }
   @keyframes indet { from { left: -35%; } to { left: 100%; } }
   .ptext { font-size: 12.5px; margin-top: 6px; font-variant-numeric: tabular-nums; }
   .pnote { font-size: 12px; color: var(--warn); margin-top: 2px; }
@@ -104,8 +120,8 @@ var CSS = `
 
   nav { display: flex; border-bottom: 1px solid var(--line); padding: 0 6px; }
   nav button {
-    flex: 1; border: 0; background: transparent; color: var(--muted); padding: 8px 2px;
-    font-size: 11.5px; font-weight: 550; border-bottom: 2px solid transparent; white-space: nowrap;
+    flex: 1 1 0; min-width: 0; border: 0; background: transparent; color: var(--muted); padding: 8px 2px;
+    font-size: 11.5px; font-weight: 550; border-bottom: 2px solid transparent; align-content: start;
   }
   nav button:hover { color: var(--fg); }
   nav button.on { color: var(--accent); border-bottom-color: var(--accent); }
@@ -118,13 +134,13 @@ var CSS = `
   .tools { display: grid; gap: 8px; padding: 10px 12px; border-bottom: 1px solid var(--line); }
   .tools .line { display: flex; gap: 8px; align-items: center; }
   .tools input[type="search"] { flex: 1; }
-  .tools select { flex: 1; }
-  .chk { font-size: 11.5px; color: var(--muted); display: flex; gap: 5px; align-items: center; white-space: nowrap; cursor: pointer; }
-  .chk input { accent-color: var(--accent); margin: 0; }
+  .tools select { flex: 1 1 auto; padding-inline: 8px; }
+  .chk { font-size: 11.5px; color: var(--muted); display: flex; gap: 5px; align-items: center; cursor: pointer; }
+  .chk input { accent-color: var(--accent); margin: 0; flex: none; }
   .btn {
     display: inline-flex; align-items: center; justify-content: center; gap: 6px;
-    height: 36px; padding: 0 12px; border-radius: 10px; background: var(--bg); border: 1px solid var(--line);
-    font-weight: 550; font-size: 12.5px; white-space: nowrap;
+    min-height: 36px; max-width: 100%; padding: 5px 12px; border-radius: 10px; background: var(--bg); border: 1px solid var(--line);
+    font-weight: 550; font-size: 12.5px;
   }
   .btn:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
   .btn.danger:hover:not(:disabled) { border-color: var(--err); color: var(--err); }
@@ -134,14 +150,14 @@ var CSS = `
   .row.dim { opacity: .5; }
   .av { width: 38px; height: 38px; border-radius: 50%; object-fit: cover; background: var(--surface); flex: none; border: 1px solid var(--line); }
   .who { flex: 1; min-width: 0; }
-  .who a { color: var(--fg); font-weight: 600; text-decoration: none; }
+  .who a { color: var(--fg); font-weight: 600; text-decoration: none; unicode-bidi: isolate; }
   .who a:hover { color: var(--accent); text-decoration: underline; }
   .nm { color: var(--muted); font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .tag { font-size: 11px; color: var(--muted); margin-left: 4px; }
-  .ver { color: var(--accent); margin-left: 3px; font-size: 11px; }
+  .tag { font-size: 11px; color: var(--muted); margin-inline-start: 4px; }
+  .ver { color: var(--accent); margin-inline-start: 3px; font-size: 11px; }
   .mini {
-    height: 28px; border: 1px solid var(--line); background: var(--bg); color: var(--muted);
-    border-radius: 8px; padding: 0 9px; font-size: 11.5px; font-weight: 550; flex: none; white-space: nowrap;
+    min-height: 28px; max-width: 30%; border: 1px solid var(--line); background: var(--bg); color: var(--muted);
+    border-radius: 8px; padding: 3px 9px; font-size: 11.5px; font-weight: 550; flex: none;
   }
   .mini:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
   .mini.unf:hover:not(:disabled) { border-color: var(--err); color: var(--err); }
@@ -151,7 +167,7 @@ var CSS = `
     padding: 9px 14px 6px; font-size: 11px; font-weight: 650; color: var(--muted);
     letter-spacing: .02em; background: var(--surface); border-bottom: 1px solid var(--line);
   }
-  .pill { font-size: 11.5px; font-weight: 600; padding: 2px 8px; border-radius: 999px; flex: none; white-space: nowrap; }
+  .pill { font-size: 11.5px; font-weight: 600; padding: 2px 8px; border-radius: 999px; flex: none; max-width: 45%; }
   .pill.lost { background: var(--err-soft); color: var(--err); }
   .pill.gained { background: var(--ok-soft); color: var(--ok); }
   .empty { padding: 28px 22px; text-align: center; color: var(--muted); }
@@ -160,8 +176,8 @@ var CSS = `
   /* statystyki */
   .pad { padding: 12px; display: grid; gap: 12px; align-content: start; }
   .h { font-size: 11px; font-weight: 650; color: var(--muted); letter-spacing: .02em; text-transform: uppercase; margin: 2px 2px -4px; }
-  .tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
-  .tiles.three { grid-template-columns: 1fr 1fr 1fr; }
+  .tiles { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+  .tiles.three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
   .tile { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 10px 12px; min-width: 0; }
   .tile .v { font-size: 22px; font-weight: 700; letter-spacing: -.02em; font-variant-numeric: tabular-nums; line-height: 1.15; }
   .tile .l { color: var(--muted); font-size: 11.5px; }
@@ -172,7 +188,7 @@ var CSS = `
   .card .ct { font-weight: 600; font-size: 12.5px; margin: 0 2px 4px; }
   .card .cs { color: var(--muted); font-size: 11.5px; margin: -2px 2px 6px; }
   .chart { position: relative; }
-  .chart svg { display: block; width: 100%; height: auto; overflow: visible; }
+  .chart svg { display: block; width: 100%; height: auto; overflow: visible; direction: ltr; }
   .chart .axis { fill: var(--muted); font-size: 10.5px; font-variant-numeric: tabular-nums; }
   .chart .grid { stroke: var(--line); stroke-width: 1; }
   .chart .line { fill: none; stroke: var(--accent); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
@@ -181,14 +197,15 @@ var CSS = `
   .tip {
     position: absolute; pointer-events: none; transform: translate(-50%, calc(-100% - 10px));
     background: var(--fg); color: var(--bg); border-radius: 8px; padding: 5px 9px; font-size: 11.5px;
-    white-space: nowrap; box-shadow: 0 4px 12px rgba(0,0,0,.18); font-variant-numeric: tabular-nums;
+    width: max-content; max-width: calc(100% - 8px); text-align: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,.18); font-variant-numeric: tabular-nums;
   }
   .tip b { font-weight: 700; }
   .note { color: var(--muted); font-size: 12px; padding: 14px 4px; text-align: center; }
   table { width: 100%; border-collapse: collapse; font-size: 12px; font-variant-numeric: tabular-nums; }
-  th { text-align: right; color: var(--muted); font-weight: 600; font-size: 11px; padding: 6px 4px; border-bottom: 1px solid var(--line); }
-  td { text-align: right; padding: 6px 4px; border-bottom: 1px solid var(--line); }
-  th:first-child, td:first-child { text-align: left; }
+  th { text-align: end; color: var(--muted); font-weight: 600; font-size: 11px; padding: 6px 4px; border-bottom: 1px solid var(--line); }
+  td { text-align: end; padding: 6px 4px; border-bottom: 1px solid var(--line); }
+  th:first-child, td:first-child { text-align: start; }
   td.up { color: var(--ok); } td.down { color: var(--err); }
 
   /* ustawienia */
@@ -205,13 +222,13 @@ var CSS = `
   .resume { display: flex; flex-wrap: wrap; gap: 4px 8px; align-items: center; margin: -2px 12px 10px; font-size: 12px; color: var(--muted); }
   .linkbtn { border: 0; background: transparent; color: var(--accent); padding: 0; font-size: inherit; font-weight: 600; text-decoration: underline; text-underline-offset: 2px; }
   .linkbtn:hover { color: var(--accent-strong); }
-  .msg .linkbtn { margin-left: 6px; color: inherit; }
+  .msg .linkbtn { margin-inline-start: 6px; color: inherit; }
 
   /* ekran powitalny w panelu */
   .welcome { display: grid; gap: 12px; }
   .welcome h2 { margin: 0; font-size: 17px; letter-spacing: -.01em; }
   .welcome p { margin: 0; color: var(--muted); font-size: 12.5px; }
-  .welcome ol, .welcome ul { margin: 0; padding-left: 18px; display: grid; gap: 4px; font-size: 12.5px; }
+  .welcome ol, .welcome ul { margin: 0; padding-inline-start: 18px; display: grid; gap: 4px; font-size: 12.5px; }
   .welcome .risk { padding: 10px 12px; border-radius: 12px; background: var(--warn-soft); color: var(--warn); font-size: 12.5px; display: grid; gap: 6px; }
   .welcome .risk ul { color: var(--fg); }
   .welcome .accept { display: flex; gap: 8px; align-items: flex-start; font-size: 12.5px; cursor: pointer; }
@@ -222,6 +239,14 @@ var CSS = `
   footer {
     padding: 8px 14px; border-top: 1px solid var(--line); font-size: 11px; color: var(--muted);
   }
+  @media (max-width: 420px) {
+    header { gap: 6px; padding-inline: 12px 8px; }
+    .tools .line:has(select) { display: grid; }
+    .controls select { padding-inline: 8px; }
+    .row { gap: 6px; padding-inline: 10px; }
+    .row .av { width: 32px; height: 32px; }
+    .row .mini { padding-inline: 6px; }
+  }
 `;
 
 var LOGO = '<svg class="logo" viewBox="0 0 128 128" aria-hidden="true"><defs><linearGradient id="apx-g" x1="0" y1="0" x2="0.42" y2="1"><stop offset="0" stop-color="#f2559f"/><stop offset="1" stop-color="#cc1670"/></linearGradient></defs><g transform="translate(0 4.5)"><path fill="url(#apx-g)" fill-rule="evenodd" d="M64 7 116 112H91L64 59 37 112H12L64 7Zm0 34-12 25h24L64 41Z"/></g></svg>';
@@ -229,27 +254,39 @@ var ICON_PERSON = '<svg viewBox="0 0 24 24" width="22" height="22" fill="none" s
 var ICON_STATS = '<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>';
 var ICON_GEAR = '<svg viewBox="0 0 24 24" width="17" height="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1Z"/></svg>';
 
-var template = () => `
-  <div class="wrap">
-    <button class="launcher" title="${t('ext.name')}" aria-label="${t('ext.name')}">${ICON_PERSON}</button>
-    <section class="panel hidden" role="dialog" aria-label="${t('ext.name')}">
+var escapeHtml = (text) => String(text).replace(/[&<>"']/g, (character) => ({
+  '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
+})[character]);
+var displayText = (text) => typeof text === 'function' ? text() : text;
+
+var template = () => {
+  const text = (key, vars) => escapeHtml(t(key, vars));
+  return `
+  <div class="wrap" lang="${L.locale}" dir="${L.dir}">
+    <button class="launcher" title="${text('ext.name')}" aria-label="${text('ext.name')}">${ICON_PERSON}</button>
+    <section class="panel hidden" role="dialog" aria-label="${text('ext.name')}">
       <header>
         ${LOGO}
-        <span class="brand">Apex Unfollowers</span>
-        <span class="version grow" data-ref="version"></span>
-        <button class="ib" data-ref="statsBtn" title="${t('ui.stats')}" aria-label="${t('ui.stats')}">${ICON_STATS}</button>
-        <button class="ib" data-ref="settingsBtn" title="${t('ui.settings')}" aria-label="${t('ui.settings')}">${ICON_GEAR}</button>
-        <button class="ib" data-ref="close" title="${t('ui.close')}" aria-label="${t('ui.close')}">✕</button>
+        <span class="brand" dir="ltr">Apex Unfollowers</span>
+        <span class="version grow" data-ref="version" dir="ltr"></span>
+        <button class="ib" data-ref="statsBtn" title="${text('ui.stats')}" aria-label="${text('ui.stats')}">${ICON_STATS}</button>
+        <button class="ib" data-ref="settingsBtn" title="${text('ui.settings')}" aria-label="${text('ui.settings')}">${ICON_GEAR}</button>
+        <button class="ib" data-ref="close" title="${text('ui.close')}" aria-label="${text('ui.close')}">✕</button>
       </header>
+      <div class="support-band">
+        <a data-ref="support" href="${SUPPORT_URL}" target="_blank" rel="noopener noreferrer"
+          aria-describedby="apex-support-hint">${text('support.link')}</a>
+        <p data-ref="supportHint" id="apex-support-hint">${text('support.hint')}</p>
+      </div>
       <div class="account" data-ref="account">
         <span class="dot" aria-hidden="true"></span>
         <span class="sub" data-ref="sub"></span>
       </div>
       <div class="controls" data-ref="controls">
-        <button class="primary" data-ref="scan">${t('ui.scan')}</button>
-        <select data-ref="speed" title="${t('ui.speedTitle')}">
-          <option value="safe">${t('ui.speedSafe')}</option>
-          <option value="normal">${t('ui.speedNormal')}</option>
+        <button class="primary" data-ref="scan">${text('ui.scan')}</button>
+        <select data-ref="speed" title="${text('ui.speedTitle')}" aria-label="${text('ui.speedTitle')}">
+          <option value="safe">${text('ui.speedSafe')}</option>
+          <option value="normal">${text('ui.speedNormal')}</option>
         </select>
       </div>
       <div class="progress hidden" data-ref="progress">
@@ -259,58 +296,58 @@ var template = () => `
       </div>
       <div class="resume hidden" data-ref="resumeRow">
         <span data-ref="resumeText"></span>
-        <button class="linkbtn" data-ref="restart">${t('ui.restart')}</button>
+        <button class="linkbtn" data-ref="restart">${text('ui.restart')}</button>
       </div>
       <div class="msg hidden" data-ref="msg" role="status"></div>
 
       <div class="view hidden" data-ref="vWelcome"><div class="scroll"><div class="pad welcome">
-        <h2>${t('welcome.title')}</h2>
-        <p>${t('welcome.lead')}</p>
+        <h2>${text('welcome.title')}</h2>
+        <p>${text('welcome.lead')}</p>
         <ol>
-          <li>${t('welcome.step1')}</li>
-          <li>${t('welcome.step2')}</li>
-          <li>${t('welcome.step3')}</li>
+          <li>${text('welcome.step1')}</li>
+          <li>${text('welcome.step2')}</li>
+          <li>${text('welcome.step3')}</li>
         </ol>
         <div class="risk">
-          <strong>${t('welcome.riskTitle')}</strong>
-          <span>${t('welcome.riskText')}</span>
+          <strong>${text('welcome.riskTitle')}</strong>
+          <span>${text('welcome.riskText')}</span>
           <ul>
-            <li>${t('welcome.risk1')}</li>
-            <li>${t('welcome.risk2')}</li>
-            <li>${t('welcome.risk3')}</li>
+            <li>${text('welcome.risk1')}</li>
+            <li>${text('welcome.risk2')}</li>
+            <li>${text('welcome.risk3')}</li>
           </ul>
         </div>
-        <label class="accept"><input type="checkbox" data-ref="acceptRisk"> <span>${t('welcome.accept')}</span></label>
-        <button class="primary" data-ref="welcomeStart" disabled>${t('welcome.start')}</button>
-        <p>${t('welcome.privacy')} <button class="linkbtn" data-ref="welcomeMore">${t('welcome.more')}</button></p>
+        <label class="accept"><input type="checkbox" data-ref="acceptRisk"> <span>${text('welcome.accept')}</span></label>
+        <button class="primary" data-ref="welcomeStart" disabled>${text('welcome.start')}</button>
+        <p>${text('welcome.privacy')} <button class="linkbtn" data-ref="welcomeMore">${text('welcome.more')}</button></p>
       </div></div></div>
 
       <div class="view" data-ref="vLists">
         <nav data-ref="tabs">
-          <button data-tab="notBack"><span class="cnt">–</span>${t('tab.notBack')}</button>
-          <button data-tab="fans"><span class="cnt">–</span>${t('tab.fans')}</button>
-          <button data-tab="mutual"><span class="cnt">–</span>${t('tab.mutual')}</button>
-          <button data-tab="changes"><span class="cnt">–</span>${t('tab.changes')}</button>
+          <button data-tab="notBack"><span class="cnt">–</span>${text('tab.notBack')}</button>
+          <button data-tab="fans"><span class="cnt">–</span>${text('tab.fans')}</button>
+          <button data-tab="mutual"><span class="cnt">–</span>${text('tab.mutual')}</button>
+          <button data-tab="changes"><span class="cnt">–</span>${text('tab.changes')}</button>
         </nav>
         <div class="tools">
           <div class="line">
-            <input type="search" data-ref="search" placeholder="${t('ui.search')}">
-            <button class="btn" data-ref="csv" title="${t('ui.csvTitle')}">CSV</button>
+            <input type="search" data-ref="search" placeholder="${text('ui.search')}" aria-label="${text('ui.search')}">
+            <button class="btn" data-ref="csv" title="${text('ui.csvTitle')}">CSV</button>
           </div>
           <div class="line">
-            <select data-ref="filter" title="${t('ui.filterTitle')}">
-              <option value="all">${t('filter.all')}</option>
-              <option value="verified">${t('filter.verified')}</option>
-              <option value="private">${t('filter.private')}</option>
-              <option value="public">${t('filter.public')}</option>
-              <option value="nopic">${t('filter.nopic')}</option>
+            <select data-ref="filter" title="${text('ui.filterTitle')}" aria-label="${text('ui.filterTitle')}">
+              <option value="all">${text('filter.all')}</option>
+              <option value="verified">${text('filter.verified')}</option>
+              <option value="private">${text('filter.private')}</option>
+              <option value="public">${text('filter.public')}</option>
+              <option value="nopic">${text('filter.nopic')}</option>
             </select>
-            <select data-ref="sort" title="${t('ui.sortTitle')}">
-              <option value="default">${t('sort.default')}</option>
-              <option value="az">${t('sort.az')}</option>
-              <option value="za">${t('sort.za')}</option>
+            <select data-ref="sort" title="${text('ui.sortTitle')}" aria-label="${text('ui.sortTitle')}">
+              <option value="default">${text('sort.default')}</option>
+              <option value="az">${text('sort.az')}</option>
+              <option value="za">${text('sort.za')}</option>
             </select>
-            <label class="chk" data-ref="hiddenWrap" title="${t('ui.hiddenTitle')}"><input type="checkbox" data-ref="showHidden"> ${t('ui.hidden')}</label>
+            <label class="chk" data-ref="hiddenWrap" title="${text('ui.hiddenTitle')}"><input type="checkbox" data-ref="showHidden"> ${text('ui.hidden')}</label>
           </div>
         </div>
         <ul data-ref="list"></ul>
@@ -320,60 +357,61 @@ var template = () => `
 
       <div class="view hidden" data-ref="vSettings"><div class="scroll"><div class="pad">
         <section class="set">
-          <h3>${t('set.lang')}</h3>
-          <select data-ref="lang">
-            <option value="auto">${t('set.langAuto')}</option>
-            <option value="pl">Polski</option>
-            <option value="en">English</option>
+          <h3>${text('set.lang')}</h3>
+          <select data-ref="lang" aria-label="${text('set.lang')}">
+            <option value="auto">${text('set.langAuto')}</option>
+            ${I18N.languages.map(({ code, name, locale, dir }) =>
+              `<option value="${code}" lang="${locale}" dir="${dir}">${escapeHtml(name)}</option>`).join('')}
           </select>
         </section>
         <section class="set">
-          <h3>${t('set.unf')}</h3>
-          <p>${t('set.unfHint')}</p>
-          <select data-ref="unfLimit">
-            ${UNF.limits.map((n) => `<option value="${n}">${t('set.unfOption', { n })}</option>`).join('')}
+          <h3>${text('set.unf')}</h3>
+          <p>${text('set.unfHint')}</p>
+          <select data-ref="unfLimit" aria-label="${text('set.unf')}">
+            ${UNF.limits.map((n) => `<option value="${n}">${text('set.unfOption', { n })}</option>`).join('')}
           </select>
         </section>
         <section class="set">
-          <h3>${t('set.launcher')}</h3>
-          <label class="chk"><input type="checkbox" data-ref="showLauncher"> ${t('set.launcherLabel')}</label>
+          <h3>${text('set.launcher')}</h3>
+          <label class="chk"><input type="checkbox" data-ref="showLauncher"> ${text('set.launcherLabel')}</label>
         </section>
         <section class="set">
-          <h3>${t('set.backup')}</h3>
-          <p>${t('set.backupHint')}</p>
+          <h3>${text('set.backup')}</h3>
+          <p>${text('set.backupHint')}</p>
           <div class="line">
-            <button class="btn" data-ref="export">${t('set.export')}</button>
-            <button class="btn" data-ref="import">${t('set.import')}</button>
+            <button class="btn" data-ref="export">${text('set.export')}</button>
+            <button class="btn" data-ref="import">${text('set.import')}</button>
             <input type="file" accept=".json,application/json" data-ref="importFile" hidden>
           </div>
         </section>
         <section class="set">
-          <h3>${t('set.data')}</h3>
-          <p>${t('set.dataHint')}</p>
-          <div class="line"><button class="btn danger" data-ref="wipe">${t('set.wipe')}</button></div>
+          <h3>${text('set.data')}</h3>
+          <p>${text('set.dataHint')}</p>
+          <div class="line"><button class="btn danger" data-ref="wipe">${text('set.wipe')}</button></div>
         </section>
         <section class="set">
-          <h3>${t('set.about')}</h3>
+          <h3>${text('set.about')}</h3>
           <div class="author">
-            <span class="muted">${t('set.authorTitle')}</span>
+            <span class="muted">${text('set.authorTitle')}</span>
             <strong>${AUTHOR.name}</strong>
             <a href="mailto:${AUTHOR.email}">${AUTHOR.email}</a>
-            <a href="${AUTHOR.linkedin}" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer" aria-label="${t('set.linkedinLabel')}">${t('set.linkedin')}</a>
+            <a href="${AUTHOR.linkedin}" target="_blank" rel="noopener noreferrer" referrerpolicy="no-referrer" aria-label="${text('set.linkedinLabel')}">${text('set.linkedin')}</a>
             <a href="${SITE}" target="_blank" rel="noopener noreferrer">apexsoftware.app</a>
           </div>
-          <p>${t('set.reportHint')}</p>
+          <p>${text('set.reportHint')}</p>
           <div class="line">
-            <button class="btn" data-ref="reportGithub">${t('set.reportGithub')}</button>
-            <button class="btn" data-ref="reportMail">${t('set.reportMail')}</button>
+            <button class="btn" data-ref="reportGithub">${text('set.reportGithub')}</button>
+            <button class="btn" data-ref="reportMail">${text('set.reportMail')}</button>
           </div>
-          <div class="line"><button class="linkbtn" data-ref="showWelcome">${t('set.showWelcome')}</button></div>
+          <div class="line"><button class="linkbtn" data-ref="showWelcome">${text('set.showWelcome')}</button></div>
         </section>
-        <p class="about">${t('ext.name')} <span data-ref="aboutVersion"></span> · <a href="${REPO}" target="_blank" rel="noopener noreferrer">GitHub</a> · MIT</p>
+        <p class="about">${text('ext.name')} <span data-ref="aboutVersion" dir="ltr"></span> · <a href="${REPO}" target="_blank" rel="noopener noreferrer">GitHub</a> · MIT</p>
       </div></div></div>
 
-      <footer>${t('ui.footer')}</footer>
+      <footer>${text('ui.footer')}</footer>
     </section>
   </div>`;
+};
 
 // ---------------------------------------------------------------- UI: budowa
 var ui = {
@@ -383,6 +421,9 @@ var ui = {
   launcher: null,
   panel: null,
   wipeArmed: false,
+  notice: null,
+  currentProgress: null,
+  currentNote: null,
 
   build() {
     if (!this.host) {
@@ -410,22 +451,36 @@ var ui = {
     this.bind();
     this.applySettings();
     this.setScanning(state.scanning);
+    if (this.wipeArmed) this.r.wipe.textContent = t('set.wipeConfirm');
+    if (this.currentProgress) this.progress(this.currentProgress.fraction, this.currentProgress.text);
+    this.note(this.currentNote);
+    this.renderMessage();
   },
 
   // przebudowa po zmianie języka (panel zostaje otwarty, jeśli był)
   rebuild() {
     const open = this.panel && !this.panel.classList.contains('hidden');
-    const kind = this.r.msg ? (this.r.msg.className.match(/\b(ok|warn|error)\b/) || [])[1] : null;
-    const text = kind === 'error' && state.lastError ? state.lastError.text : this.r.msg ? this.r.msg.textContent : '';
-    const detail = kind === 'error' && state.lastError ? state.lastError.detail : '';
+    const focus = this.shadow.activeElement?.dataset.ref;
+    const scroll = [...this.shadow.querySelectorAll('.scroll, [data-ref="list"]')].map((node) => node.scrollTop);
+    const accepted = !this.r.welcomeStart.disabled && this.r.acceptRisk.checked;
+    const search = this.r.search.value;
+    const selection = focus === 'search' ? [this.r.search.selectionStart, this.r.search.selectionEnd] : null;
     this.build();
     if (open) this.panel.classList.remove('hidden');
-    if (text) this.message(text, kind, detail);
+    this.r.acceptRisk.checked = accepted;
+    this.r.welcomeStart.disabled = !accepted;
+    this.r.search.value = search;
     render();
+    this.shadow.querySelectorAll('.scroll, [data-ref="list"]').forEach((node, index) => { node.scrollTop = scroll[index]; });
+    if (Object.hasOwn(this.r, focus)) this.r[focus].focus({ preventScroll: true });
+    if (selection) this.r.search.setSelectionRange(...selection);
   },
 
   bind() {
     const r = this.r;
+    const blockSyntheticSupport = (event) => { if (!event.isTrusted) event.preventDefault(); };
+    r.support.addEventListener('click', blockSyntheticSupport);
+    r.support.addEventListener('auxclick', blockSyntheticSupport);
     this.launcher.addEventListener('click', userOnly(() => togglePanel()));
     r.close.addEventListener('click', userOnly(() => togglePanel(false)));
     r.statsBtn.addEventListener('click', userOnly(() => setView(state.view === 'stats' ? 'lists' : 'stats')));
@@ -464,11 +519,7 @@ var ui = {
     r.csv.addEventListener('click', userOnly(exportCsv));
 
     // ustawienia
-    r.lang.addEventListener('change', userOnly(async () => {
-      await saveSetting('lang', r.lang.value);
-      L = I18N.make(state.settings.lang);
-      this.rebuild();
-    }));
+    r.lang.addEventListener('change', userOnly(() => saveSetting('lang', I18N.normalizePreference(r.lang.value))));
     r.unfLimit.addEventListener('change', userOnly(() => saveSetting('unfLimit', Number(r.unfLimit.value))));
     r.showLauncher.addEventListener('change', userOnly(() => saveSetting('hideLauncher', !r.showLauncher.checked)));
     r.export.addEventListener('click', userOnly(exportBackup));
@@ -483,7 +534,7 @@ var ui = {
       if (!this.wipeArmed) {
         this.wipeArmed = true;
         r.wipe.textContent = t('set.wipeConfirm');
-        setTimeout(() => { this.wipeArmed = false; if (r.wipe.isConnected) r.wipe.textContent = t('set.wipe'); }, 4000);
+        setTimeout(() => { this.wipeArmed = false; this.r.wipe.textContent = t('set.wipe'); }, 4000);
         return;
       }
       this.wipeArmed = false;
@@ -492,7 +543,7 @@ var ui = {
         await store.remove(['scan:', 'log:', 'wl:', 'hist:', 'unf:', 'unfBlock:', 'resume:'].map((p) => p + state.userId));
       }
       await loadAccount(state.userId);
-      this.message(t('set.wiped'), 'warn');
+      this.message(localized('set.wiped'), 'warn');
       render();
     }));
   },
@@ -513,27 +564,40 @@ var ui = {
     this.launcher.classList.toggle('busy', on);
   },
 
-  progress(fraction, text) {
+  progress(fraction, text = this.currentProgress?.text) {
+    this.currentProgress = { fraction, text };
     const r = this.r;
     r.progress.classList.remove('hidden');
     r.bar.classList.toggle('indet', fraction == null);
     r.fill.style.width = fraction == null ? '' : Math.round(fraction * 100) + '%';
-    if (text != null) r.ptext.textContent = text;
+    r.ptext.textContent = displayText(text) || '';
   },
-  hideProgress() { this.r.progress.classList.add('hidden'); },
+  hideProgress() {
+    this.currentProgress = null;
+    this.r.progress.classList.add('hidden');
+  },
 
   note(text) {
-    this.r.pnote.textContent = text || '';
-    this.r.pnote.classList.toggle('hidden', !text);
+    this.currentNote = text;
+    const value = displayText(text);
+    this.r.pnote.textContent = value || '';
+    this.r.pnote.classList.toggle('hidden', !value);
   },
 
   // kind: ok | warn | error; detail – techniczny opis błędu dołączany do zgłoszenia problemu
-  message(text, kind, detail) {
+  message(text, kind, detail, reportText = text) {
+    this.notice = { text, kind };
+    if (text && kind === 'error') state.lastError = { text: reportText, detail: detail || '', at: Date.now() };
+    this.renderMessage();
+  },
+
+  renderMessage() {
+    const { text, kind } = this.notice || {};
+    const value = displayText(text);
     const m = this.r.msg;
-    m.className = 'msg' + (text ? ' ' + (kind || 'ok') : ' hidden');
-    m.textContent = text || '';
-    if (text && kind === 'error') {
-      state.lastError = { text, detail: detail || '', at: Date.now() };
+    m.className = 'msg' + (value ? ' ' + (kind || 'ok') : ' hidden');
+    m.textContent = value || '';
+    if (value && kind === 'error') {
       const b = el('button', 'linkbtn', t('report.button'));
       b.title = t('report.buttonTitle');
       b.addEventListener('click', userOnly(() => openReport('github')));
@@ -542,9 +606,30 @@ var ui = {
   },
 };
 
+var settingsWrites = Promise.resolve();
+
 async function saveSetting(key, value) {
+  const previous = state.settings[key];
   state.settings[key] = value;
-  await store.set('settings', state.settings);
+  const write = settingsWrites.then(async () => {
+    const saved = await store.get('settings', {});
+    await store.set('settings', { ...state.settings, ...saved, [key]: value });
+  });
+  settingsWrites = write.catch(() => {});
+  try {
+    await write;
+  } catch (error) {
+    console.warn('[Apex Unfollowers] storage.set', error);
+    if (state.settings[key] === value) state.settings[key] = previous;
+    if (key === 'lang') await updatePanelLanguage();
+    else ui.applySettings();
+    ui.message(localized('err.generic'), 'error');
+    return;
+  }
+  if (key === 'lang') {
+    if (state.settings.lang === value) await updatePanelLanguage();
+    return;
+  }
   ui.applySettings();
 }
 
@@ -554,6 +639,7 @@ function setView(view) {
 }
 
 async function togglePanel(force) {
+  await settingsReady;
   if (!ui.host || !ui.host.isConnected) { ui.host = null; ui.build(); }
   const open = force === undefined ? ui.panel.classList.contains('hidden') : force;
   if (open) {

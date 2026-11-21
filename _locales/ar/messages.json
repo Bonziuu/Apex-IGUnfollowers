@@ -1,0 +1,632 @@
+{
+  "extName": {
+    "message": "Apex Unfollowers لـ Instagram"
+  },
+  "extShortName": {
+    "message": "Apex"
+  },
+  "extDescription": {
+    "message": "اعرف من لا يتابعك بالمقابل ومن ألغى متابعتك على Instagram. يعمل داخل متصفحك دون طلب كلمة المرور أو إنشاء حساب إضافي."
+  },
+  "ext_name": {
+    "message": "Apex Unfollowers لـ Instagram"
+  },
+  "ext_tagline": {
+    "message": "اعرف من لا يتابعك بالمقابل على Instagram، مجانًا ومن داخل متصفحك"
+  },
+  "ui_resume": {
+    "message": "استئناف الفحص"
+  },
+  "ui_restart": {
+    "message": "البدء من جديد"
+  },
+  "ui_resumeInfo": {
+    "message": "توقف فحص {date} مؤقتًا. الحسابات المحفوظة: {n}."
+  },
+  "scan_eta": {
+    "message": "الوقت المتبقي نحو {t}"
+  },
+  "time_lessMin": {
+    "message": "أقل من دقيقة"
+  },
+  "time_min": {
+    "message": "{n} د"
+  },
+  "scan_resuming": {
+    "message": "جارٍ استئناف الفحص. الحسابات التي جرى جلبها: {n}…"
+  },
+  "scan_paused": {
+    "message": "توقف الفحص مؤقتًا."
+  },
+  "scan_progressSaved": {
+    "message": "حُفظ تقدّم الفحص. الحسابات المحفوظة: {n}. اضغط على «استئناف الفحص» لإكماله."
+  },
+  "welcome_title": {
+    "message": "مرحبًا بك في Apex Unfollowers"
+  },
+  "welcome_lead": {
+    "message": "تقارن الإضافة بين قائمة متابعيك والحسابات التي تتابعها على Instagram. تعمل داخل متصفحك ولا تحتاج إلى حساب خاص بها ولا ترسل بياناتك إلى المطوّر."
+  },
+  "welcome_step1": {
+    "message": "سجّل الدخول إلى instagram.com في هذا المتصفح."
+  },
+  "welcome_step2": {
+    "message": "اضغط على «فحص». قد يستغرق الأمر بضع دقائق للحسابات الكبيرة."
+  },
+  "welcome_step3": {
+    "message": "تصفّح علامات التبويب والفلاتر والإحصاءات. ألغِ متابعة حساب واحد في كل مرة."
+  },
+  "welcome_riskTitle": {
+    "message": "سلامة الحساب"
+  },
+  "welcome_riskText": {
+    "message": "تستخدم الإضافة واجهة برمجة تطبيقات غير رسمية لموقع Instagram. لا تسمح شروط Instagram بجمع البيانات آليًا، لذا تقع مسؤولية استخدامها عليك."
+  },
+  "welcome_risk1": {
+    "message": "افحص مرة واحدة يوميًا على الأكثر واختر السرعة الآمنة."
+  },
+  "welcome_risk2": {
+    "message": "تمهّل عند إلغاء المتابعة. تفرض الإضافة فترات انتظار وحدًا يوميًا."
+  },
+  "welcome_risk3": {
+    "message": "إذا حظر Instagram إجراءً، فانتظر يومًا أو يومين."
+  },
+  "welcome_accept": {
+    "message": "أفهم ذلك وأرغب في استخدام الإضافة."
+  },
+  "welcome_start": {
+    "message": "ابدأ"
+  },
+  "welcome_privacy": {
+    "message": "تبقى بياناتك في هذا المتصفح."
+  },
+  "welcome_more": {
+    "message": "مزيد من المعلومات"
+  },
+  "set_about": {
+    "message": "حول الإضافة"
+  },
+  "set_authorTitle": {
+    "message": "المطوّر والتواصل"
+  },
+  "set_linkedin": {
+    "message": "الملف الشخصي على LinkedIn"
+  },
+  "set_linkedinLabel": {
+    "message": "ملف المطوّر على LinkedIn (يفتح في علامة تبويب جديدة)"
+  },
+  "support_link": {
+    "message": "ادعم Apex على Ko-fi"
+  },
+  "support_hint": {
+    "message": "المساهمة طوعية. جميع الميزات مجانية."
+  },
+  "set_reportHint": {
+    "message": "هل تواجه مشكلة؟ تتضمن مسودة البلاغ تفاصيل تشخيصية وإصدار الإضافة والمتصفح، دون أسماء الحسابات. تتضمن مسودة البريد الإلكتروني أيضًا لغة الواجهة."
+  },
+  "set_reportGithub": {
+    "message": "الإبلاغ عن مشكلة"
+  },
+  "set_reportMail": {
+    "message": "إرسال بريد إلكتروني"
+  },
+  "set_showWelcome": {
+    "message": "عرض شاشة الترحيب"
+  },
+  "report_button": {
+    "message": "الإبلاغ عن مشكلة"
+  },
+  "report_buttonTitle": {
+    "message": "افتح بلاغًا جاهزًا في GitHub يتضمن الإصدار والمتصفح والخطأ"
+  },
+  "report_mailIntro": {
+    "message": "صِف ما حدث وما كنت تحاول فعله:"
+  },
+  "report_browser": {
+    "message": "المتصفح"
+  },
+  "report_language": {
+    "message": "اللغة"
+  },
+  "report_error": {
+    "message": "آخر خطأ"
+  },
+  "report_subject": {
+    "message": "بلاغ عن مشكلة"
+  },
+  "page_title": {
+    "message": "مرحبًا بك في Apex Unfollowers"
+  },
+  "page_tagline": {
+    "message": "اعرف من لا يتابعك بالمقابل على Instagram، مجانًا ومن داخل متصفحك"
+  },
+  "page_lead": {
+    "message": "يقارن Apex Unfollowers بين متابعيك والحسابات التي تتابعها على Instagram. يعرض من لا يتابعك بالمقابل ومن لا تتابعه ومن ألغى متابعتك. يعمل داخل متصفحك دون حساب إضافي أو طلب كلمة المرور أو إرسال بيانات إلى المطوّر."
+  },
+  "page_howTitle": {
+    "message": "البدء"
+  },
+  "page_featTitle": {
+    "message": "محتويات اللوحة"
+  },
+  "page_feat1": {
+    "message": "<strong>لا يتابعونك بالمقابل</strong> – مع قائمة استثناءات للمشاهير والعلامات التجارية"
+  },
+  "page_feat2": {
+    "message": "<strong>التغييرات</strong> – من ألغى متابعتك ومن بدأ متابعتك منذ آخر فحص"
+  },
+  "page_feat3": {
+    "message": "<strong>الإحصاءات</strong> – رسم بياني للمتابعين وصافي التغيّر خلال 7 و30 يومًا"
+  },
+  "page_feat4": {
+    "message": "<strong>إلغاء المتابعة</strong> – حساب واحد في كل مرة، مع تأكيد وحد يومي"
+  },
+  "page_open": {
+    "message": "فتح Instagram"
+  },
+  "page_done": {
+    "message": "تم الإعداد. افتح Instagram واضغط على الزر الوردي أسفل يمين الصفحة."
+  },
+  "page_privacyTitle": {
+    "message": "الخصوصية"
+  },
+  "page_privacyText": {
+    "message": "تبقى نتائج الفحص والسجل والإعدادات في هذا المتصفح. تجلب الإضافة القوائم من Instagram، وقد تحمّل صور الملفات الشخصية من خوادم الصور التابعة لـ Instagram أو Meta. لا تجمع الإضافة بيانات قياس الاستخدام."
+  },
+  "page_policy": {
+    "message": "سياسة الخصوصية"
+  },
+  "page_source": {
+    "message": "الشيفرة المصدرية"
+  },
+  "err_abort": {
+    "message": "توقف الفحص."
+  },
+  "err_network": {
+    "message": "تعذّر الاتصال بـ Instagram."
+  },
+  "err_checkpoint": {
+    "message": "يريد Instagram التأكد من هويتك. افتح instagram.com، وأكمِل التحقّق، ثم حاول مجددًا لاحقًا."
+  },
+  "err_login": {
+    "message": "يطلب Instagram تسجيل الدخول مجددًا. سجّل الدخول ثم حاول مرة أخرى."
+  },
+  "err_noAccess": {
+    "message": "رُفض الوصول. تأكّد من تسجيل الدخول إلى instagram.com ثم أعِد تحميل الصفحة."
+  },
+  "err_unexpected": {
+    "message": "أعاد Instagram استجابة غير متوقعة (HTTP {status})."
+  },
+  "err_ig": {
+    "message": "خطأ في Instagram (HTTP {status}){msg}"
+  },
+  "err_ratelimit": {
+    "message": "لا يزال Instagram يحدّ من الطلبات. انتظر 15 إلى 30 دقيقة ثم حاول مجددًا بالسرعة الآمنة."
+  },
+  "err_format": {
+    "message": "غيّر Instagram تنسيق البيانات. يلزم تحديث الإضافة."
+  },
+  "err_noAccount": {
+    "message": "لم يُعثر على حساب مسجّل الدخول. سجّل الدخول إلى instagram.com ثم أعِد تحميل الصفحة."
+  },
+  "note_pause": {
+    "message": "استراحة قصيرة ({s} ث) لتخفيف ضغط الطلبات على Instagram…"
+  },
+  "note_retryNet": {
+    "message": "مشكلة في الاتصال. جارٍ إعادة المحاولة ({a}/{n})…"
+  },
+  "note_slowDown": {
+    "message": "يطلب Instagram إبطاء الطلبات (HTTP {status}). سيُستأنف الفحص بعد {s} ث…"
+  },
+  "note_fallback": {
+    "message": "لم تنجح الطريقة الأساسية. جارٍ تجربة الطريقة البديلة…"
+  },
+  "note_repair": {
+    "message": "عدد الحسابات التي أعادها Instagram: {got} من أصل {expected}. جارٍ جلب البقية بطريقة أخرى…"
+  },
+  "scan_checking": {
+    "message": "جارٍ التحقّق من حسابك…"
+  },
+  "scan_followers": {
+    "message": "المتابعون: {n}"
+  },
+  "scan_followersDone": {
+    "message": "المتابعون: {n} ✓ · التالي: الحسابات التي تتابعها…"
+  },
+  "scan_following": {
+    "message": "المتابعون: {f} ✓ · تتابع: {n}"
+  },
+  "scan_done": {
+    "message": "اكتمل"
+  },
+  "scan_result": {
+    "message": "اكتمل الفحص. المتابعون: {fr}، تتابع: {fg}."
+  },
+  "scan_first": {
+    "message": "هذا فحصك الأول. في الفحص القادم سترى من ألغى متابعتك."
+  },
+  "scan_changes": {
+    "message": "منذ الفحص السابق: فقدت {lost} واكتسبت {gained} من المتابعين (راجع «التغييرات»)."
+  },
+  "scan_noChanges": {
+    "message": "لا تغييرات منذ الفحص السابق."
+  },
+  "scan_fewer": {
+    "message": "المتابعون: جُلب {got} من أصل {expected} وفقًا للعداد في الملف الشخصي. فروق بسيطة أمر طبيعي بسبب الحسابات المعلّقة أو المعطّلة. إذا كان الفرق كبيرًا، أعِد الفحص لاحقًا."
+  },
+  "scan_shortFollowing": {
+    "message": "تنبيه: جُلب {got} من أصل {expected} من الحسابات التي تتابعها وفقًا لعداد الملف الشخصي. لم يُرجع Instagram القائمة كاملة، وقد تكون النتائج غير دقيقة. أعِد الفحص بعد 15 دقيقة بالسرعة الآمنة."
+  },
+  "scan_noCounts": {
+    "message": "تعذّرت قراءة العدادات في ملفك الشخصي، لذا لم تتمكّن الإضافة من التحقّق من اكتمال القوائم."
+  },
+  "scan_aborted": {
+    "message": "توقف الفحص. احتُفظ بالنتائج السابقة."
+  },
+  "unf_duringScan": {
+    "message": "انتظر حتى ينتهي الفحص."
+  },
+  "unf_otherAccount": {
+    "message": "أنت مسجّل الدخول بحساب مختلف عن الحساب الذي تخصّه هذه النتائج. افحص الحساب الحالي أولًا."
+  },
+  "unf_blockedUntil": {
+    "message": "أوقفنا إلغاء المتابعة مؤقتًا حتى {time} لأن Instagram قيّد الإجراءات على حسابك."
+  },
+  "unf_limit": {
+    "message": "بلغت الحد اليومي لإلغاء المتابعة ({used}/{limit} خلال 24 ساعة). يمكنك تغييره في الإعدادات."
+  },
+  "unf_cooldown": {
+    "message": "الوقت المتبقي للانتظار: {s} ث. يساعد الانتظار بين عمليات إلغاء المتابعة في حماية حسابك."
+  },
+  "unf_done": {
+    "message": "أُلغيت متابعة ⁦@{user}⁩. خلال آخر 24 ساعة: {used}/{limit}."
+  },
+  "unf_blocked": {
+    "message": "حظر Instagram هذا الإجراء لكثرة الإجراءات. إلغاء المتابعة متوقف حتى {time}. لا تُعِد المحاولة يدويًا في التطبيق."
+  },
+  "unf_slow": {
+    "message": "يطلب Instagram التمهّل. إلغاء المتابعة متوقف مؤقتًا حتى {time}."
+  },
+  "unf_failed": {
+    "message": "لم يؤكّد Instagram إلغاء المتابعة (HTTP {status}، {info}). تحقّق من الملف الشخصي لترى هل ما زلت تتابعه."
+  },
+  "unf_noTokens": {
+    "message": "لم يُعثر على رموز جلسة Instagram في الصفحة. أعِد تحميل الصفحة (F5) وحاول مرة أخرى."
+  },
+  "unf_still": {
+    "message": "ردّ Instagram، لكنك ما زلت تتابع ⁦@{user}⁩. حاول لاحقًا أو من الملف الشخصي."
+  },
+  "unf_unconfirmed": {
+    "message": "قبل Instagram الطلب، لكن تعذّر التأكّد من إلغاء متابعة ⁦@{user}⁩. تحقّق من الملف الشخصي."
+  },
+  "backup_exported": {
+    "message": "حُفظت النسخة الاحتياطية (الحسابات: {n})."
+  },
+  "backup_imported": {
+    "message": "استُعيدت النسخة الاحتياطية في {date} (الحسابات: {n})."
+  },
+  "backup_invalid": {
+    "message": "هذا الملف ليس نسخة احتياطية من Apex Unfollowers أو أنه تالف."
+  },
+  "backup_tooBig": {
+    "message": "ملف النسخة الاحتياطية كبير جدًا (الحد الأقصى {mb} ميغابايت)."
+  },
+  "ui_stats": {
+    "message": "الإحصاءات"
+  },
+  "ui_settings": {
+    "message": "الإعدادات"
+  },
+  "ui_close": {
+    "message": "إغلاق (Esc)"
+  },
+  "ui_scan": {
+    "message": "فحص"
+  },
+  "ui_stop": {
+    "message": "إيقاف"
+  },
+  "ui_speedTitle": {
+    "message": "سرعة الفحص"
+  },
+  "ui_speedSafe": {
+    "message": "السرعة: آمنة"
+  },
+  "ui_speedNormal": {
+    "message": "السرعة: أسرع"
+  },
+  "ui_search": {
+    "message": "البحث بالاسم…"
+  },
+  "ui_csvTitle": {
+    "message": "تنزيل نتائج علامة التبويب المطابقة للفلاتر بصيغة CSV"
+  },
+  "ui_filterTitle": {
+    "message": "تصفية"
+  },
+  "ui_sortTitle": {
+    "message": "ترتيب"
+  },
+  "ui_hiddenTitle": {
+    "message": "إظهار الحسابات المخفية أيضًا (قائمة الاستثناءات)"
+  },
+  "ui_hidden": {
+    "message": "المخفية"
+  },
+  "ui_footer": {
+    "message": "تبقى بياناتك في متصفحك فقط."
+  },
+  "ui_more": {
+    "message": "عرض المزيد ({n})"
+  },
+  "ui_lastScan": {
+    "message": "آخر فحص: {date}"
+  },
+  "ui_noScan": {
+    "message": "لا يوجد فحص بعد. اضغط على «فحص»."
+  },
+  "tab_notBack": {
+    "message": "لا يتابعونك بالمقابل"
+  },
+  "tab_fans": {
+    "message": "لا تتابعهم بالمقابل"
+  },
+  "tab_mutual": {
+    "message": "متابعة متبادلة"
+  },
+  "tab_changes": {
+    "message": "التغييرات"
+  },
+  "tab_changesTitle": {
+    "message": "من ألغوا متابعتك وفقًا لسجل الفحص"
+  },
+  "filter_all": {
+    "message": "كل الحسابات"
+  },
+  "filter_verified": {
+    "message": "موثّقة"
+  },
+  "filter_private": {
+    "message": "خاصة"
+  },
+  "filter_public": {
+    "message": "عامة"
+  },
+  "filter_nopic": {
+    "message": "بلا صورة للملف الشخصي"
+  },
+  "sort_default": {
+    "message": "الترتيب الافتراضي"
+  },
+  "sort_az": {
+    "message": "اسم المستخدم A–Z"
+  },
+  "sort_za": {
+    "message": "اسم المستخدم Z–A"
+  },
+  "set_lang": {
+    "message": "اللغة"
+  },
+  "set_langAuto": {
+    "message": "تلقائي (لغة المتصفح)"
+  },
+  "set_unf": {
+    "message": "حد إلغاء المتابعة"
+  },
+  "set_unfHint": {
+    "message": "يحدّد Instagram عدد الإجراءات المسموح بها. قد يؤدي إلغاء متابعة حسابات كثيرة في وقت قصير إلى حظر الإجراءات على حسابك لساعات أو أيام. تفرض الإضافة انتظار 15 ثانية بين كل عمليتَي إلغاء متابعة."
+  },
+  "set_unfOption": {
+    "message": "{n} خلال 24 ساعة"
+  },
+  "set_launcher": {
+    "message": "زر على الصفحة"
+  },
+  "set_launcherLabel": {
+    "message": "إظهار الزر الدائري على instagram.com"
+  },
+  "set_backup": {
+    "message": "النسخ الاحتياطي"
+  },
+  "set_backupHint": {
+    "message": "ملف JSON يضم نتائج الفحص والسجل وقائمة الاستثناءات والإعدادات. يمكنك استخدامه عند الانتقال إلى جهاز أو متصفح آخر."
+  },
+  "set_export": {
+    "message": "حفظ نسخة احتياطية"
+  },
+  "set_import": {
+    "message": "استعادة نسخة احتياطية…"
+  },
+  "set_data": {
+    "message": "بيانات هذا الحساب"
+  },
+  "set_dataHint": {
+    "message": "يحذف نتائج الفحص والسجل وقائمة الاستثناءات وعداد إلغاء المتابعة للحساب الحالي."
+  },
+  "set_wipe": {
+    "message": "مسح البيانات"
+  },
+  "set_wipeConfirm": {
+    "message": "اضغط مجددًا للتأكيد"
+  },
+  "set_wiped": {
+    "message": "حُذفت البيانات المحفوظة لهذا الحساب."
+  },
+  "changes_group": {
+    "message": "فحص {date} (مقارنة بفحص {since})"
+  },
+  "changes_lost": {
+    "message": "ألغى المتابعة"
+  },
+  "changes_gained": {
+    "message": "متابع جديد"
+  },
+  "row_hide": {
+    "message": "إخفاء"
+  },
+  "row_unhide": {
+    "message": "إظهار مجددًا"
+  },
+  "row_hideTitle": {
+    "message": "إضافة إلى قائمة الاستثناءات (مثلًا المشاهير والعلامات التجارية) لإخفاء الحساب من علامة التبويب هذه"
+  },
+  "row_unhideTitle": {
+    "message": "إزالة من قائمة الاستثناءات"
+  },
+  "row_unf": {
+    "message": "إلغاء المتابعة"
+  },
+  "row_unfConfirm": {
+    "message": "هل أنت متأكد؟"
+  },
+  "row_unfTitle": {
+    "message": "إلغاء متابعة هذا الحساب (يتطلب تأكيدًا)"
+  },
+  "empty_changes": {
+    "message": "لم تُسجّل أي تغييرات بعد. أعِد الفحص لاحقًا لترى من ألغى متابعتك ومن بدأ متابعتك."
+  },
+  "empty_firstScan": {
+    "message": "ابدأ بإجراء الفحص الأول."
+  },
+  "empty_scanning": {
+    "message": "جارٍ جلب القوائم…"
+  },
+  "empty_loggedOut": {
+    "message": "سجّل الدخول إلى Instagram لرؤية نتائجك. تبقى نتائج الفحص محفوظة داخل الإضافة، وتظهر مجددًا عندما تسجّل الدخول إلى الحساب نفسه."
+  },
+  "empty_noScan": {
+    "message": "اضغط على «فحص» لجلب قوائمك. قد يستغرق ذلك بضع دقائق للحسابات الكبيرة. يمكنك إغلاق اللوحة مع إبقاء علامة تبويب Instagram مفتوحة."
+  },
+  "empty_noResults": {
+    "message": "لا توجد حسابات تطابق البحث أو الفلتر."
+  },
+  "empty_notBack": {
+    "message": "لا توجد حسابات لعرضها في هذه القائمة."
+  },
+  "empty_fans": {
+    "message": "أنت تتابع جميع متابعيك."
+  },
+  "empty_mutual": {
+    "message": "لا توجد متابعة متبادلة."
+  },
+  "stats_now": {
+    "message": "الآن"
+  },
+  "stats_followers": {
+    "message": "المتابعون"
+  },
+  "stats_following": {
+    "message": "الحسابات التي تتابعها"
+  },
+  "stats_mutual": {
+    "message": "متابعة متبادلة ({p} مما تتابعه)"
+  },
+  "stats_notBack": {
+    "message": "لا يتابعونك بالمقابل"
+  },
+  "stats_vsPrev": {
+    "message": "{d} منذ الفحص السابق"
+  },
+  "stats_balance": {
+    "message": "صافي تغيّر المتابعين"
+  },
+  "stats_balanceDays": {
+    "message": "الفترة بالأيام: {days} · المتابعون الجدد: {gained} · من ألغوا المتابعة: {lost}"
+  },
+  "stats_unf24": {
+    "message": "حسابات ألغيت متابعتها (24 ساعة)"
+  },
+  "stats_chartTitle": {
+    "message": "عدد المتابعين بمرور الوقت"
+  },
+  "stats_chartSub": {
+    "message": "عدد عمليات الفحص التي يستند إليها الرسم: {n}"
+  },
+  "stats_chartEmpty": {
+    "message": "يظهر الرسم البياني بعد الفحص الثاني."
+  },
+  "stats_chartAria": {
+    "message": "رسم بياني لعدد المتابعين. العدد الحالي: {n}."
+  },
+  "stats_history": {
+    "message": "سجل الفحص"
+  },
+  "stats_colDate": {
+    "message": "التاريخ"
+  },
+  "stats_colFollowers": {
+    "message": "المتابعون"
+  },
+  "stats_colFollowing": {
+    "message": "تتابع"
+  },
+  "stats_colChange": {
+    "message": "التغيّر"
+  },
+  "csv_empty": {
+    "message": "لا توجد بيانات للتصدير في علامة التبويب هذه."
+  },
+  "csv_head": {
+    "message": "اسم_المستخدم,الاسم_الكامل,الرابط,موثق,خاص"
+  },
+  "csv_headChanges": {
+    "message": "التغيير,التاريخ"
+  },
+  "csv_yes": {
+    "message": "نعم"
+  },
+  "csv_no": {
+    "message": "لا"
+  },
+  "csv_lost": {
+    "message": "ألغى_المتابعة"
+  },
+  "csv_gained": {
+    "message": "متابع_جديد"
+  },
+  "csv_fileNotBack": {
+    "message": "لا-يتابعونك"
+  },
+  "csv_fileFans": {
+    "message": "لا-تتابعهم"
+  },
+  "csv_fileMutual": {
+    "message": "متابعة-متبادلة"
+  },
+  "csv_fileChanges": {
+    "message": "التغييرات"
+  },
+  "popup_opening": {
+    "message": "جارٍ فتح اللوحة…"
+  },
+  "popup_openTitle": {
+    "message": "فتح Instagram"
+  },
+  "popup_openText": {
+    "message": "تعمل الإضافة على instagram.com. سجّل الدخول، ثم اضغط على أيقونة الإضافة أو الزر الوردي أسفل يمين الصفحة."
+  },
+  "popup_openBtn": {
+    "message": "فتح instagram.com"
+  },
+  "popup_reloadTitle": {
+    "message": "إعادة تحميل Instagram"
+  },
+  "popup_reloadText": {
+    "message": "تعمل الإضافة بعد إعادة تحميل علامة التبويب. اضغط على الأيقونة مرة أخرى بعد ذلك."
+  },
+  "popup_reloadBtn": {
+    "message": "إعادة تحميل الصفحة"
+  },
+  "row_unfBusy": {
+    "message": "جارٍ إلغاء المتابعة…"
+  },
+  "report_unknown": {
+    "message": "غير معروف"
+  },
+  "err_noResponseType": {
+    "message": "نوع الاستجابة غير معروف"
+  },
+  "err_generic": {
+    "message": "حدث خطأ ما."
+  }
+}

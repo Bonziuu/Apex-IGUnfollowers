@@ -1,0 +1,632 @@
+{
+  "extName": {
+    "message": "Apex Unfollowers per Instagram"
+  },
+  "extShortName": {
+    "message": "Apex"
+  },
+  "extDescription": {
+    "message": "Scopri chi non ti segue su Instagram e chi ha smesso di seguirti. Analizza i tuoi follower in locale, senza inserire la password."
+  },
+  "ext_name": {
+    "message": "Apex Unfollowers per Instagram"
+  },
+  "ext_tagline": {
+    "message": "Scopri chi non ti segue su Instagram, gratis e direttamente dal browser"
+  },
+  "ui_resume": {
+    "message": "Riprendi scansione"
+  },
+  "ui_restart": {
+    "message": "Ricomincia"
+  },
+  "ui_resumeInfo": {
+    "message": "Scansione del {date} interrotta. Account salvati: {n}."
+  },
+  "scan_eta": {
+    "message": "tempo rimanente stimato: {t}"
+  },
+  "time_lessMin": {
+    "message": "meno di un minuto"
+  },
+  "time_min": {
+    "message": "{n} min"
+  },
+  "scan_resuming": {
+    "message": "Ripresa della scansione. Account già recuperati: {n}…"
+  },
+  "scan_paused": {
+    "message": "Scansione in pausa."
+  },
+  "scan_progressSaved": {
+    "message": "Avanzamento salvato. Account recuperati: {n}. Fai clic su «Riprendi scansione» per completarla."
+  },
+  "welcome_title": {
+    "message": "Ti diamo il benvenuto in Apex Unfollowers"
+  },
+  "welcome_lead": {
+    "message": "L’estensione confronta i tuoi follower con gli account che segui su Instagram. Funziona nel browser, senza un account Apex e senza inviare dati allo sviluppatore."
+  },
+  "welcome_step1": {
+    "message": "Accedi a instagram.com da questo browser."
+  },
+  "welcome_step2": {
+    "message": "Fai clic su «Scansiona». Per gli account grandi possono volerci alcuni minuti."
+  },
+  "welcome_step3": {
+    "message": "Esplora schede, filtri e statistiche. Se vuoi smettere di seguire qualcuno, procedi un account alla volta."
+  },
+  "welcome_riskTitle": {
+    "message": "Sicurezza dell’account"
+  },
+  "welcome_riskText": {
+    "message": "L’estensione utilizza l’API non ufficiale del sito Instagram. Le condizioni di Instagram non consentono la raccolta automatizzata di dati. L’uso dell’estensione è a tuo rischio."
+  },
+  "welcome_risk1": {
+    "message": "esegui al massimo una scansione al giorno, a velocità prudente."
+  },
+  "welcome_risk2": {
+    "message": "smetti di seguire gli account con calma. L’estensione impone pause e un limite giornaliero."
+  },
+  "welcome_risk3": {
+    "message": "se Instagram blocca un’azione, aspetta uno o due giorni."
+  },
+  "welcome_accept": {
+    "message": "Ho capito e voglio usare l’estensione."
+  },
+  "welcome_start": {
+    "message": "Inizia"
+  },
+  "welcome_privacy": {
+    "message": "I tuoi dati restano in questo browser."
+  },
+  "welcome_more": {
+    "message": "Maggiori informazioni"
+  },
+  "set_about": {
+    "message": "Informazioni sull’estensione"
+  },
+  "support_link": {
+    "message": "Sostieni Apex su Ko-fi"
+  },
+  "support_hint": {
+    "message": "Contributo volontario. Tutte le funzioni sono gratuite."
+  },
+  "set_authorTitle": {
+    "message": "Sviluppatore e contatti"
+  },
+  "set_linkedin": {
+    "message": "Profilo LinkedIn"
+  },
+  "set_linkedinLabel": {
+    "message": "Profilo LinkedIn dello sviluppatore (si apre in una nuova scheda)"
+  },
+  "set_reportHint": {
+    "message": "Qualcosa non funziona? La segnalazione include informazioni di diagnostica, la versione dell’estensione e il browser. Non include nomi di account."
+  },
+  "set_reportGithub": {
+    "message": "Segnala un problema"
+  },
+  "set_reportMail": {
+    "message": "Invia un’e-mail"
+  },
+  "set_showWelcome": {
+    "message": "Mostra la schermata di benvenuto"
+  },
+  "report_button": {
+    "message": "Segnala un problema"
+  },
+  "report_buttonTitle": {
+    "message": "Apri una segnalazione precompilata su GitHub (versione, browser ed errore)"
+  },
+  "report_mailIntro": {
+    "message": "Descrivi cosa è successo e cosa stavi cercando di fare:"
+  },
+  "report_browser": {
+    "message": "Browser"
+  },
+  "report_language": {
+    "message": "Lingua"
+  },
+  "report_error": {
+    "message": "Ultimo errore"
+  },
+  "report_subject": {
+    "message": "segnalazione di un problema"
+  },
+  "page_title": {
+    "message": "Ti diamo il benvenuto in Apex Unfollowers"
+  },
+  "page_tagline": {
+    "message": "Scopri chi non ti segue su Instagram, gratis e direttamente dal browser"
+  },
+  "page_lead": {
+    "message": "Apex Unfollowers confronta i tuoi follower con gli account che segui su Instagram. Ti mostra chi non ti segue, chi non segui e chi ha smesso di seguirti. Funziona in locale nel tuo browser, senza un account Apex, senza chiederti la password e senza inviare dati allo sviluppatore."
+  },
+  "page_howTitle": {
+    "message": "Per iniziare"
+  },
+  "page_featTitle": {
+    "message": "Cosa trovi nel pannello"
+  },
+  "page_feat1": {
+    "message": "<strong>Non ti seguono</strong> — con un elenco di esclusione per marchi e celebrità"
+  },
+  "page_feat2": {
+    "message": "<strong>Cambiamenti</strong> — chi ha smesso di seguirti o ha iniziato a farlo dall’ultima scansione"
+  },
+  "page_feat3": {
+    "message": "<strong>Statistiche</strong> — grafico dei follower e saldo a 7 e 30 giorni"
+  },
+  "page_feat4": {
+    "message": "<strong>Non seguire più</strong> — un account alla volta, con conferma e limite giornaliero"
+  },
+  "page_open": {
+    "message": "Apri Instagram"
+  },
+  "page_done": {
+    "message": "Tutto pronto. Apri Instagram e fai clic sul pulsante rosa in basso a destra."
+  },
+  "page_privacyTitle": {
+    "message": "Privacy"
+  },
+  "page_privacyText": {
+    "message": "Risultati, cronologia e impostazioni restano in questo browser. L’estensione richiede i dati a Instagram. Le foto del profilo possono essere caricate dai server di immagini di Instagram o Meta. L’estensione non raccoglie dati di telemetria."
+  },
+  "page_policy": {
+    "message": "Informativa sulla privacy"
+  },
+  "page_source": {
+    "message": "Codice sorgente"
+  },
+  "err_abort": {
+    "message": "Scansione interrotta."
+  },
+  "err_network": {
+    "message": "Impossibile connettersi a Instagram."
+  },
+  "err_checkpoint": {
+    "message": "Instagram vuole verificare la tua identità. Apri instagram.com, completa la verifica e riprova più tardi."
+  },
+  "err_login": {
+    "message": "Instagram chiede un nuovo accesso. Accedi e riprova."
+  },
+  "err_noAccess": {
+    "message": "Accesso negato. Verifica di aver effettuato l’accesso su instagram.com e ricarica la pagina."
+  },
+  "err_unexpected": {
+    "message": "Instagram ha restituito una risposta imprevista (HTTP {status})."
+  },
+  "err_ig": {
+    "message": "Errore di Instagram (HTTP {status}){msg}"
+  },
+  "err_ratelimit": {
+    "message": "Instagram continua a limitare le richieste. Aspetta da 15 a 30 minuti e riprova a velocità prudente."
+  },
+  "err_format": {
+    "message": "Instagram ha cambiato il formato dei dati. Occorre aggiornare l’estensione."
+  },
+  "err_noAccount": {
+    "message": "Nessun account connesso rilevato. Accedi su instagram.com e ricarica la pagina."
+  },
+  "note_pause": {
+    "message": "Breve pausa di {s} s per distanziare le richieste a Instagram…"
+  },
+  "note_retryNet": {
+    "message": "Problema di connessione. Nuovo tentativo ({a}/{n})…"
+  },
+  "note_slowDown": {
+    "message": "Instagram chiede di rallentare (HTTP {status}). La scansione riprenderà tra {s} s…"
+  },
+  "note_fallback": {
+    "message": "Il metodo principale non ha funzionato. Provo un altro metodo…"
+  },
+  "note_repair": {
+    "message": "Instagram ha restituito {got} account su {expected}. Recupero gli altri in un altro modo…"
+  },
+  "scan_checking": {
+    "message": "Verifica del tuo account…"
+  },
+  "scan_followers": {
+    "message": "Follower: {n}"
+  },
+  "scan_followersDone": {
+    "message": "Follower: {n} ✓ · Ora gli account seguiti…"
+  },
+  "scan_following": {
+    "message": "Follower: {f} ✓ · Seguiti: {n}"
+  },
+  "scan_done": {
+    "message": "Completato"
+  },
+  "scan_result": {
+    "message": "Scansione completata. Follower: {fr}. Seguiti: {fg}."
+  },
+  "scan_first": {
+    "message": "È la tua prima scansione. Dalla prossima potrai vedere chi ha smesso di seguirti."
+  },
+  "scan_changes": {
+    "message": "Dalla scansione precedente: −{lost} / +{gained} follower (vedi «Cambiamenti»)."
+  },
+  "scan_noChanges": {
+    "message": "Nessun cambiamento dalla scansione precedente."
+  },
+  "scan_fewer": {
+    "message": "Follower: recuperati {got} su {expected} in base al contatore del profilo. Una piccola differenza è normale in presenza di account sospesi o disattivati. Se è più grande, ripeti la scansione più tardi."
+  },
+  "scan_shortFollowing": {
+    "message": "Attenzione agli account seguiti: recuperati {got} su {expected} in base al contatore del profilo. Instagram non ha restituito l’elenco completo e i risultati potrebbero essere imprecisi. Riprova fra 15 minuti a velocità prudente."
+  },
+  "scan_noCounts": {
+    "message": "Impossibile leggere i contatori del profilo. L’estensione non ha potuto verificare che gli elenchi siano completi."
+  },
+  "scan_aborted": {
+    "message": "Scansione interrotta. I risultati precedenti sono stati conservati."
+  },
+  "unf_duringScan": {
+    "message": "Attendi la fine della scansione."
+  },
+  "unf_otherAccount": {
+    "message": "Hai effettuato l’accesso con un account diverso da quello dei risultati. Scansiona prima questo account."
+  },
+  "unf_blockedUntil": {
+    "message": "L’opzione «Non seguire più» è sospesa fino alle {time} perché Instagram ha limitato le azioni sul tuo account."
+  },
+  "unf_limit": {
+    "message": "Hai raggiunto il limite giornaliero di account che puoi smettere di seguire ({used}/{limit} in 24 h). Puoi cambiarlo nelle impostazioni."
+  },
+  "unf_cooldown": {
+    "message": "Aspetta ancora {s} s. La pausa tra le azioni aiuta a proteggere il tuo account."
+  },
+  "unf_done": {
+    "message": "Hai smesso di seguire @{user}. Nelle ultime 24 h: {used}/{limit}."
+  },
+  "unf_blocked": {
+    "message": "Instagram ha bloccato l’azione per troppa attività. L’opzione «Non seguire più» è sospesa fino alle {time}. Evita di ripetere l’azione nell’app."
+  },
+  "unf_slow": {
+    "message": "Instagram chiede di rallentare. L’opzione «Non seguire più» è sospesa fino alle {time}."
+  },
+  "unf_failed": {
+    "message": "Instagram non ha confermato l’azione (HTTP {status}, {info}). Controlla sul profilo se segui ancora questo account."
+  },
+  "unf_noTokens": {
+    "message": "Token di sessione di Instagram non trovati. Ricarica la pagina (F5) e riprova."
+  },
+  "unf_still": {
+    "message": "Instagram ha risposto, ma segui ancora @{user}. Riprova più tardi o dal profilo stesso."
+  },
+  "unf_unconfirmed": {
+    "message": "Instagram ha accettato la richiesta, ma non è stato possibile verificare se hai smesso di seguire @{user}. Controlla sul profilo."
+  },
+  "backup_exported": {
+    "message": "Backup salvato. Account: {n}."
+  },
+  "backup_imported": {
+    "message": "Backup ripristinato il {date}. Account: {n}."
+  },
+  "backup_invalid": {
+    "message": "Il file non è un backup di Apex Unfollowers oppure è danneggiato."
+  },
+  "backup_tooBig": {
+    "message": "Il file di backup è troppo grande (massimo {mb} MB)."
+  },
+  "ui_stats": {
+    "message": "Statistiche"
+  },
+  "ui_settings": {
+    "message": "Impostazioni"
+  },
+  "ui_close": {
+    "message": "Chiudi (Esc)"
+  },
+  "ui_scan": {
+    "message": "Scansiona"
+  },
+  "ui_stop": {
+    "message": "Interrompi"
+  },
+  "ui_speedTitle": {
+    "message": "Velocità di scansione"
+  },
+  "ui_speedSafe": {
+    "message": "Velocità: prudente"
+  },
+  "ui_speedNormal": {
+    "message": "Velocità: rapida"
+  },
+  "ui_search": {
+    "message": "Cerca per nome…"
+  },
+  "ui_csvTitle": {
+    "message": "Scarica l’elenco filtrato in formato CSV"
+  },
+  "ui_filterTitle": {
+    "message": "Filtra"
+  },
+  "ui_sortTitle": {
+    "message": "Ordina"
+  },
+  "ui_hiddenTitle": {
+    "message": "Mostra anche gli account nascosti"
+  },
+  "ui_hidden": {
+    "message": "nascosti"
+  },
+  "ui_footer": {
+    "message": "I tuoi dati restano nel tuo browser."
+  },
+  "ui_more": {
+    "message": "Mostra altro ({n})"
+  },
+  "ui_lastScan": {
+    "message": "ultima scansione: {date}"
+  },
+  "ui_noScan": {
+    "message": "Nessuna scansione. Fai clic su «Scansiona»."
+  },
+  "tab_notBack": {
+    "message": "Non ti seguono"
+  },
+  "tab_fans": {
+    "message": "Non segui"
+  },
+  "tab_mutual": {
+    "message": "Reciproci"
+  },
+  "tab_changes": {
+    "message": "Cambiamenti"
+  },
+  "tab_changesTitle": {
+    "message": "Chi ha smesso di seguirti (in base alla cronologia delle scansioni)"
+  },
+  "filter_all": {
+    "message": "Tutti gli account"
+  },
+  "filter_verified": {
+    "message": "Verificati"
+  },
+  "filter_private": {
+    "message": "Privati"
+  },
+  "filter_public": {
+    "message": "Pubblici"
+  },
+  "filter_nopic": {
+    "message": "Senza foto del profilo"
+  },
+  "sort_default": {
+    "message": "Ordine predefinito"
+  },
+  "sort_az": {
+    "message": "Nome A–Z"
+  },
+  "sort_za": {
+    "message": "Nome Z–A"
+  },
+  "set_lang": {
+    "message": "Lingua"
+  },
+  "set_langAuto": {
+    "message": "Automatica (lingua del browser)"
+  },
+  "set_unf": {
+    "message": "Limite per «Non seguire più»"
+  },
+  "set_unfHint": {
+    "message": "Instagram limita il numero di azioni. Smettere di seguire troppi account in poco tempo può limitare la tua attività per ore o giorni. L’estensione impone una pausa di 15 secondi tra queste azioni."
+  },
+  "set_unfOption": {
+    "message": "{n} ogni 24 h"
+  },
+  "set_launcher": {
+    "message": "Pulsante sulla pagina"
+  },
+  "set_launcherLabel": {
+    "message": "Mostra il pulsante rotondo su instagram.com"
+  },
+  "set_backup": {
+    "message": "Backup"
+  },
+  "set_backupHint": {
+    "message": "File JSON con risultati, cronologia, elenco di esclusione e impostazioni. È utile quando cambi computer o browser."
+  },
+  "set_export": {
+    "message": "Salva backup"
+  },
+  "set_import": {
+    "message": "Ripristina backup…"
+  },
+  "set_data": {
+    "message": "Dati di questo account"
+  },
+  "set_dataHint": {
+    "message": "Cancella i risultati, la cronologia, l’elenco di esclusione e il contatore degli account che hai smesso di seguire per l’account corrente."
+  },
+  "set_wipe": {
+    "message": "Cancella dati"
+  },
+  "set_wipeConfirm": {
+    "message": "Conferma con un altro clic"
+  },
+  "set_wiped": {
+    "message": "I dati salvati per questo account sono stati cancellati."
+  },
+  "changes_group": {
+    "message": "Scansione del {date} (confronto con quella del {since})"
+  },
+  "changes_lost": {
+    "message": "Ha smesso di seguirti"
+  },
+  "changes_gained": {
+    "message": "Nuovo follower"
+  },
+  "row_hide": {
+    "message": "Nascondi"
+  },
+  "row_unhide": {
+    "message": "Ripristina"
+  },
+  "row_hideTitle": {
+    "message": "Aggiungi all’elenco di esclusione (ad es. celebrità e marchi)"
+  },
+  "row_unhideTitle": {
+    "message": "Rimuovi dall’elenco di esclusione"
+  },
+  "row_unf": {
+    "message": "Non seguire più"
+  },
+  "row_unfConfirm": {
+    "message": "Confermi?"
+  },
+  "row_unfTitle": {
+    "message": "Smetti di seguire questo account (serve una conferma)"
+  },
+  "empty_changes": {
+    "message": "Ancora nessun cambiamento registrato. Fai una nuova scansione più tardi per vedere chi ha smesso di seguirti e chi ha iniziato."
+  },
+  "empty_firstScan": {
+    "message": "Avvia la tua prima scansione."
+  },
+  "empty_scanning": {
+    "message": "Caricamento degli elenchi…"
+  },
+  "empty_loggedOut": {
+    "message": "Accedi a Instagram per vedere i risultati. Le scansioni salvate restano nell’estensione e ricompaiono quando accedi di nuovo con lo stesso account."
+  },
+  "empty_noScan": {
+    "message": "Fai clic su «Scansiona» per recuperare gli elenchi. Per account grandi possono volerci alcuni minuti. Puoi chiudere il pannello, ma lascia aperta la scheda di Instagram."
+  },
+  "empty_noResults": {
+    "message": "Nessun account corrisponde alla ricerca o al filtro."
+  },
+  "empty_notBack": {
+    "message": "Nessun account da mostrare in questo elenco."
+  },
+  "empty_fans": {
+    "message": "Segui tutti i tuoi follower."
+  },
+  "empty_mutual": {
+    "message": "Non ci sono account che segui e che ti seguono a loro volta."
+  },
+  "stats_now": {
+    "message": "Ora"
+  },
+  "stats_followers": {
+    "message": "Follower"
+  },
+  "stats_following": {
+    "message": "Seguiti"
+  },
+  "stats_mutual": {
+    "message": "Reciproci ({p} degli account seguiti)"
+  },
+  "stats_notBack": {
+    "message": "Non ti seguono"
+  },
+  "stats_vsPrev": {
+    "message": "{d} dalla scansione precedente"
+  },
+  "stats_balance": {
+    "message": "Saldo dei follower"
+  },
+  "stats_balanceDays": {
+    "message": "{days} giorni: +{gained} / −{lost}"
+  },
+  "stats_unf24": {
+    "message": "Account che hai smesso di seguire (24 h)"
+  },
+  "stats_chartTitle": {
+    "message": "Andamento dei follower"
+  },
+  "stats_chartSub": {
+    "message": "Scansioni considerate: {n}"
+  },
+  "stats_chartEmpty": {
+    "message": "Il grafico appare dopo la seconda scansione."
+  },
+  "stats_chartAria": {
+    "message": "Grafico dei follower. Totale attuale: {n}"
+  },
+  "stats_history": {
+    "message": "Cronologia delle scansioni"
+  },
+  "stats_colDate": {
+    "message": "Data"
+  },
+  "stats_colFollowers": {
+    "message": "Follower"
+  },
+  "stats_colFollowing": {
+    "message": "Seguiti"
+  },
+  "stats_colChange": {
+    "message": "Variazione"
+  },
+  "csv_empty": {
+    "message": "Non ci sono dati da esportare in questa scheda."
+  },
+  "csv_head": {
+    "message": "nome_utente,nome_completo,link,verificato,privato"
+  },
+  "csv_headChanges": {
+    "message": "cambiamento,data"
+  },
+  "csv_yes": {
+    "message": "sì"
+  },
+  "csv_no": {
+    "message": "no"
+  },
+  "csv_lost": {
+    "message": "ha_smesso_di_seguirti"
+  },
+  "csv_gained": {
+    "message": "nuovo_follower"
+  },
+  "csv_fileNotBack": {
+    "message": "non-ti-seguono"
+  },
+  "csv_fileFans": {
+    "message": "non-segui"
+  },
+  "csv_fileMutual": {
+    "message": "reciproci"
+  },
+  "csv_fileChanges": {
+    "message": "cambiamenti"
+  },
+  "popup_opening": {
+    "message": "Apertura del pannello…"
+  },
+  "popup_openTitle": {
+    "message": "Apri Instagram"
+  },
+  "popup_openText": {
+    "message": "L’estensione funziona su instagram.com. Accedi e fai clic sull’icona dell’estensione o sul pulsante rosa in basso a destra."
+  },
+  "popup_openBtn": {
+    "message": "Apri instagram.com"
+  },
+  "popup_reloadTitle": {
+    "message": "Ricarica Instagram"
+  },
+  "popup_reloadText": {
+    "message": "L’estensione sarà caricata quando ricarichi la scheda. Poi fai di nuovo clic sull’icona."
+  },
+  "popup_reloadBtn": {
+    "message": "Ricarica la pagina"
+  },
+  "row_unfBusy": {
+    "message": "Rimozione dai seguiti…"
+  },
+  "report_unknown": {
+    "message": "Sconosciuto"
+  },
+  "err_noResponseType": {
+    "message": "tipo di risposta sconosciuto"
+  },
+  "err_generic": {
+    "message": "Si è verificato un problema. Riprova."
+  }
+}

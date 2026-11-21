@@ -1,0 +1,632 @@
+{
+  "extName": {
+    "message": "Apex Unfollowers – Instagram 回关与取关查询"
+  },
+  "extShortName": {
+    "message": "Apex"
+  },
+  "extDescription": {
+    "message": "查看 Instagram 上谁没有回关你、谁取关了你。数据在浏览器本地处理，无需向扩展提供密码。"
+  },
+  "ext_name": {
+    "message": "Apex Unfollowers – Instagram 回关与取关查询"
+  },
+  "ext_tagline": {
+    "message": "免费查看 Instagram 上谁没有回关你，数据仅保存在本地"
+  },
+  "ui_resume": {
+    "message": "继续扫描"
+  },
+  "ui_restart": {
+    "message": "重新扫描"
+  },
+  "ui_resumeInfo": {
+    "message": "{date}中断的扫描已保存 {n} 个账号。"
+  },
+  "scan_eta": {
+    "message": "预计还需 {t}"
+  },
+  "time_lessMin": {
+    "message": "不到 1 分钟"
+  },
+  "time_min": {
+    "message": "{n} 分钟"
+  },
+  "scan_resuming": {
+    "message": "正在继续中断的扫描（已获取 {n} 个账号）…"
+  },
+  "scan_paused": {
+    "message": "扫描已暂停。"
+  },
+  "scan_progressSaved": {
+    "message": "已保存进度（{n} 个账号）。点击“继续扫描”完成扫描。"
+  },
+  "welcome_title": {
+    "message": "欢迎使用 Apex Unfollowers"
+  },
+  "welcome_lead": {
+    "message": "此扩展会比较你的 Instagram 粉丝和关注列表。无需另行注册，数据在浏览器中处理，不会发送给开发者。"
+  },
+  "welcome_step1": {
+    "message": "在此浏览器中登录 instagram.com。"
+  },
+  "welcome_step2": {
+    "message": "点击“扫描”。列表较大时可能需要几分钟。"
+  },
+  "welcome_step3": {
+    "message": "使用标签页和筛选条件查看列表及统计数据。请逐个取消关注。"
+  },
+  "welcome_riskTitle": {
+    "message": "账号安全"
+  },
+  "welcome_riskText": {
+    "message": "此扩展使用 Instagram 网站的非官方 API。Instagram 的使用条款不允许自动收集数据，使用风险由你自行承担。"
+  },
+  "welcome_risk1": {
+    "message": "请使用安全速度扫描，每天最多扫描一次。"
+  },
+  "welcome_risk2": {
+    "message": "请间隔一段时间再取消关注其他账号。扩展设有操作间隔和每日上限。"
+  },
+  "welcome_risk3": {
+    "message": "如果操作受限，请等待一两天。"
+  },
+  "welcome_accept": {
+    "message": "我已了解并愿意使用此扩展。"
+  },
+  "welcome_start": {
+    "message": "开始使用"
+  },
+  "welcome_privacy": {
+    "message": "你的数据保留在此浏览器中。"
+  },
+  "welcome_more": {
+    "message": "了解详情"
+  },
+  "set_about": {
+    "message": "关于扩展"
+  },
+  "set_authorTitle": {
+    "message": "开发者与联系方式"
+  },
+  "set_linkedin": {
+    "message": "LinkedIn 个人资料"
+  },
+  "set_linkedinLabel": {
+    "message": "开发者的 LinkedIn 个人资料（在新标签页中打开）"
+  },
+  "set_reportHint": {
+    "message": "遇到问题？报告包含扩展版本、浏览器和诊断信息，不含账号名。通过电子邮件报告还会包含界面语言。"
+  },
+  "set_reportGithub": {
+    "message": "报告问题"
+  },
+  "set_reportMail": {
+    "message": "发送邮件"
+  },
+  "set_showWelcome": {
+    "message": "显示欢迎页面"
+  },
+  "report_button": {
+    "message": "报告问题"
+  },
+  "report_buttonTitle": {
+    "message": "在 GitHub 打开预填的问题报告（版本、浏览器、错误）"
+  },
+  "report_mailIntro": {
+    "message": "请描述遇到的问题和当时要执行的操作："
+  },
+  "report_browser": {
+    "message": "浏览器"
+  },
+  "report_language": {
+    "message": "语言"
+  },
+  "report_error": {
+    "message": "最近一次错误"
+  },
+  "report_subject": {
+    "message": "问题报告"
+  },
+  "page_title": {
+    "message": "欢迎使用 Apex Unfollowers"
+  },
+  "page_tagline": {
+    "message": "免费查看 Instagram 上谁没有回关你，数据仅保存在本地"
+  },
+  "page_lead": {
+    "message": "Apex Unfollowers 会比对你的 Instagram 粉丝和关注列表，显示谁没有回关你、你没有回关谁，以及谁取关了你。扩展在浏览器本地运行，无需另行注册，不会索要密码，也不会向开发者发送数据。"
+  },
+  "page_howTitle": {
+    "message": "如何开始"
+  },
+  "page_featTitle": {
+    "message": "面板功能"
+  },
+  "page_feat1": {
+    "message": "<strong>未回关你</strong> — 可通过白名单隐藏名人或品牌账号"
+  },
+  "page_feat2": {
+    "message": "<strong>变化</strong> — 查看上次扫描后新增和流失的粉丝"
+  },
+  "page_feat3": {
+    "message": "<strong>统计</strong> — 查看粉丝趋势图及最近 7 天和 30 天的变化"
+  },
+  "page_feat4": {
+    "message": "<strong>取消关注</strong> — 每次处理一个账号，需手动确认，并设有每日上限"
+  },
+  "page_open": {
+    "message": "打开 Instagram"
+  },
+  "page_done": {
+    "message": "准备就绪。打开 Instagram，然后点击右下角的粉色按钮。"
+  },
+  "page_privacyTitle": {
+    "message": "隐私"
+  },
+  "page_privacyText": {
+    "message": "扫描结果、历史记录和设置保存在此浏览器的扩展存储空间。扩展向 Instagram 请求数据，头像可能从 Instagram 或 Meta 的图片服务器加载。扩展不收集遥测数据。"
+  },
+  "page_policy": {
+    "message": "隐私政策"
+  },
+  "page_source": {
+    "message": "源代码"
+  },
+  "err_abort": {
+    "message": "扫描已停止。"
+  },
+  "err_network": {
+    "message": "无法连接 Instagram。"
+  },
+  "err_checkpoint": {
+    "message": "Instagram 要求验证你的身份。请在 instagram.com 完成验证，稍后重试。"
+  },
+  "err_login": {
+    "message": "Instagram 要求重新登录。请登录后重试。"
+  },
+  "err_noAccess": {
+    "message": "无法访问。请确认已登录 instagram.com，然后重新加载页面。"
+  },
+  "err_unexpected": {
+    "message": "Instagram 返回了意外响应（HTTP {status}）。"
+  },
+  "err_ig": {
+    "message": "Instagram 错误（HTTP {status}）{msg}"
+  },
+  "err_ratelimit": {
+    "message": "Instagram 仍在限制请求。请等待 15 至 30 分钟，然后以安全速度重试。"
+  },
+  "err_format": {
+    "message": "Instagram 更改了数据格式，需要更新扩展。"
+  },
+  "err_noAccount": {
+    "message": "未检测到已登录的账号。请登录 instagram.com，然后重新加载页面。"
+  },
+  "note_pause": {
+    "message": "正在暂停 {s} 秒，以减少给 Instagram 带来的负载…"
+  },
+  "note_retryNet": {
+    "message": "连接出现问题，正在重试（{a}/{n}）…"
+  },
+  "note_slowDown": {
+    "message": "Instagram 要求降低请求速度（HTTP {status}）。等待 {s} 秒后继续…"
+  },
+  "note_fallback": {
+    "message": "主要方法未成功，正在尝试备用方法…"
+  },
+  "note_repair": {
+    "message": "Instagram 返回了 {expected} 个账号中的 {got} 个，正在尝试用其他方式获取剩余账号…"
+  },
+  "scan_checking": {
+    "message": "正在检查账号…"
+  },
+  "scan_followers": {
+    "message": "粉丝：{n}"
+  },
+  "scan_followersDone": {
+    "message": "粉丝：{n} ✓ · 接下来获取关注列表…"
+  },
+  "scan_following": {
+    "message": "粉丝：{f} ✓ · 关注：{n}"
+  },
+  "scan_done": {
+    "message": "完成"
+  },
+  "scan_result": {
+    "message": "扫描完成！粉丝：{fr}，关注：{fg}。"
+  },
+  "scan_first": {
+    "message": "这是首次扫描。下次扫描时即可查看谁取关了你。"
+  },
+  "scan_changes": {
+    "message": "与上次扫描相比，粉丝减少 {lost} 个、新增 {gained} 个（见“变化”）。"
+  },
+  "scan_noChanges": {
+    "message": "与上次扫描相比没有变化。"
+  },
+  "scan_fewer": {
+    "message": "已获取个人主页显示的 {expected} 个粉丝中的 {got} 个。被停用或封禁的账号可能会造成少量差异。如果差异较大，请稍后重新扫描。"
+  },
+  "scan_shortFollowing": {
+    "message": "注意：只获取到个人主页显示的 {expected} 个关注账号中的 {got} 个。Instagram 未返回完整列表，页面上的结果可能不准确。请等待 15 分钟，然后以安全速度重新扫描。"
+  },
+  "scan_noCounts": {
+    "message": "无法读取个人主页上的计数，因此无法核实列表是否完整。"
+  },
+  "scan_aborted": {
+    "message": "扫描已停止，之前的结果仍然保留。"
+  },
+  "unf_duringScan": {
+    "message": "请等待扫描完成。"
+  },
+  "unf_otherAccount": {
+    "message": "当前登录的账号与结果中的账号不同。请先扫描当前账号。"
+  },
+  "unf_blockedUntil": {
+    "message": "Instagram 限制了此账号的操作，已暂停取消关注功能，直至 {time}。"
+  },
+  "unf_limit": {
+    "message": "已达到每日取消关注上限（24 小时内 {used}/{limit} 次）。你可在设置中调整上限。"
+  },
+  "unf_cooldown": {
+    "message": "请再等 {s} 秒。留出操作间隔有助于降低账号受限的风险。"
+  },
+  "unf_done": {
+    "message": "已取消关注 @{user}。过去 24 小时：{used}/{limit}。"
+  },
+  "unf_blocked": {
+    "message": "操作次数过多，Instagram 已阻止此操作。取消关注功能暂停至 {time}。请勿在应用中手动重试。"
+  },
+  "unf_slow": {
+    "message": "Instagram 要求降低操作速度。取消关注功能暂停至 {time}。"
+  },
+  "unf_failed": {
+    "message": "Instagram 未确认取消关注（HTTP {status}，{info}）。请前往对方的个人主页检查是否仍在关注。"
+  },
+  "unf_noTokens": {
+    "message": "未在页面中找到 Instagram 会话令牌。请重新加载页面（F5）后重试。"
+  },
+  "unf_still": {
+    "message": "Instagram 已响应，但你仍在关注 @{user}。请稍后重试，或在对方的个人主页操作。"
+  },
+  "unf_unconfirmed": {
+    "message": "Instagram 已接受请求，但无法确认是否已取消关注 @{user}。请到对方的个人主页查看。"
+  },
+  "backup_exported": {
+    "message": "备份已保存（{n} 个账号）。"
+  },
+  "backup_imported": {
+    "message": "已还原备份（还原日期：{date}，共 {n} 个账号）。"
+  },
+  "backup_invalid": {
+    "message": "此文件并非 Apex Unfollowers 备份，或文件已损坏。"
+  },
+  "backup_tooBig": {
+    "message": "备份文件过大（最大 {mb} MB）。"
+  },
+  "ui_stats": {
+    "message": "统计"
+  },
+  "ui_settings": {
+    "message": "设置"
+  },
+  "ui_close": {
+    "message": "关闭（Esc）"
+  },
+  "ui_scan": {
+    "message": "扫描"
+  },
+  "ui_stop": {
+    "message": "停止"
+  },
+  "ui_speedTitle": {
+    "message": "扫描速度"
+  },
+  "ui_speedSafe": {
+    "message": "速度：安全"
+  },
+  "ui_speedNormal": {
+    "message": "速度：较快"
+  },
+  "ui_search": {
+    "message": "按名称搜索…"
+  },
+  "ui_csvTitle": {
+    "message": "将当前标签页的筛选结果下载为 CSV"
+  },
+  "ui_filterTitle": {
+    "message": "筛选"
+  },
+  "ui_sortTitle": {
+    "message": "排序"
+  },
+  "ui_hiddenTitle": {
+    "message": "同时显示已隐藏的账号（白名单）"
+  },
+  "ui_hidden": {
+    "message": "已隐藏"
+  },
+  "ui_footer": {
+    "message": "你的数据仅保存在浏览器中。"
+  },
+  "ui_more": {
+    "message": "显示更多（{n} 个）"
+  },
+  "ui_lastScan": {
+    "message": "上次扫描：{date}"
+  },
+  "ui_noScan": {
+    "message": "尚无扫描结果，请点击“扫描”。"
+  },
+  "tab_notBack": {
+    "message": "未回关你"
+  },
+  "tab_fans": {
+    "message": "你未回关"
+  },
+  "tab_mutual": {
+    "message": "互相关注"
+  },
+  "tab_changes": {
+    "message": "变化"
+  },
+  "tab_changesTitle": {
+    "message": "取关你的账号数（根据扫描记录）"
+  },
+  "filter_all": {
+    "message": "所有账号"
+  },
+  "filter_verified": {
+    "message": "已认证"
+  },
+  "filter_private": {
+    "message": "私密账号"
+  },
+  "filter_public": {
+    "message": "公开账号"
+  },
+  "filter_nopic": {
+    "message": "无头像"
+  },
+  "sort_default": {
+    "message": "默认顺序"
+  },
+  "sort_az": {
+    "message": "用户名 A–Z"
+  },
+  "sort_za": {
+    "message": "用户名 Z–A"
+  },
+  "set_lang": {
+    "message": "语言"
+  },
+  "set_langAuto": {
+    "message": "自动（跟随浏览器语言）"
+  },
+  "set_unf": {
+    "message": "取消关注上限"
+  },
+  "set_unfHint": {
+    "message": "Instagram 会限制操作次数。短时间内取消关注过多账号，可能导致账号操作受限数小时或数天。此扩展规定每次取消关注至少间隔 15 秒。"
+  },
+  "set_unfOption": {
+    "message": "每 24 小时 {n} 次"
+  },
+  "set_launcher": {
+    "message": "页面按钮"
+  },
+  "set_launcherLabel": {
+    "message": "在 instagram.com 显示圆形按钮"
+  },
+  "set_backup": {
+    "message": "备份"
+  },
+  "set_backupHint": {
+    "message": "JSON 文件包含扫描结果、历史记录、白名单和设置，适用于更换电脑或浏览器时迁移数据。"
+  },
+  "set_export": {
+    "message": "保存备份"
+  },
+  "set_import": {
+    "message": "还原备份…"
+  },
+  "set_data": {
+    "message": "此账号的数据"
+  },
+  "set_dataHint": {
+    "message": "删除当前账号的扫描结果、历史记录、白名单和取消关注计数。"
+  },
+  "set_wipe": {
+    "message": "清除数据"
+  },
+  "set_wipeConfirm": {
+    "message": "再次点击确认清除"
+  },
+  "set_wiped": {
+    "message": "已删除此账号的已存数据。"
+  },
+  "changes_group": {
+    "message": "{date} 的扫描（与 {since} 对比）"
+  },
+  "changes_lost": {
+    "message": "已取关你"
+  },
+  "changes_gained": {
+    "message": "新粉丝"
+  },
+  "row_hide": {
+    "message": "隐藏"
+  },
+  "row_unhide": {
+    "message": "恢复显示"
+  },
+  "row_hideTitle": {
+    "message": "加入白名单（如名人、品牌账号），不再显示在此标签页中"
+  },
+  "row_unhideTitle": {
+    "message": "从白名单移除"
+  },
+  "row_unf": {
+    "message": "取消关注"
+  },
+  "row_unfConfirm": {
+    "message": "确认取消关注？"
+  },
+  "row_unfTitle": {
+    "message": "取消关注此账号（需要确认）"
+  },
+  "empty_changes": {
+    "message": "尚无变化记录。稍后再次扫描，这里将显示新增粉丝和取关你的账号。"
+  },
+  "empty_firstScan": {
+    "message": "请先进行首次扫描。"
+  },
+  "empty_scanning": {
+    "message": "正在获取列表…"
+  },
+  "empty_loggedOut": {
+    "message": "请登录 Instagram 查看结果。已保存的扫描仍会保留在扩展中，登录同一账号后即可再次查看。"
+  },
+  "empty_noScan": {
+    "message": "点击“扫描”获取列表。列表较大时可能需要几分钟。可以关闭面板，但请保持 Instagram 标签页打开。"
+  },
+  "empty_noResults": {
+    "message": "没有符合搜索或筛选条件的账号。"
+  },
+  "empty_notBack": {
+    "message": "此列表没有可显示的账号。"
+  },
+  "empty_fans": {
+    "message": "你已回关所有粉丝。"
+  },
+  "empty_mutual": {
+    "message": "没有互相关注的账号。"
+  },
+  "stats_now": {
+    "message": "当前"
+  },
+  "stats_followers": {
+    "message": "粉丝"
+  },
+  "stats_following": {
+    "message": "关注"
+  },
+  "stats_mutual": {
+    "message": "互相关注（占关注账号的 {p}）"
+  },
+  "stats_notBack": {
+    "message": "未回关你"
+  },
+  "stats_vsPrev": {
+    "message": "较上次扫描 {d}"
+  },
+  "stats_balance": {
+    "message": "粉丝增减"
+  },
+  "stats_balanceDays": {
+    "message": "最近 {days} 天：+{gained} / −{lost}"
+  },
+  "stats_unf24": {
+    "message": "取消关注（24 小时）"
+  },
+  "stats_chartTitle": {
+    "message": "粉丝趋势"
+  },
+  "stats_chartSub": {
+    "message": "基于 {n} 次扫描"
+  },
+  "stats_chartEmpty": {
+    "message": "完成第二次扫描后将显示图表。"
+  },
+  "stats_chartAria": {
+    "message": "粉丝数量图表，当前为 {n} 个"
+  },
+  "stats_history": {
+    "message": "扫描记录"
+  },
+  "stats_colDate": {
+    "message": "日期"
+  },
+  "stats_colFollowers": {
+    "message": "粉丝"
+  },
+  "stats_colFollowing": {
+    "message": "关注"
+  },
+  "stats_colChange": {
+    "message": "变化"
+  },
+  "csv_empty": {
+    "message": "此标签页没有可导出的数据。"
+  },
+  "csv_head": {
+    "message": "用户名,姓名,链接,已认证,私密账号"
+  },
+  "csv_headChanges": {
+    "message": "变化,日期"
+  },
+  "csv_yes": {
+    "message": "是"
+  },
+  "csv_no": {
+    "message": "否"
+  },
+  "csv_lost": {
+    "message": "已取关你"
+  },
+  "csv_gained": {
+    "message": "新粉丝"
+  },
+  "csv_fileNotBack": {
+    "message": "未回关你"
+  },
+  "csv_fileFans": {
+    "message": "你未回关"
+  },
+  "csv_fileMutual": {
+    "message": "互相关注"
+  },
+  "csv_fileChanges": {
+    "message": "粉丝变化"
+  },
+  "popup_opening": {
+    "message": "正在打开面板…"
+  },
+  "popup_openTitle": {
+    "message": "打开 Instagram"
+  },
+  "popup_openText": {
+    "message": "此扩展在 instagram.com 上运行。登录后，点击扩展图标或页面右下角的粉色按钮。"
+  },
+  "popup_openBtn": {
+    "message": "打开 instagram.com"
+  },
+  "popup_reloadTitle": {
+    "message": "重新加载 Instagram"
+  },
+  "popup_reloadText": {
+    "message": "重新加载标签页后，扩展将启动。请再次点击图标。"
+  },
+  "popup_reloadBtn": {
+    "message": "重新加载页面"
+  },
+  "row_unfBusy": {
+    "message": "正在取消关注…"
+  },
+  "report_unknown": {
+    "message": "未知"
+  },
+  "err_noResponseType": {
+    "message": "未知响应类型"
+  },
+  "err_generic": {
+    "message": "出错了。"
+  },
+  "support_link": {
+    "message": "在 Ko-fi 上支持 Apex"
+  },
+  "support_hint": {
+    "message": "赞助完全自愿，所有功能均可免费使用。"
+  }
+}

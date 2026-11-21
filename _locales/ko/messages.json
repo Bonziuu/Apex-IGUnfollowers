@@ -1,0 +1,632 @@
+{
+  "extName": {
+    "message": "Apex Unfollowers – Instagram 팔로워 관리"
+  },
+  "extShortName": {
+    "message": "Apex"
+  },
+  "extDescription": {
+    "message": "Instagram에서 누가 나를 맞팔로우하지 않는지, 누가 언팔로우했는지 확인하세요. 데이터는 브라우저에서 처리되며 비밀번호 입력이 필요 없습니다."
+  },
+  "ext_name": {
+    "message": "Apex Unfollowers – Instagram 팔로워 관리"
+  },
+  "ext_tagline": {
+    "message": "Instagram에서 나를 맞팔로우하지 않는 계정을 무료로 확인하세요. 데이터는 브라우저에만 저장됩니다."
+  },
+  "ui_resume": {
+    "message": "스캔 이어서 하기"
+  },
+  "ui_restart": {
+    "message": "처음부터 다시 시작"
+  },
+  "ui_resumeInfo": {
+    "message": "{date}에 중단된 스캔에서 계정 {n}개를 저장했습니다."
+  },
+  "scan_eta": {
+    "message": "약 {t} 남음"
+  },
+  "time_lessMin": {
+    "message": "1분 미만"
+  },
+  "time_min": {
+    "message": "{n}분"
+  },
+  "scan_resuming": {
+    "message": "중단된 스캔을 재개하는 중입니다. 계정 {n}개를 이미 가져왔습니다…"
+  },
+  "scan_paused": {
+    "message": "스캔을 일시 중지했습니다."
+  },
+  "scan_progressSaved": {
+    "message": "계정 {n}개의 진행 상황을 저장했습니다. 계속하려면 ‘스캔 이어서 하기’를 누르세요."
+  },
+  "welcome_title": {
+    "message": "Apex Unfollowers에 오신 것을 환영합니다"
+  },
+  "welcome_lead": {
+    "message": "Instagram의 팔로워 목록과 팔로잉 목록을 비교합니다. 별도 가입 없이 브라우저에서 작동하며 개발자에게 데이터를 보내지 않습니다."
+  },
+  "welcome_step1": {
+    "message": "이 브라우저에서 instagram.com에 로그인하세요."
+  },
+  "welcome_step2": {
+    "message": "‘스캔’을 누르세요. 팔로워나 팔로잉이 많으면 몇 분 걸릴 수 있습니다."
+  },
+  "welcome_step3": {
+    "message": "탭과 필터, 통계를 살펴보세요. 언팔로우는 한 계정씩 하세요."
+  },
+  "welcome_riskTitle": {
+    "message": "계정 안전"
+  },
+  "welcome_riskText": {
+    "message": "이 확장 프로그램은 Instagram 웹사이트의 비공식 API를 사용합니다. Instagram 이용 약관은 자동 데이터 수집을 허용하지 않으므로 이용에 따른 책임은 사용자에게 있습니다."
+  },
+  "welcome_risk1": {
+    "message": "스캔은 안전 모드로 하루에 한 번까지만 실행하세요."
+  },
+  "welcome_risk2": {
+    "message": "언팔로우는 간격을 두고 진행하세요. 확장 프로그램이 작업 간격과 하루 한도를 적용합니다."
+  },
+  "welcome_risk3": {
+    "message": "작업이 차단되면 하루나 이틀 기다리세요."
+  },
+  "welcome_accept": {
+    "message": "내용을 이해했으며 확장 프로그램을 사용하겠습니다."
+  },
+  "welcome_start": {
+    "message": "시작하기"
+  },
+  "welcome_privacy": {
+    "message": "데이터는 이 브라우저에만 저장됩니다."
+  },
+  "welcome_more": {
+    "message": "자세히 알아보기"
+  },
+  "set_about": {
+    "message": "확장 프로그램 정보"
+  },
+  "set_authorTitle": {
+    "message": "개발자 및 문의"
+  },
+  "set_linkedin": {
+    "message": "LinkedIn 프로필"
+  },
+  "set_linkedinLabel": {
+    "message": "개발자 LinkedIn 프로필(새 탭에서 열림)"
+  },
+  "set_reportHint": {
+    "message": "문제가 있나요? 문제 보고에는 확장 프로그램 버전, 브라우저, 진단 정보가 포함됩니다. 이메일에는 화면 언어도 포함됩니다. 계정 이름은 포함되지 않습니다."
+  },
+  "set_reportGithub": {
+    "message": "문제 신고"
+  },
+  "set_reportMail": {
+    "message": "이메일 보내기"
+  },
+  "set_showWelcome": {
+    "message": "시작 안내 보기"
+  },
+  "report_button": {
+    "message": "문제 신고"
+  },
+  "report_buttonTitle": {
+    "message": "GitHub에 버전, 브라우저, 오류가 입력된 신고 양식 열기"
+  },
+  "report_mailIntro": {
+    "message": "어떤 문제가 발생했고 어떤 작업을 하려 했는지 알려 주세요."
+  },
+  "report_browser": {
+    "message": "브라우저"
+  },
+  "report_language": {
+    "message": "언어"
+  },
+  "report_error": {
+    "message": "마지막 오류"
+  },
+  "report_subject": {
+    "message": "문제 신고"
+  },
+  "page_title": {
+    "message": "Apex Unfollowers에 오신 것을 환영합니다"
+  },
+  "page_tagline": {
+    "message": "Instagram에서 나를 맞팔로우하지 않는 계정을 무료로 확인하세요. 데이터는 브라우저에만 저장됩니다."
+  },
+  "page_lead": {
+    "message": "Apex Unfollowers는 Instagram의 팔로워 목록과 팔로잉 목록을 비교해 나를 맞팔로우하지 않는 계정, 내가 맞팔로우하지 않는 계정, 나를 언팔로우한 계정을 보여 줍니다. 브라우저에서 작동하고 별도 가입이나 비밀번호를 요구하지 않으며, 개발자에게 데이터를 보내지 않습니다."
+  },
+  "page_howTitle": {
+    "message": "사용 시작하기"
+  },
+  "page_featTitle": {
+    "message": "패널에서 확인할 수 있는 기능"
+  },
+  "page_feat1": {
+    "message": "<strong>나를 맞팔하지 않음</strong> — 유명인과 브랜드 등을 제외 목록에 추가할 수 있습니다"
+  },
+  "page_feat2": {
+    "message": "<strong>변동 내역</strong> — 지난 스캔 이후 나를 언팔로우하거나 나를 새로 팔로우한 계정"
+  },
+  "page_feat3": {
+    "message": "<strong>통계</strong> — 팔로워 그래프와 최근 7일 및 30일 동안의 변동"
+  },
+  "page_feat4": {
+    "message": "<strong>언팔로우</strong> — 한 계정씩 확인 후 진행하며 하루 한도가 적용됩니다"
+  },
+  "page_open": {
+    "message": "Instagram 열기"
+  },
+  "page_done": {
+    "message": "준비가 끝났습니다. Instagram을 열고 오른쪽 아래의 분홍색 버튼을 누르세요."
+  },
+  "page_privacyTitle": {
+    "message": "개인정보 보호"
+  },
+  "page_privacyText": {
+    "message": "스캔 결과, 기록, 설정은 이 브라우저의 확장 프로그램 저장소에 보관됩니다. 데이터는 Instagram에서 가져오며, 프로필 사진은 Instagram이나 Meta의 이미지 서버에서 불러올 수 있습니다. 사용 정보는 수집하지 않습니다."
+  },
+  "page_policy": {
+    "message": "개인정보 처리방침"
+  },
+  "page_source": {
+    "message": "소스 코드"
+  },
+  "err_abort": {
+    "message": "스캔을 중지했습니다."
+  },
+  "err_network": {
+    "message": "Instagram에 연결하지 못했습니다."
+  },
+  "err_checkpoint": {
+    "message": "Instagram에서 본인 확인을 요청했습니다. instagram.com에서 확인을 완료한 뒤 잠시 후 다시 시도하세요."
+  },
+  "err_login": {
+    "message": "Instagram에서 다시 로그인을 요청합니다. 로그인한 뒤 다시 시도하세요."
+  },
+  "err_noAccess": {
+    "message": "접근이 거부되었습니다. instagram.com에 로그인했는지 확인한 뒤 페이지를 새로고침하세요."
+  },
+  "err_unexpected": {
+    "message": "Instagram이 예상하지 못한 응답을 반환했습니다(HTTP {status})."
+  },
+  "err_ig": {
+    "message": "Instagram 오류(HTTP {status}){msg}"
+  },
+  "err_ratelimit": {
+    "message": "Instagram이 여전히 요청을 제한하고 있습니다. 15~30분 기다린 뒤 안전 모드로 다시 시도하세요."
+  },
+  "err_format": {
+    "message": "Instagram의 데이터 형식이 바뀌었습니다. 확장 프로그램을 업데이트해야 합니다."
+  },
+  "err_noAccount": {
+    "message": "로그인한 계정을 찾지 못했습니다. instagram.com에 로그인한 뒤 페이지를 새로고침하세요."
+  },
+  "note_pause": {
+    "message": "Instagram에 요청이 몰리지 않도록 {s}초간 잠시 쉽니다…"
+  },
+  "note_retryNet": {
+    "message": "연결에 문제가 생겨 다시 시도하는 중입니다({a}/{n})…"
+  },
+  "note_slowDown": {
+    "message": "Instagram이 요청 속도를 줄이라고 했습니다(HTTP {status}). {s}초 기다린 뒤 계속합니다…"
+  },
+  "note_fallback": {
+    "message": "기본 방식으로 가져오지 못해 다른 방법을 시도하는 중입니다…"
+  },
+  "note_repair": {
+    "message": "Instagram에서 계정 {expected}개 중 {got}개를 가져왔습니다. 나머지는 다른 방법으로 가져오는 중입니다…"
+  },
+  "scan_checking": {
+    "message": "계정을 확인하는 중입니다…"
+  },
+  "scan_followers": {
+    "message": "팔로워: {n}"
+  },
+  "scan_followersDone": {
+    "message": "팔로워: {n} ✓ · 다음은 팔로잉 목록을 가져옵니다…"
+  },
+  "scan_following": {
+    "message": "팔로워: {f} ✓ · 팔로잉: {n}"
+  },
+  "scan_done": {
+    "message": "완료"
+  },
+  "scan_result": {
+    "message": "스캔을 마쳤습니다. 팔로워: {fr}, 팔로잉: {fg}."
+  },
+  "scan_first": {
+    "message": "첫 스캔을 마쳤습니다. 다음 스캔부터 나를 언팔로우한 계정을 확인할 수 있습니다."
+  },
+  "scan_changes": {
+    "message": "지난 스캔 이후 팔로워 −{lost} / +{gained} (‘변동 내역’ 참고)."
+  },
+  "scan_noChanges": {
+    "message": "지난 스캔 이후 변동이 없습니다."
+  },
+  "scan_fewer": {
+    "message": "프로필에 표시된 팔로워 {expected}명 중 {got}명을 가져왔습니다. 정지되거나 비활성화된 계정 때문에 약간의 차이가 날 수 있습니다. 차이가 크면 나중에 다시 스캔하세요."
+  },
+  "scan_shortFollowing": {
+    "message": "주의: 프로필에 표시된 팔로잉 {expected}개 중 {got}개만 가져왔습니다. Instagram에서 전체 목록을 보내지 않아 탭에 표시되는 결과가 정확하지 않을 수 있습니다. 15분 뒤 안전 모드로 다시 스캔하세요."
+  },
+  "scan_noCounts": {
+    "message": "프로필에 표시된 계정 수를 읽지 못해 목록이 완전한지 확인할 수 없습니다."
+  },
+  "scan_aborted": {
+    "message": "스캔을 중지했습니다. 이전 결과는 그대로 보관됩니다."
+  },
+  "unf_duringScan": {
+    "message": "스캔이 끝날 때까지 기다려 주세요."
+  },
+  "unf_otherAccount": {
+    "message": "이 결과를 가져온 계정과 현재 로그인한 계정이 다릅니다. 현재 계정을 먼저 스캔하세요."
+  },
+  "unf_blockedUntil": {
+    "message": "Instagram에서 계정 활동을 제한하여 {time}까지 언팔로우가 일시 중지됩니다."
+  },
+  "unf_limit": {
+    "message": "하루 언팔로우 한도에 도달했습니다(24시간 동안 {used}/{limit}). 설정에서 한도를 변경할 수 있습니다."
+  },
+  "unf_cooldown": {
+    "message": "{s}초 더 기다려 주세요. 언팔로우 사이에 간격을 두면 계정이 차단될 위험을 줄일 수 있습니다."
+  },
+  "unf_done": {
+    "message": "@{user} 계정을 언팔로우했습니다. 최근 24시간: {used}/{limit}개."
+  },
+  "unf_blocked": {
+    "message": "요청이 너무 많아 Instagram에서 이 작업을 차단했습니다. {time}까지 언팔로우가 일시 중지됩니다. 앱에서도 직접 다시 시도하지 마세요."
+  },
+  "unf_slow": {
+    "message": "Instagram이 작업 속도를 줄이라고 했습니다. {time}까지 언팔로우가 일시 중지됩니다."
+  },
+  "unf_failed": {
+    "message": "Instagram에서 언팔로우 여부를 확인해 주지 않았습니다(HTTP {status}, {info}). 상대 프로필에서 팔로우 상태를 확인하세요."
+  },
+  "unf_noTokens": {
+    "message": "페이지에서 Instagram 세션 토큰을 찾지 못했습니다. 페이지를 새로고침(F5)한 뒤 다시 시도하세요."
+  },
+  "unf_still": {
+    "message": "Instagram에서 응답이 왔지만 여전히 @{user} 계정을 팔로우하고 있습니다. 나중에 다시 시도하거나 상대 프로필에서 직접 언팔로우하세요."
+  },
+  "unf_unconfirmed": {
+    "message": "Instagram에서 요청을 받았지만 @{user} 계정의 언팔로우 여부를 확인할 수 없습니다. 상대 프로필을 확인하세요."
+  },
+  "backup_exported": {
+    "message": "백업을 저장했습니다(계정 {n}개)."
+  },
+  "backup_imported": {
+    "message": "백업을 복원했습니다(복원일: {date}, 계정 {n}개)."
+  },
+  "backup_invalid": {
+    "message": "Apex Unfollowers 백업 파일이 아니거나 파일이 손상되었습니다."
+  },
+  "backup_tooBig": {
+    "message": "백업 파일이 너무 큽니다(최대 {mb} MB)."
+  },
+  "ui_stats": {
+    "message": "통계"
+  },
+  "ui_settings": {
+    "message": "설정"
+  },
+  "ui_close": {
+    "message": "닫기(Esc)"
+  },
+  "ui_scan": {
+    "message": "스캔"
+  },
+  "ui_stop": {
+    "message": "중지"
+  },
+  "ui_speedTitle": {
+    "message": "스캔 속도"
+  },
+  "ui_speedSafe": {
+    "message": "속도: 안전"
+  },
+  "ui_speedNormal": {
+    "message": "속도: 빠름"
+  },
+  "ui_search": {
+    "message": "이름으로 검색…"
+  },
+  "ui_csvTitle": {
+    "message": "현재 탭의 검색 및 필터 결과를 CSV로 다운로드"
+  },
+  "ui_filterTitle": {
+    "message": "필터"
+  },
+  "ui_sortTitle": {
+    "message": "정렬"
+  },
+  "ui_hiddenTitle": {
+    "message": "제외 목록에 있는 숨긴 계정도 표시"
+  },
+  "ui_hidden": {
+    "message": "숨긴 계정"
+  },
+  "ui_footer": {
+    "message": "데이터는 이 브라우저에만 저장됩니다."
+  },
+  "ui_more": {
+    "message": "더 보기({n}개)"
+  },
+  "ui_lastScan": {
+    "message": "최근 스캔: {date}"
+  },
+  "ui_noScan": {
+    "message": "스캔한 기록이 없습니다. ‘스캔’을 누르세요."
+  },
+  "tab_notBack": {
+    "message": "나를 맞팔하지 않음"
+  },
+  "tab_fans": {
+    "message": "내가 맞팔하지 않음"
+  },
+  "tab_mutual": {
+    "message": "서로 팔로우"
+  },
+  "tab_changes": {
+    "message": "변동 내역"
+  },
+  "tab_changesTitle": {
+    "message": "나를 언팔로우한 계정 수(스캔 기록 기준)"
+  },
+  "filter_all": {
+    "message": "모든 계정"
+  },
+  "filter_verified": {
+    "message": "인증된 계정"
+  },
+  "filter_private": {
+    "message": "비공개 계정"
+  },
+  "filter_public": {
+    "message": "공개 계정"
+  },
+  "filter_nopic": {
+    "message": "프로필 사진 없음"
+  },
+  "sort_default": {
+    "message": "기본 순서"
+  },
+  "sort_az": {
+    "message": "사용자 이름 A–Z"
+  },
+  "sort_za": {
+    "message": "사용자 이름 Z–A"
+  },
+  "set_lang": {
+    "message": "언어"
+  },
+  "set_langAuto": {
+    "message": "자동(브라우저 언어)"
+  },
+  "set_unf": {
+    "message": "언팔로우 한도"
+  },
+  "set_unfHint": {
+    "message": "Instagram은 작업 횟수를 제한합니다. 짧은 시간에 너무 많은 계정을 언팔로우하면 몇 시간 또는 며칠간 계정 활동이 차단될 수 있습니다. 확장 프로그램은 언팔로우 사이에 15초 간격을 둡니다."
+  },
+  "set_unfOption": {
+    "message": "24시간당 {n}개"
+  },
+  "set_launcher": {
+    "message": "페이지의 실행 버튼"
+  },
+  "set_launcherLabel": {
+    "message": "instagram.com에 원형 버튼 표시"
+  },
+  "set_backup": {
+    "message": "백업"
+  },
+  "set_backupHint": {
+    "message": "스캔 결과, 기록, 제외 목록, 설정을 담은 JSON 파일입니다. 다른 컴퓨터나 브라우저로 옮길 때 유용합니다."
+  },
+  "set_export": {
+    "message": "백업 저장"
+  },
+  "set_import": {
+    "message": "백업에서 복원…"
+  },
+  "set_data": {
+    "message": "이 계정의 데이터"
+  },
+  "set_dataHint": {
+    "message": "현재 계정의 스캔 결과, 기록, 제외 목록, 언팔로우 횟수를 삭제합니다."
+  },
+  "set_wipe": {
+    "message": "데이터 지우기"
+  },
+  "set_wipeConfirm": {
+    "message": "한 번 더 눌러 확인"
+  },
+  "set_wiped": {
+    "message": "이 계정에 저장된 데이터를 삭제했습니다."
+  },
+  "changes_group": {
+    "message": "{date} 스캔({since}과 비교)"
+  },
+  "changes_lost": {
+    "message": "나를 언팔로우함"
+  },
+  "changes_gained": {
+    "message": "새 팔로워"
+  },
+  "row_hide": {
+    "message": "숨기기"
+  },
+  "row_unhide": {
+    "message": "다시 표시"
+  },
+  "row_hideTitle": {
+    "message": "제외 목록에 추가(예: 유명인, 브랜드). 이 탭에 표시되지 않습니다."
+  },
+  "row_unhideTitle": {
+    "message": "제외 목록에서 제거"
+  },
+  "row_unf": {
+    "message": "언팔로우"
+  },
+  "row_unfConfirm": {
+    "message": "언팔로우할까요?"
+  },
+  "row_unfTitle": {
+    "message": "이 계정 언팔로우(확인 필요)"
+  },
+  "empty_changes": {
+    "message": "아직 기록된 변동이 없습니다. 나중에 다시 스캔하면 나를 언팔로우하거나 나를 새로 팔로우한 계정이 여기에 표시됩니다."
+  },
+  "empty_firstScan": {
+    "message": "먼저 첫 스캔을 실행하세요."
+  },
+  "empty_scanning": {
+    "message": "목록을 가져오는 중입니다…"
+  },
+  "empty_loggedOut": {
+    "message": "결과를 보려면 Instagram에 로그인하세요. 저장된 스캔 결과는 확장 프로그램에 보관되며 같은 계정으로 로그인하면 다시 표시됩니다."
+  },
+  "empty_noScan": {
+    "message": "‘스캔’을 눌러 목록을 가져오세요. 목록이 길면 몇 분 걸릴 수 있습니다. 패널은 닫아도 되지만 Instagram 탭은 열어 두세요."
+  },
+  "empty_noResults": {
+    "message": "검색 조건이나 필터에 맞는 계정이 없습니다."
+  },
+  "empty_notBack": {
+    "message": "이 목록에 표시할 계정이 없습니다."
+  },
+  "empty_fans": {
+    "message": "내 모든 팔로워를 맞팔로우하고 있습니다."
+  },
+  "empty_mutual": {
+    "message": "서로 팔로우하는 계정이 없습니다."
+  },
+  "stats_now": {
+    "message": "현재"
+  },
+  "stats_followers": {
+    "message": "팔로워"
+  },
+  "stats_following": {
+    "message": "팔로잉"
+  },
+  "stats_mutual": {
+    "message": "서로 팔로우(팔로잉의 {p})"
+  },
+  "stats_notBack": {
+    "message": "나를 맞팔하지 않음"
+  },
+  "stats_vsPrev": {
+    "message": "지난 스캔 대비 {d}"
+  },
+  "stats_balance": {
+    "message": "팔로워 변동"
+  },
+  "stats_balanceDays": {
+    "message": "최근 {days}일: +{gained} / −{lost}"
+  },
+  "stats_unf24": {
+    "message": "언팔로우(24시간)"
+  },
+  "stats_chartTitle": {
+    "message": "팔로워 수 추이"
+  },
+  "stats_chartSub": {
+    "message": "스캔 횟수: {n}"
+  },
+  "stats_chartEmpty": {
+    "message": "두 번째 스캔 후 그래프가 표시됩니다."
+  },
+  "stats_chartAria": {
+    "message": "팔로워 수 그래프, 현재 {n}명"
+  },
+  "stats_history": {
+    "message": "스캔 기록"
+  },
+  "stats_colDate": {
+    "message": "날짜"
+  },
+  "stats_colFollowers": {
+    "message": "팔로워"
+  },
+  "stats_colFollowing": {
+    "message": "팔로잉"
+  },
+  "stats_colChange": {
+    "message": "변동"
+  },
+  "csv_empty": {
+    "message": "이 탭에 내보낼 데이터가 없습니다."
+  },
+  "csv_head": {
+    "message": "사용자 이름,이름,링크,인증 여부,비공개 여부"
+  },
+  "csv_headChanges": {
+    "message": "변동,날짜"
+  },
+  "csv_yes": {
+    "message": "예"
+  },
+  "csv_no": {
+    "message": "아니요"
+  },
+  "csv_lost": {
+    "message": "나를 언팔로우함"
+  },
+  "csv_gained": {
+    "message": "새 팔로워"
+  },
+  "csv_fileNotBack": {
+    "message": "나를-맞팔하지-않음"
+  },
+  "csv_fileFans": {
+    "message": "내가-맞팔하지-않음"
+  },
+  "csv_fileMutual": {
+    "message": "서로-팔로우"
+  },
+  "csv_fileChanges": {
+    "message": "변동-내역"
+  },
+  "popup_opening": {
+    "message": "패널을 여는 중입니다…"
+  },
+  "popup_openTitle": {
+    "message": "Instagram 열기"
+  },
+  "popup_openText": {
+    "message": "이 확장 프로그램은 instagram.com에서 작동합니다. 로그인한 뒤 확장 프로그램 아이콘이나 페이지 오른쪽 아래의 분홍색 버튼을 누르세요."
+  },
+  "popup_openBtn": {
+    "message": "instagram.com 열기"
+  },
+  "popup_reloadTitle": {
+    "message": "Instagram 새로고침"
+  },
+  "popup_reloadText": {
+    "message": "탭을 새로고침하면 확장 프로그램이 로드됩니다. 그다음 아이콘을 다시 누르세요."
+  },
+  "popup_reloadBtn": {
+    "message": "페이지 새로고침"
+  },
+  "row_unfBusy": {
+    "message": "언팔로우하는 중…"
+  },
+  "report_unknown": {
+    "message": "알 수 없음"
+  },
+  "err_noResponseType": {
+    "message": "알 수 없는 응답 유형"
+  },
+  "err_generic": {
+    "message": "문제가 발생했습니다."
+  },
+  "support_link": {
+    "message": "Ko-fi에서 Apex 후원하기"
+  },
+  "support_hint": {
+    "message": "후원은 선택 사항입니다. 모든 기능을 무료로 이용할 수 있습니다."
+  }
+}

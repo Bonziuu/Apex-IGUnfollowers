@@ -1,0 +1,632 @@
+{
+  "extName": {
+    "message": "Apex Unfollowers สำหรับ Instagram"
+  },
+  "extShortName": {
+    "message": "Apex"
+  },
+  "extDescription": {
+    "message": "ดูว่าใครไม่ติดตามกลับและใครเลิกติดตามคุณบน Instagram ข้อมูลอยู่ในเบราว์เซอร์และไม่ต้องให้รหัสผ่าน"
+  },
+  "ext_name": {
+    "message": "Apex Unfollowers สำหรับ Instagram"
+  },
+  "ext_tagline": {
+    "message": "ดูว่าใครไม่ได้ติดตามคุณกลับบน Instagram ใช้ฟรีและทำงานในเบราว์เซอร์"
+  },
+  "ui_resume": {
+    "message": "สแกนต่อ"
+  },
+  "ui_restart": {
+    "message": "เริ่มใหม่"
+  },
+  "ui_resumeInfo": {
+    "message": "การสแกนเมื่อ {date} หยุดกลางคัน บันทึกไว้แล้ว {n} บัญชี"
+  },
+  "scan_eta": {
+    "message": "เหลือประมาณ {t}"
+  },
+  "time_lessMin": {
+    "message": "ไม่ถึงหนึ่งนาที"
+  },
+  "time_min": {
+    "message": "{n} นาที"
+  },
+  "scan_resuming": {
+    "message": "กำลังสแกนต่อ ดึงข้อมูลแล้ว {n} บัญชี…"
+  },
+  "scan_paused": {
+    "message": "หยุดสแกนชั่วคราว"
+  },
+  "scan_progressSaved": {
+    "message": "บันทึกความคืบหน้าแล้ว ({n} บัญชี) คลิก «สแกนต่อ» เพื่อดำเนินการให้เสร็จ"
+  },
+  "welcome_title": {
+    "message": "ยินดีต้อนรับสู่ Apex Unfollowers"
+  },
+  "welcome_lead": {
+    "message": "ส่วนขยายจะเปรียบเทียบรายชื่อผู้ติดตามกับบัญชีที่คุณติดตามบน Instagram โดยทำงานในเบราว์เซอร์ของคุณ ไม่ต้องสมัครบัญชีเพิ่มและไม่ส่งข้อมูลไปยังผู้พัฒนา"
+  },
+  "welcome_step1": {
+    "message": "เข้าสู่ระบบที่ instagram.com ในเบราว์เซอร์นี้"
+  },
+  "welcome_step2": {
+    "message": "คลิก «สแกน» บัญชีที่มีรายชื่อจำนวนมากอาจใช้เวลาสักครู่"
+  },
+  "welcome_step3": {
+    "message": "ดูแท็บ ตัวกรอง และสถิติ เลิกติดตามทีละบัญชี"
+  },
+  "welcome_riskTitle": {
+    "message": "ความปลอดภัยของบัญชี"
+  },
+  "welcome_riskText": {
+    "message": "ส่วนขยายใช้ API ที่ไม่เป็นทางการของเว็บไซต์ Instagram ข้อกำหนดของ Instagram ไม่อนุญาตให้เก็บข้อมูลอัตโนมัติ โปรดใช้โดยรับผิดชอบความเสี่ยงด้วยตนเอง"
+  },
+  "welcome_risk1": {
+    "message": "สแกนไม่เกินวันละครั้งโดยใช้ความเร็วระดับปลอดภัย"
+  },
+  "welcome_risk2": {
+    "message": "ทยอยเลิกติดตาม ส่วนขยายกำหนดช่วงพักและจำกัดจำนวนต่อวัน"
+  },
+  "welcome_risk3": {
+    "message": "หาก Instagram บล็อกการดำเนินการ ให้รอหนึ่งหรือสองวัน"
+  },
+  "welcome_accept": {
+    "message": "ฉันเข้าใจและต้องการใช้ส่วนขยายนี้"
+  },
+  "welcome_start": {
+    "message": "เริ่มใช้งาน"
+  },
+  "welcome_privacy": {
+    "message": "ข้อมูลของคุณจะยังอยู่ในเบราว์เซอร์นี้"
+  },
+  "welcome_more": {
+    "message": "ข้อมูลเพิ่มเติม"
+  },
+  "set_about": {
+    "message": "เกี่ยวกับส่วนขยาย"
+  },
+  "set_authorTitle": {
+    "message": "ผู้พัฒนาและช่องทางติดต่อ"
+  },
+  "set_linkedin": {
+    "message": "โปรไฟล์ LinkedIn"
+  },
+  "set_linkedinLabel": {
+    "message": "โปรไฟล์ LinkedIn ของผู้พัฒนา (เปิดในแท็บใหม่)"
+  },
+  "support_link": {
+    "message": "สนับสนุน Apex บน Ko-fi"
+  },
+  "support_hint": {
+    "message": "การสนับสนุนเป็นไปโดยสมัครใจ ทุกฟีเจอร์ใช้งานได้ฟรี"
+  },
+  "set_reportHint": {
+    "message": "พบปัญหาหรือไม่ ร่างรายงานมีรายละเอียดการวินิจฉัย เวอร์ชันส่วนขยาย และเบราว์เซอร์ โดยไม่ระบุชื่อบัญชี ร่างอีเมลยังระบุภาษาที่ใช้ในส่วนขยายด้วย"
+  },
+  "set_reportGithub": {
+    "message": "รายงานปัญหา"
+  },
+  "set_reportMail": {
+    "message": "ส่งอีเมล"
+  },
+  "set_showWelcome": {
+    "message": "แสดงหน้าต้อนรับ"
+  },
+  "report_button": {
+    "message": "รายงานปัญหา"
+  },
+  "report_buttonTitle": {
+    "message": "เปิดรายงานที่กรอกไว้แล้วใน GitHub (เวอร์ชัน เบราว์เซอร์ ข้อผิดพลาด)"
+  },
+  "report_mailIntro": {
+    "message": "อธิบายสิ่งที่เกิดขึ้นและสิ่งที่คุณพยายามทำ:"
+  },
+  "report_browser": {
+    "message": "เบราว์เซอร์"
+  },
+  "report_language": {
+    "message": "ภาษา"
+  },
+  "report_error": {
+    "message": "ข้อผิดพลาดล่าสุด"
+  },
+  "report_subject": {
+    "message": "รายงานปัญหา"
+  },
+  "page_title": {
+    "message": "ยินดีต้อนรับสู่ Apex Unfollowers"
+  },
+  "page_tagline": {
+    "message": "ดูว่าใครไม่ได้ติดตามคุณกลับบน Instagram ใช้ฟรีและทำงานในเบราว์เซอร์"
+  },
+  "page_lead": {
+    "message": "Apex Unfollowers เปรียบเทียบรายชื่อผู้ติดตามกับบัญชีที่คุณติดตามบน Instagram เพื่อให้ดูได้ว่าใครไม่ได้ติดตามคุณกลับ คุณไม่ได้ติดตามใคร และใครเลิกติดตามคุณ ส่วนขยายทำงานในเบราว์เซอร์ ไม่ต้องสมัครบัญชีเพิ่ม ไม่ขอรหัสผ่าน และไม่ส่งข้อมูลให้ผู้พัฒนา"
+  },
+  "page_howTitle": {
+    "message": "เริ่มต้นใช้งาน"
+  },
+  "page_featTitle": {
+    "message": "สิ่งที่ดูได้ในแผง"
+  },
+  "page_feat1": {
+    "message": "<strong>ไม่ได้ติดตามคุณกลับ</strong> พร้อมรายการยกเว้นสำหรับคนดังและแบรนด์"
+  },
+  "page_feat2": {
+    "message": "<strong>การเปลี่ยนแปลง</strong> ดูว่าใครเริ่มติดตามหรือเลิกติดตามตั้งแต่การสแกนครั้งล่าสุด"
+  },
+  "page_feat3": {
+    "message": "<strong>สถิติ</strong> กราฟผู้ติดตามและยอดเพิ่มลดในช่วง 7 และ 30 วัน"
+  },
+  "page_feat4": {
+    "message": "<strong>เลิกติดตาม</strong> ทีละบัญชี พร้อมขั้นตอนยืนยันและขีดจำกัดรายวัน"
+  },
+  "page_open": {
+    "message": "เปิด Instagram"
+  },
+  "page_done": {
+    "message": "พร้อมแล้ว เปิด Instagram แล้วคลิกปุ่มสีชมพูที่มุมขวาล่างของหน้า"
+  },
+  "page_privacyTitle": {
+    "message": "ความเป็นส่วนตัว"
+  },
+  "page_privacyText": {
+    "message": "ผลการสแกน ประวัติ และการตั้งค่าจะอยู่ในเบราว์เซอร์นี้ ส่วนขยายดึงรายชื่อจาก Instagram และอาจโหลดรูปโปรไฟล์จากเซิร์ฟเวอร์ภาพของ Instagram หรือ Meta ส่วนขยายไม่เก็บข้อมูลการใช้งาน"
+  },
+  "page_policy": {
+    "message": "นโยบายความเป็นส่วนตัว"
+  },
+  "page_source": {
+    "message": "ซอร์สโค้ด"
+  },
+  "err_abort": {
+    "message": "หยุดสแกนแล้ว"
+  },
+  "err_network": {
+    "message": "เชื่อมต่อ Instagram ไม่ได้"
+  },
+  "err_checkpoint": {
+    "message": "Instagram ต้องการยืนยันว่าเป็นคุณ เปิด instagram.com ทำการยืนยันให้เสร็จ แล้วลองใหม่ภายหลัง"
+  },
+  "err_login": {
+    "message": "Instagram ขอให้คุณเข้าสู่ระบบอีกครั้ง โปรดเข้าสู่ระบบแล้วลองใหม่"
+  },
+  "err_noAccess": {
+    "message": "เข้าถึงไม่ได้ ตรวจสอบว่าได้เข้าสู่ระบบที่ instagram.com แล้วโหลดหน้าเว็บใหม่"
+  },
+  "err_unexpected": {
+    "message": "Instagram ส่งการตอบกลับที่ไม่คาดคิด (HTTP {status})"
+  },
+  "err_ig": {
+    "message": "ข้อผิดพลาดของ Instagram (HTTP {status}){msg}"
+  },
+  "err_ratelimit": {
+    "message": "Instagram ยังจำกัดจำนวนคำขออยู่ รอ 15–30 นาทีแล้วลองใหม่ที่ความเร็วระดับปลอดภัย"
+  },
+  "err_format": {
+    "message": "Instagram เปลี่ยนรูปแบบข้อมูล ต้องอัปเดตส่วนขยาย"
+  },
+  "err_noAccount": {
+    "message": "ไม่พบบัญชีที่เข้าสู่ระบบ เข้าสู่ระบบที่ instagram.com แล้วโหลดหน้าเว็บใหม่"
+  },
+  "note_pause": {
+    "message": "พักสั้น ๆ ({s} วินาที) เพื่อลดจำนวนคำขอที่ส่งไปยัง Instagram…"
+  },
+  "note_retryNet": {
+    "message": "มีปัญหาการเชื่อมต่อ กำลังลองใหม่ ({a}/{n})…"
+  },
+  "note_slowDown": {
+    "message": "Instagram ขอให้ส่งคำขอช้าลง (HTTP {status}) จะดำเนินการต่อหลังจาก {s} วินาที…"
+  },
+  "note_fallback": {
+    "message": "วิธีหลักไม่สำเร็จ กำลังลองวิธีสำรอง…"
+  },
+  "note_repair": {
+    "message": "Instagram ส่งข้อมูลมา {got} จาก {expected} บัญชี กำลังดึงข้อมูลที่เหลือด้วยวิธีอื่น…"
+  },
+  "scan_checking": {
+    "message": "กำลังตรวจสอบบัญชีของคุณ…"
+  },
+  "scan_followers": {
+    "message": "ผู้ติดตาม: {n}"
+  },
+  "scan_followersDone": {
+    "message": "ผู้ติดตาม: {n} ✓ · ต่อไปจะดึงรายชื่อบัญชีที่คุณติดตาม…"
+  },
+  "scan_following": {
+    "message": "ผู้ติดตาม: {f} ✓ · กำลังติดตาม: {n}"
+  },
+  "scan_done": {
+    "message": "เสร็จแล้ว"
+  },
+  "scan_result": {
+    "message": "สแกนเสร็จแล้ว ผู้ติดตาม: {fr} กำลังติดตาม: {fg}"
+  },
+  "scan_first": {
+    "message": "นี่เป็นการสแกนครั้งแรก ครั้งหน้าคุณจะเห็นว่าใครเลิกติดตามคุณ"
+  },
+  "scan_changes": {
+    "message": "ตั้งแต่การสแกนครั้งก่อน: ผู้ติดตาม −{lost} / +{gained} (ดูแท็บ «การเปลี่ยนแปลง»)"
+  },
+  "scan_noChanges": {
+    "message": "ไม่มีการเปลี่ยนแปลงตั้งแต่การสแกนครั้งก่อน"
+  },
+  "scan_fewer": {
+    "message": "ผู้ติดตาม: ดึงข้อมูลได้ {got} จาก {expected} ตามยอดบนโปรไฟล์ ผลต่างเล็กน้อยเกิดขึ้นได้จากบัญชีที่ถูกระงับหรือปิดใช้งาน หากต่างกันมากให้สแกนใหม่ภายหลัง"
+  },
+  "scan_shortFollowing": {
+    "message": "คำเตือน: ดึงข้อมูลบัญชีที่คุณติดตามได้ {got} จาก {expected} ตามยอดบนโปรไฟล์ Instagram ส่งรายชื่อมาไม่ครบ ผลในแต่ละแท็บจึงอาจคลาดเคลื่อน รอ 15 นาทีแล้วสแกนใหม่ที่ความเร็วระดับปลอดภัย"
+  },
+  "scan_noCounts": {
+    "message": "อ่านยอดบนโปรไฟล์ไม่ได้ ส่วนขยายจึงตรวจสอบไม่ได้ว่ารายชื่อครบหรือไม่"
+  },
+  "scan_aborted": {
+    "message": "หยุดสแกนแล้ว ผลการสแกนก่อนหน้ายังคงอยู่"
+  },
+  "unf_duringScan": {
+    "message": "รอให้สแกนเสร็จก่อน"
+  },
+  "unf_otherAccount": {
+    "message": "บัญชีที่คุณเข้าสู่ระบบอยู่ไม่ใช่บัญชีในผลการสแกนนี้ ให้สแกนบัญชีปัจจุบันก่อน"
+  },
+  "unf_blockedUntil": {
+    "message": "หยุดการเลิกติดตามชั่วคราวจนถึง {time} เนื่องจาก Instagram จำกัดการดำเนินการในบัญชีของคุณ"
+  },
+  "unf_limit": {
+    "message": "ถึงขีดจำกัดการเลิกติดตามรายวันแล้ว ({used}/{limit} ใน 24 ชม.) คุณเปลี่ยนได้ในการตั้งค่า"
+  },
+  "unf_cooldown": {
+    "message": "รออีก {s} วินาที การเว้นช่วงระหว่างการเลิกติดตามช่วยปกป้องบัญชีของคุณ"
+  },
+  "unf_done": {
+    "message": "เลิกติดตาม @{user} แล้ว ใน 24 ชั่วโมงที่ผ่านมา: {used}/{limit}"
+  },
+  "unf_blocked": {
+    "message": "Instagram บล็อกการดำเนินการนี้เนื่องจากมีการดำเนินการมากเกินไป หยุดการเลิกติดตามจนถึง {time} อย่าลองทำซ้ำด้วยตนเองในแอป"
+  },
+  "unf_slow": {
+    "message": "Instagram ขอให้ดำเนินการช้าลง หยุดการเลิกติดตามชั่วคราวจนถึง {time}"
+  },
+  "unf_failed": {
+    "message": "Instagram ไม่ยืนยันการเลิกติดตาม (HTTP {status}, {info}) เปิดโปรไฟล์นั้นเพื่อตรวจสอบว่าคุณยังติดตามอยู่หรือไม่"
+  },
+  "unf_noTokens": {
+    "message": "ไม่พบโทเค็นเซสชันของ Instagram บนหน้าเว็บ โหลดหน้าเว็บใหม่ (F5) แล้วลองอีกครั้ง"
+  },
+  "unf_still": {
+    "message": "Instagram ตอบกลับแล้ว แต่คุณยังติดตาม @{user} อยู่ ลองใหม่ภายหลังหรือดำเนินการจากหน้าโปรไฟล์นั้น"
+  },
+  "unf_unconfirmed": {
+    "message": "Instagram รับคำขอแล้ว แต่ส่วนขยายยืนยันไม่ได้ว่าเลิกติดตาม @{user} สำเร็จหรือไม่ โปรดตรวจสอบจากหน้าโปรไฟล์นั้น"
+  },
+  "backup_exported": {
+    "message": "บันทึกข้อมูลสำรองแล้ว (บัญชี: {n})"
+  },
+  "backup_imported": {
+    "message": "กู้คืนข้อมูลสำรองเมื่อ {date} แล้ว (บัญชี: {n})"
+  },
+  "backup_invalid": {
+    "message": "ไฟล์นี้ไม่ใช่ข้อมูลสำรองของ Apex Unfollowers หรือไฟล์เสียหาย"
+  },
+  "backup_tooBig": {
+    "message": "ไฟล์ข้อมูลสำรองใหญ่เกินไป (สูงสุด {mb} MB)"
+  },
+  "ui_stats": {
+    "message": "สถิติ"
+  },
+  "ui_settings": {
+    "message": "การตั้งค่า"
+  },
+  "ui_close": {
+    "message": "ปิด (Esc)"
+  },
+  "ui_scan": {
+    "message": "สแกน"
+  },
+  "ui_stop": {
+    "message": "หยุด"
+  },
+  "ui_speedTitle": {
+    "message": "ความเร็วในการสแกน"
+  },
+  "ui_speedSafe": {
+    "message": "ความเร็ว: ระดับปลอดภัย"
+  },
+  "ui_speedNormal": {
+    "message": "ความเร็ว: เร็วขึ้น"
+  },
+  "ui_search": {
+    "message": "ค้นหาตามชื่อ…"
+  },
+  "ui_csvTitle": {
+    "message": "ดาวน์โหลดผลลัพธ์ที่ตรงกับตัวกรองในแท็บนี้เป็น CSV"
+  },
+  "ui_filterTitle": {
+    "message": "ตัวกรอง"
+  },
+  "ui_sortTitle": {
+    "message": "เรียงลำดับ"
+  },
+  "ui_hiddenTitle": {
+    "message": "แสดงบัญชีที่ซ่อนไว้ด้วย (รายการยกเว้น)"
+  },
+  "ui_hidden": {
+    "message": "ซ่อนอยู่"
+  },
+  "ui_footer": {
+    "message": "ข้อมูลของคุณจะเก็บอยู่ในเบราว์เซอร์ของคุณเท่านั้น"
+  },
+  "ui_more": {
+    "message": "แสดงเพิ่ม ({n})"
+  },
+  "ui_lastScan": {
+    "message": "สแกนล่าสุด: {date}"
+  },
+  "ui_noScan": {
+    "message": "ยังไม่เคยสแกน คลิก «สแกน»"
+  },
+  "tab_notBack": {
+    "message": "ไม่ได้ติดตามคุณกลับ"
+  },
+  "tab_fans": {
+    "message": "คุณไม่ได้ติดตามกลับ"
+  },
+  "tab_mutual": {
+    "message": "ติดตามกัน"
+  },
+  "tab_changes": {
+    "message": "การเปลี่ยนแปลง"
+  },
+  "tab_changesTitle": {
+    "message": "คนที่เลิกติดตามคุณ (จากประวัติการสแกน)"
+  },
+  "filter_all": {
+    "message": "ทุกบัญชี"
+  },
+  "filter_verified": {
+    "message": "ยืนยันแล้ว"
+  },
+  "filter_private": {
+    "message": "ส่วนตัว"
+  },
+  "filter_public": {
+    "message": "สาธารณะ"
+  },
+  "filter_nopic": {
+    "message": "ไม่มีรูปโปรไฟล์"
+  },
+  "sort_default": {
+    "message": "ลำดับเริ่มต้น"
+  },
+  "sort_az": {
+    "message": "ชื่อผู้ใช้ A–Z"
+  },
+  "sort_za": {
+    "message": "ชื่อผู้ใช้ Z–A"
+  },
+  "set_lang": {
+    "message": "ภาษา"
+  },
+  "set_langAuto": {
+    "message": "อัตโนมัติ (ภาษาของเบราว์เซอร์)"
+  },
+  "set_unf": {
+    "message": "ขีดจำกัดการเลิกติดตาม"
+  },
+  "set_unfHint": {
+    "message": "Instagram จำกัดจำนวนการดำเนินการ หากเลิกติดตามมากเกินไปในเวลาสั้น ๆ บัญชีอาจถูกจำกัดการดำเนินการเป็นเวลาหลายชั่วโมงหรือหลายวัน ส่วนขยายกำหนดให้เว้น 15 วินาทีระหว่างการเลิกติดตามแต่ละครั้ง"
+  },
+  "set_unfOption": {
+    "message": "{n} ต่อ 24 ชม."
+  },
+  "set_launcher": {
+    "message": "ปุ่มบนหน้าเว็บ"
+  },
+  "set_launcherLabel": {
+    "message": "แสดงปุ่มกลมบน instagram.com"
+  },
+  "set_backup": {
+    "message": "ข้อมูลสำรอง"
+  },
+  "set_backupHint": {
+    "message": "ไฟล์ JSON ที่มีผลการสแกน ประวัติ รายการยกเว้น และการตั้งค่า ใช้ได้เมื่อย้ายไปใช้คอมพิวเตอร์หรือเบราว์เซอร์อื่น"
+  },
+  "set_export": {
+    "message": "บันทึกข้อมูลสำรอง"
+  },
+  "set_import": {
+    "message": "กู้คืนข้อมูลสำรอง…"
+  },
+  "set_data": {
+    "message": "ข้อมูลของบัญชีนี้"
+  },
+  "set_dataHint": {
+    "message": "ลบผลการสแกน ประวัติ รายการยกเว้น และตัวนับการเลิกติดตามของบัญชีปัจจุบัน"
+  },
+  "set_wipe": {
+    "message": "ล้างข้อมูล"
+  },
+  "set_wipeConfirm": {
+    "message": "คลิกอีกครั้งเพื่อยืนยัน"
+  },
+  "set_wiped": {
+    "message": "ลบข้อมูลที่บันทึกไว้ของบัญชีนี้แล้ว"
+  },
+  "changes_group": {
+    "message": "สแกนเมื่อ {date} (เทียบกับ {since})"
+  },
+  "changes_lost": {
+    "message": "เลิกติดตาม"
+  },
+  "changes_gained": {
+    "message": "ผู้ติดตามใหม่"
+  },
+  "row_hide": {
+    "message": "ซ่อน"
+  },
+  "row_unhide": {
+    "message": "เลิกซ่อน"
+  },
+  "row_hideTitle": {
+    "message": "เพิ่มในรายการยกเว้น (เช่น คนดังหรือแบรนด์) เพื่อไม่ให้แสดงบัญชีนี้ในแท็บนี้"
+  },
+  "row_unhideTitle": {
+    "message": "นำออกจากรายการยกเว้น"
+  },
+  "row_unf": {
+    "message": "เลิกติดตาม"
+  },
+  "row_unfConfirm": {
+    "message": "ยืนยันไหม"
+  },
+  "row_unfTitle": {
+    "message": "เลิกติดตามบัญชีนี้ (ต้องยืนยัน)"
+  },
+  "empty_changes": {
+    "message": "ยังไม่มีการเปลี่ยนแปลงที่บันทึกไว้ สแกนใหม่ภายหลังเพื่อดูที่นี่ว่าใครเลิกติดตามหรือเริ่มติดตามคุณ"
+  },
+  "empty_firstScan": {
+    "message": "สแกนครั้งแรกก่อน"
+  },
+  "empty_scanning": {
+    "message": "กำลังดึงรายชื่อ…"
+  },
+  "empty_loggedOut": {
+    "message": "เข้าสู่ระบบ Instagram เพื่อดูผลการสแกน ผลที่บันทึกไว้จะยังอยู่ในส่วนขยายและจะแสดงอีกครั้งเมื่อเข้าสู่ระบบด้วยบัญชีเดิม"
+  },
+  "empty_noScan": {
+    "message": "คลิก «สแกน» เพื่อดึงรายชื่อ บัญชีที่มีรายชื่อจำนวนมากอาจใช้เวลาสักครู่ คุณปิดแผงได้ แต่ให้เปิดแท็บ Instagram ไว้"
+  },
+  "empty_noResults": {
+    "message": "ไม่มีบัญชีที่ตรงกับคำค้นหาหรือตัวกรองนี้"
+  },
+  "empty_notBack": {
+    "message": "ไม่มีบัญชีให้แสดงในรายชื่อนี้"
+  },
+  "empty_fans": {
+    "message": "คุณติดตามผู้ติดตามของคุณครบทุกคนแล้ว"
+  },
+  "empty_mutual": {
+    "message": "ยังไม่มีบัญชีที่ติดตามกันทั้งสองฝ่าย"
+  },
+  "stats_now": {
+    "message": "ตอนนี้"
+  },
+  "stats_followers": {
+    "message": "ผู้ติดตาม"
+  },
+  "stats_following": {
+    "message": "กำลังติดตาม"
+  },
+  "stats_mutual": {
+    "message": "ติดตามกัน ({p} ของบัญชีที่ติดตาม)"
+  },
+  "stats_notBack": {
+    "message": "ไม่ได้ติดตามคุณกลับ"
+  },
+  "stats_vsPrev": {
+    "message": "{d} ตั้งแต่การสแกนครั้งก่อน"
+  },
+  "stats_balance": {
+    "message": "ยอดเพิ่มลดของผู้ติดตาม"
+  },
+  "stats_balanceDays": {
+    "message": "{days} วัน: +{gained} / −{lost}"
+  },
+  "stats_unf24": {
+    "message": "เลิกติดตาม (24 ชม.)"
+  },
+  "stats_chartTitle": {
+    "message": "จำนวนผู้ติดตามตามเวลา"
+  },
+  "stats_chartSub": {
+    "message": "อ้างอิงจากการสแกน {n} ครั้ง"
+  },
+  "stats_chartEmpty": {
+    "message": "กราฟจะแสดงหลังจากสแกนครั้งที่สอง"
+  },
+  "stats_chartAria": {
+    "message": "กราฟจำนวนผู้ติดตาม ปัจจุบัน {n}"
+  },
+  "stats_history": {
+    "message": "ประวัติการสแกน"
+  },
+  "stats_colDate": {
+    "message": "วันที่"
+  },
+  "stats_colFollowers": {
+    "message": "ผู้ติดตาม"
+  },
+  "stats_colFollowing": {
+    "message": "กำลังติดตาม"
+  },
+  "stats_colChange": {
+    "message": "การเปลี่ยนแปลง"
+  },
+  "csv_empty": {
+    "message": "ไม่มีข้อมูลให้ส่งออกในแท็บนี้"
+  },
+  "csv_head": {
+    "message": "ชื่อผู้ใช้,ชื่อเต็ม,ลิงก์,ยืนยันแล้ว,ส่วนตัว"
+  },
+  "csv_headChanges": {
+    "message": "การเปลี่ยนแปลง,วันที่"
+  },
+  "csv_yes": {
+    "message": "ใช่"
+  },
+  "csv_no": {
+    "message": "ไม่"
+  },
+  "csv_lost": {
+    "message": "เลิกติดตาม"
+  },
+  "csv_gained": {
+    "message": "ผู้ติดตามใหม่"
+  },
+  "csv_fileNotBack": {
+    "message": "ไม่ได้ติดตามคุณกลับ"
+  },
+  "csv_fileFans": {
+    "message": "คุณไม่ได้ติดตาม"
+  },
+  "csv_fileMutual": {
+    "message": "ติดตามกัน"
+  },
+  "csv_fileChanges": {
+    "message": "การเปลี่ยนแปลง"
+  },
+  "popup_opening": {
+    "message": "กำลังเปิดแผง…"
+  },
+  "popup_openTitle": {
+    "message": "เปิด Instagram"
+  },
+  "popup_openText": {
+    "message": "ส่วนขยายทำงานบน instagram.com เข้าสู่ระบบแล้วคลิกไอคอนส่วนขยายหรือปุ่มสีชมพูที่มุมขวาล่างของหน้า"
+  },
+  "popup_openBtn": {
+    "message": "เปิด instagram.com"
+  },
+  "popup_reloadTitle": {
+    "message": "โหลด Instagram ใหม่"
+  },
+  "popup_reloadText": {
+    "message": "ส่วนขยายจะโหลดเมื่อโหลดแท็บใหม่เสร็จ จากนั้นคลิกไอคอนอีกครั้ง"
+  },
+  "popup_reloadBtn": {
+    "message": "โหลดหน้าเว็บใหม่"
+  },
+  "row_unfBusy": {
+    "message": "กำลังเลิกติดตาม…"
+  },
+  "report_unknown": {
+    "message": "ไม่ทราบ"
+  },
+  "err_noResponseType": {
+    "message": "ไม่ทราบประเภทการตอบกลับ"
+  },
+  "err_generic": {
+    "message": "เกิดข้อผิดพลาด"
+  }
+}

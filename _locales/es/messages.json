@@ -1,0 +1,632 @@
+{
+  "extName": {
+    "message": "Apex Unfollowers para Instagram"
+  },
+  "extShortName": {
+    "message": "Apex"
+  },
+  "extDescription": {
+    "message": "Descubre quién no te sigue en Instagram y quién ha dejado de seguirte. Análisis local sin compartir tu contraseña."
+  },
+  "ext_name": {
+    "message": "Apex Unfollowers para Instagram"
+  },
+  "ext_tagline": {
+    "message": "Descubre quién no te sigue en Instagram, gratis y desde tu navegador"
+  },
+  "ui_resume": {
+    "message": "Reanudar análisis"
+  },
+  "ui_restart": {
+    "message": "Empezar de nuevo"
+  },
+  "ui_resumeInfo": {
+    "message": "Análisis del {date} interrumpido. Cuentas guardadas: {n}."
+  },
+  "scan_eta": {
+    "message": "tiempo restante aproximado: {t}"
+  },
+  "time_lessMin": {
+    "message": "menos de un minuto"
+  },
+  "time_min": {
+    "message": "{n} min"
+  },
+  "scan_resuming": {
+    "message": "Reanudando el análisis. Cuentas recuperadas hasta ahora: {n}…"
+  },
+  "scan_paused": {
+    "message": "Análisis en pausa."
+  },
+  "scan_progressSaved": {
+    "message": "Progreso guardado. Cuentas descargadas: {n}. Pulsa «Reanudar análisis» para terminar."
+  },
+  "welcome_title": {
+    "message": "Te damos la bienvenida a Apex Unfollowers"
+  },
+  "welcome_lead": {
+    "message": "La extensión compara tus listas de seguidores y de cuentas que sigues en Instagram. Funciona en tu navegador sin una cuenta de Apex y sin enviar datos al autor."
+  },
+  "welcome_step1": {
+    "message": "Inicia sesión en instagram.com desde este navegador."
+  },
+  "welcome_step2": {
+    "message": "Pulsa «Analizar». En cuentas grandes el proceso puede tardar unos minutos."
+  },
+  "welcome_step3": {
+    "message": "Consulta las pestañas, los filtros y las estadísticas. Si decides dejar de seguir a alguien, hazlo de una cuenta en una."
+  },
+  "welcome_riskTitle": {
+    "message": "Seguridad de la cuenta"
+  },
+  "welcome_riskText": {
+    "message": "La extensión utiliza la API no oficial de la web de Instagram. Las condiciones de Instagram no permiten recopilar datos de forma automatizada. Utiliza la extensión bajo tu responsabilidad."
+  },
+  "welcome_risk1": {
+    "message": "analiza como máximo una vez al día y a velocidad segura."
+  },
+  "welcome_risk2": {
+    "message": "deja de seguir las cuentas con calma. La extensión aplica pausas y un límite diario."
+  },
+  "welcome_risk3": {
+    "message": "si Instagram bloquea una acción, espera uno o dos días."
+  },
+  "welcome_accept": {
+    "message": "Entiendo lo anterior y quiero usar la extensión."
+  },
+  "welcome_start": {
+    "message": "Empezar"
+  },
+  "welcome_privacy": {
+    "message": "Tus datos se quedan en este navegador."
+  },
+  "welcome_more": {
+    "message": "Más información"
+  },
+  "set_about": {
+    "message": "Acerca de la extensión"
+  },
+  "support_link": {
+    "message": "Apoya a Apex en Ko-fi"
+  },
+  "support_hint": {
+    "message": "Aportación voluntaria. Todas las funciones son gratuitas."
+  },
+  "set_authorTitle": {
+    "message": "Autor y contacto"
+  },
+  "set_linkedin": {
+    "message": "Perfil de LinkedIn"
+  },
+  "set_linkedinLabel": {
+    "message": "Perfil del autor en LinkedIn (se abre en una pestaña nueva)"
+  },
+  "set_reportHint": {
+    "message": "¿Algo no funciona? El informe incluye datos de diagnóstico, la versión de la extensión y el navegador. No incluye nombres de cuentas."
+  },
+  "set_reportGithub": {
+    "message": "Informar de un problema"
+  },
+  "set_reportMail": {
+    "message": "Enviar un correo"
+  },
+  "set_showWelcome": {
+    "message": "Mostrar la pantalla de bienvenida"
+  },
+  "report_button": {
+    "message": "Informar de un problema"
+  },
+  "report_buttonTitle": {
+    "message": "Abrir un informe ya rellenado en GitHub (versión, navegador y error)"
+  },
+  "report_mailIntro": {
+    "message": "Describe qué ocurrió y qué intentabas hacer:"
+  },
+  "report_browser": {
+    "message": "Navegador"
+  },
+  "report_language": {
+    "message": "Idioma"
+  },
+  "report_error": {
+    "message": "Último error"
+  },
+  "report_subject": {
+    "message": "informe de problema"
+  },
+  "page_title": {
+    "message": "Te damos la bienvenida a Apex Unfollowers"
+  },
+  "page_tagline": {
+    "message": "Descubre quién no te sigue en Instagram, gratis y desde tu navegador"
+  },
+  "page_lead": {
+    "message": "Apex Unfollowers compara tus listas de seguidores y de cuentas que sigues en Instagram. Te muestra quién no te sigue de vuelta, a quién no sigues y quién ha dejado de seguirte. Funciona de forma local en tu navegador, sin pedirte contraseña, sin una cuenta de Apex y sin enviar datos al autor."
+  },
+  "page_howTitle": {
+    "message": "Primeros pasos"
+  },
+  "page_featTitle": {
+    "message": "Qué encontrarás en el panel"
+  },
+  "page_feat1": {
+    "message": "<strong>No te siguen</strong> — con una lista de exclusión para marcas y famosos"
+  },
+  "page_feat2": {
+    "message": "<strong>Cambios</strong> — quién ha dejado de seguirte o ha empezado a seguirte desde el último análisis"
+  },
+  "page_feat3": {
+    "message": "<strong>Estadísticas</strong> — gráfico de seguidores y balance de 7 y 30 días"
+  },
+  "page_feat4": {
+    "message": "<strong>Dejar de seguir</strong> — una cuenta cada vez, con confirmación y límite diario"
+  },
+  "page_open": {
+    "message": "Abrir Instagram"
+  },
+  "page_done": {
+    "message": "Todo listo. Abre Instagram y pulsa el botón rosa de la esquina inferior derecha."
+  },
+  "page_privacyTitle": {
+    "message": "Privacidad"
+  },
+  "page_privacyText": {
+    "message": "Los resultados, el historial y los ajustes se guardan en este navegador. La extensión solicita datos a Instagram. Las fotos de perfil pueden cargarse desde servidores de imágenes de Instagram o Meta. La extensión no recopila telemetría."
+  },
+  "page_policy": {
+    "message": "Política de privacidad"
+  },
+  "page_source": {
+    "message": "Código fuente"
+  },
+  "err_abort": {
+    "message": "Análisis detenido."
+  },
+  "err_network": {
+    "message": "No se ha podido conectar con Instagram."
+  },
+  "err_checkpoint": {
+    "message": "Instagram quiere comprobar tu identidad. Abre instagram.com, completa la verificación e inténtalo más tarde."
+  },
+  "err_login": {
+    "message": "Instagram te pide que vuelvas a iniciar sesión. Hazlo e inténtalo de nuevo."
+  },
+  "err_noAccess": {
+    "message": "Acceso denegado. Comprueba que has iniciado sesión en instagram.com y vuelve a cargar la página."
+  },
+  "err_unexpected": {
+    "message": "Instagram ha devuelto una respuesta inesperada (HTTP {status})."
+  },
+  "err_ig": {
+    "message": "Error de Instagram (HTTP {status}){msg}"
+  },
+  "err_ratelimit": {
+    "message": "Instagram sigue limitando las solicitudes. Espera entre 15 y 30 minutos y vuelve a intentarlo a velocidad segura."
+  },
+  "err_format": {
+    "message": "Instagram ha cambiado el formato de los datos. Hay que actualizar la extensión."
+  },
+  "err_noAccount": {
+    "message": "No se ha detectado ninguna sesión activa. Inicia sesión en instagram.com y vuelve a cargar la página."
+  },
+  "note_pause": {
+    "message": "Pausa breve de {s} s para espaciar las solicitudes a Instagram…"
+  },
+  "note_retryNet": {
+    "message": "Problema de conexión. Reintentando ({a}/{n})…"
+  },
+  "note_slowDown": {
+    "message": "Instagram pide reducir el ritmo (HTTP {status}). El análisis continuará en {s} s…"
+  },
+  "note_fallback": {
+    "message": "El método principal ha fallado. Probando la alternativa…"
+  },
+  "note_repair": {
+    "message": "Instagram ha devuelto {got} de {expected} cuentas. Buscando el resto por otra vía…"
+  },
+  "scan_checking": {
+    "message": "Comprobando tu cuenta…"
+  },
+  "scan_followers": {
+    "message": "Seguidores: {n}"
+  },
+  "scan_followersDone": {
+    "message": "Seguidores: {n} ✓ · A continuación, las cuentas que sigues…"
+  },
+  "scan_following": {
+    "message": "Seguidores: {f} ✓ · Seguidos: {n}"
+  },
+  "scan_done": {
+    "message": "Listo"
+  },
+  "scan_result": {
+    "message": "Análisis completo. Seguidores: {fr}. Seguidos: {fg}."
+  },
+  "scan_first": {
+    "message": "Este es tu primer análisis. A partir del siguiente verás quién ha dejado de seguirte."
+  },
+  "scan_changes": {
+    "message": "Desde el análisis anterior: −{lost} / +{gained} seguidores (consulta «Cambios»)."
+  },
+  "scan_noChanges": {
+    "message": "No se han detectado cambios desde el análisis anterior."
+  },
+  "scan_fewer": {
+    "message": "Seguidores: se han obtenido {got} de {expected}, según el contador del perfil. Es normal que haya una pequeña diferencia por cuentas suspendidas o desactivadas. Si la diferencia es mayor, repite el análisis más tarde."
+  },
+  "scan_shortFollowing": {
+    "message": "Aviso sobre las cuentas que sigues: se han obtenido {got} de {expected}, según el contador del perfil. Instagram no ha devuelto la lista completa y los resultados pueden ser inexactos. Vuelve a analizar en 15 minutos a velocidad segura."
+  },
+  "scan_noCounts": {
+    "message": "No se han podido leer los contadores del perfil. La extensión no ha podido comprobar si las listas están completas."
+  },
+  "scan_aborted": {
+    "message": "Análisis detenido. Se conservan los resultados anteriores."
+  },
+  "unf_duringScan": {
+    "message": "Espera a que termine el análisis."
+  },
+  "unf_otherAccount": {
+    "message": "La sesión de Instagram pertenece a una cuenta distinta de la de estos resultados. Analiza primero esta cuenta."
+  },
+  "unf_blockedUntil": {
+    "message": "La opción de dejar de seguir queda en pausa hasta las {time} por las restricciones de Instagram en tu cuenta."
+  },
+  "unf_limit": {
+    "message": "Has alcanzado el límite diario para dejar de seguir cuentas ({used}/{limit} en 24 h). Puedes cambiarlo en Ajustes."
+  },
+  "unf_cooldown": {
+    "message": "Espera {s} s más. La pausa entre acciones ayuda a proteger tu cuenta."
+  },
+  "unf_done": {
+    "message": "Has dejado de seguir a @{user}. En las últimas 24 h: {used}/{limit}."
+  },
+  "unf_blocked": {
+    "message": "Instagram ha bloqueado la acción por exceso de actividad. No podrás dejar de seguir cuentas hasta las {time}. Evita repetir la acción en la aplicación."
+  },
+  "unf_slow": {
+    "message": "Instagram pide reducir el ritmo. La opción de dejar de seguir queda en pausa hasta las {time}."
+  },
+  "unf_failed": {
+    "message": "Instagram no ha confirmado que hayas dejado de seguir a esta cuenta (HTTP {status}, {info}). Comprueba en su perfil si aún la sigues."
+  },
+  "unf_noTokens": {
+    "message": "No se han encontrado los tokens de sesión de Instagram. Vuelve a cargar la página (F5) e inténtalo de nuevo."
+  },
+  "unf_still": {
+    "message": "Instagram ha respondido, pero aún sigues a @{user}. Inténtalo más tarde o desde su perfil."
+  },
+  "unf_unconfirmed": {
+    "message": "Instagram ha aceptado la solicitud, pero no se ha podido comprobar si has dejado de seguir a @{user}. Consúltalo en su perfil."
+  },
+  "backup_exported": {
+    "message": "Copia de seguridad guardada. Cuentas: {n}."
+  },
+  "backup_imported": {
+    "message": "Copia de seguridad restaurada el {date}. Cuentas: {n}."
+  },
+  "backup_invalid": {
+    "message": "El archivo no corresponde a una copia de Apex Unfollowers o está dañado."
+  },
+  "backup_tooBig": {
+    "message": "El archivo de copia de seguridad es demasiado grande (máximo {mb} MB)."
+  },
+  "ui_stats": {
+    "message": "Estadísticas"
+  },
+  "ui_settings": {
+    "message": "Ajustes"
+  },
+  "ui_close": {
+    "message": "Cerrar (Esc)"
+  },
+  "ui_scan": {
+    "message": "Analizar"
+  },
+  "ui_stop": {
+    "message": "Detener"
+  },
+  "ui_speedTitle": {
+    "message": "Velocidad del análisis"
+  },
+  "ui_speedSafe": {
+    "message": "Velocidad: segura"
+  },
+  "ui_speedNormal": {
+    "message": "Velocidad: rápida"
+  },
+  "ui_search": {
+    "message": "Buscar por nombre…"
+  },
+  "ui_csvTitle": {
+    "message": "Descarga la lista según los filtros aplicados en formato CSV"
+  },
+  "ui_filterTitle": {
+    "message": "Filtrar"
+  },
+  "ui_sortTitle": {
+    "message": "Ordenar"
+  },
+  "ui_hiddenTitle": {
+    "message": "Mostrar también las cuentas excluidas"
+  },
+  "ui_hidden": {
+    "message": "ocultas"
+  },
+  "ui_footer": {
+    "message": "Tus datos se guardan únicamente en tu navegador."
+  },
+  "ui_more": {
+    "message": "Mostrar más ({n})"
+  },
+  "ui_lastScan": {
+    "message": "último análisis: {date}"
+  },
+  "ui_noScan": {
+    "message": "Todavía no hay análisis. Pulsa «Analizar»."
+  },
+  "tab_notBack": {
+    "message": "No te siguen"
+  },
+  "tab_fans": {
+    "message": "No sigues"
+  },
+  "tab_mutual": {
+    "message": "Mutuos"
+  },
+  "tab_changes": {
+    "message": "Cambios"
+  },
+  "tab_changesTitle": {
+    "message": "Personas que han dejado de seguirte (según el historial de análisis)"
+  },
+  "filter_all": {
+    "message": "Todas las cuentas"
+  },
+  "filter_verified": {
+    "message": "Verificadas"
+  },
+  "filter_private": {
+    "message": "Privadas"
+  },
+  "filter_public": {
+    "message": "Públicas"
+  },
+  "filter_nopic": {
+    "message": "Sin foto de perfil"
+  },
+  "sort_default": {
+    "message": "Orden predeterminado"
+  },
+  "sort_az": {
+    "message": "Nombre A–Z"
+  },
+  "sort_za": {
+    "message": "Nombre Z–A"
+  },
+  "set_lang": {
+    "message": "Idioma"
+  },
+  "set_langAuto": {
+    "message": "Automático (idioma del navegador)"
+  },
+  "set_unf": {
+    "message": "Límite al dejar de seguir"
+  },
+  "set_unfHint": {
+    "message": "Instagram limita el número de acciones. Dejar de seguir muchas cuentas en poco tiempo puede restringir tu actividad durante horas o días. La extensión exige una pausa de 15 segundos entre acciones."
+  },
+  "set_unfOption": {
+    "message": "{n} por cada 24 h"
+  },
+  "set_launcher": {
+    "message": "Botón en la página"
+  },
+  "set_launcherLabel": {
+    "message": "Mostrar el botón redondo en instagram.com"
+  },
+  "set_backup": {
+    "message": "Copia de seguridad"
+  },
+  "set_backupHint": {
+    "message": "Archivo JSON con resultados, historial, lista de exclusión y ajustes. Es útil si cambias de equipo o navegador."
+  },
+  "set_export": {
+    "message": "Guardar copia"
+  },
+  "set_import": {
+    "message": "Restaurar copia…"
+  },
+  "set_data": {
+    "message": "Datos de esta cuenta"
+  },
+  "set_dataHint": {
+    "message": "Borra los resultados, el historial, la lista de exclusión y el contador de cuentas que has dejado de seguir para esta cuenta."
+  },
+  "set_wipe": {
+    "message": "Borrar datos"
+  },
+  "set_wipeConfirm": {
+    "message": "¿Seguro? Pulsa de nuevo"
+  },
+  "set_wiped": {
+    "message": "Se han borrado los datos guardados de esta cuenta."
+  },
+  "changes_group": {
+    "message": "Análisis del {date} (comparado con el del {since})"
+  },
+  "changes_lost": {
+    "message": "Dejó de seguirte"
+  },
+  "changes_gained": {
+    "message": "Nuevo seguidor"
+  },
+  "row_hide": {
+    "message": "Ocultar"
+  },
+  "row_unhide": {
+    "message": "Restaurar"
+  },
+  "row_hideTitle": {
+    "message": "Añadir a la lista de exclusión (por ejemplo, famosos y marcas)"
+  },
+  "row_unhideTitle": {
+    "message": "Quitar de la lista de exclusión"
+  },
+  "row_unf": {
+    "message": "Dejar de seguir"
+  },
+  "row_unfConfirm": {
+    "message": "¿Seguro?"
+  },
+  "row_unfTitle": {
+    "message": "Dejar de seguir esta cuenta (requiere confirmación)"
+  },
+  "empty_changes": {
+    "message": "Todavía no hay cambios registrados. Repite el análisis más adelante para ver quién ha dejado de seguirte y quién ha empezado a seguirte."
+  },
+  "empty_firstScan": {
+    "message": "Haz tu primer análisis."
+  },
+  "empty_scanning": {
+    "message": "Cargando las listas…"
+  },
+  "empty_loggedOut": {
+    "message": "Inicia sesión en Instagram para ver tus resultados. Los análisis guardados seguirán en la extensión y aparecerán cuando vuelvas a iniciar sesión con la misma cuenta."
+  },
+  "empty_noScan": {
+    "message": "Pulsa «Analizar» para cargar tus listas. Las cuentas grandes pueden tardar unos minutos. Puedes cerrar el panel, pero deja abierta la pestaña de Instagram."
+  },
+  "empty_noResults": {
+    "message": "Ninguna cuenta coincide con la búsqueda o el filtro."
+  },
+  "empty_notBack": {
+    "message": "No hay cuentas que mostrar en esta lista."
+  },
+  "empty_fans": {
+    "message": "Sigues a todos tus seguidores."
+  },
+  "empty_mutual": {
+    "message": "No hay cuentas con seguimiento mutuo."
+  },
+  "stats_now": {
+    "message": "Ahora"
+  },
+  "stats_followers": {
+    "message": "Seguidores"
+  },
+  "stats_following": {
+    "message": "Seguidos"
+  },
+  "stats_mutual": {
+    "message": "Mutuos ({p} de las cuentas que sigues)"
+  },
+  "stats_notBack": {
+    "message": "No te siguen"
+  },
+  "stats_vsPrev": {
+    "message": "{d} desde el análisis anterior"
+  },
+  "stats_balance": {
+    "message": "Balance de seguidores"
+  },
+  "stats_balanceDays": {
+    "message": "{days} días: +{gained} / −{lost}"
+  },
+  "stats_unf24": {
+    "message": "Has dejado de seguir (24 h)"
+  },
+  "stats_chartTitle": {
+    "message": "Evolución de tus seguidores"
+  },
+  "stats_chartSub": {
+    "message": "Análisis incluidos: {n}"
+  },
+  "stats_chartEmpty": {
+    "message": "El gráfico aparecerá después del segundo análisis."
+  },
+  "stats_chartAria": {
+    "message": "Gráfico de seguidores. Total actual: {n}"
+  },
+  "stats_history": {
+    "message": "Historial de análisis"
+  },
+  "stats_colDate": {
+    "message": "Fecha"
+  },
+  "stats_colFollowers": {
+    "message": "Seguidores"
+  },
+  "stats_colFollowing": {
+    "message": "Seguidos"
+  },
+  "stats_colChange": {
+    "message": "Variación"
+  },
+  "csv_empty": {
+    "message": "No hay datos para exportar en esta pestaña."
+  },
+  "csv_head": {
+    "message": "nombre_de_usuario,nombre_completo,enlace,verificada,privada"
+  },
+  "csv_headChanges": {
+    "message": "cambio,fecha"
+  },
+  "csv_yes": {
+    "message": "sí"
+  },
+  "csv_no": {
+    "message": "no"
+  },
+  "csv_lost": {
+    "message": "dejó_de_seguirte"
+  },
+  "csv_gained": {
+    "message": "nuevo_seguidor"
+  },
+  "csv_fileNotBack": {
+    "message": "no-te-siguen"
+  },
+  "csv_fileFans": {
+    "message": "no-sigues"
+  },
+  "csv_fileMutual": {
+    "message": "mutuos"
+  },
+  "csv_fileChanges": {
+    "message": "cambios"
+  },
+  "popup_opening": {
+    "message": "Abriendo el panel…"
+  },
+  "popup_openTitle": {
+    "message": "Abrir Instagram"
+  },
+  "popup_openText": {
+    "message": "La extensión funciona en instagram.com. Inicia sesión y pulsa el icono de la extensión o el botón rosa de la esquina inferior derecha."
+  },
+  "popup_openBtn": {
+    "message": "Abrir instagram.com"
+  },
+  "popup_reloadTitle": {
+    "message": "Volver a cargar Instagram"
+  },
+  "popup_reloadText": {
+    "message": "La extensión se cargará al volver a cargar la pestaña. A continuación, pulsa de nuevo el icono."
+  },
+  "popup_reloadBtn": {
+    "message": "Volver a cargar la página"
+  },
+  "row_unfBusy": {
+    "message": "Dejando de seguir…"
+  },
+  "report_unknown": {
+    "message": "Desconocido"
+  },
+  "err_noResponseType": {
+    "message": "tipo de respuesta desconocido"
+  },
+  "err_generic": {
+    "message": "Algo ha fallado. Inténtalo de nuevo."
+  }
+}

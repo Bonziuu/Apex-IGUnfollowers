@@ -1,0 +1,632 @@
+{
+  "extName": {
+    "message": "Apex Unfollowers – Instagramのフォロー管理"
+  },
+  "extShortName": {
+    "message": "Apex"
+  },
+  "extDescription": {
+    "message": "Instagramであなたをフォローバックしていない相手や、あなたへのフォローを解除した相手を確認。ブラウザ内で処理され、パスワードの入力は不要です。"
+  },
+  "ext_name": {
+    "message": "Apex Unfollowers – Instagramのフォロー管理"
+  },
+  "ext_tagline": {
+    "message": "Instagramで自分をフォローバックしていない相手を無料で確認。データはブラウザ内に保存されます。"
+  },
+  "ui_resume": {
+    "message": "スキャンを再開"
+  },
+  "ui_restart": {
+    "message": "最初からスキャン"
+  },
+  "ui_resumeInfo": {
+    "message": "{date}に中断したスキャン：{n}件のアカウントを保存済みです。"
+  },
+  "scan_eta": {
+    "message": "残り約{t}"
+  },
+  "time_lessMin": {
+    "message": "1分未満"
+  },
+  "time_min": {
+    "message": "{n}分"
+  },
+  "scan_resuming": {
+    "message": "中断したスキャンを再開しています（{n}件取得済み）…"
+  },
+  "scan_paused": {
+    "message": "スキャンを一時停止しました。"
+  },
+  "scan_progressSaved": {
+    "message": "進捗を保存しました（{n}件）。「スキャンを再開」で続行できます。"
+  },
+  "welcome_title": {
+    "message": "Apex Unfollowersへようこそ"
+  },
+  "welcome_lead": {
+    "message": "Instagramのフォロワーとフォロー中のリストを比較します。拡張機能への登録は不要で、データは開発者に送信されません。"
+  },
+  "welcome_step1": {
+    "message": "このブラウザでinstagram.comにログインします。"
+  },
+  "welcome_step2": {
+    "message": "「スキャン」をクリックします。リストが大きい場合は数分かかることがあります。"
+  },
+  "welcome_step3": {
+    "message": "タブ、フィルター、統計を確認できます。フォロー解除は1件ずつ行ってください。"
+  },
+  "welcome_riskTitle": {
+    "message": "アカウントの安全性"
+  },
+  "welcome_riskText": {
+    "message": "この拡張機能はInstagramの非公式ウェブAPIを利用します。Instagramの利用規約では自動でのデータ収集を認めていないため、ご自身の判断と責任でご利用ください。"
+  },
+  "welcome_risk1": {
+    "message": "スキャンは安全モードで、1日1回を目安にしてください。"
+  },
+  "welcome_risk2": {
+    "message": "フォロー解除は間隔を空けて行ってください。拡張機能は間隔と1日の上限を設けています。"
+  },
+  "welcome_risk3": {
+    "message": "操作をブロックされたら、1〜2日待ってください。"
+  },
+  "welcome_accept": {
+    "message": "内容を理解したうえで、拡張機能を使います。"
+  },
+  "welcome_start": {
+    "message": "はじめる"
+  },
+  "welcome_privacy": {
+    "message": "データはこのブラウザ内に保存されます。"
+  },
+  "welcome_more": {
+    "message": "詳しい情報"
+  },
+  "set_about": {
+    "message": "拡張機能について"
+  },
+  "set_authorTitle": {
+    "message": "開発者とお問い合わせ"
+  },
+  "set_linkedin": {
+    "message": "LinkedInプロフィール"
+  },
+  "set_linkedinLabel": {
+    "message": "開発者のLinkedInプロフィール（新しいタブで開く）"
+  },
+  "set_reportHint": {
+    "message": "問題が発生しましたか？報告には拡張機能のバージョン、ブラウザ、診断情報が含まれます。メールには画面の表示言語も含まれます。アカウント名は含まれません。"
+  },
+  "set_reportGithub": {
+    "message": "問題を報告"
+  },
+  "set_reportMail": {
+    "message": "メールを送る"
+  },
+  "set_showWelcome": {
+    "message": "ウェルカム画面を表示"
+  },
+  "report_button": {
+    "message": "問題を報告"
+  },
+  "report_buttonTitle": {
+    "message": "GitHubで報告フォームを開く（バージョン、ブラウザ、エラーを入力済み）"
+  },
+  "report_mailIntro": {
+    "message": "発生したことと、行おうとしていた操作を記入してください。"
+  },
+  "report_browser": {
+    "message": "ブラウザ"
+  },
+  "report_language": {
+    "message": "言語"
+  },
+  "report_error": {
+    "message": "直近のエラー"
+  },
+  "report_subject": {
+    "message": "問題の報告"
+  },
+  "page_title": {
+    "message": "Apex Unfollowersへようこそ"
+  },
+  "page_tagline": {
+    "message": "Instagramで自分をフォローバックしていない相手を無料で確認。データはブラウザ内に保存されます。"
+  },
+  "page_lead": {
+    "message": "Apex UnfollowersはInstagramのフォロワーとフォロー中のリストを比較します。あなたをフォローバックしていない相手、あなたがフォローしていないフォロワー、あなたへのフォローを解除した相手を確認できます。処理はブラウザ内で行われ、拡張機能への登録やパスワードの入力は不要です。開発者にデータが送信されることもありません。"
+  },
+  "page_howTitle": {
+    "message": "使い方"
+  },
+  "page_featTitle": {
+    "message": "パネルの主な機能"
+  },
+  "page_feat1": {
+    "message": "<strong>あなたへのフォローバックなし</strong> — 有名人やブランドなどを除外リストに追加できます"
+  },
+  "page_feat2": {
+    "message": "<strong>変化</strong> — 前回のスキャン以降に増えた、または減ったフォロワー"
+  },
+  "page_feat3": {
+    "message": "<strong>統計</strong> — フォロワー数のグラフと過去7日間・30日間の増減"
+  },
+  "page_feat4": {
+    "message": "<strong>フォロー解除</strong> — 1件ずつ実行し、操作前の確認と1日の上限があります"
+  },
+  "page_open": {
+    "message": "Instagramを開く"
+  },
+  "page_done": {
+    "message": "準備ができました。Instagramを開き、右下のピンク色のボタンをクリックしてください。"
+  },
+  "page_privacyTitle": {
+    "message": "プライバシー"
+  },
+  "page_privacyText": {
+    "message": "スキャン結果、履歴、設定は、このブラウザの拡張機能ストレージに保存されます。データはInstagramから取得し、プロフィール写真はInstagramやMetaの画像サーバーから読み込むことがあります。利用状況のデータは収集しません。"
+  },
+  "page_policy": {
+    "message": "プライバシーポリシー"
+  },
+  "page_source": {
+    "message": "ソースコード"
+  },
+  "err_abort": {
+    "message": "スキャンを停止しました。"
+  },
+  "err_network": {
+    "message": "Instagramに接続できませんでした。"
+  },
+  "err_checkpoint": {
+    "message": "Instagramが本人確認を求めています。instagram.comで確認を済ませ、しばらくしてからお試しください。"
+  },
+  "err_login": {
+    "message": "Instagramにもう一度ログインしてから、お試しください。"
+  },
+  "err_noAccess": {
+    "message": "アクセスできません。instagram.comにログインしていることを確認し、ページを再読み込みしてください。"
+  },
+  "err_unexpected": {
+    "message": "Instagramから予期しない応答が返されました（HTTP {status}）。"
+  },
+  "err_ig": {
+    "message": "Instagramのエラー（HTTP {status}）{msg}"
+  },
+  "err_ratelimit": {
+    "message": "Instagramが引き続きリクエストを制限しています。15〜30分待ってから安全モードで再試行してください。"
+  },
+  "err_format": {
+    "message": "Instagramのデータ形式が変わりました。拡張機能の更新が必要です。"
+  },
+  "err_noAccount": {
+    "message": "ログイン中のアカウントが見つかりませんでした。instagram.comにログインし、ページを再読み込みしてください。"
+  },
+  "note_pause": {
+    "message": "Instagramへの負荷を抑えるため、{s}秒待機しています…"
+  },
+  "note_retryNet": {
+    "message": "接続に問題が発生したため、再試行しています（{a}/{n}）…"
+  },
+  "note_slowDown": {
+    "message": "Instagramがリクエストを制限しています（HTTP {status}）。{s}秒待ってから再開します…"
+  },
+  "note_fallback": {
+    "message": "通常の方法で取得できなかったため、別の方法を試しています…"
+  },
+  "note_repair": {
+    "message": "Instagramから取得できたのは{expected}件中{got}件でした。残りを別の方法で取得しています…"
+  },
+  "scan_checking": {
+    "message": "アカウントを確認しています…"
+  },
+  "scan_followers": {
+    "message": "フォロワー：{n}"
+  },
+  "scan_followersDone": {
+    "message": "フォロワー：{n} ✓ · 続いてフォロー中のアカウントを確認…"
+  },
+  "scan_following": {
+    "message": "フォロワー：{f} ✓ · フォロー中：{n}"
+  },
+  "scan_done": {
+    "message": "完了"
+  },
+  "scan_result": {
+    "message": "スキャン完了！ フォロワー：{fr}、フォロー中：{fg}。"
+  },
+  "scan_first": {
+    "message": "初回スキャンが完了しました。次回は、あなたへのフォローを解除した相手を確認できます。"
+  },
+  "scan_changes": {
+    "message": "前回のスキャン以降のフォロワー増減：−{lost} / +{gained}（「変化」タブを参照）。"
+  },
+  "scan_noChanges": {
+    "message": "前回のスキャンから変化はありません。"
+  },
+  "scan_fewer": {
+    "message": "プロフィール表示のフォロワー総数{expected}件のうち{got}件を取得しました。停止中や無効化されたアカウントにより多少の差が出ることがあります。差が大きければ、しばらくしてから再スキャンしてください。"
+  },
+  "scan_shortFollowing": {
+    "message": "注意：プロフィール表示のフォロー中の総数{expected}件のうち{got}件を取得しました。Instagramから完全なリストが返されなかったため、結果が正確でない可能性があります。15分待ってから安全モードで再スキャンしてください。"
+  },
+  "scan_noCounts": {
+    "message": "プロフィールの表示件数を読み取れなかったため、リストが完全かどうか確認できませんでした。"
+  },
+  "scan_aborted": {
+    "message": "スキャンを停止しました。前回の結果は保存されています。"
+  },
+  "unf_duringScan": {
+    "message": "スキャンが終わるまでお待ちください。"
+  },
+  "unf_otherAccount": {
+    "message": "スキャン結果とは別のアカウントでログインしています。先に現在のアカウントをスキャンしてください。"
+  },
+  "unf_blockedUntil": {
+    "message": "Instagramがアカウントの操作を制限したため、{time}までフォロー解除を一時停止します。"
+  },
+  "unf_limit": {
+    "message": "1日のフォロー解除上限に達しました（24時間で{used}/{limit}件）。上限は設定で変更できます。"
+  },
+  "unf_cooldown": {
+    "message": "あと{s}秒お待ちください。操作の間隔を空けることで、アカウント制限を受けにくくなります。"
+  },
+  "unf_done": {
+    "message": "@{user}のフォローを解除しました。直近24時間：{used}/{limit}件。"
+  },
+  "unf_blocked": {
+    "message": "操作回数が多いため、Instagramがこの操作をブロックしました。{time}までフォロー解除を一時停止します。アプリから手動でやり直さないでください。"
+  },
+  "unf_slow": {
+    "message": "Instagramが操作の頻度を下げるよう求めています。{time}までフォロー解除を一時停止します。"
+  },
+  "unf_failed": {
+    "message": "Instagramからフォロー解除の確認がありませんでした（HTTP {status}、{info}）。相手のプロフィールでフォロー状態を確認してください。"
+  },
+  "unf_noTokens": {
+    "message": "ページからInstagramのセッショントークンを取得できませんでした。ページを再読み込み（F5）して再試行してください。"
+  },
+  "unf_still": {
+    "message": "Instagramから応答がありましたが、まだ@{user}をフォロー中です。時間をおいて試すか、相手のプロフィールから操作してください。"
+  },
+  "unf_unconfirmed": {
+    "message": "Instagramはリクエストを受け付けましたが、@{user}のフォロー解除を確認できませんでした。相手のプロフィールを確認してください。"
+  },
+  "backup_exported": {
+    "message": "バックアップを保存しました（{n}件のアカウント）。"
+  },
+  "backup_imported": {
+    "message": "バックアップを復元しました（復元日：{date}、対象アカウント：{n}件）。"
+  },
+  "backup_invalid": {
+    "message": "ファイルが壊れているか、Apex Unfollowersのバックアップではありません。"
+  },
+  "backup_tooBig": {
+    "message": "バックアップファイルが大きすぎます（最大{mb} MB）。"
+  },
+  "ui_stats": {
+    "message": "統計"
+  },
+  "ui_settings": {
+    "message": "設定"
+  },
+  "ui_close": {
+    "message": "閉じる（Esc）"
+  },
+  "ui_scan": {
+    "message": "スキャン"
+  },
+  "ui_stop": {
+    "message": "停止"
+  },
+  "ui_speedTitle": {
+    "message": "スキャン速度"
+  },
+  "ui_speedSafe": {
+    "message": "速度：安全"
+  },
+  "ui_speedNormal": {
+    "message": "速度：高速"
+  },
+  "ui_search": {
+    "message": "名前で検索…"
+  },
+  "ui_csvTitle": {
+    "message": "現在のタブの検索・絞り込み結果をCSVでダウンロード"
+  },
+  "ui_filterTitle": {
+    "message": "絞り込み"
+  },
+  "ui_sortTitle": {
+    "message": "並べ替え"
+  },
+  "ui_hiddenTitle": {
+    "message": "除外リストに追加した非表示アカウントも表示"
+  },
+  "ui_hidden": {
+    "message": "非表示"
+  },
+  "ui_footer": {
+    "message": "データはブラウザ内にのみ保存されます。"
+  },
+  "ui_more": {
+    "message": "さらに表示（{n}件）"
+  },
+  "ui_lastScan": {
+    "message": "前回のスキャン：{date}"
+  },
+  "ui_noScan": {
+    "message": "まだスキャンしていません。「スキャン」をクリックしてください。"
+  },
+  "tab_notBack": {
+    "message": "あなたへのフォローバックなし"
+  },
+  "tab_fans": {
+    "message": "未フォローのフォロワー"
+  },
+  "tab_mutual": {
+    "message": "相互フォロー"
+  },
+  "tab_changes": {
+    "message": "変化"
+  },
+  "tab_changesTitle": {
+    "message": "あなたへのフォローを解除したアカウント数（スキャン履歴に基づく）"
+  },
+  "filter_all": {
+    "message": "すべてのアカウント"
+  },
+  "filter_verified": {
+    "message": "認証済み"
+  },
+  "filter_private": {
+    "message": "非公開"
+  },
+  "filter_public": {
+    "message": "公開"
+  },
+  "filter_nopic": {
+    "message": "プロフィール写真なし"
+  },
+  "sort_default": {
+    "message": "既定の順序"
+  },
+  "sort_az": {
+    "message": "ユーザー名（A–Z）"
+  },
+  "sort_za": {
+    "message": "ユーザー名（Z–A）"
+  },
+  "set_lang": {
+    "message": "言語"
+  },
+  "set_langAuto": {
+    "message": "自動（ブラウザの言語）"
+  },
+  "set_unf": {
+    "message": "フォロー解除の上限"
+  },
+  "set_unfHint": {
+    "message": "Instagramは操作回数を制限しています。短時間に多数のフォローを解除すると、数時間から数日間、アカウントの操作が制限されることがあります。この拡張機能では解除の間に15秒の間隔を設けています。"
+  },
+  "set_unfOption": {
+    "message": "24時間に{n}件"
+  },
+  "set_launcher": {
+    "message": "ページ上のボタン"
+  },
+  "set_launcherLabel": {
+    "message": "instagram.comに丸いボタンを表示"
+  },
+  "set_backup": {
+    "message": "バックアップ"
+  },
+  "set_backupHint": {
+    "message": "スキャン結果、履歴、除外リスト、設定をまとめたJSONファイルです。パソコンやブラウザを変更するときに使えます。"
+  },
+  "set_export": {
+    "message": "バックアップを保存"
+  },
+  "set_import": {
+    "message": "バックアップから復元…"
+  },
+  "set_data": {
+    "message": "このアカウントのデータ"
+  },
+  "set_dataHint": {
+    "message": "現在のアカウントのスキャン結果、履歴、除外リスト、フォロー解除回数を削除します。"
+  },
+  "set_wipe": {
+    "message": "データを消去"
+  },
+  "set_wipeConfirm": {
+    "message": "もう一度クリックして消去"
+  },
+  "set_wiped": {
+    "message": "このアカウントの保存データを消去しました。"
+  },
+  "changes_group": {
+    "message": "{date}のスキャン（{since}と比較）"
+  },
+  "changes_lost": {
+    "message": "あなたへのフォローを解除"
+  },
+  "changes_gained": {
+    "message": "新規フォロワー"
+  },
+  "row_hide": {
+    "message": "非表示"
+  },
+  "row_unhide": {
+    "message": "再表示"
+  },
+  "row_hideTitle": {
+    "message": "除外リストに追加（有名人やブランドなど）。このタブに表示されなくなります。"
+  },
+  "row_unhideTitle": {
+    "message": "除外リストから削除"
+  },
+  "row_unf": {
+    "message": "フォロー解除"
+  },
+  "row_unfConfirm": {
+    "message": "解除しますか？"
+  },
+  "row_unfTitle": {
+    "message": "このアカウントのフォローを解除します（要確認）"
+  },
+  "empty_changes": {
+    "message": "まだ変化が記録されていません。次回スキャンすると、新しいフォロワーや、あなたへのフォローを解除した相手がここに表示されます。"
+  },
+  "empty_firstScan": {
+    "message": "まず初回スキャンを行ってください。"
+  },
+  "empty_scanning": {
+    "message": "リストを取得しています…"
+  },
+  "empty_loggedOut": {
+    "message": "結果を見るにはInstagramにログインしてください。スキャン結果は拡張機能に保存され、同じアカウントでログインすると再表示されます。"
+  },
+  "empty_noScan": {
+    "message": "「スキャン」をクリックしてリストを取得します。リストが大きい場合は数分かかります。パネルを閉じても処理は続きますが、Instagramのタブは開いたままにしてください。"
+  },
+  "empty_noResults": {
+    "message": "検索条件やフィルターに一致するアカウントはありません。"
+  },
+  "empty_notBack": {
+    "message": "このリストに表示するアカウントはありません。"
+  },
+  "empty_fans": {
+    "message": "すべてのフォロワーをフォローバックしています。"
+  },
+  "empty_mutual": {
+    "message": "相互フォローしているアカウントはありません。"
+  },
+  "stats_now": {
+    "message": "現在"
+  },
+  "stats_followers": {
+    "message": "フォロワー"
+  },
+  "stats_following": {
+    "message": "フォロー中"
+  },
+  "stats_mutual": {
+    "message": "相互フォロー（フォロー中の{p}）"
+  },
+  "stats_notBack": {
+    "message": "あなたへのフォローバックなし"
+  },
+  "stats_vsPrev": {
+    "message": "前回スキャンから {d}"
+  },
+  "stats_balance": {
+    "message": "フォロワーの増減"
+  },
+  "stats_balanceDays": {
+    "message": "過去{days}日：+{gained} / −{lost}"
+  },
+  "stats_unf24": {
+    "message": "フォロー解除（24時間）"
+  },
+  "stats_chartTitle": {
+    "message": "フォロワー数の推移"
+  },
+  "stats_chartSub": {
+    "message": "スキャン回数：{n}"
+  },
+  "stats_chartEmpty": {
+    "message": "2回目のスキャンが完了するとグラフが表示されます。"
+  },
+  "stats_chartAria": {
+    "message": "フォロワー数のグラフ。現在{n}件"
+  },
+  "stats_history": {
+    "message": "スキャン履歴"
+  },
+  "stats_colDate": {
+    "message": "日付"
+  },
+  "stats_colFollowers": {
+    "message": "フォロワー"
+  },
+  "stats_colFollowing": {
+    "message": "フォロー中"
+  },
+  "stats_colChange": {
+    "message": "増減"
+  },
+  "csv_empty": {
+    "message": "このタブにはエクスポートできるデータがありません。"
+  },
+  "csv_head": {
+    "message": "ユーザー名,氏名,リンク,認証済み,非公開"
+  },
+  "csv_headChanges": {
+    "message": "変化,日付"
+  },
+  "csv_yes": {
+    "message": "はい"
+  },
+  "csv_no": {
+    "message": "いいえ"
+  },
+  "csv_lost": {
+    "message": "あなたへのフォローを解除"
+  },
+  "csv_gained": {
+    "message": "新規フォロワー"
+  },
+  "csv_fileNotBack": {
+    "message": "あなたへのフォローバックなし"
+  },
+  "csv_fileFans": {
+    "message": "未フォローのフォロワー"
+  },
+  "csv_fileMutual": {
+    "message": "相互フォロー"
+  },
+  "csv_fileChanges": {
+    "message": "フォロワーの変化"
+  },
+  "popup_opening": {
+    "message": "パネルを開いています…"
+  },
+  "popup_openTitle": {
+    "message": "Instagramを開く"
+  },
+  "popup_openText": {
+    "message": "この拡張機能はinstagram.comで使えます。ログインしてから、拡張機能のアイコンまたはページ右下のピンク色のボタンをクリックしてください。"
+  },
+  "popup_openBtn": {
+    "message": "instagram.comを開く"
+  },
+  "popup_reloadTitle": {
+    "message": "Instagramを再読み込み"
+  },
+  "popup_reloadText": {
+    "message": "タブを再読み込みすると拡張機能が読み込まれます。その後、もう一度アイコンをクリックしてください。"
+  },
+  "popup_reloadBtn": {
+    "message": "ページを再読み込み"
+  },
+  "row_unfBusy": {
+    "message": "フォローを解除しています…"
+  },
+  "report_unknown": {
+    "message": "不明"
+  },
+  "err_noResponseType": {
+    "message": "応答の種類が不明"
+  },
+  "err_generic": {
+    "message": "問題が発生しました。"
+  },
+  "support_link": {
+    "message": "Ko-fiでApexを応援"
+  },
+  "support_hint": {
+    "message": "支援は任意です。すべての機能を無料で使えます。"
+  }
+}

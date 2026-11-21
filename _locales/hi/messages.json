@@ -1,0 +1,632 @@
+{
+  "extName": {
+    "message": "Instagram के लिए Apex Unfollowers"
+  },
+  "extShortName": {
+    "message": "Apex"
+  },
+  "extDescription": {
+    "message": "देखें कि Instagram पर कौन आपको वापस फ़ॉलो नहीं करता और किसने अनफ़ॉलो किया। आपके ब्राउज़र में चलता है, पासवर्ड नहीं माँगता।"
+  },
+  "ext_name": {
+    "message": "Instagram के लिए Apex Unfollowers"
+  },
+  "ext_tagline": {
+    "message": "देखें कि Instagram पर कौन आपको वापस फ़ॉलो नहीं करता। मुफ़्त और आपके ब्राउज़र में"
+  },
+  "ui_resume": {
+    "message": "स्कैन जारी रखें"
+  },
+  "ui_restart": {
+    "message": "फिर से शुरू करें"
+  },
+  "ui_resumeInfo": {
+    "message": "{date} का स्कैन बीच में रुका था। सहेजे गए खाते: {n}।"
+  },
+  "scan_eta": {
+    "message": "लगभग {t} शेष"
+  },
+  "time_lessMin": {
+    "message": "एक मिनट से कम"
+  },
+  "time_min": {
+    "message": "{n} मिनट"
+  },
+  "scan_resuming": {
+    "message": "रुका हुआ स्कैन जारी है। अब तक मिले खाते: {n}…"
+  },
+  "scan_paused": {
+    "message": "स्कैन रोक दिया गया है।"
+  },
+  "scan_progressSaved": {
+    "message": "स्कैन की प्रगति सहेजी गई। सहेजे गए खाते: {n}। पूरा करने के लिए «स्कैन जारी रखें» पर क्लिक करें।"
+  },
+  "welcome_title": {
+    "message": "Apex Unfollowers में आपका स्वागत है"
+  },
+  "welcome_lead": {
+    "message": "यह एक्सटेंशन Instagram पर आपके फ़ॉलोअर्स और आपके फ़ॉलो किए गए खातों की सूचियों की तुलना करता है। यह आपके ब्राउज़र में चलता है। इसके लिए अलग खाते की ज़रूरत नहीं है और आपका डेटा डेवलपर को नहीं भेजा जाता।"
+  },
+  "welcome_step1": {
+    "message": "इसी ब्राउज़र में instagram.com पर लॉग इन करें।"
+  },
+  "welcome_step2": {
+    "message": "«स्कैन करें» पर क्लिक करें। बड़ी सूचियों वाले खातों में कुछ मिनट लग सकते हैं।"
+  },
+  "welcome_step3": {
+    "message": "टैब, फ़िल्टर और आँकड़े देखें। एक बार में एक ही खाते को अनफ़ॉलो करें।"
+  },
+  "welcome_riskTitle": {
+    "message": "खाते की सुरक्षा"
+  },
+  "welcome_riskText": {
+    "message": "यह एक्सटेंशन Instagram की वेबसाइट का अनाधिकारिक API इस्तेमाल करता है। Instagram की शर्तें अपने-आप डेटा इकट्ठा करने की अनुमति नहीं देतीं, इसलिए इसका इस्तेमाल अपनी ज़िम्मेदारी पर करें।"
+  },
+  "welcome_risk1": {
+    "message": "सुरक्षित गति से दिन में ज़्यादा से ज़्यादा एक बार स्कैन करें।"
+  },
+  "welcome_risk2": {
+    "message": "ठहर-ठहर कर अनफ़ॉलो करें। एक्सटेंशन कार्रवाइयों के बीच विराम और रोज़ की सीमा लागू करता है।"
+  },
+  "welcome_risk3": {
+    "message": "अगर Instagram कोई कार्रवाई रोक दे, तो एक-दो दिन इंतज़ार करें।"
+  },
+  "welcome_accept": {
+    "message": "मुझे जोखिम समझ में आ गए हैं और मैं एक्सटेंशन इस्तेमाल करने के लिए तैयार हूँ।"
+  },
+  "welcome_start": {
+    "message": "शुरू करें"
+  },
+  "welcome_privacy": {
+    "message": "आपका डेटा इसी ब्राउज़र में रहता है।"
+  },
+  "welcome_more": {
+    "message": "ज़्यादा जानकारी"
+  },
+  "set_about": {
+    "message": "एक्सटेंशन के बारे में"
+  },
+  "set_authorTitle": {
+    "message": "डेवलपर और संपर्क"
+  },
+  "set_linkedin": {
+    "message": "LinkedIn प्रोफ़ाइल"
+  },
+  "set_linkedinLabel": {
+    "message": "डेवलपर की LinkedIn प्रोफ़ाइल (नए टैब में खुलेगी)"
+  },
+  "support_link": {
+    "message": "Ko-fi पर Apex का समर्थन करें"
+  },
+  "support_hint": {
+    "message": "योगदान वैकल्पिक है। सभी सुविधाएँ मुफ़्त हैं।"
+  },
+  "set_reportHint": {
+    "message": "कोई दिक्कत है? रिपोर्ट के मसौदे में समस्या की तकनीकी जानकारी, एक्सटेंशन का संस्करण और ब्राउज़र शामिल हैं। ईमेल के मसौदे में इंटरफ़ेस की भाषा भी होती है। खातों के नाम शामिल नहीं हैं।"
+  },
+  "set_reportGithub": {
+    "message": "समस्या की रिपोर्ट करें"
+  },
+  "set_reportMail": {
+    "message": "ईमेल भेजें"
+  },
+  "set_showWelcome": {
+    "message": "स्वागत स्क्रीन दिखाएँ"
+  },
+  "report_button": {
+    "message": "समस्या की रिपोर्ट करें"
+  },
+  "report_buttonTitle": {
+    "message": "GitHub पर पहले से भरी रिपोर्ट खोलें (संस्करण, ब्राउज़र, गड़बड़ी)"
+  },
+  "report_mailIntro": {
+    "message": "बताएँ कि क्या हुआ और आप क्या करने की कोशिश कर रहे थे:"
+  },
+  "report_browser": {
+    "message": "ब्राउज़र"
+  },
+  "report_language": {
+    "message": "भाषा"
+  },
+  "report_error": {
+    "message": "पिछली गड़बड़ी"
+  },
+  "report_subject": {
+    "message": "समस्या की रिपोर्ट"
+  },
+  "page_title": {
+    "message": "Apex Unfollowers में आपका स्वागत है"
+  },
+  "page_tagline": {
+    "message": "देखें कि Instagram पर कौन आपको वापस फ़ॉलो नहीं करता। मुफ़्त और आपके ब्राउज़र में"
+  },
+  "page_lead": {
+    "message": "Apex Unfollowers Instagram पर आपके फ़ॉलोअर्स और आपके फ़ॉलो किए गए खातों की सूचियों की तुलना करता है। देखें कि कौन आपको वापस फ़ॉलो नहीं करता, आप किसे फ़ॉलो नहीं करते और किसने आपको अनफ़ॉलो किया। यह आपके ब्राउज़र में चलता है। अलग खाते की ज़रूरत नहीं है। यह पासवर्ड नहीं माँगता और डेवलपर को डेटा नहीं भेजता।"
+  },
+  "page_howTitle": {
+    "message": "शुरुआत कैसे करें"
+  },
+  "page_featTitle": {
+    "message": "पैनल में क्या दिखता है"
+  },
+  "page_feat1": {
+    "message": "<strong>वापस फ़ॉलो नहीं करते</strong> – मशहूर हस्तियों और ब्रैंड के लिए अपवाद सूची के साथ"
+  },
+  "page_feat2": {
+    "message": "<strong>बदलाव</strong> – पिछले स्कैन के बाद किसने फ़ॉलो और अनफ़ॉलो किया"
+  },
+  "page_feat3": {
+    "message": "<strong>आँकड़े</strong> – फ़ॉलोअर्स का ग्राफ़ और 7 व 30 दिनों का कुल बदलाव"
+  },
+  "page_feat4": {
+    "message": "<strong>अनफ़ॉलो</strong> – एक बार में एक, पुष्टि और रोज़ की सीमा के साथ"
+  },
+  "page_open": {
+    "message": "Instagram खोलें"
+  },
+  "page_done": {
+    "message": "सब तैयार है। Instagram खोलें और पेज के निचले दाएँ कोने में गुलाबी बटन पर क्लिक करें।"
+  },
+  "page_privacyTitle": {
+    "message": "निजता"
+  },
+  "page_privacyText": {
+    "message": "स्कैन के नतीजे, इतिहास और सेटिंग इसी ब्राउज़र में रहते हैं। एक्सटेंशन सूचियाँ Instagram से लेता है और प्रोफ़ाइल फ़ोटो Instagram या Meta के इमेज सर्वर से लोड हो सकती हैं। इस्तेमाल से जुड़ा डेटा इकट्ठा नहीं किया जाता।"
+  },
+  "page_policy": {
+    "message": "निजता नीति"
+  },
+  "page_source": {
+    "message": "सोर्स कोड"
+  },
+  "err_abort": {
+    "message": "स्कैन रुक गया।"
+  },
+  "err_network": {
+    "message": "Instagram से कनेक्ट नहीं हो सका।"
+  },
+  "err_checkpoint": {
+    "message": "Instagram आपकी पहचान की पुष्टि करना चाहता है। instagram.com खोलें, जाँच पूरी करें और बाद में फिर कोशिश करें।"
+  },
+  "err_login": {
+    "message": "Instagram दोबारा लॉग इन करने को कह रहा है। लॉग इन करके फिर कोशिश करें।"
+  },
+  "err_noAccess": {
+    "message": "एक्सेस नहीं मिला। पक्का करें कि आप instagram.com पर लॉग इन हैं, फिर पेज रीलोड करें।"
+  },
+  "err_unexpected": {
+    "message": "Instagram से अनपेक्षित जवाब मिला (HTTP {status})।"
+  },
+  "err_ig": {
+    "message": "Instagram में गड़बड़ी (HTTP {status}){msg}"
+  },
+  "err_ratelimit": {
+    "message": "Instagram अब भी अनुरोध सीमित कर रहा है। 15–30 मिनट इंतज़ार करें और सुरक्षित गति से फिर कोशिश करें।"
+  },
+  "err_format": {
+    "message": "Instagram ने डेटा का फ़ॉर्मैट बदल दिया है। एक्सटेंशन को अपडेट करने की ज़रूरत है।"
+  },
+  "err_noAccount": {
+    "message": "कोई लॉग इन खाता नहीं मिला। instagram.com पर लॉग इन करके पेज रीलोड करें।"
+  },
+  "note_pause": {
+    "message": "Instagram पर ज़्यादा अनुरोध न जाएँ, इसलिए थोड़ी देर रुक रहे हैं ({s} सेकंड)…"
+  },
+  "note_retryNet": {
+    "message": "कनेक्शन में दिक्कत। फिर कोशिश की जा रही है ({a}/{n})…"
+  },
+  "note_slowDown": {
+    "message": "Instagram ने अनुरोध धीमे करने को कहा है (HTTP {status})। स्कैन {s} सेकंड बाद जारी रहेगा…"
+  },
+  "note_fallback": {
+    "message": "पहला तरीका काम नहीं आया। दूसरा तरीका आज़माया जा रहा है…"
+  },
+  "note_repair": {
+    "message": "Instagram से {expected} में से {got} खाते मिले। बाकी खाते दूसरे तरीके से लिए जा रहे हैं…"
+  },
+  "scan_checking": {
+    "message": "आपके खाते की जाँच हो रही है…"
+  },
+  "scan_followers": {
+    "message": "फ़ॉलोअर्स: {n}"
+  },
+  "scan_followersDone": {
+    "message": "फ़ॉलोअर्स: {n} ✓ · अब आपके फ़ॉलो किए गए खातों की बारी…"
+  },
+  "scan_following": {
+    "message": "फ़ॉलोअर्स: {f} ✓ · फ़ॉलो किए गए खाते: {n}"
+  },
+  "scan_done": {
+    "message": "पूरा हुआ"
+  },
+  "scan_result": {
+    "message": "स्कैन पूरा। फ़ॉलोअर्स: {fr}, फ़ॉलो किए गए खाते: {fg}।"
+  },
+  "scan_first": {
+    "message": "यह आपका पहला स्कैन है। अगले स्कैन में दिखेगा कि किसने आपको अनफ़ॉलो किया।"
+  },
+  "scan_changes": {
+    "message": "पिछले स्कैन के बाद: −{lost} / +{gained} फ़ॉलोअर्स («बदलाव» टैब देखें)।"
+  },
+  "scan_noChanges": {
+    "message": "पिछले स्कैन के बाद कोई बदलाव नहीं।"
+  },
+  "scan_fewer": {
+    "message": "फ़ॉलोअर्स: प्रोफ़ाइल पर दिख रहे {expected} में से {got} मिले। निलंबित और बंद खातों की वजह से थोड़ा अंतर सामान्य है। बड़ा अंतर हो तो बाद में फिर स्कैन करें।"
+  },
+  "scan_shortFollowing": {
+    "message": "ध्यान दें: फ़ॉलो किए गए खातों में प्रोफ़ाइल पर दिख रहे {expected} में से {got} मिले। Instagram से पूरी सूची नहीं मिली, इसलिए टैब के नतीजे कम सटीक हो सकते हैं। 15 मिनट बाद सुरक्षित गति से फिर स्कैन करें।"
+  },
+  "scan_noCounts": {
+    "message": "प्रोफ़ाइल पर दिख रही संख्या पढ़ी नहीं जा सकी, इसलिए यह जाँच नहीं हो पाई कि सूचियाँ पूरी हैं या नहीं।"
+  },
+  "scan_aborted": {
+    "message": "स्कैन रोक दिया गया। पिछले नतीजे सुरक्षित हैं।"
+  },
+  "unf_duringScan": {
+    "message": "स्कैन पूरा होने तक इंतज़ार करें।"
+  },
+  "unf_otherAccount": {
+    "message": "आपने उस खाते से अलग खाते में लॉग इन किया है जिसके ये नतीजे हैं। पहले मौजूदा खाते का स्कैन करें।"
+  },
+  "unf_blockedUntil": {
+    "message": "Instagram ने आपके खाते पर कार्रवाइयाँ सीमित की हैं। {time} तक अनफ़ॉलो करने पर रोक है।"
+  },
+  "unf_limit": {
+    "message": "रोज़ की अनफ़ॉलो सीमा पूरी हो गई ({used}/{limit} प्रति 24 घंटे)। इसे सेटिंग में बदल सकते हैं।"
+  },
+  "unf_cooldown": {
+    "message": "अभी {s} सेकंड और इंतज़ार करें। अनफ़ॉलो के बीच रुकने से आपके खाते की सुरक्षा में मदद मिलती है।"
+  },
+  "unf_done": {
+    "message": "@{user} को अनफ़ॉलो किया। पिछले 24 घंटे: {used}/{limit}।"
+  },
+  "unf_blocked": {
+    "message": "बहुत ज़्यादा कार्रवाइयों की वजह से Instagram ने यह कार्रवाई रोक दी। {time} तक अनफ़ॉलो रुका रहेगा। ऐप में मैन्युअल रूप से दोबारा कोशिश न करें।"
+  },
+  "unf_slow": {
+    "message": "Instagram ने गति धीमी करने को कहा है। {time} तक अनफ़ॉलो रुका रहेगा।"
+  },
+  "unf_failed": {
+    "message": "Instagram ने अनफ़ॉलो की पुष्टि नहीं की (HTTP {status}, {info})। उस प्रोफ़ाइल पर जाकर देखें कि आप अब भी उसे फ़ॉलो करते हैं या नहीं।"
+  },
+  "unf_noTokens": {
+    "message": "पेज पर Instagram के सेशन टोकन नहीं मिले। पेज रीलोड करें (F5) और फिर कोशिश करें।"
+  },
+  "unf_still": {
+    "message": "Instagram से जवाब मिला, लेकिन आप अभी भी @{user} को फ़ॉलो कर रहे हैं। बाद में या सीधे उस प्रोफ़ाइल से कोशिश करें।"
+  },
+  "unf_unconfirmed": {
+    "message": "Instagram ने अनुरोध स्वीकार किया, लेकिन एक्सटेंशन पुष्टि नहीं कर सका कि @{user} को अनफ़ॉलो किया गया है। उसकी प्रोफ़ाइल पर जाकर देखें।"
+  },
+  "backup_exported": {
+    "message": "बैकअप सहेजा गया (खाते: {n})।"
+  },
+  "backup_imported": {
+    "message": "{date} को बैकअप बहाल किया गया (खाते: {n})।"
+  },
+  "backup_invalid": {
+    "message": "यह Apex Unfollowers का बैकअप नहीं है या फ़ाइल खराब है।"
+  },
+  "backup_tooBig": {
+    "message": "बैकअप फ़ाइल बहुत बड़ी है (अधिकतम {mb} MB)।"
+  },
+  "ui_stats": {
+    "message": "आँकड़े"
+  },
+  "ui_settings": {
+    "message": "सेटिंग"
+  },
+  "ui_close": {
+    "message": "बंद करें (Esc)"
+  },
+  "ui_scan": {
+    "message": "स्कैन करें"
+  },
+  "ui_stop": {
+    "message": "रोकें"
+  },
+  "ui_speedTitle": {
+    "message": "स्कैन की गति"
+  },
+  "ui_speedSafe": {
+    "message": "गति: सुरक्षित"
+  },
+  "ui_speedNormal": {
+    "message": "गति: तेज़"
+  },
+  "ui_search": {
+    "message": "नाम से खोजें…"
+  },
+  "ui_csvTitle": {
+    "message": "इस टैब के फ़िल्टर किए गए नतीजे CSV में डाउनलोड करें"
+  },
+  "ui_filterTitle": {
+    "message": "फ़िल्टर"
+  },
+  "ui_sortTitle": {
+    "message": "क्रम"
+  },
+  "ui_hiddenTitle": {
+    "message": "छिपाए गए खाते भी दिखाएँ (अपवाद सूची)"
+  },
+  "ui_hidden": {
+    "message": "छिपाए गए"
+  },
+  "ui_footer": {
+    "message": "आपका डेटा सिर्फ़ आपके ब्राउज़र में रहता है।"
+  },
+  "ui_more": {
+    "message": "और दिखाएँ ({n})"
+  },
+  "ui_lastScan": {
+    "message": "पिछला स्कैन: {date}"
+  },
+  "ui_noScan": {
+    "message": "अभी तक कोई स्कैन नहीं हुआ। «स्कैन करें» पर क्लिक करें।"
+  },
+  "tab_notBack": {
+    "message": "वापस फ़ॉलो नहीं करते"
+  },
+  "tab_fans": {
+    "message": "आप वापस फ़ॉलो नहीं करते"
+  },
+  "tab_mutual": {
+    "message": "आपसी फ़ॉलो"
+  },
+  "tab_changes": {
+    "message": "बदलाव"
+  },
+  "tab_changesTitle": {
+    "message": "आपको अनफ़ॉलो करने वाले लोग (स्कैन इतिहास के आधार पर)"
+  },
+  "filter_all": {
+    "message": "सभी खाते"
+  },
+  "filter_verified": {
+    "message": "वेरिफ़ाइड"
+  },
+  "filter_private": {
+    "message": "प्राइवेट"
+  },
+  "filter_public": {
+    "message": "पब्लिक"
+  },
+  "filter_nopic": {
+    "message": "बिना प्रोफ़ाइल फ़ोटो"
+  },
+  "sort_default": {
+    "message": "डिफ़ॉल्ट क्रम"
+  },
+  "sort_az": {
+    "message": "नाम A–Z"
+  },
+  "sort_za": {
+    "message": "नाम Z–A"
+  },
+  "set_lang": {
+    "message": "भाषा"
+  },
+  "set_langAuto": {
+    "message": "अपने-आप (ब्राउज़र की भाषा)"
+  },
+  "set_unf": {
+    "message": "अनफ़ॉलो की सीमा"
+  },
+  "set_unfHint": {
+    "message": "Instagram कार्रवाइयों की संख्या सीमित करता है। कम समय में बहुत से खातों को अनफ़ॉलो करने पर खाते की कार्रवाइयाँ घंटों या दिनों तक रुक सकती हैं। एक्सटेंशन हर दो अनफ़ॉलो के बीच 15 सेकंड का विराम रखता है।"
+  },
+  "set_unfOption": {
+    "message": "{n} प्रति 24 घंटे"
+  },
+  "set_launcher": {
+    "message": "पेज पर बटन"
+  },
+  "set_launcherLabel": {
+    "message": "instagram.com पर गोल बटन दिखाएँ"
+  },
+  "set_backup": {
+    "message": "बैकअप"
+  },
+  "set_backupHint": {
+    "message": "स्कैन के नतीजों, इतिहास, अपवाद सूची और सेटिंग वाली JSON फ़ाइल। दूसरे कंप्यूटर या ब्राउज़र पर जाने पर काम आती है।"
+  },
+  "set_export": {
+    "message": "बैकअप सहेजें"
+  },
+  "set_import": {
+    "message": "बैकअप बहाल करें…"
+  },
+  "set_data": {
+    "message": "इस खाते का डेटा"
+  },
+  "set_dataHint": {
+    "message": "मौजूदा खाते के स्कैन के नतीजे, इतिहास, अपवाद सूची और अनफ़ॉलो की गिनती मिटाता है।"
+  },
+  "set_wipe": {
+    "message": "डेटा मिटाएँ"
+  },
+  "set_wipeConfirm": {
+    "message": "पुष्टि के लिए फिर क्लिक करें"
+  },
+  "set_wiped": {
+    "message": "इस खाते का सहेजा गया डेटा मिटा दिया गया।"
+  },
+  "changes_group": {
+    "message": "{date} का स्कैन ({since} से तुलना)"
+  },
+  "changes_lost": {
+    "message": "अनफ़ॉलो किया"
+  },
+  "changes_gained": {
+    "message": "नया फ़ॉलोअर"
+  },
+  "row_hide": {
+    "message": "छिपाएँ"
+  },
+  "row_unhide": {
+    "message": "फिर दिखाएँ"
+  },
+  "row_hideTitle": {
+    "message": "अपवाद सूची में जोड़ें (जैसे मशहूर हस्तियाँ या ब्रैंड)। यह खाता इस टैब में नहीं दिखेगा।"
+  },
+  "row_unhideTitle": {
+    "message": "अपवाद सूची से हटाएँ"
+  },
+  "row_unf": {
+    "message": "अनफ़ॉलो करें"
+  },
+  "row_unfConfirm": {
+    "message": "पक्का?"
+  },
+  "row_unfTitle": {
+    "message": "इस खाते को अनफ़ॉलो करें (पुष्टि ज़रूरी है)"
+  },
+  "empty_changes": {
+    "message": "अभी कोई बदलाव दर्ज नहीं है। बाद में फिर स्कैन करें। यहाँ दिखेगा कि किसने फ़ॉलो या अनफ़ॉलो किया।"
+  },
+  "empty_firstScan": {
+    "message": "पहले अपना पहला स्कैन करें।"
+  },
+  "empty_scanning": {
+    "message": "सूचियाँ ली जा रही हैं…"
+  },
+  "empty_loggedOut": {
+    "message": "नतीजे देखने के लिए Instagram में लॉग इन करें। सहेजे गए स्कैन एक्सटेंशन में रहते हैं और उसी खाते में दोबारा लॉग इन करने पर दिखेंगे।"
+  },
+  "empty_noScan": {
+    "message": "अपनी सूचियाँ लेने के लिए «स्कैन करें» पर क्लिक करें। बड़ी सूचियों वाले खातों में कुछ मिनट लग सकते हैं। पैनल बंद कर सकते हैं, लेकिन Instagram का टैब खुला रखें।"
+  },
+  "empty_noResults": {
+    "message": "इस खोज या फ़िल्टर से कोई खाता मेल नहीं खाता।"
+  },
+  "empty_notBack": {
+    "message": "इस सूची में दिखाने के लिए कोई खाता नहीं है।"
+  },
+  "empty_fans": {
+    "message": "आप अपने सभी फ़ॉलोअर्स को फ़ॉलो करते हैं।"
+  },
+  "empty_mutual": {
+    "message": "कोई खाता ऐसा नहीं है जिसे आप फ़ॉलो करते हैं और जो आपको भी फ़ॉलो करता है।"
+  },
+  "stats_now": {
+    "message": "अभी"
+  },
+  "stats_followers": {
+    "message": "फ़ॉलोअर्स"
+  },
+  "stats_following": {
+    "message": "फ़ॉलो किए गए खाते"
+  },
+  "stats_mutual": {
+    "message": "आपसी फ़ॉलो (फ़ॉलो किए गए खातों का {p})"
+  },
+  "stats_notBack": {
+    "message": "वापस फ़ॉलो नहीं करते"
+  },
+  "stats_vsPrev": {
+    "message": "पिछले स्कैन से {d}"
+  },
+  "stats_balance": {
+    "message": "फ़ॉलोअर्स में कुल बदलाव"
+  },
+  "stats_balanceDays": {
+    "message": "{days} दिनों में: +{gained} / −{lost}"
+  },
+  "stats_unf24": {
+    "message": "अनफ़ॉलो किए गए खाते (24 घंटे)"
+  },
+  "stats_chartTitle": {
+    "message": "समय के साथ फ़ॉलोअर्स की संख्या"
+  },
+  "stats_chartSub": {
+    "message": "इस्तेमाल किए गए स्कैन: {n}"
+  },
+  "stats_chartEmpty": {
+    "message": "ग्राफ़ आपके दूसरे स्कैन के बाद दिखेगा।"
+  },
+  "stats_chartAria": {
+    "message": "फ़ॉलोअर्स की संख्या का ग्राफ़। अभी {n}।"
+  },
+  "stats_history": {
+    "message": "स्कैन इतिहास"
+  },
+  "stats_colDate": {
+    "message": "तारीख़"
+  },
+  "stats_colFollowers": {
+    "message": "फ़ॉलोअर्स"
+  },
+  "stats_colFollowing": {
+    "message": "फ़ॉलो किए गए"
+  },
+  "stats_colChange": {
+    "message": "बदलाव"
+  },
+  "csv_empty": {
+    "message": "इस टैब से एक्सपोर्ट करने के लिए कुछ नहीं है।"
+  },
+  "csv_head": {
+    "message": "यूज़रनेम,पूरा_नाम,लिंक,वेरिफ़ाइड,प्राइवेट"
+  },
+  "csv_headChanges": {
+    "message": "बदलाव,तारीख़"
+  },
+  "csv_yes": {
+    "message": "हाँ"
+  },
+  "csv_no": {
+    "message": "नहीं"
+  },
+  "csv_lost": {
+    "message": "अनफ़ॉलो_किया"
+  },
+  "csv_gained": {
+    "message": "नया_फ़ॉलोअर"
+  },
+  "csv_fileNotBack": {
+    "message": "वापस-फ़ॉलो-नहीं-करते"
+  },
+  "csv_fileFans": {
+    "message": "आप-फ़ॉलो-नहीं-करते"
+  },
+  "csv_fileMutual": {
+    "message": "एक-दूसरे-को-फ़ॉलो"
+  },
+  "csv_fileChanges": {
+    "message": "बदलाव"
+  },
+  "popup_opening": {
+    "message": "पैनल खुल रहा है…"
+  },
+  "popup_openTitle": {
+    "message": "Instagram खोलें"
+  },
+  "popup_openText": {
+    "message": "एक्सटेंशन instagram.com पर काम करता है। लॉग इन करें, फिर एक्सटेंशन के आइकन या पेज के निचले दाएँ कोने में गुलाबी बटन पर क्लिक करें।"
+  },
+  "popup_openBtn": {
+    "message": "instagram.com खोलें"
+  },
+  "popup_reloadTitle": {
+    "message": "Instagram रीलोड करें"
+  },
+  "popup_reloadText": {
+    "message": "टैब रीलोड होने के बाद एक्सटेंशन लोड होगा। फिर आइकन पर दोबारा क्लिक करें।"
+  },
+  "popup_reloadBtn": {
+    "message": "पेज रीलोड करें"
+  },
+  "row_unfBusy": {
+    "message": "अनफ़ॉलो किया जा रहा है…"
+  },
+  "report_unknown": {
+    "message": "पता नहीं"
+  },
+  "err_noResponseType": {
+    "message": "जवाब का प्रकार अज्ञात है"
+  },
+  "err_generic": {
+    "message": "कुछ गड़बड़ी हुई।"
+  }
+}

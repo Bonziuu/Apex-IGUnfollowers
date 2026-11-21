@@ -16,11 +16,14 @@ var pageFetch = (typeof content === 'object' && content && typeof content.fetch 
 var I18N = globalThis.ApexUnf_i18n;
 var L = I18N.make('auto');
 var t = (key, vars) => L.t(key, vars);
+// Resolve status copy when rendered so that a language change updates messages in place.
+var localized = (key, vars) => () => t(key, typeof vars === 'function' ? vars() : vars);
 
 // ---------------------------------------------------------------- stałe
 var BASE = 'https://www.instagram.com';
 var REPO = 'https://github.com/Bonziuu/Apex-IGUnfollowers';
 var SITE = 'https://apexsoftware.app';
+var SUPPORT_URL = 'https://ko-fi.com/konradwozniak1996';
 var AUTHOR = {
   name: 'Konrad Woźniak',
   email: 'konrad.wozniak.1996@gmail.com',
@@ -64,11 +67,15 @@ var getCookie = (name) => {
   const m = document.cookie.match(new RegExp('(?:^|;\\s*)' + name + '=([^;]*)'));
   return m ? decodeURIComponent(m[1]) : null;
 };
-var fmtDate = (ts) => new Date(ts).toLocaleString(L.locale, { dateStyle: 'medium', timeStyle: 'short' });
-var fmtDay = (ts) => new Date(ts).toLocaleDateString(L.locale, { day: 'numeric', month: 'short' });
-var fmtTime = (ts) => new Date(ts).toLocaleTimeString(L.locale, { hour: '2-digit', minute: '2-digit' });
-var fmtNum = (n) => Number(n).toLocaleString(L.locale);
-var signed = (n) => (n > 0 ? '+' : n < 0 ? '−' : '±') + fmtNum(Math.abs(n));
+var fmtDate = (ts) => L.date(ts, { dateStyle: 'medium', timeStyle: 'short' });
+var fmtDay = (ts) => L.date(ts, { day: 'numeric', month: 'short' });
+var fmtTime = (ts) => L.time(ts, { hour: '2-digit', minute: '2-digit' });
+var fmtNum = (n) => L.number(n);
+var signed = (n) => {
+  if (L.dir === 'rtl') return L.number(n, { signDisplay: 'exceptZero' });
+  return (n > 0 ? '+' : n < 0 ? '−' : '±') + fmtNum(Math.abs(n));
+};
+var accountName = (username) => L.dir === 'rtl' ? '\u2066' + username + '\u2069' : username;
 var el = (tag, cls, text) => {
   const n = document.createElement(tag);
   if (cls) n.className = cls;
@@ -94,8 +101,12 @@ var store = {
 };
 
 var ScanError = class ScanError extends Error {
-  constructor(message, kind, status) {
-    super(message);
+  constructor(key, kind, status, vars) {
+    const message = localized(key, vars);
+    super(message());
+    this.localized = message;
+    // Instagram's message can identify an account. Keep it in the panel only.
+    this.report = key === 'err.ig' ? localized(key, { ...vars, msg: '' }) : message;
     this.kind = kind;     // abort | auth | ratelimit | http | parse
     this.status = status;
   }
@@ -208,7 +219,19 @@ async function loadSettings() {
   const saved = await store.get('settings', {});
   state.settings = { ...state.settings, ...saved };
   if (!UNF.limits.includes(state.settings.unfLimit)) state.settings.unfLimit = UNF.defaultLimit;
-  L = I18N.make(state.settings.lang);
+  state.settings.lang = I18N.normalizePreference(state.settings.lang);
+  await updatePanelLanguage();
+}
+
+async function updatePanelLanguage() {
+  const preference = state.settings.lang;
+  const next = await I18N.load(preference);
+  if (preference !== state.settings.lang) return;
+  const changed = next.lang !== L.lang;
+  L = next;
+  if (!ui.host) return;
+  if (changed) ui.rebuild();
+  else ui.applySettings();
 }
 
 // Wywoływane przy każdym otwarciu panelu: panel pokazuje dane tylko konta zalogowanego teraz.

@@ -1,0 +1,632 @@
+{
+  "extName": {
+    "message": "Instagram için Apex Unfollowers"
+  },
+  "extShortName": {
+    "message": "Apex"
+  },
+  "extDescription": {
+    "message": "Instagram’da seni geri takip etmeyenleri ve takibi bırakanları gör. Tarayıcında çalışır, şifre istemez ve telemetri toplamaz."
+  },
+  "ext_name": {
+    "message": "Instagram için Apex Unfollowers"
+  },
+  "ext_tagline": {
+    "message": "Instagram’da seni geri takip etmeyenleri gör. Tarayıcında çalışır ve ücretsizdir."
+  },
+  "ui_resume": {
+    "message": "Taramaya devam et"
+  },
+  "ui_restart": {
+    "message": "Baştan başlat"
+  },
+  "ui_resumeInfo": {
+    "message": "{date} tarihli tarama yarıda kaldı. Kaydedilen hesap sayısı: {n}."
+  },
+  "scan_eta": {
+    "message": "Kalan tahmini süre: {t}"
+  },
+  "time_lessMin": {
+    "message": "bir dakikadan az"
+  },
+  "time_min": {
+    "message": "{n} dk."
+  },
+  "scan_resuming": {
+    "message": "Yarım kalan tarama sürdürülüyor. Alınan hesap sayısı: {n}…"
+  },
+  "scan_paused": {
+    "message": "Tarama duraklatıldı."
+  },
+  "scan_progressSaved": {
+    "message": "İlerleme kaydedildi. Alınan hesap sayısı: {n}. Bitirmek için “Taramaya devam et” seçeneğine tıkla."
+  },
+  "welcome_title": {
+    "message": "Apex Unfollowers’a hoş geldin"
+  },
+  "welcome_lead": {
+    "message": "Uzantı, Instagram’daki takipçilerini takip ettiğin hesaplarla karşılaştırır. Tarayıcında çalışır, ayrı bir hesap gerektirmez ve geliştiriciye veri göndermez."
+  },
+  "welcome_step1": {
+    "message": "Bu tarayıcıda instagram.com üzerinden giriş yap."
+  },
+  "welcome_step2": {
+    "message": "“Tara” düğmesine tıkla. Büyük hesaplarda tarama birkaç dakika sürebilir."
+  },
+  "welcome_step3": {
+    "message": "Sekmeleri, filtreleri ve istatistikleri incele. Hesapları takip etmeyi tek tek bırak."
+  },
+  "welcome_riskTitle": {
+    "message": "Hesap güvenliği"
+  },
+  "welcome_riskText": {
+    "message": "Uzantı, Instagram web sitesinin resmî olmayan API’sini kullanır. Instagram’ın kullanım koşulları otomatik veri toplamaya izin vermez. Uzantıyı kullanmanın sorumluluğu sana aittir."
+  },
+  "welcome_risk1": {
+    "message": "Günde en fazla bir kez, temkinli hızda tarama yap."
+  },
+  "welcome_risk2": {
+    "message": "Takibi bırakırken acele etme. Uzantı işlemler arasında bekleme süresi ve günlük sınır uygular."
+  },
+  "welcome_risk3": {
+    "message": "İşlemler engellenirse bir veya iki gün bekle."
+  },
+  "welcome_accept": {
+    "message": "Anladım ve uzantıyı kullanmak istiyorum."
+  },
+  "welcome_start": {
+    "message": "Başlayalım"
+  },
+  "welcome_privacy": {
+    "message": "Verilerin bu tarayıcıda kalır."
+  },
+  "welcome_more": {
+    "message": "Daha fazla bilgi"
+  },
+  "set_about": {
+    "message": "Uzantı hakkında"
+  },
+  "set_authorTitle": {
+    "message": "Geliştirici ve iletişim"
+  },
+  "set_linkedin": {
+    "message": "LinkedIn profili"
+  },
+  "set_linkedinLabel": {
+    "message": "Geliştiricinin LinkedIn profili (yeni sekmede açılır)"
+  },
+  "set_reportHint": {
+    "message": "Bir sorun mu var? Bildirim, tanılama bilgilerini, uzantı sürümünü ve tarayıcı bilgilerini içerir. E-posta taslağında arayüz dili de yer alır. Hesap adları eklenmez."
+  },
+  "set_reportGithub": {
+    "message": "Sorun bildir"
+  },
+  "set_reportMail": {
+    "message": "E-posta gönder"
+  },
+  "set_showWelcome": {
+    "message": "Hoş geldin ekranını göster"
+  },
+  "support_link": {
+    "message": "Ko-fi’de Apex’i destekle"
+  },
+  "support_hint": {
+    "message": "Destek isteğe bağlıdır. Tüm özellikler ücretsizdir."
+  },
+  "report_button": {
+    "message": "Sorun bildir"
+  },
+  "report_buttonTitle": {
+    "message": "GitHub’da önceden doldurulmuş bildirimi aç (sürüm, tarayıcı ve hata)"
+  },
+  "report_mailIntro": {
+    "message": "Ne olduğunu ve ne yapmaya çalıştığını açıkla."
+  },
+  "report_browser": {
+    "message": "Tarayıcı"
+  },
+  "report_language": {
+    "message": "Dil"
+  },
+  "report_error": {
+    "message": "Son hata"
+  },
+  "report_subject": {
+    "message": "sorun bildirimi"
+  },
+  "page_title": {
+    "message": "Apex Unfollowers’a hoş geldin"
+  },
+  "page_tagline": {
+    "message": "Instagram’da seni geri takip etmeyenleri gör. Tarayıcında çalışır ve ücretsizdir."
+  },
+  "page_lead": {
+    "message": "Apex Unfollowers, Instagram’daki takipçilerin ile takip ettiğin hesapları karşılaştırır. Seni geri takip etmeyenleri, senin takip etmediğin takipçileri ve seni takip etmeyi bırakanları gösterir. Tarayıcında çalışır, ayrı bir hesap veya şifre istemez ve geliştiriciye veri göndermez."
+  },
+  "page_howTitle": {
+    "message": "Nasıl başlanır?"
+  },
+  "page_featTitle": {
+    "message": "Panelde neler var?"
+  },
+  "page_feat1": {
+    "message": "<strong>Geri takip etmeyenler</strong> — tanınmış kişiler ve markalar için istisna listesi"
+  },
+  "page_feat2": {
+    "message": "<strong>Değişiklikler</strong> — son taramadan bu yana gelen ve giden takipçiler"
+  },
+  "page_feat3": {
+    "message": "<strong>İstatistikler</strong> — takipçi grafiği ile 7 ve 30 günlük takipçi değişimi"
+  },
+  "page_feat4": {
+    "message": "<strong>Takibi bırak</strong> — onayla ve günlük sınırla, her seferinde tek hesap"
+  },
+  "page_open": {
+    "message": "Instagram’ı aç"
+  },
+  "page_done": {
+    "message": "Her şey hazır. Instagram’ı aç ve sağ alt köşedeki pembe düğmeye tıkla."
+  },
+  "page_privacyTitle": {
+    "message": "Gizlilik"
+  },
+  "page_privacyText": {
+    "message": "Tarama sonuçları, geçmiş ve ayarlar bu tarayıcıda kalır. Uzantı verileri Instagram’dan alır. Profil fotoğrafları Instagram veya Meta’nın görsel sunucularından yüklenebilir. Uzantı telemetri verisi toplamaz."
+  },
+  "page_policy": {
+    "message": "Gizlilik politikası"
+  },
+  "page_source": {
+    "message": "Kaynak kodu"
+  },
+  "err_abort": {
+    "message": "Tarama durduruldu."
+  },
+  "err_network": {
+    "message": "Instagram’a bağlanılamadı."
+  },
+  "err_checkpoint": {
+    "message": "Instagram kimliğini doğrulamak istiyor. instagram.com’u aç, doğrulamayı tamamla ve daha sonra tekrar dene."
+  },
+  "err_login": {
+    "message": "Instagram yeniden giriş yapmanı istiyor. Giriş yap ve tekrar dene."
+  },
+  "err_noAccess": {
+    "message": "Erişim reddedildi. instagram.com’da oturum açtığından emin ol ve sayfayı yeniden yükle."
+  },
+  "err_unexpected": {
+    "message": "Instagram beklenmedik bir yanıt verdi (HTTP {status})."
+  },
+  "err_ig": {
+    "message": "Instagram hatası (HTTP {status}){msg}"
+  },
+  "err_ratelimit": {
+    "message": "Instagram istekleri hâlâ sınırlıyor. 15–30 dakika bekle ve temkinli hızda tekrar dene."
+  },
+  "err_format": {
+    "message": "Instagram veri biçimini değiştirdi. Uzantının güncellenmesi gerekiyor."
+  },
+  "err_noAccount": {
+    "message": "Açık oturum bulunamadı. instagram.com’da giriş yap ve sayfayı yeniden yükle."
+  },
+  "note_pause": {
+    "message": "Instagram’a çok fazla istek göndermemek için kısa bir ara ({s} sn.)…"
+  },
+  "note_retryNet": {
+    "message": "Bağlantı sorunu var. Tekrar deneniyor ({a}/{n})…"
+  },
+  "note_slowDown": {
+    "message": "Instagram istekleri sınırlıyor (HTTP {status}). {s} sn. sonra devam edilecek…"
+  },
+  "note_fallback": {
+    "message": "İlk yöntem başarısız oldu. Başka bir yöntem deneniyor…"
+  },
+  "note_repair": {
+    "message": "Instagram, {expected} hesaptan {got} tanesini döndürdü. Kalan hesaplar başka bir yöntemle alınıyor…"
+  },
+  "scan_checking": {
+    "message": "Hesabın kontrol ediliyor…"
+  },
+  "scan_followers": {
+    "message": "Takipçiler: {n}"
+  },
+  "scan_followersDone": {
+    "message": "Takipçiler: {n} ✓ · Sırada takip edilenler…"
+  },
+  "scan_following": {
+    "message": "Takipçiler: {f} ✓ · Takip edilenler: {n}"
+  },
+  "scan_done": {
+    "message": "Tamamlandı"
+  },
+  "scan_result": {
+    "message": "Tarama tamamlandı! Takipçiler: {fr}, takip edilenler: {fg}."
+  },
+  "scan_first": {
+    "message": "Bu ilk taraman. Bir sonraki taramada seni takip etmeyi bırakanları görebilirsin."
+  },
+  "scan_changes": {
+    "message": "Önceki taramadan bu yana: −{lost} / +{gained} takipçi (“Değişiklikler” sekmesine bak)."
+  },
+  "scan_noChanges": {
+    "message": "Önceki taramadan bu yana değişiklik yok."
+  },
+  "scan_fewer": {
+    "message": "Profilde görünen {expected} takipçiden {got} tanesi alındı. Askıya alınan veya dondurulan hesaplar nedeniyle küçük bir fark normaldir. Fark büyükse daha sonra tekrar tara."
+  },
+  "scan_shortFollowing": {
+    "message": "Profilde görünen {expected} takip edilen hesaptan {got} tanesi alındı. Instagram listenin tamamını döndürmediği için sonuçlar eksik olabilir. 15 dakika sonra temkinli hızda tekrar tara."
+  },
+  "scan_noCounts": {
+    "message": "Profildeki sayaçlar okunamadı. Uzantı, listelerin eksiksiz olup olmadığını doğrulayamadı."
+  },
+  "scan_aborted": {
+    "message": "Tarama durduruldu. Önceki sonuçlar korundu."
+  },
+  "unf_duringScan": {
+    "message": "Taramanın bitmesini bekle."
+  },
+  "unf_otherAccount": {
+    "message": "Bu sonuçların ait olduğu hesaptan farklı bir hesapla giriş yaptın. Önce bu hesabı tara."
+  },
+  "unf_blockedUntil": {
+    "message": "Instagram hesabındaki işlemleri sınırladı. Takibi bırakma işlemleri {time} zamanına kadar duraklatıldı."
+  },
+  "unf_limit": {
+    "message": "Günlük takip bırakma sınırına ulaştın (24 saatte {used}/{limit}). Bu sınırı ayarlardan değiştirebilirsin."
+  },
+  "unf_cooldown": {
+    "message": "{s} sn. daha bekle. İşlemler arasındaki bekleme süresi, hesabına engel konması riskini azaltır."
+  },
+  "unf_done": {
+    "message": "Artık @{user} hesabını takip etmiyorsun. Son 24 saatte: {used}/{limit}."
+  },
+  "unf_blocked": {
+    "message": "Instagram, çok fazla işlem yapıldığı için bu işlemi engelledi. Takibi bırakma işlemleri {time} zamanına kadar duraklatıldı. Uygulamadan da elle tekrar deneme."
+  },
+  "unf_slow": {
+    "message": "Instagram işlemleri yavaşlatmanı istiyor. Takibi bırakma işlemleri {time} zamanına kadar duraklatıldı."
+  },
+  "unf_failed": {
+    "message": "Instagram takibi bıraktığını doğrulamadı (HTTP {status}, {info}). Hesabı hâlâ takip edip etmediğini profilinden kontrol et."
+  },
+  "unf_noTokens": {
+    "message": "Sayfada Instagram oturum belirteçleri bulunamadı. Sayfayı yeniden yükle (F5) ve tekrar dene."
+  },
+  "unf_still": {
+    "message": "Instagram yanıt verdi ancak @{user} hesabını hâlâ takip ediyorsun. Daha sonra veya hesap profilinden dene."
+  },
+  "unf_unconfirmed": {
+    "message": "Instagram isteği kabul etti ancak uzantı @{user} hesabının takibinin bırakıldığını doğrulayamadı. Hesap profilini kontrol et."
+  },
+  "backup_exported": {
+    "message": "Yedek kaydedildi. Tarama sonucu olan hesap sayısı: {n}."
+  },
+  "backup_imported": {
+    "message": "Yedek {date} tarihinde geri yüklendi. Tarama sonucu olan hesap sayısı: {n}."
+  },
+  "backup_invalid": {
+    "message": "Bu dosya bir Apex Unfollowers yedeği değil veya bozuk."
+  },
+  "backup_tooBig": {
+    "message": "Yedek dosyası çok büyük (en fazla {mb} MB)."
+  },
+  "ui_stats": {
+    "message": "İstatistikler"
+  },
+  "ui_settings": {
+    "message": "Ayarlar"
+  },
+  "ui_close": {
+    "message": "Kapat (Esc)"
+  },
+  "ui_scan": {
+    "message": "Tara"
+  },
+  "ui_stop": {
+    "message": "Durdur"
+  },
+  "ui_speedTitle": {
+    "message": "Tarama hızı"
+  },
+  "ui_speedSafe": {
+    "message": "Hız: temkinli"
+  },
+  "ui_speedNormal": {
+    "message": "Hız: daha hızlı"
+  },
+  "ui_search": {
+    "message": "Ada göre ara…"
+  },
+  "ui_csvTitle": {
+    "message": "Bu sekmedeki filtrelenmiş listeyi CSV olarak indir"
+  },
+  "ui_filterTitle": {
+    "message": "Filtre"
+  },
+  "ui_sortTitle": {
+    "message": "Sırala"
+  },
+  "ui_hiddenTitle": {
+    "message": "Gizlenen hesapları da göster (istisna listesi)"
+  },
+  "ui_hidden": {
+    "message": "Gizlenenler"
+  },
+  "ui_footer": {
+    "message": "Verilerin yalnızca kendi tarayıcında kalır."
+  },
+  "ui_more": {
+    "message": "Daha fazla göster ({n})"
+  },
+  "ui_lastScan": {
+    "message": "Son tarama: {date}"
+  },
+  "ui_noScan": {
+    "message": "Henüz tarama yok. “Tara” düğmesine tıkla."
+  },
+  "tab_notBack": {
+    "message": "Geri takip etmeyenler"
+  },
+  "tab_fans": {
+    "message": "Takip etmediklerin"
+  },
+  "tab_mutual": {
+    "message": "Karşılıklı takip"
+  },
+  "tab_changes": {
+    "message": "Değişiklikler"
+  },
+  "tab_changesTitle": {
+    "message": "Tarama geçmişine göre seni takip etmeyi bırakan hesaplar"
+  },
+  "filter_all": {
+    "message": "Tüm hesaplar"
+  },
+  "filter_verified": {
+    "message": "Doğrulanmış"
+  },
+  "filter_private": {
+    "message": "Gizli"
+  },
+  "filter_public": {
+    "message": "Herkese açık"
+  },
+  "filter_nopic": {
+    "message": "Profil fotoğrafı yok"
+  },
+  "sort_default": {
+    "message": "Varsayılan sıra"
+  },
+  "sort_az": {
+    "message": "Ada göre A–Z"
+  },
+  "sort_za": {
+    "message": "Ada göre Z–A"
+  },
+  "set_lang": {
+    "message": "Dil"
+  },
+  "set_langAuto": {
+    "message": "Otomatik (tarayıcı dili)"
+  },
+  "set_unf": {
+    "message": "Takibi bırakma sınırı"
+  },
+  "set_unfHint": {
+    "message": "Instagram işlem sayısını sınırlar. Kısa sürede çok fazla hesabı takip etmeyi bırakırsan Instagram işlemleri birkaç saat veya gün engelleyebilir. Uzantı, işlemler arasında 15 saniye bekletir."
+  },
+  "set_unfOption": {
+    "message": "24 saatte {n}"
+  },
+  "set_launcher": {
+    "message": "Sayfadaki düğme"
+  },
+  "set_launcherLabel": {
+    "message": "instagram.com’da yuvarlak düğmeyi göster"
+  },
+  "set_backup": {
+    "message": "Yedek"
+  },
+  "set_backupHint": {
+    "message": "Tarama sonuçları, geçmiş, istisna listesi ve ayarların yer aldığı JSON dosyası. Bilgisayar veya tarayıcı değiştirirken kullanabilirsin."
+  },
+  "set_export": {
+    "message": "Yedeği kaydet"
+  },
+  "set_import": {
+    "message": "Yedeği geri yükle…"
+  },
+  "set_data": {
+    "message": "Bu hesabın verileri"
+  },
+  "set_dataHint": {
+    "message": "Geçerli hesabın tarama sonuçlarını, geçmişini, istisna listesini ve takibi bırakma sayacını siler."
+  },
+  "set_wipe": {
+    "message": "Verileri temizle"
+  },
+  "set_wipeConfirm": {
+    "message": "Onaylamak için tekrar tıkla"
+  },
+  "set_wiped": {
+    "message": "Bu hesabın kayıtlı verileri silindi."
+  },
+  "changes_group": {
+    "message": "{date} tarihli tarama ({since} tarihli taramayla karşılaştırma)"
+  },
+  "changes_lost": {
+    "message": "Seni takip etmeyi bıraktı"
+  },
+  "changes_gained": {
+    "message": "Yeni takipçi"
+  },
+  "row_hide": {
+    "message": "Gizle"
+  },
+  "row_unhide": {
+    "message": "Geri getir"
+  },
+  "row_hideTitle": {
+    "message": "İstisna listesine ekle ve bu sekmede gizle (ör. markalar ve tanınmış kişiler)"
+  },
+  "row_unhideTitle": {
+    "message": "İstisna listesinden çıkar"
+  },
+  "row_unf": {
+    "message": "Takibi bırak"
+  },
+  "row_unfConfirm": {
+    "message": "Emin misin?"
+  },
+  "row_unfTitle": {
+    "message": "Bu hesabı takip etmeyi bırak (onay gerekir)"
+  },
+  "empty_changes": {
+    "message": "Henüz değişiklik kaydedilmedi. Yeni takipçilerini ve takibi bırakanları burada görmek için daha sonra yeniden tara."
+  },
+  "empty_firstScan": {
+    "message": "Önce ilk taramanı yap."
+  },
+  "empty_scanning": {
+    "message": "Listeler alınıyor…"
+  },
+  "empty_loggedOut": {
+    "message": "Sonuçlarını görmek için Instagram’a giriş yap. Aynı hesaba tekrar giriş yaptığında kayıtlı taramalar yeniden görünür."
+  },
+  "empty_noScan": {
+    "message": "Listeleri almak için “Tara” düğmesine tıkla. Büyük hesaplarda bu birkaç dakika sürebilir. Paneli kapatabilirsin ama Instagram sekmesini açık tut."
+  },
+  "empty_noResults": {
+    "message": "Bu arama veya filtreyle eşleşen hesap yok."
+  },
+  "empty_notBack": {
+    "message": "Bu listede gösterilecek hesap yok."
+  },
+  "empty_fans": {
+    "message": "Tüm takipçilerini takip ediyorsun."
+  },
+  "empty_mutual": {
+    "message": "Karşılıklı takip ettiğin hesap yok."
+  },
+  "stats_now": {
+    "message": "Şu an"
+  },
+  "stats_followers": {
+    "message": "Takipçiler"
+  },
+  "stats_following": {
+    "message": "Takip edilenler"
+  },
+  "stats_mutual": {
+    "message": "Karşılıklı takip (takip edilenlerin {p} kadarı)"
+  },
+  "stats_notBack": {
+    "message": "Geri takip etmeyenler"
+  },
+  "stats_vsPrev": {
+    "message": "Önceki taramadan bu yana {d}"
+  },
+  "stats_balance": {
+    "message": "Takipçi değişimi"
+  },
+  "stats_balanceDays": {
+    "message": "{days} günde: +{gained} / −{lost}"
+  },
+  "stats_unf24": {
+    "message": "Takibi bıraktığın hesaplar (24 sa.)"
+  },
+  "stats_chartTitle": {
+    "message": "Zaman içinde takipçi sayısı"
+  },
+  "stats_chartSub": {
+    "message": "Tarama sayısı: {n}"
+  },
+  "stats_chartEmpty": {
+    "message": "Grafik ikinci taramadan sonra görünür."
+  },
+  "stats_chartAria": {
+    "message": "Takipçi sayısı grafiği. Güncel sayı: {n}"
+  },
+  "stats_history": {
+    "message": "Tarama geçmişi"
+  },
+  "stats_colDate": {
+    "message": "Tarih"
+  },
+  "stats_colFollowers": {
+    "message": "Takipçiler"
+  },
+  "stats_colFollowing": {
+    "message": "Takip edilenler"
+  },
+  "stats_colChange": {
+    "message": "Değişiklik"
+  },
+  "csv_empty": {
+    "message": "Bu sekmede dışa aktarılacak veri yok."
+  },
+  "csv_head": {
+    "message": "kullanıcı_adı,ad_soyad,bağlantı,doğrulanmış,gizli"
+  },
+  "csv_headChanges": {
+    "message": "değişiklik,tarih"
+  },
+  "csv_yes": {
+    "message": "evet"
+  },
+  "csv_no": {
+    "message": "hayır"
+  },
+  "csv_lost": {
+    "message": "takibi_bıraktı"
+  },
+  "csv_gained": {
+    "message": "yeni_takipçi"
+  },
+  "csv_fileNotBack": {
+    "message": "geri-takip-etmeyenler"
+  },
+  "csv_fileFans": {
+    "message": "takip-etmediklerin"
+  },
+  "csv_fileMutual": {
+    "message": "karsilikli-takip"
+  },
+  "csv_fileChanges": {
+    "message": "degisiklikler"
+  },
+  "popup_opening": {
+    "message": "Panel açılıyor…"
+  },
+  "popup_openTitle": {
+    "message": "Instagram’ı aç"
+  },
+  "popup_openText": {
+    "message": "Uzantı instagram.com’da çalışır. Giriş yap, sonra uzantı simgesine veya sayfanın sağ altındaki pembe düğmeye tıkla."
+  },
+  "popup_openBtn": {
+    "message": "instagram.com’u aç"
+  },
+  "popup_reloadTitle": {
+    "message": "Instagram’ı yeniden yükle"
+  },
+  "popup_reloadText": {
+    "message": "Sekmeyi yeniden yüklediğinde uzantı açılır. Ardından simgeye tekrar tıkla."
+  },
+  "popup_reloadBtn": {
+    "message": "Sayfayı yeniden yükle"
+  },
+  "row_unfBusy": {
+    "message": "Takip bırakılıyor…"
+  },
+  "report_unknown": {
+    "message": "Bilinmiyor"
+  },
+  "err_noResponseType": {
+    "message": "bilinmeyen yanıt türü"
+  },
+  "err_generic": {
+    "message": "Bir sorun oluştu."
+  }
+}

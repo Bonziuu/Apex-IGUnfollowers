@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pl">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="color-scheme" content="light dark">
@@ -10,13 +10,13 @@
   <header class="top">
     <img src="../icons/icon32.png" alt="" width="24" height="24">
     <span class="brand">Apex Unfollowers</span>
-    <span class="version" id="version"></span>
+    <bdi class="version" id="version"></bdi>
   </header>
 
   <main>
     <section class="card" id="card">
       <span class="dot" aria-hidden="true"></span>
-      <div class="card-text">
+      <div class="card-text" role="status">
         <strong id="title"></strong>
         <span id="text"></span>
       </div>
@@ -25,6 +25,10 @@
 
   <footer class="actions">
     <button id="action" class="btn primary" type="button" hidden></button>
+    <div class="support-card" id="supportCard" hidden>
+      <a class="support-link" id="supportLink" href="https://ko-fi.com/konradwozniak1996" target="_blank" rel="noopener noreferrer" aria-describedby="supportHint"></a>
+      <span id="supportHint"></span>
+    </div>
   </footer>
 
   <script src="../shared/i18n.js"></script>
