@@ -387,10 +387,10 @@
     "message": "Публічні"
   },
   "filter_nopic": {
-    "message": "Без фото профілю"
+    "message": "Без фото"
   },
   "sort_default": {
-    "message": "Порядок за замовчуванням"
+    "message": "За замовчуванням"
   },
   "sort_az": {
     "message": "За ім’ям А–Я"
