@@ -30,13 +30,13 @@ CSV export and the JSON backup create a file on the user's computer only when th
 
 ## Data transfer
 
-The extension sends requests only to `https://www.instagram.com`, within the user's session, using the same addresses the Instagram website uses to show followers lists and for its "Unfollow" button. An unfollow request is sent only after the user clicks twice (click and confirmation), never automatically. Instagram processes these requests under its own privacy policy.
+The extension requests lists and sends unfollow requests to `https://www.instagram.com` within the user's session. Profile thumbnails may load from Instagram and Meta image servers. The user clicks and confirms each unfollow individually. Instagram processes these requests under its own privacy policy.
 
-The background script only opens the welcome screen after installation or on request from the panel. It makes no network requests.
+The background script opens the welcome screen and reads translation files included in the extension. Language preferences are stored locally.
 
-**Reporting a problem.** The "Report a problem" and "Send an e-mail" buttons open a pre-filled GitHub issue or an e-mail draft in the user's own browser or mail app. They contain the extension version, browser name and version, interface language and the text of the last error – no account names or lists. Nothing is sent until the user submits the issue or e-mail. If the user does so, GitHub or the e-mail recipient receives the content and the sender's data, as with any message.
+**Reporting a problem.** The "Report a problem" and "Send an e-mail" buttons open a GitHub issue form or an e-mail draft. The pre-filled text includes the extension version, browser name and version, interface language and diagnostic details such as an HTTP status. Account names, lists and raw Instagram responses are excluded. Opening the GitHub form passes these diagnostic details to GitHub. The user decides whether to submit the issue or send the e-mail.
 
-Apex Unfollowers **does not send** any data to the publisher or to third parties, contains no analytics, ads or remotely loaded code, and does not sell data.
+Apex Unfollowers has no publisher backend, analytics, ads or remotely loaded code. It does not sell data.
 
 ## Chrome Web Store User Data Policy (Limited Use)
 
@@ -86,13 +86,13 @@ Eksport CSV i kopia zapasowa JSON tworzą plik na komputerze użytkownika tylko 
 
 ## Przesyłanie danych
 
-Wtyczka wysyła zapytania wyłącznie do `https://www.instagram.com`, w ramach sesji użytkownika, tymi samymi adresami, których używa strona Instagrama przy wyświetlaniu list obserwujących i przy przycisku „Przestań obserwować”. Zapytanie odobserwowania jest wysyłane tylko po dwukrotnym kliknięciu (kliknięcie i potwierdzenie), nigdy automatycznie. Instagram przetwarza te zapytania na zasadach własnej polityki prywatności.
+Wtyczka pobiera listy i wysyła żądania odobserwowania do `https://www.instagram.com` w ramach sesji użytkownika. Miniatury zdjęć profilowych mogą się ładować z serwerów Instagrama lub Meta. Użytkownik osobno wybiera i potwierdza każde odobserwowanie. Instagram przetwarza te zapytania na zasadach własnej polityki prywatności.
 
-Skrypt tła tylko otwiera ekran powitalny po instalacji albo na prośbę panelu. Nie wykonuje zapytań sieciowych.
+Skrypt tła otwiera ekran powitalny i odczytuje tłumaczenia dołączone do rozszerzenia. Preferencja języka jest zapisywana lokalnie.
 
-**Zgłaszanie problemów.** Przyciski „Zgłoś problem” i „Napisz e-mail” otwierają gotowe zgłoszenie na GitHubie albo szkic wiadomości w przeglądarce lub programie pocztowym użytkownika. Zawierają wersję wtyczki, nazwę i wersję przeglądarki, język interfejsu i treść ostatniego błędu – bez nazw kont i list. Nic nie zostaje wysłane, dopóki użytkownik sam nie wyśle zgłoszenia lub wiadomości. Jeśli to zrobi, GitHub lub odbiorca wiadomości otrzyma jej treść i dane nadawcy, jak przy każdej wiadomości.
+**Zgłaszanie problemów.** Przyciski „Zgłoś problem” i „Napisz e-mail” otwierają formularz zgłoszenia na GitHubie lub szkic e-maila. Wstępnie uzupełniona treść zawiera wersję wtyczki, nazwę i wersję przeglądarki, język interfejsu oraz dane diagnostyczne, np. kod HTTP. Nazwy kont, listy i treść odpowiedzi Instagrama są pomijane. Otwarcie formularza na GitHubie przekazuje te dane diagnostyczne do GitHuba. Użytkownik decyduje, czy wysłać zgłoszenie lub wiadomość.
 
-Apex Unfollowers **nie przesyła** żadnych danych wydawcy ani stronom trzecim, nie zawiera analityki, reklam ani zdalnie pobieranego kodu i nie sprzedaje danych.
+Apex Unfollowers działa bez serwera wydawcy, analityki, reklam i zdalnie ładowanego kodu. Wtyczka nie sprzedaje danych.
 
 ## Zasady Chrome Web Store dotyczące danych użytkownika (Limited Use)
 

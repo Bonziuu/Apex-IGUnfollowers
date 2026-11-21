@@ -77,6 +77,10 @@ jobs:
         if: steps.v.outputs.skip == 'false'
         run: npm test
 
+      - name: Walidacja katalogów lokalizacyjnych i opisów sklepowych
+        if: steps.v.outputs.skip == 'false'
+        run: npm run validate:locales
+
       - name: Paczka dla użytkownika
         if: steps.v.outputs.skip == 'false'
         run: npm run package:release

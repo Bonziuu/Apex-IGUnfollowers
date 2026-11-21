@@ -1,0 +1,626 @@
+{
+  "extName": {
+    "message": "Apex Unfollowers für Instagram"
+  },
+  "extShortName": {
+    "message": "Apex"
+  },
+  "extDescription": {
+    "message": "Sieh, wer dir auf Instagram nicht zurückfolgt oder entfolgt ist. Läuft lokal, ohne Passwortabfrage und ohne Telemetrie."
+  },
+  "ext_name": {
+    "message": "Apex Unfollowers für Instagram"
+  },
+  "ext_tagline": {
+    "message": "Sieh, wer dir auf Instagram nicht zurückfolgt – lokal und kostenlos"
+  },
+  "ui_resume": {
+    "message": "Scan fortsetzen"
+  },
+  "ui_restart": {
+    "message": "Neu starten"
+  },
+  "ui_resumeInfo": {
+    "message": "Unterbrochener Scan vom {date}. Gespeicherte Konten: {n}."
+  },
+  "scan_eta": {
+    "message": "Noch etwa {t}"
+  },
+  "time_lessMin": {
+    "message": "weniger als eine Minute"
+  },
+  "time_min": {
+    "message": "{n} Min."
+  },
+  "scan_resuming": {
+    "message": "Unterbrochener Scan wird fortgesetzt. Bereits erfasste Konten: {n} …"
+  },
+  "scan_paused": {
+    "message": "Scan pausiert."
+  },
+  "scan_progressSaved": {
+    "message": "Fortschritt gespeichert. Erfasste Konten: {n}. Klicke auf „Scan fortsetzen“, um den Scan abzuschließen."
+  },
+  "welcome_title": {
+    "message": "Willkommen bei Apex Unfollowers"
+  },
+  "welcome_lead": {
+    "message": "Die Erweiterung vergleicht auf Instagram deine Follower mit den Konten, denen du folgst. Das geschieht in deinem Browser, ohne separates Konto und ohne Daten an den Entwickler zu senden."
+  },
+  "welcome_step1": {
+    "message": "Melde dich in diesem Browser auf instagram.com an."
+  },
+  "welcome_step2": {
+    "message": "Klicke auf „Scannen“. Bei großen Konten kann das einige Minuten dauern."
+  },
+  "welcome_step3": {
+    "message": "Sieh dir die Tabs, Filter und Statistiken an. Entfolge Konten einzeln."
+  },
+  "welcome_riskTitle": {
+    "message": "Kontosicherheit"
+  },
+  "welcome_riskText": {
+    "message": "Die Erweiterung nutzt eine inoffizielle Schnittstelle der Instagram-Website. Die Nutzungsbedingungen von Instagram erlauben keine automatische Datenerfassung. Du nutzt die Erweiterung auf eigene Verantwortung."
+  },
+  "welcome_risk1": {
+    "message": "Scanne höchstens einmal täglich im Modus „Vorsichtig“."
+  },
+  "welcome_risk2": {
+    "message": "Lass dir beim Entfolgen Zeit. Die Erweiterung setzt Pausen und ein Tageslimit durch."
+  },
+  "welcome_risk3": {
+    "message": "Warte nach einer Aktionssperre ein bis zwei Tage."
+  },
+  "welcome_accept": {
+    "message": "Ich habe das verstanden und möchte die Erweiterung nutzen."
+  },
+  "welcome_start": {
+    "message": "Los geht’s"
+  },
+  "welcome_privacy": {
+    "message": "Deine Daten bleiben in diesem Browser."
+  },
+  "welcome_more": {
+    "message": "Weitere Informationen"
+  },
+  "set_about": {
+    "message": "Über die Erweiterung"
+  },
+  "set_authorTitle": {
+    "message": "Entwickler und Kontakt"
+  },
+  "set_linkedin": {
+    "message": "LinkedIn-Profil"
+  },
+  "set_linkedinLabel": {
+    "message": "LinkedIn-Profil des Entwicklers (öffnet sich in einem neuen Tab)"
+  },
+  "set_reportHint": {
+    "message": "Funktioniert etwas nicht? Meldungen enthalten nur die Version der Erweiterung, deinen Browser und den letzten Fehler. Kontonamen sind nicht enthalten."
+  },
+  "set_reportGithub": {
+    "message": "Problem melden"
+  },
+  "set_reportMail": {
+    "message": "E-Mail schreiben"
+  },
+  "set_showWelcome": {
+    "message": "Willkommensseite anzeigen"
+  },
+  "report_button": {
+    "message": "Problem melden"
+  },
+  "report_buttonTitle": {
+    "message": "Vorausgefüllte Meldung auf GitHub öffnen (Version, Browser und Fehler)"
+  },
+  "report_mailIntro": {
+    "message": "Beschreibe, was passiert ist und was du gerade tun wolltest."
+  },
+  "report_browser": {
+    "message": "Browser"
+  },
+  "report_language": {
+    "message": "Sprache"
+  },
+  "report_error": {
+    "message": "Letzter Fehler"
+  },
+  "report_subject": {
+    "message": "Problemmeldung"
+  },
+  "page_title": {
+    "message": "Willkommen bei Apex Unfollowers"
+  },
+  "page_tagline": {
+    "message": "Sieh, wer dir auf Instagram nicht zurückfolgt – lokal und kostenlos"
+  },
+  "page_lead": {
+    "message": "Apex Unfollowers vergleicht auf Instagram deine Follower mit den Konten, denen du folgst. Du siehst, wer dir nicht zurückfolgt, wem du nicht folgst und wer dir entfolgt ist. Die Erweiterung arbeitet lokal im Browser, benötigt kein separates Konto, fragt nie nach deinem Passwort und sendet keine Daten an den Entwickler."
+  },
+  "page_howTitle": {
+    "message": "So legst du los"
+  },
+  "page_featTitle": {
+    "message": "Das findest du im Panel"
+  },
+  "page_feat1": {
+    "message": "<strong>Folgen dir nicht zurück</strong> – mit Ausnahmeliste für Marken und bekannte Personen"
+  },
+  "page_feat2": {
+    "message": "<strong>Änderungen</strong> – verlorene und neue Follower seit dem letzten Scan"
+  },
+  "page_feat3": {
+    "message": "<strong>Statistiken</strong> – Verlauf der Followerzahl und Bilanz für 7 bzw. 30 Tage"
+  },
+  "page_feat4": {
+    "message": "<strong>Entfolgen</strong> – einzeln, mit Bestätigung und Tageslimit"
+  },
+  "page_open": {
+    "message": "Instagram öffnen"
+  },
+  "page_done": {
+    "message": "Fertig. Öffne Instagram und klicke auf die rosa Schaltfläche unten rechts."
+  },
+  "page_privacyTitle": {
+    "message": "Datenschutz"
+  },
+  "page_privacyText": {
+    "message": "Scanergebnisse, Verlauf und Einstellungen bleiben in diesem Browser. Die Erweiterung ruft Daten bei Instagram ab. Profilbilder können von Bildservern von Instagram oder Meta geladen werden. Die Erweiterung erfasst keine Telemetriedaten."
+  },
+  "page_policy": {
+    "message": "Datenschutzerklärung"
+  },
+  "page_source": {
+    "message": "Quellcode"
+  },
+  "err_abort": {
+    "message": "Scan gestoppt."
+  },
+  "err_network": {
+    "message": "Verbindung zu Instagram fehlgeschlagen."
+  },
+  "err_checkpoint": {
+    "message": "Instagram möchte deine Identität bestätigen. Öffne instagram.com, führe die Überprüfung durch und versuche es später erneut."
+  },
+  "err_login": {
+    "message": "Instagram verlangt eine erneute Anmeldung. Melde dich an und versuche es noch einmal."
+  },
+  "err_noAccess": {
+    "message": "Kein Zugriff. Prüfe, ob du auf instagram.com angemeldet bist, und lade die Seite neu."
+  },
+  "err_unexpected": {
+    "message": "Instagram hat eine unerwartete Antwort gesendet (HTTP {status})."
+  },
+  "err_ig": {
+    "message": "Instagram-Fehler (HTTP {status}){msg}"
+  },
+  "err_ratelimit": {
+    "message": "Instagram begrenzt die Anfragen weiterhin. Warte 15–30 Minuten und versuche es dann im Modus „Vorsichtig“ erneut."
+  },
+  "err_format": {
+    "message": "Instagram hat das Datenformat geändert. Die Erweiterung muss aktualisiert werden."
+  },
+  "err_noAccount": {
+    "message": "Kein angemeldetes Konto gefunden. Melde dich auf instagram.com an und lade die Seite neu."
+  },
+  "note_pause": {
+    "message": "Kurze Pause ({s} Sek.), um Instagram nicht zu überlasten …"
+  },
+  "note_retryNet": {
+    "message": "Verbindungsproblem. Neuer Versuch ({a}/{n}) …"
+  },
+  "note_slowDown": {
+    "message": "Instagram drosselt Anfragen (HTTP {status}). Weiter in {s} Sek. …"
+  },
+  "note_fallback": {
+    "message": "Erste Methode fehlgeschlagen. Alternative Methode wird ausprobiert …"
+  },
+  "note_repair": {
+    "message": "Instagram hat {got} von {expected} Konten geliefert. Die übrigen werden auf einem anderen Weg abgerufen …"
+  },
+  "scan_checking": {
+    "message": "Konto wird geprüft …"
+  },
+  "scan_followers": {
+    "message": "Follower: {n}"
+  },
+  "scan_followersDone": {
+    "message": "Follower: {n} ✓ · Gleich folgen die abonnierten Konten …"
+  },
+  "scan_following": {
+    "message": "Follower: {f} ✓ · Abonnierte Konten: {n}"
+  },
+  "scan_done": {
+    "message": "Fertig"
+  },
+  "scan_result": {
+    "message": "Fertig! Follower: {fr}, abonnierte Konten: {fg}."
+  },
+  "scan_first": {
+    "message": "Das ist dein erster Scan. Beim nächsten Scan siehst du, wer dir entfolgt ist."
+  },
+  "scan_changes": {
+    "message": "Seit dem letzten Scan: −{lost} / +{gained} Follower (siehe „Änderungen“)."
+  },
+  "scan_noChanges": {
+    "message": "Keine Änderungen seit dem letzten Scan."
+  },
+  "scan_fewer": {
+    "message": "Laut Profilzähler wurden {got} von {expected} Followern abgerufen. Kleine Abweichungen sind bei gesperrten oder deaktivierten Konten normal. Starte bei einem größeren Unterschied später einen neuen Scan."
+  },
+  "scan_shortFollowing": {
+    "message": "Laut Profilzähler wurden {got} von {expected} abonnierten Konten abgerufen. Instagram hat nur einen Teil der Liste geliefert, daher können die Ergebnisse ungenau sein. Scanne in 15 Minuten im Modus „Vorsichtig“ erneut."
+  },
+  "scan_noCounts": {
+    "message": "Die Profilzähler konnten nicht gelesen werden. Die Erweiterung konnte daher die Vollständigkeit der Listen nicht prüfen."
+  },
+  "scan_aborted": {
+    "message": "Scan gestoppt. Die bisherigen Ergebnisse bleiben gespeichert."
+  },
+  "unf_duringScan": {
+    "message": "Warte, bis der Scan abgeschlossen ist."
+  },
+  "unf_otherAccount": {
+    "message": "Du bist mit einem anderen Konto angemeldet. Scanne zuerst das aktuelle Konto."
+  },
+  "unf_blockedUntil": {
+    "message": "Entfolgen ist bis {time} pausiert, weil Instagram Aktionen für dein Konto eingeschränkt hat."
+  },
+  "unf_limit": {
+    "message": "Das Tageslimit fürs Entfolgen ist erreicht ({used}/{limit} in 24 Std.). Du kannst es in den Einstellungen ändern."
+  },
+  "unf_cooldown": {
+    "message": "Warte noch {s} Sek. Pausen zwischen den Aktionen helfen, eine Kontosperre zu vermeiden."
+  },
+  "unf_done": {
+    "message": "Du folgst @{user} nicht mehr. Heute: {used}/{limit}."
+  },
+  "unf_blocked": {
+    "message": "Instagram hat die Aktion wegen zu vieler Aktionen blockiert. Entfolgen ist bis {time} pausiert. Versuche es auch nicht manuell in der App."
+  },
+  "unf_slow": {
+    "message": "Instagram verlangt eine Pause. Entfolgen ist bis {time} pausiert."
+  },
+  "unf_failed": {
+    "message": "Instagram hat das Entfolgen nicht bestätigt (HTTP {status}, {info}). Prüfe im Profil, ob du dem Konto noch folgst."
+  },
+  "unf_noTokens": {
+    "message": "Auf der Seite wurden keine Instagram-Sitzungstoken gefunden. Lade die Seite neu (F5) und versuche es erneut."
+  },
+  "unf_still": {
+    "message": "Instagram hat geantwortet, aber du folgst @{user} weiterhin. Versuche es später erneut oder öffne das Profil."
+  },
+  "unf_unconfirmed": {
+    "message": "Instagram hat die Anfrage angenommen, die Erweiterung konnte das Entfolgen von @{user} aber nicht bestätigen. Prüfe es im Profil."
+  },
+  "backup_exported": {
+    "message": "Sicherung gespeichert. Konten: {n}."
+  },
+  "backup_imported": {
+    "message": "Sicherung vom {date} wiederhergestellt. Konten: {n}."
+  },
+  "backup_invalid": {
+    "message": "Die Datei ist keine Apex-Unfollowers-Sicherung oder ist beschädigt."
+  },
+  "backup_tooBig": {
+    "message": "Die Sicherungsdatei ist zu groß (max. {mb} MB)."
+  },
+  "ui_stats": {
+    "message": "Statistiken"
+  },
+  "ui_settings": {
+    "message": "Einstellungen"
+  },
+  "ui_close": {
+    "message": "Schließen (Esc)"
+  },
+  "ui_scan": {
+    "message": "Scannen"
+  },
+  "ui_stop": {
+    "message": "Stoppen"
+  },
+  "ui_speedTitle": {
+    "message": "Scangeschwindigkeit"
+  },
+  "ui_speedSafe": {
+    "message": "Tempo: Vorsichtig"
+  },
+  "ui_speedNormal": {
+    "message": "Tempo: Schneller"
+  },
+  "ui_search": {
+    "message": "Nach Namen suchen …"
+  },
+  "ui_csvTitle": {
+    "message": "Angezeigte Liste als CSV herunterladen"
+  },
+  "ui_filterTitle": {
+    "message": "Filter"
+  },
+  "ui_sortTitle": {
+    "message": "Sortierung"
+  },
+  "ui_hiddenTitle": {
+    "message": "Auch ausgeblendete Konten anzeigen (Ausnahmeliste)"
+  },
+  "ui_hidden": {
+    "message": "Ausgeblendet"
+  },
+  "ui_footer": {
+    "message": "Deine Daten bleiben in deinem Browser."
+  },
+  "ui_more": {
+    "message": "Mehr anzeigen ({n})"
+  },
+  "ui_lastScan": {
+    "message": "Letzter Scan: {date}"
+  },
+  "ui_noScan": {
+    "message": "Noch kein Scan. Klicke auf „Scannen“."
+  },
+  "tab_notBack": {
+    "message": "Folgen dir nicht zurück"
+  },
+  "tab_fans": {
+    "message": "Denen du nicht folgst"
+  },
+  "tab_mutual": {
+    "message": "Gegenseitige Follows"
+  },
+  "tab_changes": {
+    "message": "Änderungen"
+  },
+  "tab_changesTitle": {
+    "message": "Konten, die dir entfolgt sind (laut Scanverlauf)"
+  },
+  "filter_all": {
+    "message": "Alle Konten"
+  },
+  "filter_verified": {
+    "message": "Verifiziert"
+  },
+  "filter_private": {
+    "message": "Privat"
+  },
+  "filter_public": {
+    "message": "Öffentlich"
+  },
+  "filter_nopic": {
+    "message": "Ohne Profilbild"
+  },
+  "sort_default": {
+    "message": "Neueste zuerst"
+  },
+  "sort_az": {
+    "message": "Name A–Z"
+  },
+  "sort_za": {
+    "message": "Name Z–A"
+  },
+  "set_lang": {
+    "message": "Sprache"
+  },
+  "set_langAuto": {
+    "message": "Automatisch (Browsersprache)"
+  },
+  "set_unf": {
+    "message": "Limit fürs Entfolgen"
+  },
+  "set_unfHint": {
+    "message": "Instagram begrenzt die Zahl der Aktionen. Wenn du in kurzer Zeit zu vielen Konten entfolgst, kann Instagram Aktionen stunden- oder tagelang sperren. Die Erweiterung lässt zwischen diesen Aktionen jeweils 15 Sekunden verstreichen."
+  },
+  "set_unfOption": {
+    "message": "{n} pro 24 Std."
+  },
+  "set_launcher": {
+    "message": "Schaltfläche auf der Seite"
+  },
+  "set_launcherLabel": {
+    "message": "Runde Schaltfläche auf instagram.com anzeigen"
+  },
+  "set_backup": {
+    "message": "Sicherung"
+  },
+  "set_backupHint": {
+    "message": "JSON-Datei mit Scanergebnissen, Verlauf, Ausnahmeliste und Einstellungen. Praktisch beim Wechsel von Computer oder Browser."
+  },
+  "set_export": {
+    "message": "Sicherung speichern"
+  },
+  "set_import": {
+    "message": "Sicherung wiederherstellen …"
+  },
+  "set_data": {
+    "message": "Daten dieses Kontos"
+  },
+  "set_dataHint": {
+    "message": "Löscht Scanergebnisse, Verlauf, Ausnahmeliste und Entfolgezähler des aktuellen Kontos."
+  },
+  "set_wipe": {
+    "message": "Daten löschen"
+  },
+  "set_wipeConfirm": {
+    "message": "Zum Bestätigen erneut klicken"
+  },
+  "set_wiped": {
+    "message": "Die gespeicherten Daten dieses Kontos wurden gelöscht."
+  },
+  "changes_group": {
+    "message": "Scan vom {date} (verglichen mit {since})"
+  },
+  "changes_lost": {
+    "message": "Entfolgt"
+  },
+  "changes_gained": {
+    "message": "Neu"
+  },
+  "row_hide": {
+    "message": "Ausblenden"
+  },
+  "row_unhide": {
+    "message": "Einblenden"
+  },
+  "row_hideTitle": {
+    "message": "Zur Ausnahmeliste hinzufügen (z. B. Marken oder bekannte Personen) und in diesem Tab ausblenden"
+  },
+  "row_unhideTitle": {
+    "message": "Von der Ausnahmeliste entfernen"
+  },
+  "row_unf": {
+    "message": "Entfolgen"
+  },
+  "row_unfConfirm": {
+    "message": "Sicher?"
+  },
+  "row_unfTitle": {
+    "message": "Diesem Konto entfolgen (Bestätigung erforderlich)"
+  },
+  "empty_changes": {
+    "message": "Noch keine Änderungen erfasst. Scanne später erneut, um hier neue und verlorene Follower zu sehen."
+  },
+  "empty_firstScan": {
+    "message": "Starte zuerst einen Scan."
+  },
+  "empty_scanning": {
+    "message": "Listen werden abgerufen …"
+  },
+  "empty_loggedOut": {
+    "message": "Melde dich bei Instagram an, um deine Ergebnisse zu sehen. Gespeicherte Scans erscheinen wieder, sobald du dich mit demselben Konto anmeldest."
+  },
+  "empty_noScan": {
+    "message": "Klicke auf „Scannen“, um die Listen abzurufen. Bei großen Konten kann das einige Minuten dauern. Du kannst das Panel schließen, lass den Instagram-Tab aber offen."
+  },
+  "empty_noResults": {
+    "message": "Keine Konten entsprechen der Suche oder dem Filter."
+  },
+  "empty_notBack": {
+    "message": "Alle Konten, denen du folgst, folgen dir zurück 🎉"
+  },
+  "empty_fans": {
+    "message": "Du folgst allen deinen Followern."
+  },
+  "empty_mutual": {
+    "message": "Keine gegenseitigen Follows."
+  },
+  "stats_now": {
+    "message": "Aktuell"
+  },
+  "stats_followers": {
+    "message": "Follower"
+  },
+  "stats_following": {
+    "message": "Abonnierte Konten"
+  },
+  "stats_mutual": {
+    "message": "Gegenseitig ({p} der abonnierten Konten)"
+  },
+  "stats_notBack": {
+    "message": "Folgen dir nicht zurück"
+  },
+  "stats_vsPrev": {
+    "message": "{d} seit dem letzten Scan"
+  },
+  "stats_balance": {
+    "message": "Follower-Bilanz"
+  },
+  "stats_balanceDays": {
+    "message": "{days} Tage: +{gained} / −{lost}"
+  },
+  "stats_unf24": {
+    "message": "Entfolgt (24 Std.)"
+  },
+  "stats_chartTitle": {
+    "message": "Entwicklung der Followerzahl"
+  },
+  "stats_chartSub": {
+    "message": "Anzahl der Scans: {n}"
+  },
+  "stats_chartEmpty": {
+    "message": "Das Diagramm erscheint nach dem zweiten Scan."
+  },
+  "stats_chartAria": {
+    "message": "Diagramm der Followerzahl. Aktuell: {n}"
+  },
+  "stats_history": {
+    "message": "Scanverlauf"
+  },
+  "stats_colDate": {
+    "message": "Datum"
+  },
+  "stats_colFollowers": {
+    "message": "Follower"
+  },
+  "stats_colFollowing": {
+    "message": "Abonnierte Konten"
+  },
+  "stats_colChange": {
+    "message": "Änderung"
+  },
+  "csv_empty": {
+    "message": "In diesem Tab gibt es nichts zu exportieren."
+  },
+  "csv_head": {
+    "message": "Benutzername,Vollständiger_Name,Link,Verifiziert,Privat"
+  },
+  "csv_headChanges": {
+    "message": "Änderung,Datum"
+  },
+  "csv_yes": {
+    "message": "ja"
+  },
+  "csv_no": {
+    "message": "nein"
+  },
+  "csv_lost": {
+    "message": "entfolgt"
+  },
+  "csv_gained": {
+    "message": "neuer_Follower"
+  },
+  "csv_fileNotBack": {
+    "message": "folgen-nicht-zurueck"
+  },
+  "csv_fileFans": {
+    "message": "denen-du-nicht-folgst"
+  },
+  "csv_fileMutual": {
+    "message": "gegenseitig"
+  },
+  "csv_fileChanges": {
+    "message": "aenderungen"
+  },
+  "popup_opening": {
+    "message": "Panel wird geöffnet …"
+  },
+  "popup_openTitle": {
+    "message": "Instagram öffnen"
+  },
+  "popup_openText": {
+    "message": "Die Erweiterung funktioniert auf instagram.com. Melde dich an und klicke dann auf das Erweiterungssymbol oder die rosa Schaltfläche unten rechts auf der Seite."
+  },
+  "popup_openBtn": {
+    "message": "instagram.com öffnen"
+  },
+  "popup_reloadTitle": {
+    "message": "Instagram neu laden"
+  },
+  "popup_reloadText": {
+    "message": "Die Erweiterung wird nach dem Neuladen des Tabs geladen. Klicke danach erneut auf das Symbol."
+  },
+  "popup_reloadBtn": {
+    "message": "Seite neu laden"
+  },
+  "row_unfBusy": {
+    "message": "Entfolge …"
+  },
+  "report_unknown": {
+    "message": "Unbekannt"
+  },
+  "err_noResponseType": {
+    "message": "unbekannter Antworttyp"
+  },
+  "err_generic": {
+    "message": "Etwas ist schiefgelaufen."
+  }
+}

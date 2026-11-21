@@ -41,23 +41,23 @@ button { font: inherit; color: inherit; }
 
 .top { display: flex; align-items: center; gap: 8px; padding: 12px 14px 10px; }
 .brand { font-weight: 650; font-size: 14px; letter-spacing: -.01em; }
-.version { margin-left: auto; color: var(--muted); font-size: 11px; font-variant-numeric: tabular-nums; }
+.version { margin-inline-start: auto; color: var(--muted); font-size: 11px; font-variant-numeric: tabular-nums; }
 
 main { padding: 0 12px 4px; }
 .card {
   display: flex; align-items: flex-start; gap: 10px;
-  padding: 12px 12px 12px 14px; border-radius: 12px;
+  padding-block: 12px; padding-inline: 14px 12px; border-radius: 12px;
   background: var(--surface); border: 1px solid var(--line); box-shadow: var(--shadow);
 }
 .dot { width: 8px; height: 8px; margin-top: 5px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 3px var(--accent-soft); flex: none; }
-.card-text { display: grid; gap: 3px; min-width: 0; }
+.card-text { display: grid; gap: 3px; min-width: 0; overflow-wrap: anywhere; }
 .card-text strong { font-size: 13px; }
 .card-text span { color: var(--muted); font-size: 12.5px; }
 
 .actions { padding: 10px 12px 12px; }
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 6px; width: 100%;
-  height: 36px; padding: 0 10px; border-radius: 10px; cursor: pointer;
+  min-height: 36px; padding: 5px 10px; border-radius: 10px; cursor: pointer; overflow-wrap: anywhere;
   background: var(--bg); border: 1px solid var(--line); font-weight: 550; font-size: 12.5px;
 }
 .btn.primary { background: var(--accent); border-color: var(--accent); color: var(--on-accent); font-weight: 600; }

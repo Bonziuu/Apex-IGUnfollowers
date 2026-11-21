@@ -19,6 +19,8 @@ const OUT = path.join(ROOT, 'store');
 const manifest = JSON.parse(fs.readFileSync(path.join(ROOT, 'manifest.json'), 'utf8'));
 const SCRIPTS = manifest.content_scripts[0].js.map((f) => path.join(ROOT, f));
 const LOGO = fs.readFileSync(path.join(ROOT, 'icons', 'logo.svg'), 'utf8');
+const CATALOGS = Object.fromEntries(['en', 'pl'].map((code) => [code,
+  JSON.parse(fs.readFileSync(path.join(ROOT, '_locales', code, 'messages.json'), 'utf8'))]));
 
 // ---------------------------------------------------------------- dane demonstracyjne
 const FIRST = ['anna', 'kuba', 'ola', 'marek', 'zosia', 'piotr', 'ewa', 'tomek', 'kasia', 'bartek', 'ala', 'szymon', 'magda', 'jan', 'iga', 'filip', 'ula', 'adam', 'nina', 'olek'];
@@ -44,7 +46,11 @@ function demoUser(i) {
 const stub = (initial) => `(() => {
   const mem = ${JSON.stringify(initial)};
   window.browser = {
-    runtime: { onMessage: { addListener() {} }, getManifest: () => ({ version: '${manifest.version}' }), sendMessage() {} },
+    runtime: {
+      onMessage: { addListener() {} },
+      getManifest: () => ({ version: '${manifest.version}' }),
+      sendMessage: async ({ type, lang }) => type === 'apex-unf:loadLocale' ? ${JSON.stringify(CATALOGS)}[lang] : undefined,
+    },
     storage: { local: {
       async get(k) { if (k === null) return JSON.parse(JSON.stringify(mem)); return k in mem ? { [k]: JSON.parse(JSON.stringify(mem[k])) } : {}; },
       async set(o) { Object.assign(mem, JSON.parse(JSON.stringify(o))); },

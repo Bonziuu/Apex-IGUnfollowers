@@ -16,6 +16,8 @@ const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 // skrypty wtyczki w kolejności z manifest.json
 const SCRIPTS = JSON.parse(fs.readFileSync(path.join(ROOT, 'manifest.json'), 'utf8')).content_scripts[0].js.map((f) => path.join(ROOT, f));
 const VERSION = JSON.parse(fs.readFileSync(path.join(ROOT, 'manifest.json'), 'utf8')).version;
+const CATALOGS = Object.fromEntries(fs.readdirSync(path.join(ROOT, '_locales')).map((code) => [code,
+  JSON.parse(fs.readFileSync(path.join(ROOT, '_locales', code, 'messages.json'), 'utf8'))]));
 const SHOTS = process.env.SCREENSHOTS ? path.join(ROOT, 'docs', 'screens') : null;
 const range = (a, b) => Array.from({ length: b - a + 1 }, (_, i) => a + i);
 const DAY = 24 * 3600 * 1000;
@@ -29,14 +31,25 @@ const stored = (i) => ({ id: String(i), username: `konto.${i}`, name: `Osoba ${i
 // chrome.storage w pamięci + manifest, wstrzykiwane przed skryptami wtyczki
 const stub = (initial) => `(() => {
   const mem = ${JSON.stringify(initial)};
+  const catalogs = ${JSON.stringify(CATALOGS)};
+  const listeners = [];
   window.browser = {
-    runtime: { onMessage: { addListener() {} }, getManifest: () => ({ version: '${VERSION}' }) },
-    storage: { local: {
+    runtime: {
+      onMessage: { addListener() {} },
+      getManifest: () => ({ version: '${VERSION}' }),
+      sendMessage: async ({ type, lang }) => type === 'apex-unf:loadLocale' ? catalogs[lang] : undefined,
+    },
+    storage: { onChanged: { addListener: (listener) => listeners.push(listener) }, local: {
       async get(k) {
         if (k === null) return JSON.parse(JSON.stringify(mem));
         return k in mem ? { [k]: JSON.parse(JSON.stringify(mem[k])) } : {};
       },
-      async set(o) { Object.assign(mem, JSON.parse(JSON.stringify(o))); },
+      async set(o) {
+        const updates = JSON.parse(JSON.stringify(o));
+        const changes = Object.fromEntries(Object.keys(updates).map((key) => [key, { oldValue: mem[key], newValue: updates[key] }]));
+        Object.assign(mem, updates);
+        for (const listener of listeners) listener(changes, 'local');
+      },
       async remove(ks) { (Array.isArray(ks) ? ks : [ks]).forEach((k) => delete mem[k]); },
     } },
   };
@@ -44,7 +57,7 @@ const stub = (initial) => `(() => {
 })();`;
 
 // truncate: 'surface' – REST z search_surface ucina listę obserwowanych na 100 kontach, 'all' – każda metoda ją ucina
-// unfollowResult: 'ok' | 'blocked' | 'noFs' (status ok bez friendship_status) | 'still' (ok, ale nic nie zrobił) | 'html'
+// unfollowResult: 'ok' | 'blocked' | 'noFs' (status ok bez friendship_status) | 'still' (ok, ale nic nie zrobił) | 'html' | 'privateReport'
 // idMismatch: lista obserwowanych podaje inne ID (tylko nazwa użytkownika się zgadza)
 async function setup({ colorScheme = 'light', locale = 'pl-PL', rateLimited = false, unfollowResult = 'ok', mem = {}, truncate = null, noInfo = false, idMismatch = false, following = range(60, 169), loggedOut = false } = {}) {
   const data = { followers: range(1, 130), following };
@@ -77,6 +90,9 @@ async function setup({ colorScheme = 'light', locale = 'pl-PL', rateLimited = fa
       // jak prawdziwy Instagram: nieznany adres albo brak fb_dtsg → strona HTML z kodem 200
       if (!id || !form.get('fb_dtsg') || unfollowResult === 'html') return html();
       if (unfollowResult === 'blocked') return route.fulfill({ status: 400, json: { status: 'fail', message: 'feedback_required', spam: true } });
+      if (unfollowResult === 'privateReport') {
+        return route.fulfill({ status: 400, json: { status: 'fail', message: 'Private diagnostic for @konto.6' } });
+      }
       if (unfollowResult === 'still') return route.fulfill({ json: { status: 'ok' } });
       unfollowed.add(id);
       if (unfollowResult === 'noFs') return route.fulfill({ json: { status: 'ok' } });
@@ -362,7 +378,7 @@ test('wznawianie skanu po zatrzymaniu, szacowany czas', { timeout: 120_000 }, as
     await page.waitForFunction(() => /Obserwowani: [1-9]/.test(document.querySelector('#apex-unfollowers-root').shadowRoot.querySelector('[data-ref=ptext]').textContent), null, { timeout: 60_000 });
     await root.locator('[data-ref=scan]').click();
     await root.locator('[data-ref=msg]', { hasText: 'Skan wstrzymany' }).waitFor({ timeout: 15_000 });
-    assert.match(await msg(), /Postęp zapisany \(1[0-9]{2} kont\)/);
+    assert.match(await msg(), /Zapisano postęp \(konta: 1[0-9]{2}\)/);
     assert.equal(await root.locator('[data-ref=scan]').textContent(), 'Wznów skan');
     assert.equal(await root.locator('[data-ref=resumeRow]').isVisible(), true);
     const saved = await page.evaluate(() => window.__mem['resume:999']);
@@ -403,6 +419,30 @@ test('zgłoszenie problemu: przycisk przy błędzie otwiera gotowe zgłoszenie b
   }
 });
 
+test('zgłoszenie problemu: szczegóły błędu Instagrama i nazwa konta zostają w panelu', { timeout: 60_000 }, async () => {
+  const scanData = {
+    ts: Date.now() - DAY, userId: '999', username: 'apex.test',
+    followers: range(1, 5).map(stored), following: range(1, 10).map(stored),
+  };
+  const ctx = await setup({ unfollowResult: 'privateReport', mem: { 'scan:999': scanData } });
+  try {
+    await ctx.context.route('https://github.com/**', (r) => r.fulfill({ contentType: 'text/html', body: 'ok' }));
+    await ctx.root.locator('.launcher').click();
+    const unfollow = ctx.root.locator('.row .mini.unf').first();
+    await unfollow.click();
+    await unfollow.click();
+    const report = ctx.root.locator('[data-ref=msg] .linkbtn');
+    await report.waitFor();
+    assert.match(await ctx.msg(), /Private diagnostic for @konto\.6/);
+    const [tab] = await Promise.all([ctx.context.waitForEvent('page'), report.click()]);
+    const params = new URL(tab.url()).searchParams;
+    assert.match(params.get('error'), /HTTP 400, application\/json/);
+    assert.doesNotMatch(params.get('title') + params.get('error'), /Private diagnostic|konto\.6/);
+  } finally {
+    await ctx.browser.close();
+  }
+});
+
 test('limit zapytań (HTTP 429) podczas skanu: czekanie i przycisk Zatrzymaj', { timeout: 60_000 }, async () => {
   const { browser, root, page, msg } = await setup({ rateLimited: true });
   try {
@@ -420,16 +460,50 @@ test('limit zapytań (HTTP 429) podczas skanu: czekanie i przycisk Zatrzymaj', {
 });
 
 test('język: automatycznie EN dla przeglądarki po angielsku, przełączanie w ustawieniach', { timeout: 60_000 }, async () => {
-  const { browser, root } = await setup({ locale: 'en-US' });
+  const { browser, page, root } = await setup({ locale: 'en-US' });
   try {
     await root.locator('.launcher').click();
     assert.equal(await root.locator('[data-ref=scan]').textContent(), 'Scan');
     assert.match(await root.locator('nav').textContent(), /Don’t follow back/);
     await root.locator('[data-ref=settingsBtn]').click();
     await choose(root.locator('[data-ref=lang]'), 'pl');
-    assert.equal(await root.locator('[data-ref=scan]').textContent(), 'Skanuj');
+    await root.locator('[data-ref=scan]', { hasText: 'Skanuj' }).waitFor({ state: 'attached' });
     assert.equal(await root.locator('[data-ref=vSettings]').isVisible(), true);
     assert.match(await root.locator('[data-ref=vSettings]').textContent(), /Kopia zapasowa/);
+    assert.equal(await page.evaluate(() => window.__mem.settings.lang), 'pl');
+  } finally {
+    await browser.close();
+  }
+});
+
+test('język: ustawienia i nawigacja mieszczą się na wąskim ekranie w obu kierunkach', { timeout: 60_000 }, async () => {
+  const { browser, page, root, errors } = await setup({ locale: 'fr-FR', colorScheme: 'dark' });
+  try {
+    await page.setViewportSize({ width: 375, height: 740 });
+    await root.locator('.launcher').click();
+    await root.locator('[data-ref=settingsBtn]').click();
+    const panel = root.locator('.wrap');
+    const selector = root.locator('[data-ref=lang]');
+    assert.equal(await selector.locator('option').count(), Object.keys(CATALOGS).length + 1);
+    assert.deepEqual(await selector.locator('option[value=ar]').allTextContents(), ['العربية']);
+
+    for (const [preference, locale, direction, catalog] of [
+      ['auto', 'fr', 'ltr', 'fr'],
+      ['de', 'de', 'ltr', 'de'],
+      ['pt_BR', 'pt-BR', 'ltr', 'pt_BR'],
+      ['ar', 'ar', 'rtl', 'ar'],
+      ['ja', 'ja', 'ltr', 'ja'],
+      ['auto', 'fr', 'ltr', 'fr'],
+    ]) {
+      if (await selector.inputValue() !== preference) await choose(selector, preference);
+      await root.locator(`.wrap[lang="${locale}"][dir="${direction}"]`).waitFor({ state: 'attached' });
+      assert.equal(await panel.evaluate((node) => getComputedStyle(node).direction), direction);
+      const scanButton = root.locator('[data-ref=scan]');
+      assert.equal(await scanButton.textContent(), CATALOGS[catalog].ui_scan.message);
+      assert.equal(await root.locator('[data-ref=vSettings]').evaluate((node) => node.scrollWidth <= node.clientWidth + 1), true);
+      if (preference !== 'auto') assert.equal(await page.evaluate(() => window.__mem.settings.lang), preference);
+    }
+    assert.deepEqual(errors, []);
   } finally {
     await browser.close();
   }

@@ -29,7 +29,7 @@
 - 🔎 Filtry, sortowanie, biała lista, CSV
 - ⏯️ Wznawianie przerwanego skanu przy dużych kontach
 - 🔒 Bez konta, serwera i telemetrii Apex
-- 🌍 Interfejs PL / EN
+- 🌍 Interfejs w 20 językach od wersji 1.3.0
 - 🧩 Manifest V3 · Chrome 121+ (także Edge, Brave, Opera)
 - 🔓 Open source · 🇵🇱 Rozwijany w Polsce
 
@@ -69,7 +69,7 @@
 | **Wyszukiwarka i CSV** | Filtrowanie po nazwie i eksport widocznej listy do pliku CSV (Excel, Google Sheets). |
 | **Kopia zapasowa** | Zapis i wczytanie wyników, historii, białej listy i ustawień w pliku JSON, np. przy zmianie komputera. |
 | **Zgłoś problem** | Przy każdym błędzie i w ustawieniach: gotowe zgłoszenie na GitHubie albo e-mail do autora. Zawiera tylko wersję, przeglądarkę i treść błędu – bez nazw kont. |
-| **PL / EN, jasny i ciemny motyw** | Język wg przeglądarki albo wybrany w ustawieniach; motyw wg systemu. |
+| **20 języków, jasny i ciemny motyw** | Automatyczny lub ręczny wybór języka. Motyw jest dopasowany do systemu. |
 
 ## Prywatność
 
@@ -121,6 +121,8 @@ Nie usuwaj ani nie przenoś folderu po instalacji, bo przeglądarka korzysta z n
 3. Kliknij **Skanuj**. Panel możesz zamknąć w trakcie skanu, ale nie zamykaj karty. Jeśli skan się przerwie, kliknij **Wznów skan**.
 4. Ikona wykresu w nagłówku panelu otwiera **statystyki**, a koło zębate **ustawienia** (język, limit odobserwowań, kopia zapasowa, autor i kontakt, zgłaszanie problemów).
 
+Od wersji 1.3.0 interfejs obsługuje 20 języków. Domyślnie dopasowuje się do języka przeglądarki, z angielskim jako językiem awaryjnym. W **Ustawienia → Język** możesz wybrać własny język. Wybór zapisuje się w lokalnych ustawieniach rozszerzenia i działa od razu. [Lista języków](docs/chrome-web-store/README.md)
+
 ## Aktualizacja
 
 Z Chrome Web Store: nic nie trzeba robić – Chrome aktualizuje wtyczkę sam.
@@ -133,10 +135,11 @@ Instalacja ręczna: [pobierz nowy ZIP](https://github.com/Bonziuu/Apex-IGUnfollo
 
 ```bash
 npm ci && npm test                 # testy end-to-end na symulowanym Instagramie (Node.js 20+, Playwright)
+npm run validate:locales           # katalogi językowe i metadane Chrome Web Store
 SCREENSHOTS=1 npm test             # dodatkowo odświeża zrzuty w docs/screens/
 npm run icons                      # ikony i logo z tools/build-icons.mjs
 npm run store                      # zrzuty i grafiki do sklepów (store/)
-npm run package:release            # dist/Apex-Unfollowers-<wersja>.zip + SHA256SUMS.txt
+npm run package:release            # paczki do instalacji i sklepu oraz SHA256SUMS.txt
 ```
 
 | Plik | Rola |
@@ -147,17 +150,17 @@ npm run package:release            # dist/Apex-Unfollowers-<wersja>.zip + SHA256
 | `content/actions.js` | skan ze wznawianiem i szacowanym czasem, odobserwowanie, kopia zapasowa, zgłaszanie problemów |
 | `content/ui.js`, `content/views.js` | panel (Shadow DOM), listy, statystyki z wykresem, ekran powitalny, CSV |
 | `content/main.js` | start panelu i komunikacja z okienkiem na pasku |
-| `shared/i18n.js`, `_locales/` | teksty PL / EN |
+| `shared/i18n.js`, `_locales/` | wybór języka, tłumaczenia interfejsu i metadane manifestu |
 | `background.js`, `welcome/` | ekran powitalny po instalacji |
 | `popup/` | okienko na pasku: otwiera i zamyka panel |
-| `icons/`, `brand/`, `store/`, `docs/webstore/` | grafika, materiały i teksty do sklepów |
-| `tests/panel.test.mjs` | testy end-to-end |
+| `icons/`, `brand/`, `store/`, `docs/chrome-web-store/` | grafika i zlokalizowane materiały do sklepu |
+| `tests/` | testy logiki, lokalizacji i interfejsu |
 
 Moduły `content/*.js` ładują się po kolei (kolejność w `manifest.json`) i dzielą jedną przestrzeń nazw skryptów wtyczki, dlatego deklaracje na najwyższym poziomie używają `var` / `function`.
 
 **Gdy Instagram zmieni API:** cała komunikacja z siecią jest w `content/net.js`. `fetchListRest` pobiera listy (`/api/v1/friendships/{id}/followers|following/`), `unfollowRequest` odobserwowuje (`/api/v1/friendships/destroy/{id}/` z tokenami sesji strony), a `igHeaders` składa nagłówki klienta www. Aktualne zapytania podejrzysz w DevTools (F12) w zakładce **Network** po otwarciu listy „Obserwujący” na instagram.com.
 
-Każdy push i pull request uruchamia testy w GitHub Actions. **Nowe wydanie:** podbij `version` w `manifest.json`, dopisz sekcję w `CHANGELOG.md` i wypchnij na `main` – workflow „Wydanie” sam uruchomi testy i opublikuje paczkę ZIP z `SHA256SUMS.txt` (można też ręcznie: Actions → Wydanie → Run workflow).
+Każdy push i pull request uruchamia testy w GitHub Actions i buduje paczkę z końcówką `-store.zip`. **Nowe wydanie na GitHubie:** podbij `version` w `manifest.json`, dopisz sekcję w `CHANGELOG.md` i po przeglądzie scal zmiany do `main`. Workflow „Wydanie” opublikuje paczki i `SHA256SUMS.txt` po zaliczeniu CI. Zgłoszenie aktualizacji w Chrome Web Store odbywa się osobno w panelu dewelopera. [Dodawanie języka i publikowanie opisów](docs/chrome-web-store/README.md)
 
 ## Wsparcie
 
@@ -179,7 +182,7 @@ MIT, © 2026 Konrad Woźniak ([LICENSE](LICENSE)). Sposób odobserwowywania opra
   <b>A free, open-source browser extension that shows who doesn't follow you back on Instagram.<br>Runs locally in your browser: no account, no server, no Apex telemetry.</b>
 </p>
 
-> **Status:** release 1.2.0. Until it is published in the browser stores, [download the ZIP](https://github.com/Bonziuu/Apex-IGUnfollowers/releases/latest/download/Apex-Unfollowers.zip) and install it manually in a minute. Product page: [apexsoftware.app/en/unfollowers](https://apexsoftware.app/en/unfollowers/).
+> **Status:** available in the [Chrome Web Store](https://chromewebstore.google.com/detail/apex-unfollowers-for-inst/figleldcaegociodlepepehcfhkhpeho). You can also [download the ZIP](https://github.com/Bonziuu/Apex-IGUnfollowers/releases/latest/download/Apex-Unfollowers.zip) for manual installation.
 
 - 👥 See who doesn't follow you back
 - 📉 See who unfollowed you since the last scan
@@ -187,7 +190,7 @@ MIT, © 2026 Konrad Woźniak ([LICENSE](LICENSE)). Sposób odobserwowywania opra
 - 🔎 Filters, sorting, whitelist, CSV export, JSON backup
 - ⏯️ Resumable scans for large accounts, with a time estimate
 - 🔒 No account, no server, no Apex telemetry
-- 🌍 English and Polish interface
+- 🌍 Interface in [20 languages](docs/chrome-web-store/README.md) from version 1.3.0, with automatic detection and a manual language setting
 - 🧩 Manifest V3 · Chrome 121+ (also Edge, Brave, Opera)
 
 ### How it works

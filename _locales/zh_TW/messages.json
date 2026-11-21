@@ -1,0 +1,626 @@
+{
+  "extName": {
+    "message": "Apex Unfollowers – Instagram 回追與退追查詢"
+  },
+  "extShortName": {
+    "message": "Apex"
+  },
+  "extDescription": {
+    "message": "查看 Instagram 上誰沒有回追你、誰取消了對你的追蹤。資料在瀏覽器內處理，無須向擴充功能提供密碼。"
+  },
+  "ext_name": {
+    "message": "Apex Unfollowers – Instagram 回追與退追查詢"
+  },
+  "ext_tagline": {
+    "message": "免費查看 Instagram 上誰沒有回追你，資料僅保存在本機"
+  },
+  "ui_resume": {
+    "message": "繼續掃描"
+  },
+  "ui_restart": {
+    "message": "重新掃描"
+  },
+  "ui_resumeInfo": {
+    "message": "{date}中斷的掃描已儲存 {n} 個帳號。"
+  },
+  "scan_eta": {
+    "message": "預計還需 {t}"
+  },
+  "time_lessMin": {
+    "message": "不到 1 分鐘"
+  },
+  "time_min": {
+    "message": "{n} 分鐘"
+  },
+  "scan_resuming": {
+    "message": "正在繼續中斷的掃描（已擷取 {n} 個帳號）…"
+  },
+  "scan_paused": {
+    "message": "掃描已暫停。"
+  },
+  "scan_progressSaved": {
+    "message": "已儲存進度（{n} 個帳號）。按一下「繼續掃描」以完成掃描。"
+  },
+  "welcome_title": {
+    "message": "歡迎使用 Apex Unfollowers"
+  },
+  "welcome_lead": {
+    "message": "這款擴充功能會比對你的 Instagram 粉絲和追蹤中名單。無須另外註冊，資料在瀏覽器內處理，也不會傳送給開發者。"
+  },
+  "welcome_step1": {
+    "message": "在這個瀏覽器中登入 instagram.com。"
+  },
+  "welcome_step2": {
+    "message": "按一下「掃描」。名單較長時，可能需要幾分鐘。"
+  },
+  "welcome_step3": {
+    "message": "使用分頁和篩選條件查看名單及統計資料。請逐一取消追蹤。"
+  },
+  "welcome_riskTitle": {
+    "message": "帳號安全"
+  },
+  "welcome_riskText": {
+    "message": "這款擴充功能使用 Instagram 網站的非官方 API。Instagram 的使用條款不允許自動收集資料，使用風險由你自行承擔。"
+  },
+  "welcome_risk1": {
+    "message": "請以安全速度掃描，每天最多一次。"
+  },
+  "welcome_risk2": {
+    "message": "請間隔一段時間再取消追蹤其他帳號。擴充功能設有操作間隔和每日上限。"
+  },
+  "welcome_risk3": {
+    "message": "如果操作受到限制，請等候一兩天。"
+  },
+  "welcome_accept": {
+    "message": "我已了解並願意使用這款擴充功能。"
+  },
+  "welcome_start": {
+    "message": "開始使用"
+  },
+  "welcome_privacy": {
+    "message": "你的資料會保留在這個瀏覽器中。"
+  },
+  "welcome_more": {
+    "message": "瞭解詳情"
+  },
+  "set_about": {
+    "message": "關於擴充功能"
+  },
+  "set_authorTitle": {
+    "message": "開發者與聯絡方式"
+  },
+  "set_linkedin": {
+    "message": "LinkedIn 個人檔案"
+  },
+  "set_linkedinLabel": {
+    "message": "開發者的 LinkedIn 個人檔案（在新分頁開啟）"
+  },
+  "set_reportHint": {
+    "message": "遇到問題嗎？回報只會包含擴充功能版本、瀏覽器和最近一次錯誤，不包含帳號名稱。"
+  },
+  "set_reportGithub": {
+    "message": "回報問題"
+  },
+  "set_reportMail": {
+    "message": "寄送電子郵件"
+  },
+  "set_showWelcome": {
+    "message": "顯示歡迎畫面"
+  },
+  "report_button": {
+    "message": "回報問題"
+  },
+  "report_buttonTitle": {
+    "message": "在 GitHub 開啟預填的問題回報（版本、瀏覽器、錯誤）"
+  },
+  "report_mailIntro": {
+    "message": "請描述遇到的問題和當時要執行的操作："
+  },
+  "report_browser": {
+    "message": "瀏覽器"
+  },
+  "report_language": {
+    "message": "語言"
+  },
+  "report_error": {
+    "message": "最近一次錯誤"
+  },
+  "report_subject": {
+    "message": "問題回報"
+  },
+  "page_title": {
+    "message": "歡迎使用 Apex Unfollowers"
+  },
+  "page_tagline": {
+    "message": "免費查看 Instagram 上誰沒有回追你，資料僅保存在本機"
+  },
+  "page_lead": {
+    "message": "Apex Unfollowers 會比對你的 Instagram 粉絲和追蹤中名單，顯示誰沒有回追你、你沒有回追誰，以及誰取消了對你的追蹤。擴充功能直接在瀏覽器內執行，無須另外註冊、不會要求輸入密碼，也不會將資料傳給開發者。"
+  },
+  "page_howTitle": {
+    "message": "如何開始"
+  },
+  "page_featTitle": {
+    "message": "面板功能"
+  },
+  "page_feat1": {
+    "message": "<strong>未回追你</strong> — 可使用排除清單隱藏名人或品牌帳號"
+  },
+  "page_feat2": {
+    "message": "<strong>變動</strong> — 查看上次掃描後新增和流失的粉絲"
+  },
+  "page_feat3": {
+    "message": "<strong>統計</strong> — 查看粉絲趨勢圖及最近 7 天和 30 天的變動"
+  },
+  "page_feat4": {
+    "message": "<strong>取消追蹤</strong> — 每次處理一個帳號，須手動確認，並設有每日上限"
+  },
+  "page_open": {
+    "message": "開啟 Instagram"
+  },
+  "page_done": {
+    "message": "準備就緒。開啟 Instagram，然後按一下右下角的粉紅色按鈕。"
+  },
+  "page_privacyTitle": {
+    "message": "隱私"
+  },
+  "page_privacyText": {
+    "message": "掃描結果、歷史記錄和設定會儲存在這個瀏覽器的擴充功能儲存空間。擴充功能會向 Instagram 請求資料，大頭貼照可能從 Instagram 或 Meta 的圖片伺服器載入。擴充功能不會收集遙測資料。"
+  },
+  "page_policy": {
+    "message": "隱私權政策"
+  },
+  "page_source": {
+    "message": "原始碼"
+  },
+  "err_abort": {
+    "message": "掃描已停止。"
+  },
+  "err_network": {
+    "message": "無法連線至 Instagram。"
+  },
+  "err_checkpoint": {
+    "message": "Instagram 要求驗證你的身分。請前往 instagram.com 完成驗證，稍後再試。"
+  },
+  "err_login": {
+    "message": "Instagram 要求重新登入。請登入後再試一次。"
+  },
+  "err_noAccess": {
+    "message": "無法存取。請確認已登入 instagram.com，再重新載入頁面。"
+  },
+  "err_unexpected": {
+    "message": "Instagram 傳回非預期的回應（HTTP {status}）。"
+  },
+  "err_ig": {
+    "message": "Instagram 錯誤（HTTP {status}）{msg}"
+  },
+  "err_ratelimit": {
+    "message": "Instagram 仍在限制請求。請等候 15 至 30 分鐘，再以安全速度重試。"
+  },
+  "err_format": {
+    "message": "Instagram 已變更資料格式，需要更新擴充功能。"
+  },
+  "err_noAccount": {
+    "message": "找不到已登入的帳號。請登入 instagram.com，再重新載入頁面。"
+  },
+  "note_pause": {
+    "message": "正在暫停 {s} 秒，以減少 Instagram 的負載…"
+  },
+  "note_retryNet": {
+    "message": "連線發生問題，正在重試（{a}/{n}）…"
+  },
+  "note_slowDown": {
+    "message": "Instagram 要求降低請求速度（HTTP {status}）。等候 {s} 秒後繼續…"
+  },
+  "note_fallback": {
+    "message": "主要方法未成功，正在嘗試備用方法…"
+  },
+  "note_repair": {
+    "message": "Instagram 已傳回 {expected} 個帳號中的 {got} 個，正在以其他方式擷取其餘帳號…"
+  },
+  "scan_checking": {
+    "message": "正在檢查帳號…"
+  },
+  "scan_followers": {
+    "message": "粉絲：{n}"
+  },
+  "scan_followersDone": {
+    "message": "粉絲：{n} ✓ · 接下來擷取追蹤中名單…"
+  },
+  "scan_following": {
+    "message": "粉絲：{f} ✓ · 追蹤中：{n}"
+  },
+  "scan_done": {
+    "message": "完成"
+  },
+  "scan_result": {
+    "message": "掃描完成！粉絲：{fr}，追蹤中：{fg}。"
+  },
+  "scan_first": {
+    "message": "這是第一次掃描。下次掃描時，就能查看誰取消了對你的追蹤。"
+  },
+  "scan_changes": {
+    "message": "與上次掃描相比，粉絲減少 {lost} 個、新增 {gained} 個（請見「變動」）。"
+  },
+  "scan_noChanges": {
+    "message": "與上次掃描相比沒有變動。"
+  },
+  "scan_fewer": {
+    "message": "已擷取個人檔案顯示的 {expected} 個粉絲中的 {got} 個。停用或遭停權的帳號可能會造成些微差異。若差異較大，請稍後重新掃描。"
+  },
+  "scan_shortFollowing": {
+    "message": "注意：只擷取到個人檔案顯示的 {expected} 個追蹤中帳號中的 {got} 個。Instagram 未傳回完整名單，分頁顯示的結果可能不準確。請等候 15 分鐘，再以安全速度掃描。"
+  },
+  "scan_noCounts": {
+    "message": "無法讀取個人檔案上的計數，因此無法確認名單是否完整。"
+  },
+  "scan_aborted": {
+    "message": "掃描已停止，先前的結果仍會保留。"
+  },
+  "unf_duringScan": {
+    "message": "請等候掃描完成。"
+  },
+  "unf_otherAccount": {
+    "message": "目前登入的帳號與結果中的帳號不同。請先掃描目前的帳號。"
+  },
+  "unf_blockedUntil": {
+    "message": "Instagram 限制了此帳號的操作，取消追蹤功能暫停至 {time}。"
+  },
+  "unf_limit": {
+    "message": "已達每日取消追蹤上限（24 小時內 {used}/{limit} 次）。你可以在設定中調整上限。"
+  },
+  "unf_cooldown": {
+    "message": "請再等候 {s} 秒。保留操作間隔有助於降低帳號受限的風險。"
+  },
+  "unf_done": {
+    "message": "已取消追蹤 @{user}。今天已操作 {used}/{limit} 次。"
+  },
+  "unf_blocked": {
+    "message": "操作次數過多，Instagram 已封鎖此操作。取消追蹤功能暫停至 {time}。請勿在應用程式中手動重試。"
+  },
+  "unf_slow": {
+    "message": "Instagram 要求降低操作速度。取消追蹤功能暫停至 {time}。"
+  },
+  "unf_failed": {
+    "message": "Instagram 未確認取消追蹤（HTTP {status}，{info}）。請前往對方的個人檔案，確認是否仍在追蹤。"
+  },
+  "unf_noTokens": {
+    "message": "找不到頁面上的 Instagram 工作階段權杖。請重新載入頁面（F5）後再試。"
+  },
+  "unf_still": {
+    "message": "Instagram 已回應，但你仍在追蹤 @{user}。請稍後再試，或直接在對方的個人檔案操作。"
+  },
+  "unf_unconfirmed": {
+    "message": "Instagram 已接受請求，但無法確認是否已取消追蹤 @{user}。請到對方的個人檔案查看。"
+  },
+  "backup_exported": {
+    "message": "備份已儲存（{n} 個帳號）。"
+  },
+  "backup_imported": {
+    "message": "已還原 {date} 的備份（{n} 個帳號）。"
+  },
+  "backup_invalid": {
+    "message": "這個檔案並非 Apex Unfollowers 備份，或檔案已損毀。"
+  },
+  "backup_tooBig": {
+    "message": "備份檔案太大（上限 {mb} MB）。"
+  },
+  "ui_stats": {
+    "message": "統計"
+  },
+  "ui_settings": {
+    "message": "設定"
+  },
+  "ui_close": {
+    "message": "關閉（Esc）"
+  },
+  "ui_scan": {
+    "message": "掃描"
+  },
+  "ui_stop": {
+    "message": "停止"
+  },
+  "ui_speedTitle": {
+    "message": "掃描速度"
+  },
+  "ui_speedSafe": {
+    "message": "速度：安全"
+  },
+  "ui_speedNormal": {
+    "message": "速度：較快"
+  },
+  "ui_search": {
+    "message": "依名稱搜尋…"
+  },
+  "ui_csvTitle": {
+    "message": "將目前的名單下載為 CSV"
+  },
+  "ui_filterTitle": {
+    "message": "篩選"
+  },
+  "ui_sortTitle": {
+    "message": "排序"
+  },
+  "ui_hiddenTitle": {
+    "message": "一併顯示已隱藏的帳號（排除清單）"
+  },
+  "ui_hidden": {
+    "message": "已隱藏"
+  },
+  "ui_footer": {
+    "message": "你的資料僅保存在瀏覽器中。"
+  },
+  "ui_more": {
+    "message": "顯示更多（{n} 個）"
+  },
+  "ui_lastScan": {
+    "message": "上次掃描：{date}"
+  },
+  "ui_noScan": {
+    "message": "尚無掃描結果，請按一下「掃描」。"
+  },
+  "tab_notBack": {
+    "message": "未回追你"
+  },
+  "tab_fans": {
+    "message": "你未回追"
+  },
+  "tab_mutual": {
+    "message": "互相追蹤"
+  },
+  "tab_changes": {
+    "message": "變動"
+  },
+  "tab_changesTitle": {
+    "message": "取消追蹤你的帳號數（根據掃描記錄）"
+  },
+  "filter_all": {
+    "message": "所有帳號"
+  },
+  "filter_verified": {
+    "message": "已驗證"
+  },
+  "filter_private": {
+    "message": "私人帳號"
+  },
+  "filter_public": {
+    "message": "公開帳號"
+  },
+  "filter_nopic": {
+    "message": "無大頭貼照"
+  },
+  "sort_default": {
+    "message": "最新優先"
+  },
+  "sort_az": {
+    "message": "名稱遞增"
+  },
+  "sort_za": {
+    "message": "名稱遞減"
+  },
+  "set_lang": {
+    "message": "語言"
+  },
+  "set_langAuto": {
+    "message": "自動（依瀏覽器語言）"
+  },
+  "set_unf": {
+    "message": "取消追蹤上限"
+  },
+  "set_unfHint": {
+    "message": "Instagram 會限制操作次數。短時間內取消追蹤過多帳號，可能讓帳號操作受限數小時或數天。這款擴充功能規定每次取消追蹤至少間隔 15 秒。"
+  },
+  "set_unfOption": {
+    "message": "每 24 小時 {n} 次"
+  },
+  "set_launcher": {
+    "message": "頁面按鈕"
+  },
+  "set_launcherLabel": {
+    "message": "在 instagram.com 顯示圓形按鈕"
+  },
+  "set_backup": {
+    "message": "備份"
+  },
+  "set_backupHint": {
+    "message": "JSON 檔案包含掃描結果、歷史記錄、排除清單和設定，可在更換電腦或瀏覽器時移轉資料。"
+  },
+  "set_export": {
+    "message": "儲存備份"
+  },
+  "set_import": {
+    "message": "還原備份…"
+  },
+  "set_data": {
+    "message": "此帳號的資料"
+  },
+  "set_dataHint": {
+    "message": "刪除目前帳號的掃描結果、歷史記錄、排除清單和取消追蹤計數。"
+  },
+  "set_wipe": {
+    "message": "清除資料"
+  },
+  "set_wipeConfirm": {
+    "message": "再按一下確認清除"
+  },
+  "set_wiped": {
+    "message": "已刪除此帳號儲存的資料。"
+  },
+  "changes_group": {
+    "message": "{date} 的掃描（與 {since} 比較）"
+  },
+  "changes_lost": {
+    "message": "已取消追蹤"
+  },
+  "changes_gained": {
+    "message": "新粉絲"
+  },
+  "row_hide": {
+    "message": "隱藏"
+  },
+  "row_unhide": {
+    "message": "恢復顯示"
+  },
+  "row_hideTitle": {
+    "message": "加入排除清單（例如名人或品牌帳號），之後不會顯示在這個分頁"
+  },
+  "row_unhideTitle": {
+    "message": "從排除清單移除"
+  },
+  "row_unf": {
+    "message": "取消追蹤"
+  },
+  "row_unfConfirm": {
+    "message": "確定取消追蹤？"
+  },
+  "row_unfTitle": {
+    "message": "取消追蹤此帳號（需要確認）"
+  },
+  "empty_changes": {
+    "message": "尚無變動記錄。稍後再次掃描，就會在這裡顯示新增粉絲及取消追蹤你的帳號。"
+  },
+  "empty_firstScan": {
+    "message": "請先執行第一次掃描。"
+  },
+  "empty_scanning": {
+    "message": "正在擷取名單…"
+  },
+  "empty_loggedOut": {
+    "message": "請登入 Instagram 查看結果。掃描結果會保留在擴充功能中，登入同一個帳號後即可再次查看。"
+  },
+  "empty_noScan": {
+    "message": "按一下「掃描」擷取名單。名單較長時可能需要幾分鐘。你可以關閉面板，但請保持 Instagram 分頁開啟。"
+  },
+  "empty_noResults": {
+    "message": "沒有符合搜尋或篩選條件的帳號。"
+  },
+  "empty_notBack": {
+    "message": "你追蹤的帳號都有回追你 🎉"
+  },
+  "empty_fans": {
+    "message": "你已回追所有粉絲。"
+  },
+  "empty_mutual": {
+    "message": "沒有互相追蹤的帳號。"
+  },
+  "stats_now": {
+    "message": "目前"
+  },
+  "stats_followers": {
+    "message": "粉絲"
+  },
+  "stats_following": {
+    "message": "追蹤中"
+  },
+  "stats_mutual": {
+    "message": "互相追蹤（占追蹤中帳號的 {p}）"
+  },
+  "stats_notBack": {
+    "message": "未回追你"
+  },
+  "stats_vsPrev": {
+    "message": "較上次掃描 {d}"
+  },
+  "stats_balance": {
+    "message": "粉絲增減"
+  },
+  "stats_balanceDays": {
+    "message": "最近 {days} 天：+{gained} / −{lost}"
+  },
+  "stats_unf24": {
+    "message": "取消追蹤（24 小時）"
+  },
+  "stats_chartTitle": {
+    "message": "粉絲趨勢"
+  },
+  "stats_chartSub": {
+    "message": "根據 {n} 次掃描"
+  },
+  "stats_chartEmpty": {
+    "message": "第二次掃描完成後會顯示圖表。"
+  },
+  "stats_chartAria": {
+    "message": "粉絲人數圖表，目前為 {n} 位"
+  },
+  "stats_history": {
+    "message": "掃描記錄"
+  },
+  "stats_colDate": {
+    "message": "日期"
+  },
+  "stats_colFollowers": {
+    "message": "粉絲"
+  },
+  "stats_colFollowing": {
+    "message": "追蹤中"
+  },
+  "stats_colChange": {
+    "message": "變動"
+  },
+  "csv_empty": {
+    "message": "這個分頁沒有可匯出的資料。"
+  },
+  "csv_head": {
+    "message": "使用者名稱,姓名,連結,已驗證,私人帳號"
+  },
+  "csv_headChanges": {
+    "message": "變動,日期"
+  },
+  "csv_yes": {
+    "message": "是"
+  },
+  "csv_no": {
+    "message": "否"
+  },
+  "csv_lost": {
+    "message": "取消追蹤"
+  },
+  "csv_gained": {
+    "message": "新粉絲"
+  },
+  "csv_fileNotBack": {
+    "message": "未回追你"
+  },
+  "csv_fileFans": {
+    "message": "你未回追"
+  },
+  "csv_fileMutual": {
+    "message": "互相追蹤"
+  },
+  "csv_fileChanges": {
+    "message": "粉絲變動"
+  },
+  "popup_opening": {
+    "message": "正在開啟面板…"
+  },
+  "popup_openTitle": {
+    "message": "開啟 Instagram"
+  },
+  "popup_openText": {
+    "message": "這款擴充功能可在 instagram.com 使用。登入後，按一下擴充功能圖示或頁面右下角的粉紅色按鈕。"
+  },
+  "popup_openBtn": {
+    "message": "開啟 instagram.com"
+  },
+  "popup_reloadTitle": {
+    "message": "重新載入 Instagram"
+  },
+  "popup_reloadText": {
+    "message": "重新載入分頁後，擴充功能便會啟動。請再按一下圖示。"
+  },
+  "popup_reloadBtn": {
+    "message": "重新載入頁面"
+  },
+  "row_unfBusy": {
+    "message": "正在取消追蹤…"
+  },
+  "report_unknown": {
+    "message": "未知"
+  },
+  "err_noResponseType": {
+    "message": "未知回應類型"
+  },
+  "err_generic": {
+    "message": "發生錯誤。"
+  }
+}

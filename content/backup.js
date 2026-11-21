@@ -33,8 +33,6 @@ var BACKUP_ID_RE = /^\d{1,25}$/;
 var BACKUP_USERNAME_RE = /^[A-Za-z0-9._]{0,30}$/;
 // zdjęcia profilowe tylko z serwerów Instagrama – inny adres z pliku nie zostanie wczytany przez panel
 var BACKUP_PIC_RE = /^https:\/\/(?:[a-z0-9-]+\.)*(?:cdninstagram\.com|fbcdn\.net)\//i;
-var BACKUP_LANGS = ['auto', 'pl', 'en'];
-
 function backupFail(what) { throw new Error('backup: ' + what); }
 
 function validateBackup(payload, now = Date.now()) {
@@ -69,7 +67,8 @@ function validateBackup(payload, now = Date.now()) {
         if (!isObj(value)) backupFail('settings');
         const s = {};
         if (typeof value.speed === 'string' && Object.hasOwn(SPEEDS, value.speed)) s.speed = value.speed;
-        if (typeof value.lang === 'string' && BACKUP_LANGS.includes(value.lang)) s.lang = value.lang;
+        const lang = I18N.normalizePreference(value.lang);
+        if (lang !== 'auto' || value.lang === 'auto') s.lang = lang;
         if (UNF.limits.includes(value.unfLimit)) s.unfLimit = value.unfLimit;
         if (typeof value.hideLauncher === 'boolean') s.hideLauncher = value.hideLauncher;
         if (typeof value.onboarded === 'boolean') s.onboarded = value.onboarded;

@@ -51,12 +51,16 @@ async function igFetch(path, init) {
 }
 
 // Krótki opis odpowiedzi do komunikatu błędu i konsoli (bez danych osobowych).
+function responseMime(r) {
+  return r.type.split(';')[0].trim();
+}
+
 function describe(r) {
   if (r.data) {
     const msg = r.data.message || r.data.feedback_message || r.data.error_type || r.data.errorSummary || '';
     return msg ? String(msg).slice(0, 80) : 'JSON: ' + Object.keys(r.data).slice(0, 5).join(', ');
   }
-  const type = (r.type.split(';')[0] || 'brak typu').trim();
+  const type = responseMime(r) || t('err.noResponseType');
   let redirected = '';
   try { if (r.res.redirected) redirected = ' → ' + new URL(r.res.url).pathname; } catch { /* brak URL */ }
   return type + redirected;
@@ -73,16 +77,16 @@ function makeCtx(speedKey) {
     async wait(ms) {
       const end = Date.now() + ms;
       while (Date.now() < end) {
-        if (ctx.aborted) throw new ScanError(t('err.abort'), 'abort');
+        if (ctx.aborted) throw new ScanError('err.abort', 'abort');
         await sleep(Math.min(250, end - Date.now()));
       }
-      if (ctx.aborted) throw new ScanError(t('err.abort'), 'abort');
+      if (ctx.aborted) throw new ScanError('err.abort', 'abort');
     },
     async pace(pageNo) {
       const s = ctx.speed;
       if (pageNo % s.every === 0) {
         const ms = rand(...s.long);
-        ctx.onNote?.(t('note.pause', { s: Math.round(ms / 1000) }));
+        ctx.onNote?.(localized('note.pause', { s: Math.round(ms / 1000) }));
         await ctx.wait(ms);
         ctx.onNote?.(null);
       } else {
@@ -95,15 +99,15 @@ function makeCtx(speedKey) {
 
 async function igGet(path, ctx, attempts = 4) {
   for (let attempt = 1; attempt <= attempts; attempt++) {
-    if (ctx.aborted) throw new ScanError(t('err.abort'), 'abort');
+    if (ctx.aborted) throw new ScanError('err.abort', 'abort');
     const last = attempt === attempts;
 
     let r;
     try {
       r = await igFetch(path, { method: 'GET', headers: igHeaders() });
     } catch (e) {
-      if (last) throw new ScanError(t('err.network'), 'http');
-      ctx.onNote?.(t('note.retryNet', { a: attempt, n: attempts }));
+      if (last) throw new ScanError('err.network', 'http');
+      ctx.onNote?.(localized('note.retryNet', { a: attempt, n: attempts }));
       await ctx.wait(5000 * attempt);
       continue;
     }
@@ -113,10 +117,10 @@ async function igGet(path, ctx, attempts = 4) {
     if (res.ok && data && data.status !== 'fail') return data;
 
     if (data && (data.checkpoint_url || /checkpoint/i.test(msg))) {
-      throw new ScanError(t('err.checkpoint'), 'auth', res.status);
+      throw new ScanError('err.checkpoint', 'auth', res.status);
     }
     if (data && (data.require_login || /login_required/i.test(msg))) {
-      throw new ScanError(t('err.login'), 'auth', res.status);
+      throw new ScanError('err.login', 'auth', res.status);
     }
 
     // HTML z kodem 200 zamiast JSON to u Instagrama zwykle chwilowe przyhamowanie
@@ -126,17 +130,17 @@ async function igGet(path, ctx, attempts = 4) {
     if (limited || res.status >= 500) {
       if (last) break;
       const sec = (softThrottle ? 30 : 60) * attempt;
-      ctx.onNote?.(t('note.slowDown', { status: res.status, s: sec }));
+      ctx.onNote?.(localized('note.slowDown', { status: String(res.status), s: sec }));
       await ctx.wait(sec * 1000);
       ctx.onNote?.(null);
       continue;
     }
 
-    if (res.status === 401 || res.status === 403) throw new ScanError(t('err.noAccess'), 'auth', res.status);
-    if (!data) throw new ScanError(t('err.unexpected', { status: res.status }), 'parse', res.status);
-    throw new ScanError(t('err.ig', { status: res.status, msg: msg ? ': ' + msg : '' }), 'http', res.status);
+    if (res.status === 401 || res.status === 403) throw new ScanError('err.noAccess', 'auth', res.status);
+    if (!data) throw new ScanError('err.unexpected', 'parse', res.status, { status: String(res.status) });
+    throw new ScanError('err.ig', 'http', res.status, { status: String(res.status), msg: msg ? ': ' + msg : '' });
   }
-  throw new ScanError(t('err.ratelimit'), 'ratelimit');
+  throw new ScanError('err.ratelimit', 'ratelimit');
 }
 
 // Lista obserwujących / obserwowanych przez REST API strony www.
@@ -201,7 +205,7 @@ async function fetchComplete(kind, userId, ctx, expected, onCount, opts = {}) {
   ];
   for (const [name, opts] of variants) {
     console.warn(`[Apex Unfollowers] ${kind}: ${users.length} z ${expected}, dociągam (${name})`);
-    ctx.onNote?.(t('note.repair', { got: fmtNum(users.length), expected: fmtNum(expected) }));
+    ctx.onNote?.(localized('note.repair', { got: users.length, expected }));
     await ctx.wait(rand(...ctx.speed.between));
     let extra;
     try {
@@ -240,7 +244,7 @@ async function resolveAccount(ctx) {
     const m = document.documentElement.innerHTML.match(/"viewerId":"(\d+)"/);
     if (m) id = m[1];
   }
-  if (!id) throw new ScanError(t('err.noAccount'), 'auth');
+  if (!id) throw new ScanError('err.noAccount', 'auth');
   // Liczniki z profilu – do paska postępu i kontroli kompletności list, więc błędy ignorujemy.
   let counts = null;
   try {
@@ -368,9 +372,12 @@ async function unfollowRequest(u) {
     return { ok: false, kind: res.status === 429 ? 'slow' : 'blocked' };
   }
   if (!res.ok || !data || data.errors || data.error || data.status !== 'ok') {
-    console.warn('[Apex Unfollowers] odobserwowanie: odpowiedź Instagrama', res.status, describe(r), r.text.slice(0, 300));
+    const info = describe(r);
+    const mime = responseMime(r).toLowerCase();
+    const reportType = ['text/html', 'application/json', 'text/plain'].includes(mime) ? mime : '';
+    console.warn('[Apex Unfollowers] odobserwowanie: odpowiedź Instagrama', res.status, info, r.text.slice(0, 300));
     tokensCache = null; // przy kolejnej próbie pobierzemy świeże tokeny
-    return { ok: false, kind: 'http', status: res.status, info: describe(r) };
+    return { ok: false, kind: 'http', status: res.status, info, reportType };
   }
 
   const fs = findFriendshipStatus(data);

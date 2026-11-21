@@ -8,19 +8,21 @@ import path from 'node:path';
 import crypto from 'node:crypto';
 import { execFileSync } from 'node:child_process';
 import { fileURLToPath } from 'node:url';
+import '../shared/i18n.js';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
+const manifest = JSON.parse(fs.readFileSync(path.join(ROOT, 'manifest.json'), 'utf8'));
 const FILES = [
   'manifest.json', 'background.js', 'LICENSE', 'PRIVACY.md', 'THIRD_PARTY_NOTICES.md',
   'welcome/welcome.html', 'welcome/welcome.css', 'welcome/welcome.js', 'icons/logo.svg',
   'shared/i18n.js',
-  ...JSON.parse(fs.readFileSync(path.join(ROOT, 'manifest.json'), 'utf8')).content_scripts[0].js.filter((f) => f.startsWith('content/')),
-  '_locales/en/messages.json', '_locales/pl/messages.json',
+  ...manifest.content_scripts.flatMap(({ js = [] }) => js.filter((f) => f.startsWith('content/'))),
+  ...globalThis.ApexUnf_i18n.languages.map(({ code }) => `_locales/${code}/messages.json`),
   'popup/popup.html', 'popup/popup.css', 'popup/popup.js',
   'icons/icon16.png', 'icons/icon32.png', 'icons/icon48.png', 'icons/icon128.png',
 ];
 
-const { version } = JSON.parse(fs.readFileSync(path.join(ROOT, 'manifest.json'), 'utf8'));
+const { version } = manifest;
 const dist = path.join(ROOT, 'dist');
 const stage = path.join(dist, 'Apex-Unfollowers');
 fs.rmSync(dist, { recursive: true, force: true });

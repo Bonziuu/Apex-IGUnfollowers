@@ -1,0 +1,626 @@
+{
+  "extName": {
+    "message": "Apex Unfollowers untuk Instagram"
+  },
+  "extShortName": {
+    "message": "Apex"
+  },
+  "extDescription": {
+    "message": "Lihat siapa yang tidak mengikuti balik atau berhenti mengikuti di Instagram. Berjalan di browser, tanpa meminta kata sandi."
+  },
+  "ext_name": {
+    "message": "Apex Unfollowers untuk Instagram"
+  },
+  "ext_tagline": {
+    "message": "Lihat siapa yang tidak mengikuti balik di Instagram, gratis dan langsung di browser"
+  },
+  "ui_resume": {
+    "message": "Lanjutkan pemindaian"
+  },
+  "ui_restart": {
+    "message": "Mulai ulang"
+  },
+  "ui_resumeInfo": {
+    "message": "Pemindaian pada {date} terhenti. Akun tersimpan: {n}."
+  },
+  "scan_eta": {
+    "message": "tersisa sekitar {t}"
+  },
+  "time_lessMin": {
+    "message": "kurang dari satu menit"
+  },
+  "time_min": {
+    "message": "{n} mnt"
+  },
+  "scan_resuming": {
+    "message": "Melanjutkan pemindaian. Akun yang sudah diambil: {n}…"
+  },
+  "scan_paused": {
+    "message": "Pemindaian dijeda."
+  },
+  "scan_progressSaved": {
+    "message": "Progres tersimpan ({n} akun). Klik Lanjutkan pemindaian untuk menyelesaikannya."
+  },
+  "welcome_title": {
+    "message": "Selamat datang di Apex Unfollowers"
+  },
+  "welcome_lead": {
+    "message": "Ekstensi ini membandingkan daftar pengikut dan akun yang Anda ikuti di Instagram. Semuanya berjalan di browser Anda, tanpa akun tambahan dan tanpa mengirim data ke pengembang."
+  },
+  "welcome_step1": {
+    "message": "Masuk ke instagram.com di browser ini."
+  },
+  "welcome_step2": {
+    "message": "Klik Pindai. Akun dengan daftar yang panjang bisa memerlukan beberapa menit."
+  },
+  "welcome_step3": {
+    "message": "Jelajahi tab, filter, dan statistik. Berhenti mengikuti satu akun setiap kali."
+  },
+  "welcome_riskTitle": {
+    "message": "Keamanan akun"
+  },
+  "welcome_riskText": {
+    "message": "Ekstensi ini memakai API tidak resmi situs Instagram. Ketentuan Instagram melarang pengumpulan data secara otomatis, jadi gunakan dengan memahami risikonya."
+  },
+  "welcome_risk1": {
+    "message": "Pindai paling banyak sekali sehari dengan kecepatan aman."
+  },
+  "welcome_risk2": {
+    "message": "Jangan terburu-buru berhenti mengikuti. Ekstensi menerapkan jeda dan batas harian."
+  },
+  "welcome_risk3": {
+    "message": "Jika Instagram memblokir tindakan, tunggu satu atau dua hari."
+  },
+  "welcome_accept": {
+    "message": "Saya memahami risikonya dan ingin menggunakan ekstensi ini."
+  },
+  "welcome_start": {
+    "message": "Mulai"
+  },
+  "welcome_privacy": {
+    "message": "Data Anda tetap di browser ini."
+  },
+  "welcome_more": {
+    "message": "Informasi selengkapnya"
+  },
+  "set_about": {
+    "message": "Tentang ekstensi"
+  },
+  "set_authorTitle": {
+    "message": "Pengembang dan kontak"
+  },
+  "set_linkedin": {
+    "message": "Profil LinkedIn"
+  },
+  "set_linkedinLabel": {
+    "message": "Profil LinkedIn pengembang (terbuka di tab baru)"
+  },
+  "set_reportHint": {
+    "message": "Ada kendala? Laporan hanya memuat versi ekstensi, browser, dan pesan kesalahan terakhir, tanpa nama akun."
+  },
+  "set_reportGithub": {
+    "message": "Laporkan masalah"
+  },
+  "set_reportMail": {
+    "message": "Kirim email"
+  },
+  "set_showWelcome": {
+    "message": "Tampilkan layar sambutan"
+  },
+  "report_button": {
+    "message": "Laporkan masalah"
+  },
+  "report_buttonTitle": {
+    "message": "Buka laporan yang sudah diisi di GitHub (versi, browser, kesalahan)"
+  },
+  "report_mailIntro": {
+    "message": "Jelaskan apa yang terjadi dan apa yang sedang Anda coba lakukan:"
+  },
+  "report_browser": {
+    "message": "Browser"
+  },
+  "report_language": {
+    "message": "Bahasa"
+  },
+  "report_error": {
+    "message": "Kesalahan terakhir"
+  },
+  "report_subject": {
+    "message": "laporan masalah"
+  },
+  "page_title": {
+    "message": "Selamat datang di Apex Unfollowers"
+  },
+  "page_tagline": {
+    "message": "Lihat siapa yang tidak mengikuti balik di Instagram, gratis dan langsung di browser"
+  },
+  "page_lead": {
+    "message": "Apex Unfollowers membandingkan pengikut dan akun yang Anda ikuti di Instagram. Lihat siapa yang tidak mengikuti balik, siapa yang belum Anda ikuti, dan siapa yang berhenti mengikuti. Ekstensi berjalan secara lokal di browser, tanpa akun tambahan, tanpa meminta kata sandi, dan tanpa mengirim data ke pengembang."
+  },
+  "page_howTitle": {
+    "message": "Cara memulai"
+  },
+  "page_featTitle": {
+    "message": "Isi panel"
+  },
+  "page_feat1": {
+    "message": "<strong>Tidak mengikuti balik</strong> – dengan daftar pengecualian untuk selebritas dan merek"
+  },
+  "page_feat2": {
+    "message": "<strong>Perubahan</strong> – siapa yang berhenti dan mulai mengikuti sejak pemindaian terakhir"
+  },
+  "page_feat3": {
+    "message": "<strong>Statistik</strong> – grafik pengikut serta perubahan bersih 7 dan 30 hari"
+  },
+  "page_feat4": {
+    "message": "<strong>Berhenti mengikuti</strong> – satu per satu, dengan konfirmasi dan batas harian"
+  },
+  "page_open": {
+    "message": "Buka Instagram"
+  },
+  "page_done": {
+    "message": "Sudah siap. Buka Instagram dan klik tombol merah muda di pojok bawah halaman."
+  },
+  "page_privacyTitle": {
+    "message": "Privasi"
+  },
+  "page_privacyText": {
+    "message": "Hasil pemindaian, riwayat, dan pengaturan tetap di browser ini. Daftar dimuat dari Instagram dan foto profil dari server Meta. Ekstensi ini tidak mengumpulkan data penggunaan."
+  },
+  "page_policy": {
+    "message": "Kebijakan privasi"
+  },
+  "page_source": {
+    "message": "Kode sumber"
+  },
+  "err_abort": {
+    "message": "Pemindaian dihentikan."
+  },
+  "err_network": {
+    "message": "Tidak dapat terhubung ke Instagram."
+  },
+  "err_checkpoint": {
+    "message": "Instagram ingin memastikan bahwa ini Anda. Buka instagram.com, selesaikan pemeriksaan, lalu coba lagi nanti."
+  },
+  "err_login": {
+    "message": "Instagram meminta Anda masuk lagi. Masuk, lalu coba sekali lagi."
+  },
+  "err_noAccess": {
+    "message": "Akses ditolak. Pastikan Anda sudah masuk ke instagram.com, lalu muat ulang halaman."
+  },
+  "err_unexpected": {
+    "message": "Instagram mengirim respons yang tidak terduga (HTTP {status})."
+  },
+  "err_ig": {
+    "message": "Kesalahan Instagram (HTTP {status}){msg}"
+  },
+  "err_ratelimit": {
+    "message": "Instagram masih membatasi permintaan. Tunggu 15–30 menit, lalu coba lagi dengan kecepatan aman."
+  },
+  "err_format": {
+    "message": "Instagram mengubah format data. Ekstensi perlu diperbarui."
+  },
+  "err_noAccount": {
+    "message": "Tidak ada akun yang sedang masuk. Masuk ke instagram.com dan muat ulang halaman."
+  },
+  "note_pause": {
+    "message": "Jeda singkat ({s} dtk) agar permintaan ke Instagram tidak menumpuk…"
+  },
+  "note_retryNet": {
+    "message": "Ada masalah koneksi. Mencoba lagi ({a}/{n})…"
+  },
+  "note_slowDown": {
+    "message": "Instagram meminta agar permintaan diperlambat (HTTP {status}). Menunggu {s} dtk sebelum lanjut…"
+  },
+  "note_fallback": {
+    "message": "Metode utama gagal. Mencoba cara cadangan…"
+  },
+  "note_repair": {
+    "message": "Instagram mengembalikan {got} dari {expected} akun. Mengambil sisanya dengan cara lain…"
+  },
+  "scan_checking": {
+    "message": "Memeriksa akun Anda…"
+  },
+  "scan_followers": {
+    "message": "Pengikut: {n}"
+  },
+  "scan_followersDone": {
+    "message": "Pengikut: {n} ✓ · berikutnya, akun yang Anda ikuti…"
+  },
+  "scan_following": {
+    "message": "Pengikut: {f} ✓ · Diikuti: {n}"
+  },
+  "scan_done": {
+    "message": "Selesai"
+  },
+  "scan_result": {
+    "message": "Selesai! Pengikut: {fr}, diikuti: {fg}."
+  },
+  "scan_first": {
+    "message": "Ini pemindaian pertama Anda. Pada pemindaian berikutnya, Anda bisa melihat siapa yang berhenti mengikuti."
+  },
+  "scan_changes": {
+    "message": "Sejak pemindaian sebelumnya: −{lost} / +{gained} pengikut (lihat Perubahan)."
+  },
+  "scan_noChanges": {
+    "message": "Tidak ada perubahan sejak pemindaian sebelumnya."
+  },
+  "scan_fewer": {
+    "message": "Pengikut: didapat {got} dari {expected} menurut penghitung profil. Selisih kecil wajar karena akun yang ditangguhkan atau dinonaktifkan. Jika selisihnya besar, pindai lagi nanti."
+  },
+  "scan_shortFollowing": {
+    "message": "Perhatian: didapat {got} dari {expected} akun yang diikuti menurut penghitung profil. Instagram tidak mengirim daftar lengkap, sehingga hasil di tab mungkin tidak akurat. Pindai lagi dalam 15 menit dengan kecepatan aman."
+  },
+  "scan_noCounts": {
+    "message": "Jumlah di profil Anda tidak dapat dibaca, jadi ekstensi tidak bisa memastikan bahwa daftarnya lengkap."
+  },
+  "scan_aborted": {
+    "message": "Pemindaian dihentikan. Hasil sebelumnya tetap tersimpan."
+  },
+  "unf_duringScan": {
+    "message": "Tunggu hingga pemindaian selesai."
+  },
+  "unf_otherAccount": {
+    "message": "Anda masuk dengan akun yang berbeda dari akun pada hasil ini. Pindai akun yang sekarang terlebih dahulu."
+  },
+  "unf_blockedUntil": {
+    "message": "Berhenti mengikuti dijeda hingga {time} karena Instagram membatasi tindakan pada akun Anda."
+  },
+  "unf_limit": {
+    "message": "Batas harian berhenti mengikuti tercapai ({used}/{limit} dalam 24 jam). Anda bisa mengubahnya di Pengaturan."
+  },
+  "unf_cooldown": {
+    "message": "Tunggu {s} dtk lagi. Jeda antar tindakan membantu melindungi akun Anda."
+  },
+  "unf_done": {
+    "message": "Berhenti mengikuti @{user}. Hari ini: {used}/{limit}."
+  },
+  "unf_blocked": {
+    "message": "Instagram memblokir tindakan ini karena terlalu banyak aktivitas. Berhenti mengikuti dijeda hingga {time}. Jangan coba lagi secara manual di aplikasi."
+  },
+  "unf_slow": {
+    "message": "Instagram meminta agar tindakan diperlambat. Berhenti mengikuti dijeda hingga {time}."
+  },
+  "unf_failed": {
+    "message": "Instagram tidak mengonfirmasi tindakan berhenti mengikuti (HTTP {status}, {info}). Periksa profil itu untuk melihat apakah Anda masih mengikutinya."
+  },
+  "unf_noTokens": {
+    "message": "Token sesi Instagram tidak ditemukan di halaman. Muat ulang halaman (F5), lalu coba lagi."
+  },
+  "unf_still": {
+    "message": "Instagram merespons, tetapi Anda masih mengikuti @{user}. Coba lagi nanti atau lakukan dari profil tersebut."
+  },
+  "unf_unconfirmed": {
+    "message": "Instagram menerima permintaan, tetapi ekstensi belum bisa memastikan Anda sudah berhenti mengikuti @{user}. Periksa profil tersebut."
+  },
+  "backup_exported": {
+    "message": "Cadangan tersimpan (akun: {n})."
+  },
+  "backup_imported": {
+    "message": "Cadangan dari {date} dipulihkan (akun: {n})."
+  },
+  "backup_invalid": {
+    "message": "Ini bukan cadangan Apex Unfollowers atau filenya rusak."
+  },
+  "backup_tooBig": {
+    "message": "File cadangan terlalu besar (maks. {mb} MB)."
+  },
+  "ui_stats": {
+    "message": "Statistik"
+  },
+  "ui_settings": {
+    "message": "Pengaturan"
+  },
+  "ui_close": {
+    "message": "Tutup (Esc)"
+  },
+  "ui_scan": {
+    "message": "Pindai"
+  },
+  "ui_stop": {
+    "message": "Hentikan"
+  },
+  "ui_speedTitle": {
+    "message": "Kecepatan pemindaian"
+  },
+  "ui_speedSafe": {
+    "message": "Kecepatan: aman"
+  },
+  "ui_speedNormal": {
+    "message": "Kecepatan: lebih cepat"
+  },
+  "ui_search": {
+    "message": "Cari berdasarkan nama…"
+  },
+  "ui_csvTitle": {
+    "message": "Unduh daftar yang terlihat sebagai CSV"
+  },
+  "ui_filterTitle": {
+    "message": "Filter"
+  },
+  "ui_sortTitle": {
+    "message": "Urutkan"
+  },
+  "ui_hiddenTitle": {
+    "message": "Tampilkan juga akun yang disembunyikan (daftar pengecualian)"
+  },
+  "ui_hidden": {
+    "message": "disembunyikan"
+  },
+  "ui_footer": {
+    "message": "Data Anda hanya tersimpan di browser Anda."
+  },
+  "ui_more": {
+    "message": "Tampilkan lainnya ({n})"
+  },
+  "ui_lastScan": {
+    "message": "pemindaian terakhir: {date}"
+  },
+  "ui_noScan": {
+    "message": "Belum ada pemindaian. Klik Pindai."
+  },
+  "tab_notBack": {
+    "message": "Tidak mengikuti balik"
+  },
+  "tab_fans": {
+    "message": "Tidak Anda ikuti"
+  },
+  "tab_mutual": {
+    "message": "Saling mengikuti"
+  },
+  "tab_changes": {
+    "message": "Perubahan"
+  },
+  "tab_changesTitle": {
+    "message": "Akun yang berhenti mengikuti Anda (berdasarkan riwayat pemindaian)"
+  },
+  "filter_all": {
+    "message": "Semua akun"
+  },
+  "filter_verified": {
+    "message": "Terverifikasi"
+  },
+  "filter_private": {
+    "message": "Privat"
+  },
+  "filter_public": {
+    "message": "Publik"
+  },
+  "filter_nopic": {
+    "message": "Tanpa foto profil"
+  },
+  "sort_default": {
+    "message": "Terbaru dulu"
+  },
+  "sort_az": {
+    "message": "Nama A–Z"
+  },
+  "sort_za": {
+    "message": "Nama Z–A"
+  },
+  "set_lang": {
+    "message": "Bahasa"
+  },
+  "set_langAuto": {
+    "message": "Otomatis (bahasa browser)"
+  },
+  "set_unf": {
+    "message": "Batas berhenti mengikuti"
+  },
+  "set_unfHint": {
+    "message": "Instagram membatasi jumlah tindakan. Jika Anda berhenti mengikuti terlalu banyak akun dalam waktu singkat, tindakan di akun Anda bisa diblokir selama beberapa jam atau hari. Ekstensi menerapkan jeda 15 detik antara setiap tindakan."
+  },
+  "set_unfOption": {
+    "message": "{n} per 24 jam"
+  },
+  "set_launcher": {
+    "message": "Tombol di halaman"
+  },
+  "set_launcherLabel": {
+    "message": "Tampilkan tombol bulat di instagram.com"
+  },
+  "set_backup": {
+    "message": "Cadangan"
+  },
+  "set_backupHint": {
+    "message": "File JSON berisi hasil pemindaian, riwayat, daftar pengecualian, dan pengaturan. Berguna jika Anda pindah komputer atau browser."
+  },
+  "set_export": {
+    "message": "Simpan cadangan"
+  },
+  "set_import": {
+    "message": "Pulihkan cadangan…"
+  },
+  "set_data": {
+    "message": "Data akun ini"
+  },
+  "set_dataHint": {
+    "message": "Menghapus hasil pemindaian, riwayat, daftar pengecualian, dan penghitung tindakan berhenti mengikuti untuk akun saat ini."
+  },
+  "set_wipe": {
+    "message": "Hapus data"
+  },
+  "set_wipeConfirm": {
+    "message": "Klik lagi untuk mengonfirmasi"
+  },
+  "set_wiped": {
+    "message": "Data tersimpan untuk akun ini telah dihapus."
+  },
+  "changes_group": {
+    "message": "Pemindaian {date} (dibandingkan dengan {since})"
+  },
+  "changes_lost": {
+    "message": "berhenti mengikuti"
+  },
+  "changes_gained": {
+    "message": "pengikut baru"
+  },
+  "row_hide": {
+    "message": "Sembunyikan"
+  },
+  "row_unhide": {
+    "message": "Tampilkan lagi"
+  },
+  "row_hideTitle": {
+    "message": "Tambahkan ke daftar pengecualian (misalnya selebritas atau merek) agar akun tidak muncul di tab ini"
+  },
+  "row_unhideTitle": {
+    "message": "Hapus dari daftar pengecualian"
+  },
+  "row_unf": {
+    "message": "Berhenti mengikuti"
+  },
+  "row_unfConfirm": {
+    "message": "Yakin?"
+  },
+  "row_unfTitle": {
+    "message": "Berhenti mengikuti akun ini (memerlukan konfirmasi)"
+  },
+  "empty_changes": {
+    "message": "Belum ada perubahan yang tercatat. Pindai lagi nanti untuk tahu siapa yang berhenti atau mulai mengikuti Anda."
+  },
+  "empty_firstScan": {
+    "message": "Lakukan pemindaian pertama terlebih dahulu."
+  },
+  "empty_scanning": {
+    "message": "Mengambil daftar…"
+  },
+  "empty_loggedOut": {
+    "message": "Masuk ke Instagram untuk melihat hasil. Hasil pemindaian tetap tersimpan di ekstensi dan akan muncul lagi saat Anda masuk ke akun yang sama."
+  },
+  "empty_noScan": {
+    "message": "Klik Pindai untuk mengambil daftar Anda. Akun dengan daftar yang panjang bisa memerlukan beberapa menit. Panel boleh ditutup, tetapi biarkan tab Instagram tetap terbuka."
+  },
+  "empty_noResults": {
+    "message": "Tidak ada akun yang cocok dengan pencarian atau filter ini."
+  },
+  "empty_notBack": {
+    "message": "Semua akun yang Anda ikuti juga mengikuti Anda 🎉"
+  },
+  "empty_fans": {
+    "message": "Anda mengikuti semua pengikut Anda."
+  },
+  "empty_mutual": {
+    "message": "Belum ada akun yang saling mengikuti dengan Anda."
+  },
+  "stats_now": {
+    "message": "Saat ini"
+  },
+  "stats_followers": {
+    "message": "Pengikut"
+  },
+  "stats_following": {
+    "message": "Diikuti"
+  },
+  "stats_mutual": {
+    "message": "Saling mengikuti ({p} dari yang diikuti)"
+  },
+  "stats_notBack": {
+    "message": "Tidak mengikuti balik"
+  },
+  "stats_vsPrev": {
+    "message": "{d} sejak pemindaian sebelumnya"
+  },
+  "stats_balance": {
+    "message": "Perubahan bersih pengikut"
+  },
+  "stats_balanceDays": {
+    "message": "{days} hari: +{gained} / −{lost}"
+  },
+  "stats_unf24": {
+    "message": "Berhenti mengikuti (24 jam)"
+  },
+  "stats_chartTitle": {
+    "message": "Jumlah pengikut dari waktu ke waktu"
+  },
+  "stats_chartSub": {
+    "message": "Berdasarkan jumlah pemindaian: {n}"
+  },
+  "stats_chartEmpty": {
+    "message": "Grafik muncul setelah pemindaian kedua."
+  },
+  "stats_chartAria": {
+    "message": "Grafik jumlah pengikut. Saat ini: {n}."
+  },
+  "stats_history": {
+    "message": "Riwayat pemindaian"
+  },
+  "stats_colDate": {
+    "message": "Tanggal"
+  },
+  "stats_colFollowers": {
+    "message": "Pengikut"
+  },
+  "stats_colFollowing": {
+    "message": "Diikuti"
+  },
+  "stats_colChange": {
+    "message": "Perubahan"
+  },
+  "csv_empty": {
+    "message": "Tidak ada data untuk diekspor di tab ini."
+  },
+  "csv_head": {
+    "message": "nama_pengguna,nama_lengkap,tautan,terverifikasi,privat"
+  },
+  "csv_headChanges": {
+    "message": "perubahan,tanggal"
+  },
+  "csv_yes": {
+    "message": "ya"
+  },
+  "csv_no": {
+    "message": "tidak"
+  },
+  "csv_lost": {
+    "message": "berhenti_mengikuti"
+  },
+  "csv_gained": {
+    "message": "pengikut_baru"
+  },
+  "csv_fileNotBack": {
+    "message": "tidak-mengikuti-balik"
+  },
+  "csv_fileFans": {
+    "message": "tidak-anda-ikuti"
+  },
+  "csv_fileMutual": {
+    "message": "saling-mengikuti"
+  },
+  "csv_fileChanges": {
+    "message": "perubahan"
+  },
+  "popup_opening": {
+    "message": "Membuka panel…"
+  },
+  "popup_openTitle": {
+    "message": "Buka Instagram"
+  },
+  "popup_openText": {
+    "message": "Ekstensi ini berfungsi di instagram.com. Masuk, lalu klik ikon ekstensi atau tombol merah muda di pojok bawah halaman."
+  },
+  "popup_openBtn": {
+    "message": "Buka instagram.com"
+  },
+  "popup_reloadTitle": {
+    "message": "Muat ulang Instagram"
+  },
+  "popup_reloadText": {
+    "message": "Ekstensi akan dimuat setelah tab dimuat ulang. Setelah itu, klik ikonnya lagi."
+  },
+  "popup_reloadBtn": {
+    "message": "Muat ulang halaman"
+  },
+  "row_unfBusy": {
+    "message": "Sedang berhenti mengikuti…"
+  },
+  "report_unknown": {
+    "message": "Tidak diketahui"
+  },
+  "err_noResponseType": {
+    "message": "jenis respons tidak diketahui"
+  },
+  "err_generic": {
+    "message": "Terjadi kesalahan."
+  }
+}

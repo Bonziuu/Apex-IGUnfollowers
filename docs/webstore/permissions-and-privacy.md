@@ -1,6 +1,6 @@
 # Cel, uprawnienia i deklaracje prywatności / Purpose, permissions and privacy
 
-Opiera się na kodzie wersji 1.2.0. Formularze sklepów zmieniają się – sprawdź je w dniu zgłoszenia i odpowiadaj zgodnie z rzeczywistym działaniem, nie automatycznie.
+Opis dotyczy wersji 1.3.0. Sprawdź aktualne pola formularza w dniu zgłoszenia.
 
 ## Jeden główny cel / Single purpose
 
@@ -15,7 +15,7 @@ Opiera się na kodzie wersji 1.2.0. Formularze sklepów zmieniają się – spra
 | `storage` | Lokalny zapis wyników skanów, historii, białej listy, postępu przerwanego skanu i ustawień. Wtyczka nie korzysta z `storage.sync`. | Stores scan results, history, whitelist, interrupted-scan progress and settings locally. The extension does not use `storage.sync`. |
 | `unlimitedStorage` | Konta mogą mieć dziesiątki tysięcy obserwujących; lista z historią może przekroczyć domyślny limit 10 MB pamięci lokalnej. | Accounts can have tens of thousands of followers; the lists with history can exceed the default 10 MB local storage quota. |
 | Dostęp do `https://www.instagram.com/*` | Wyświetlenie panelu na stronie Instagrama i pobranie list obserwujących i obserwowanych w ramach sesji zalogowanego użytkownika – tymi samymi zapytaniami, co strona www. Ręczne odobserwowanie po potwierdzeniu użytkownika. Brak dostępu do innych witryn. | Shows the panel on the Instagram website and downloads the followers and following lists within the logged-in user's session, using the same requests as the website. Manual unfollow after the user's confirmation. No access to other websites. |
-| Skrypt tła / background script | Wyłącznie otwarcie ekranu powitalnego po instalacji. Bez zapytań sieciowych. | Only opens the welcome screen after installation. No network requests. |
+| Skrypt tła / background script | Otwiera ekran powitalny i odczytuje tłumaczenia z plików rozszerzenia. | Opens the welcome page and reads the packaged translation files. |
 
 ## Kod zdalny / Remote code
 
@@ -34,6 +34,6 @@ Brak serwera i telemetrii nie oznacza braku dostępu do danych. Wtyczka przetwar
 | Tokeny sesji instagram.com (`csrftoken`, `fb_dtsg`) | wyłącznie do zapytania odobserwowania wysyłanego do instagram.com; nie są zapisywane |
 | Historia i rejestr odobserwowań | lokalnie, do statystyk, przerw i limitu dziennego |
 
-Nic z tego nie jest przesyłane wydawcy ani stronom trzecim. Przyciski „Zgłoś problem” / „Napisz e-mail” otwierają szkic zgłoszenia lub wiadomości u użytkownika (wersja, przeglądarka, treść błędu) – wysyła go tylko użytkownik.
+Wyniki i statystyki są zapisywane lokalnie. Miniatury zdjęć profilowych mogą się ładować z serwerów Instagrama lub Meta. Po kliknięciu „Zgłoś problem” GitHub otrzymuje dane diagnostyczne potrzebne do wstępnego wypełnienia formularza (wersja, przeglądarka, język, np. kod HTTP). „Napisz e-mail” otwiera szkic z analogicznymi danymi. Szczegóły opisano w [polityce prywatności](../../PRIVACY.md).
 
 **Chrome Web Store, zakładka „Prywatność”:** przejrzyj wszystkie kategorie według aktualnych definicji Google. Jeżeli formularz traktuje lokalne przetwarzanie danych osobowych innych osób (nazwy i zdjęcia obserwujących) jako „zbieranie”, zaznacz odpowiednio „Dane osobowe” i/lub „Treść witryny”. Zaświadczenia, które są zgodne z działaniem wtyczki: dane nie są sprzedawane, nie są używane ani przekazywane w celach niezwiązanych z jedynym przeznaczeniem, nie służą do oceny zdolności kredytowej.

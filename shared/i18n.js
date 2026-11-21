@@ -1,470 +1,132 @@
-/*
- * Apex Unfollowers – teksty interfejsu PL / EN.
- * Ładowany jako content script (przed content/unfollowers.js) i w okienku na pasku.
- * Język: ustawienie użytkownika („auto” = wg języka przeglądarki: pl → polski, reszta → angielski).
- * Zmienne w tekstach: {nazwa}. Teksty nie mogą zawierać znaków HTML ani cudzysłowów prostych ("),
- * bo część z nich trafia do atrybutów szablonu.
- */
+/* Local extension catalogs shared by the panel, popup and welcome page. */
 (() => {
-  const DICT = {
-    pl: {
-      'ext.name': 'Apex Unfollowers dla Instagrama',
-      'ext.tagline': 'Kto nie obserwuje Cię na Instagramie – lokalnie i za darmo',
-      'ui.resume': 'Wznów skan',
-      'ui.restart': 'Zacznij od nowa',
-      'ui.resumeInfo': 'Przerwany skan z {date}: zapisano {n} kont.',
-      'scan.eta': 'zostało ok. {t}',
-      'time.lessMin': 'mniej niż minuta',
-      'time.min': '{n} min',
-      'scan.resuming': 'Wznawiam przerwany skan ({n} kont już pobranych)…',
-      'scan.paused': 'Skan wstrzymany.',
-      'scan.progressSaved': 'Postęp zapisany ({n} kont) – kliknij „Wznów skan”, żeby dokończyć.',
-      'welcome.title': 'Witaj w Apex Unfollowers',
-      'welcome.lead': 'Wtyczka porównuje listy Twoich obserwujących i obserwowanych na Instagramie. Działa w Twojej przeglądarce, bez konta i bez wysyłania danych do autora.',
-      'welcome.step1': 'Zaloguj się na instagram.com w tej przeglądarce.',
-      'welcome.step2': 'Kliknij „Skanuj” – przy dużych kontach może to potrwać kilka minut.',
-      'welcome.step3': 'Przeglądaj zakładki, filtry i statystyki. Odobserwowuj tylko pojedynczo.',
-      'welcome.riskTitle': 'Bezpieczeństwo konta',
-      'welcome.riskText': 'Wtyczka korzysta z nieoficjalnego API strony Instagrama. Regulamin Instagrama nie pozwala na automatyczne pobieranie danych, więc używasz jej na własną odpowiedzialność.',
-      'welcome.risk1': 'skanuj najwyżej raz dziennie, w tempie „bezpiecznym”,',
-      'welcome.risk2': 'odobserwowuj spokojnie – wtyczka pilnuje przerw i limitu dziennego,',
-      'welcome.risk3': 'po blokadzie akcji odczekaj dzień lub dwa.',
-      'welcome.accept': 'Rozumiem i chcę korzystać z wtyczki.',
-      'welcome.start': 'Zaczynamy',
-      'welcome.privacy': 'Dane zostają w tej przeglądarce.',
-      'welcome.more': 'Więcej informacji',
-      'set.about': 'O wtyczce',
-      'set.authorTitle': 'Autor i kontakt',
-      'set.linkedin': 'Profil LinkedIn',
-      'set.linkedinLabel': 'Profil autora na LinkedIn (otwiera się w nowej karcie)',
-      'set.reportHint': 'Coś nie działa? Zgłoszenie zawiera tylko wersję wtyczki, przeglądarkę i treść ostatniego błędu – bez nazw kont.',
-      'set.reportGithub': 'Zgłoś problem',
-      'set.reportMail': 'Napisz e-mail',
-      'set.showWelcome': 'Pokaż ekran powitalny',
-      'report.button': 'Zgłoś problem',
-      'report.buttonTitle': 'Otwórz gotowe zgłoszenie na GitHubie (wersja, przeglądarka, treść błędu)',
-      'report.mailIntro': 'Opisz, co się stało i co próbowałeś zrobić:',
-      'report.browser': 'Przeglądarka',
-      'report.language': 'Język',
-      'report.error': 'Ostatni błąd',
-      'report.subject': 'zgłoszenie problemu',
-      'page.title': 'Witaj w Apex Unfollowers',
-      'page.tagline': 'Kto nie obserwuje Cię na Instagramie – lokalnie i za darmo',
-      'page.lead': 'Apex Unfollowers porównuje listy Twoich obserwujących i obserwowanych na Instagramie: pokazuje, kto nie obserwuje Cię nawzajem, kogo Ty nie obserwujesz i kto przestał Cię obserwować. Działa lokalnie w Twojej przeglądarce. Nie wymaga konta, nie prosi o hasło i nie wysyła danych do autora.',
-      'page.howTitle': 'Jak zacząć',
-      'page.featTitle': 'Co znajdziesz w panelu',
-      'page.feat1': '<strong>Nie obserwują Cię</strong> – z białą listą dla celebrytów i marek',
-      'page.feat2': '<strong>Zmiany</strong> – kto odszedł i kto doszedł od ostatniego skanu',
-      'page.feat3': '<strong>Statystyki</strong> – wykres obserwujących i bilans 7 / 30 dni',
-      'page.feat4': '<strong>Odobserwuj</strong> – pojedynczo, z potwierdzeniem i limitem dziennym',
-      'page.open': 'Otwórz Instagram',
-      'page.done': 'Gotowe. Otwórz Instagram i kliknij różowy przycisk w prawym dolnym rogu.',
-      'page.privacyTitle': 'Prywatność',
-      'page.privacyText': 'Wyniki skanów, historia i ustawienia zostają w pamięci rozszerzenia w tej przeglądarce. Wtyczka łączy się wyłącznie z instagram.com i nie ma telemetrii.',
-      'page.policy': 'Polityka prywatności',
-      'page.source': 'Kod źródłowy',
-      'err.abort': 'Skan przerwany.',
-      'err.network': 'Brak połączenia z Instagramem.',
-      'err.checkpoint': 'Instagram chce potwierdzić, że to Ty. Otwórz instagram.com, przejdź weryfikację i spróbuj później.',
-      'err.login': 'Instagram wymaga ponownego zalogowania. Zaloguj się i spróbuj jeszcze raz.',
-      'err.noAccess': 'Brak dostępu – upewnij się, że jesteś zalogowany na instagram.com, i odśwież stronę.',
-      'err.unexpected': 'Instagram zwrócił nieoczekiwaną odpowiedź (HTTP {status}).',
-      'err.ig': 'Błąd Instagrama (HTTP {status}){msg}',
-      'err.ratelimit': 'Instagram wciąż ogranicza zapytania. Odczekaj 15–30 minut i spróbuj ponownie w tempie „bezpiecznym”.',
-      'err.format': 'Instagram zmienił format danych – wtyczka wymaga aktualizacji.',
-      'err.noAccount': 'Nie wykryto zalogowanego konta. Zaloguj się na instagram.com i odśwież stronę.',
+  const DEFAULT = 'en';
+  const AUTO = 'auto';
+  const languages = Object.freeze([
+    { code: 'pl', name: 'Polski', locale: 'pl-PL' },
+    { code: 'en', name: 'English', locale: 'en-GB' },
+    { code: 'pt_BR', name: 'Português (Brasil)', locale: 'pt-BR' },
+    { code: 'es', name: 'Español', locale: 'es' },
+    { code: 'es_419', name: 'Español (Latinoamérica)', locale: 'es-419' },
+    { code: 'tr', name: 'Türkçe', locale: 'tr' },
+    { code: 'id', name: 'Bahasa Indonesia', locale: 'id' },
+    { code: 'de', name: 'Deutsch', locale: 'de' },
+    { code: 'fr', name: 'Français', locale: 'fr' },
+    { code: 'it', name: 'Italiano', locale: 'it' },
+    { code: 'ja', name: '日本語', locale: 'ja' },
+    { code: 'ko', name: '한국어', locale: 'ko' },
+    { code: 'hi', name: 'हिन्दी', locale: 'hi' },
+    { code: 'ar', name: 'العربية', locale: 'ar', dir: 'rtl' },
+    { code: 'uk', name: 'Українська', locale: 'uk' },
+    { code: 'nl', name: 'Nederlands', locale: 'nl' },
+    { code: 'vi', name: 'Tiếng Việt', locale: 'vi' },
+    { code: 'th', name: 'ไทย', locale: 'th' },
+    { code: 'zh_CN', name: '简体中文', locale: 'zh-CN' },
+    { code: 'zh_TW', name: '繁體中文', locale: 'zh-TW' },
+  ].map((entry) => Object.freeze({ dir: 'ltr', ...entry })));
+  const byCode = new Map(languages.map((entry) => [entry.code, entry]));
+  const latinAmericanRegions = new Set([
+    '419', 'AR', 'BO', 'BR', 'BZ', 'CL', 'CO', 'CR', 'CU', 'DO', 'EC', 'GT', 'HN',
+    'MX', 'NI', 'PA', 'PE', 'PR', 'PY', 'SV', 'US', 'UY', 'VE',
+  ]);
+  const traditionalChineseRegions = new Set(['HK', 'MO', 'TW']);
+  const catalogs = new Map();
+  const pending = new Map();
 
-      'note.pause': 'Krótka przerwa ({s} s), żeby nie przeciążać Instagrama…',
-      'note.retryNet': 'Problem z połączeniem, ponawiam ({a}/{n})…',
-      'note.slowDown': 'Instagram prosi o zwolnienie (HTTP {status}). Czekam {s} s i próbuję dalej…',
-      'note.fallback': 'Główna metoda nie zadziałała, próbuję zapasowej…',
-      'note.repair': 'Instagram oddał {got} z {expected} kont – dociągam brakujące inną metodą…',
-
-      'scan.checking': 'Sprawdzam konto…',
-      'scan.followers': 'Obserwujący: {n}',
-      'scan.followersDone': 'Obserwujący: {n} ✓ · za chwilę obserwowani…',
-      'scan.following': 'Obserwujący: {f} ✓ · Obserwowani: {n}',
-      'scan.done': 'Gotowe',
-      'scan.result': 'Gotowe! Obserwujący: {fr}, obserwowani: {fg}.',
-      'scan.first': 'To pierwszy skan – przy kolejnych zobaczysz, kto przestał Cię obserwować.',
-      'scan.changes': 'Od poprzedniego skanu: −{lost} / +{gained} obserwujących (zakładka „Zmiany”).',
-      'scan.noChanges': 'Brak zmian od poprzedniego skanu.',
-      'scan.fewer': 'Obserwujący: pobrano {got} z {expected} wg licznika profilu. Niewielka różnica jest normalna (konta zawieszone i dezaktywowane), przy większej powtórz skan później.',
-      'scan.shortFollowing': 'Uwaga: obserwowani – pobrano {got} z {expected} wg licznika profilu. Instagram nie oddał całej listy, więc zakładki mogą być niedokładne. Powtórz skan za kilkanaście minut w tempie „bezpiecznym”.',
-      'scan.noCounts': 'Nie udało się odczytać liczników z profilu, więc wtyczka nie mogła sprawdzić, czy listy są kompletne.',
-      'scan.aborted': 'Skan przerwany. Poprzednie wyniki zostały bez zmian.',
-
-      'unf.duringScan': 'Poczekaj na koniec skanu.',
-      'unf.otherAccount': 'Jesteś zalogowany na inne konto niż w wynikach. Najpierw zrób skan tego konta.',
-      'unf.blockedUntil': 'Odobserwowywanie wstrzymane do {time}, bo Instagram ograniczył akcje na koncie.',
-      'unf.limit': 'Osiągnięto dzienny limit odobserwowań ({used}/{limit} w ciągu 24 h). Zmienisz go w ustawieniach.',
-      'unf.cooldown': 'Odczekaj jeszcze {s} s – przerwy między odobserwowaniami chronią konto przed blokadą.',
-      'unf.done': 'Przestałeś obserwować @{user}. Dziś: {used}/{limit}.',
-      'unf.blocked': 'Instagram zablokował tę akcję (zbyt wiele działań). Odobserwowywanie wstrzymane do {time}. Nie ponawiaj ręcznie w aplikacji.',
-      'unf.slow': 'Instagram prosi o zwolnienie. Odobserwowywanie wstrzymane do {time}.',
-      'unf.failed': 'Instagram nie potwierdził odobserwowania (HTTP {status}, {info}). Sprawdź na profilu tej osoby, czy nadal ją obserwujesz.',
-      'unf.noTokens': 'Nie znaleziono tokenów sesji Instagrama na stronie. Odśwież stronę (F5) i spróbuj ponownie.',
-      'unf.still': 'Instagram odpowiedział, ale nadal obserwujesz @{user}. Spróbuj później albo na profilu tej osoby.',
-      'unf.unconfirmed': 'Instagram przyjął prośbę, ale nie udało się potwierdzić, że @{user} jest odobserwowany. Sprawdź na profilu tej osoby.',
-
-      'backup.exported': 'Zapisano kopię zapasową (konta: {n}).',
-      'backup.imported': 'Wczytano kopię z {date} (konta: {n}).',
-      'backup.invalid': 'To nie jest kopia zapasowa Apex Unfollowers albo plik jest uszkodzony.',
-      'backup.tooBig': 'Plik kopii jest za duży (maks. {mb} MB).',
-
-      'ui.stats': 'Statystyki',
-      'ui.settings': 'Ustawienia',
-      'ui.close': 'Zamknij (Esc)',
-      'ui.scan': 'Skanuj',
-      'ui.stop': 'Zatrzymaj',
-      'ui.speedTitle': 'Tempo pobierania',
-      'ui.speedSafe': 'Tempo: bezpieczne',
-      'ui.speedNormal': 'Tempo: szybsze',
-      'ui.search': 'Szukaj nazwy…',
-      'ui.csvTitle': 'Pobierz widoczną listę jako CSV',
-      'ui.filterTitle': 'Filtr',
-      'ui.sortTitle': 'Sortowanie',
-      'ui.hiddenTitle': 'Pokaż też konta ukryte (biała lista)',
-      'ui.hidden': 'ukryte',
-      'ui.footer': 'Dane zostają tylko w Twojej przeglądarce.',
-      'ui.more': 'Pokaż więcej ({n})',
-      'ui.lastScan': 'ostatni skan: {date}',
-      'ui.noScan': 'Brak skanu – kliknij „Skanuj”.',
-
-      'tab.notBack': 'Nie obserwują Cię',
-      'tab.fans': 'Ty nie obserwujesz',
-      'tab.mutual': 'Wzajemni',
-      'tab.changes': 'Zmiany',
-      'tab.changesTitle': 'Liczba osób, które przestały Cię obserwować (wg historii skanów)',
-
-      'filter.all': 'Wszystkie konta',
-      'filter.verified': 'Zweryfikowane',
-      'filter.private': 'Prywatne',
-      'filter.public': 'Publiczne',
-      'filter.nopic': 'Bez zdjęcia profilowego',
-
-      'sort.default': 'Od najnowszych',
-      'sort.az': 'Nazwa A–Z',
-      'sort.za': 'Nazwa Z–A',
-
-      'set.lang': 'Język',
-      'set.langAuto': 'Automatycznie (język przeglądarki)',
-      'set.unf': 'Limit odobserwowań',
-      'set.unfHint': 'Instagram ogranicza liczbę akcji. Zbyt wiele odobserwowań w krótkim czasie może zablokować akcje na koncie na kilka godzin lub dni. Między kolejnymi odobserwowaniami wtyczka wymusza 15 s przerwy.',
-      'set.unfOption': '{n} w ciągu 24 h',
-      'set.launcher': 'Przycisk na stronie',
-      'set.launcherLabel': 'Pokazuj okrągły przycisk na instagram.com',
-      'set.backup': 'Kopia zapasowa',
-      'set.backupHint': 'Plik JSON z wynikami skanów, historią, białą listą i ustawieniami. Przydaje się przy zmianie komputera lub przeglądarki.',
-      'set.export': 'Zapisz kopię',
-      'set.import': 'Wczytaj kopię…',
-      'set.data': 'Dane tego konta',
-      'set.dataHint': 'Usuwa wyniki skanów, historię, białą listę i licznik odobserwowań bieżącego konta.',
-      'set.wipe': 'Wyczyść dane',
-      'set.wipeConfirm': 'Na pewno? Kliknij jeszcze raz',
-      'set.wiped': 'Usunięto zapisane dane tego konta.',
-
-      'changes.group': 'Skan {date} (porównanie z {since})',
-      'changes.lost': 'odszedł',
-      'changes.gained': 'nowy',
-
-      'row.hide': 'Ukryj',
-      'row.unhide': 'Przywróć',
-      'row.hideTitle': 'Dodaj do białej listy (np. celebryci, marki) – nie będzie pokazywane w tej zakładce',
-      'row.unhideTitle': 'Usuń z białej listy',
-      'row.unf': 'Odobserwuj',
-      'row.unfConfirm': 'Na pewno?',
-      'row.unfTitle': 'Przestań obserwować to konto (wymaga potwierdzenia)',
-
-      'empty.changes': 'Brak zarejestrowanych zmian. Uruchom skan ponownie za jakiś czas – tu zobaczysz, kto przestał Cię obserwować, a kto doszedł.',
-      'empty.firstScan': 'Najpierw zrób pierwszy skan.',
-      'empty.scanning': 'Trwa pobieranie list…',
-      'empty.loggedOut': 'Zaloguj się na Instagramie, żeby zobaczyć swoje wyniki. Zapisane skany zostają w pamięci wtyczki i wrócą po zalogowaniu na to samo konto.',
-      'empty.noScan': 'Kliknij „Skanuj”, żeby pobrać listy. Przy dużych kontach może to potrwać kilka minut – możesz zamknąć panel, ale nie zamykaj karty Instagrama.',
-      'empty.noResults': 'Brak kont dla tego wyszukiwania lub filtra.',
-      'empty.notBack': 'Wszyscy, których obserwujesz, obserwują Cię 🎉',
-      'empty.fans': 'Obserwujesz wszystkich swoich obserwujących.',
-      'empty.mutual': 'Brak wzajemnych obserwacji.',
-
-      'stats.now': 'Teraz',
-      'stats.followers': 'Obserwujący',
-      'stats.following': 'Obserwowani',
-      'stats.mutual': 'Wzajemni ({p}% obserwowanych)',
-      'stats.notBack': 'Nie obserwują Cię',
-      'stats.vsPrev': '{d} od poprzedniego skanu',
-      'stats.balance': 'Bilans obserwujących',
-      'stats.balanceDays': '{days} dni: +{gained} / −{lost}',
-      'stats.unf24': 'Odobserwowano (24 h)',
-      'stats.chartTitle': 'Obserwujący w czasie',
-      'stats.chartSub': 'Na podstawie skanów: {n}',
-      'stats.chartEmpty': 'Wykres pojawi się po drugim skanie.',
-      'stats.chartAria': 'Wykres liczby obserwujących, obecnie {n}',
-      'stats.history': 'Historia skanów',
-      'stats.colDate': 'Data',
-      'stats.colFollowers': 'Obserwujący',
-      'stats.colFollowing': 'Obserwowani',
-      'stats.colChange': 'Zmiana',
-
-      'csv.empty': 'Brak danych do eksportu w tej zakładce.',
-      'csv.head': 'username,imie_nazwisko,link,zweryfikowany,prywatny',
-      'csv.headChanges': 'zmiana,data',
-      'csv.yes': 'tak',
-      'csv.no': 'nie',
-      'csv.lost': 'przestal_obserwowac',
-      'csv.gained': 'nowy_obserwujacy',
-      'csv.fileNotBack': 'nie-obserwuja-cie',
-      'csv.fileFans': 'ty-nie-obserwujesz',
-      'csv.fileMutual': 'wzajemni',
-      'csv.fileChanges': 'zmiany',
-
-      'popup.opening': 'Otwieram panel…',
-      'popup.openTitle': 'Otwórz Instagram',
-      'popup.openText': 'Wtyczka działa na instagram.com. Zaloguj się, a potem kliknij ikonę wtyczki albo różowy przycisk w prawym dolnym rogu strony.',
-      'popup.openBtn': 'Otwórz instagram.com',
-      'popup.reloadTitle': 'Odśwież stronę Instagrama',
-      'popup.reloadText': 'Wtyczka załaduje się po odświeżeniu karty. Potem kliknij ikonę jeszcze raz.',
-      'popup.reloadBtn': 'Odśwież stronę',
-    },
-
-    en: {
-      'ext.name': 'Apex Unfollowers for Instagram',
-      'ext.tagline': 'See who doesn’t follow you back on Instagram – local and free',
-      'ui.resume': 'Resume scan',
-      'ui.restart': 'Start over',
-      'ui.resumeInfo': 'Interrupted scan from {date}: {n} accounts saved.',
-      'scan.eta': 'about {t} left',
-      'time.lessMin': 'less than a minute',
-      'time.min': '{n} min',
-      'scan.resuming': 'Resuming the interrupted scan ({n} accounts already fetched)…',
-      'scan.paused': 'Scan paused.',
-      'scan.progressSaved': 'Progress saved ({n} accounts) – click Resume scan to finish.',
-      'welcome.title': 'Welcome to Apex Unfollowers',
-      'welcome.lead': 'The extension compares your Instagram followers and following lists. It runs in your browser, with no account and no data sent to the author.',
-      'welcome.step1': 'Log in on instagram.com in this browser.',
-      'welcome.step2': 'Click Scan – large accounts can take a few minutes.',
-      'welcome.step3': 'Browse the tabs, filters and statistics. Unfollow one account at a time.',
-      'welcome.riskTitle': 'Account safety',
-      'welcome.riskText': 'The extension uses the unofficial API of the Instagram website. Instagram’s terms do not allow automated data collection, so you use it at your own risk.',
-      'welcome.risk1': 'scan at most once a day, at the safe speed,',
-      'welcome.risk2': 'unfollow calmly – the extension enforces breaks and a daily limit,',
-      'welcome.risk3': 'after an action block, wait a day or two.',
-      'welcome.accept': 'I understand and want to use the extension.',
-      'welcome.start': 'Let’s start',
-      'welcome.privacy': 'Your data stays in this browser.',
-      'welcome.more': 'More information',
-      'set.about': 'About',
-      'set.authorTitle': 'Author and contact',
-      'set.linkedin': 'LinkedIn profile',
-      'set.linkedinLabel': 'Author’s LinkedIn profile (opens in a new tab)',
-      'set.reportHint': 'Something not working? A report contains only the extension version, your browser and the last error – no account names.',
-      'set.reportGithub': 'Report a problem',
-      'set.reportMail': 'Send an e-mail',
-      'set.showWelcome': 'Show the welcome screen',
-      'report.button': 'Report a problem',
-      'report.buttonTitle': 'Open a pre-filled report on GitHub (version, browser, error)',
-      'report.mailIntro': 'Describe what happened and what you were trying to do:',
-      'report.browser': 'Browser',
-      'report.language': 'Language',
-      'report.error': 'Last error',
-      'report.subject': 'problem report',
-      'page.title': 'Welcome to Apex Unfollowers',
-      'page.tagline': 'See who doesn’t follow you back on Instagram – local and free',
-      'page.lead': 'Apex Unfollowers compares your Instagram followers and following lists: it shows who doesn’t follow you back, who you don’t follow and who unfollowed you. It runs locally in your browser. It needs no account, never asks for your password and sends no data to the author.',
-      'page.howTitle': 'Getting started',
-      'page.featTitle': 'What the panel shows',
-      'page.feat1': '<strong>Don’t follow back</strong> – with a whitelist for celebrities and brands',
-      'page.feat2': '<strong>Changes</strong> – who left and who joined since the last scan',
-      'page.feat3': '<strong>Statistics</strong> – follower chart and 7 / 30-day balance',
-      'page.feat4': '<strong>Unfollow</strong> – one at a time, with confirmation and a daily limit',
-      'page.open': 'Open Instagram',
-      'page.done': 'All set. Open Instagram and click the pink button in the bottom-right corner.',
-      'page.privacyTitle': 'Privacy',
-      'page.privacyText': 'Scan results, history and settings stay in the extension’s storage in this browser. The extension connects only to instagram.com and has no telemetry.',
-      'page.policy': 'Privacy policy',
-      'page.source': 'Source code',
-      'err.abort': 'Scan stopped.',
-      'err.network': 'Could not connect to Instagram.',
-      'err.checkpoint': 'Instagram wants to confirm it is you. Open instagram.com, complete the check and try again later.',
-      'err.login': 'Instagram asks you to log in again. Log in and try once more.',
-      'err.noAccess': 'Access denied – make sure you are logged in on instagram.com and reload the page.',
-      'err.unexpected': 'Instagram returned an unexpected response (HTTP {status}).',
-      'err.ig': 'Instagram error (HTTP {status}){msg}',
-      'err.ratelimit': 'Instagram is still limiting requests. Wait 15–30 minutes and try again at the safe speed.',
-      'err.format': 'Instagram changed its data format – the extension needs an update.',
-      'err.noAccount': 'No logged-in account found. Log in on instagram.com and reload the page.',
-
-      'note.pause': 'Short break ({s} s) to go easy on Instagram…',
-      'note.retryNet': 'Connection problem, retrying ({a}/{n})…',
-      'note.slowDown': 'Instagram asks to slow down (HTTP {status}). Waiting {s} s, then continuing…',
-      'note.fallback': 'Main method failed, trying the fallback…',
-      'note.repair': 'Instagram returned {got} of {expected} accounts – fetching the rest another way…',
-
-      'scan.checking': 'Checking your account…',
-      'scan.followers': 'Followers: {n}',
-      'scan.followersDone': 'Followers: {n} ✓ · following list next…',
-      'scan.following': 'Followers: {f} ✓ · Following: {n}',
-      'scan.done': 'Done',
-      'scan.result': 'Done! Followers: {fr}, following: {fg}.',
-      'scan.first': 'This is your first scan – next time you will see who unfollowed you.',
-      'scan.changes': 'Since the previous scan: −{lost} / +{gained} followers (see Changes).',
-      'scan.noChanges': 'No changes since the previous scan.',
-      'scan.fewer': 'Followers: got {got} of {expected} per the profile counter. A small gap is normal (suspended and deactivated accounts); if it is larger, scan again later.',
-      'scan.shortFollowing': 'Warning: following – got {got} of {expected} per the profile counter. Instagram did not return the full list, so the tabs may be inaccurate. Scan again in 15 minutes at the safe speed.',
-      'scan.noCounts': 'Could not read your profile counters, so the extension could not check that the lists are complete.',
-      'scan.aborted': 'Scan stopped. Previous results were kept.',
-
-      'unf.duringScan': 'Wait until the scan finishes.',
-      'unf.otherAccount': 'You are logged into a different account than these results. Scan this account first.',
-      'unf.blockedUntil': 'Unfollowing paused until {time} because Instagram limited actions on your account.',
-      'unf.limit': 'Daily unfollow limit reached ({used}/{limit} in 24 h). You can change it in Settings.',
-      'unf.cooldown': 'Wait {s} more seconds – breaks between unfollows protect your account.',
-      'unf.done': 'Unfollowed @{user}. Today: {used}/{limit}.',
-      'unf.blocked': 'Instagram blocked this action (too many actions). Unfollowing paused until {time}. Do not retry manually in the app.',
-      'unf.slow': 'Instagram asks to slow down. Unfollowing paused until {time}.',
-      'unf.failed': 'Instagram did not confirm the unfollow (HTTP {status}, {info}). Check that profile to see if you still follow it.',
-      'unf.noTokens': 'Instagram session tokens were not found on the page. Reload the page (F5) and try again.',
-      'unf.still': 'Instagram answered, but you still follow @{user}. Try later or from that profile.',
-      'unf.unconfirmed': 'Instagram accepted the request, but the extension could not confirm that @{user} is unfollowed. Check that profile.',
-
-      'backup.exported': 'Backup saved (accounts: {n}).',
-      'backup.imported': 'Backup from {date} restored (accounts: {n}).',
-      'backup.invalid': 'This is not an Apex Unfollowers backup or the file is damaged.',
-      'backup.tooBig': 'The backup file is too large (max {mb} MB).',
-
-      'ui.stats': 'Statistics',
-      'ui.settings': 'Settings',
-      'ui.close': 'Close (Esc)',
-      'ui.scan': 'Scan',
-      'ui.stop': 'Stop',
-      'ui.speedTitle': 'Scan speed',
-      'ui.speedSafe': 'Speed: safe',
-      'ui.speedNormal': 'Speed: faster',
-      'ui.search': 'Search by name…',
-      'ui.csvTitle': 'Download the visible list as CSV',
-      'ui.filterTitle': 'Filter',
-      'ui.sortTitle': 'Sort',
-      'ui.hiddenTitle': 'Also show hidden accounts (whitelist)',
-      'ui.hidden': 'hidden',
-      'ui.footer': 'Your data stays in your browser only.',
-      'ui.more': 'Show more ({n})',
-      'ui.lastScan': 'last scan: {date}',
-      'ui.noScan': 'No scan yet – click Scan.',
-
-      'tab.notBack': 'Don’t follow back',
-      'tab.fans': 'You don’t follow',
-      'tab.mutual': 'Mutual',
-      'tab.changes': 'Changes',
-      'tab.changesTitle': 'People who unfollowed you (based on scan history)',
-
-      'filter.all': 'All accounts',
-      'filter.verified': 'Verified',
-      'filter.private': 'Private',
-      'filter.public': 'Public',
-      'filter.nopic': 'No profile photo',
-
-      'sort.default': 'Newest first',
-      'sort.az': 'Name A–Z',
-      'sort.za': 'Name Z–A',
-
-      'set.lang': 'Language',
-      'set.langAuto': 'Automatic (browser language)',
-      'set.unf': 'Unfollow limit',
-      'set.unfHint': 'Instagram limits the number of actions. Too many unfollows in a short time can block actions on your account for hours or days. The extension enforces a 15-second break between unfollows.',
-      'set.unfOption': '{n} per 24 h',
-      'set.launcher': 'Button on the page',
-      'set.launcherLabel': 'Show the round button on instagram.com',
-      'set.backup': 'Backup',
-      'set.backupHint': 'A JSON file with scan results, history, whitelist and settings. Useful when moving to another computer or browser.',
-      'set.export': 'Save backup',
-      'set.import': 'Restore backup…',
-      'set.data': 'This account’s data',
-      'set.dataHint': 'Deletes scan results, history, whitelist and the unfollow counter of the current account.',
-      'set.wipe': 'Clear data',
-      'set.wipeConfirm': 'Sure? Click again',
-      'set.wiped': 'Saved data for this account was deleted.',
-
-      'changes.group': 'Scan {date} (compared with {since})',
-      'changes.lost': 'left',
-      'changes.gained': 'new',
-
-      'row.hide': 'Hide',
-      'row.unhide': 'Restore',
-      'row.hideTitle': 'Add to whitelist (e.g. celebrities, brands) – it will not be listed here',
-      'row.unhideTitle': 'Remove from whitelist',
-      'row.unf': 'Unfollow',
-      'row.unfConfirm': 'Sure?',
-      'row.unfTitle': 'Stop following this account (asks for confirmation)',
-
-      'empty.changes': 'No changes recorded yet. Scan again later – this is where you will see who unfollowed you and who joined.',
-      'empty.firstScan': 'Run your first scan first.',
-      'empty.scanning': 'Fetching lists…',
-      'empty.loggedOut': 'Log in to Instagram to see your results. Saved scans stay in the extension and come back when you log in to the same account.',
-      'empty.noScan': 'Click Scan to fetch your lists. Large accounts can take a few minutes – you can close the panel, but keep the Instagram tab open.',
-      'empty.noResults': 'No accounts match this search or filter.',
-      'empty.notBack': 'Everyone you follow follows you back 🎉',
-      'empty.fans': 'You follow all of your followers.',
-      'empty.mutual': 'No mutual follows.',
-
-      'stats.now': 'Now',
-      'stats.followers': 'Followers',
-      'stats.following': 'Following',
-      'stats.mutual': 'Mutual ({p}% of following)',
-      'stats.notBack': 'Don’t follow back',
-      'stats.vsPrev': '{d} since previous scan',
-      'stats.balance': 'Follower balance',
-      'stats.balanceDays': '{days} days: +{gained} / −{lost}',
-      'stats.unf24': 'Unfollowed (24 h)',
-      'stats.chartTitle': 'Followers over time',
-      'stats.chartSub': 'Based on scans: {n}',
-      'stats.chartEmpty': 'The chart appears after your second scan.',
-      'stats.chartAria': 'Chart of follower count, currently {n}',
-      'stats.history': 'Scan history',
-      'stats.colDate': 'Date',
-      'stats.colFollowers': 'Followers',
-      'stats.colFollowing': 'Following',
-      'stats.colChange': 'Change',
-
-      'csv.empty': 'Nothing to export in this tab.',
-      'csv.head': 'username,full_name,link,verified,private',
-      'csv.headChanges': 'change,date',
-      'csv.yes': 'yes',
-      'csv.no': 'no',
-      'csv.lost': 'unfollowed',
-      'csv.gained': 'new_follower',
-      'csv.fileNotBack': 'dont-follow-back',
-      'csv.fileFans': 'you-dont-follow',
-      'csv.fileMutual': 'mutual',
-      'csv.fileChanges': 'changes',
-
-      'popup.opening': 'Opening the panel…',
-      'popup.openTitle': 'Open Instagram',
-      'popup.openText': 'The extension works on instagram.com. Log in, then click the extension icon or the pink button in the bottom-right corner of the page.',
-      'popup.openBtn': 'Open instagram.com',
-      'popup.reloadTitle': 'Reload Instagram',
-      'popup.reloadText': 'The extension loads after the tab is reloaded. Then click the icon again.',
-      'popup.reloadBtn': 'Reload page',
-    },
-  };
-
-  function resolve(lang) {
-    if (lang === 'pl' || lang === 'en') return lang;
-    const nav = String((typeof navigator !== 'undefined' && navigator.language) || '').toLowerCase();
-    return nav.startsWith('pl') ? 'pl' : 'en';
+  function extension() {
+    return globalThis.browser?.runtime ? globalThis.browser : globalThis.chrome;
   }
 
-  function make(lang) {
-    const code = resolve(lang);
-    const d = DICT[code];
-    return {
-      lang: code,
-      locale: code === 'pl' ? 'pl-PL' : 'en-GB',
-      t(key, vars) {
-        let s = d[key] ?? DICT.pl[key] ?? key;
-        if (vars) s = s.replace(/\{(\w+)\}/g, (_, k) => (vars[k] ?? ''));
-        return s;
-      },
+  function normalizePreference(value) {
+    return byCode.has(value) ? value : AUTO;
+  }
+
+  function resolve(preference, browserLanguage) {
+    const saved = normalizePreference(preference);
+    if (saved !== AUTO) return saved;
+
+    let tag;
+    try {
+      const browserLocale = browserLanguage ?? (extension()?.i18n?.getUILanguage?.() || globalThis.navigator?.language);
+      tag = new Intl.Locale(browserLocale?.replaceAll('_', '-'));
+    } catch {
+      return DEFAULT;
+    }
+    if (tag.language === 'pt') return 'pt_BR';
+    if (tag.language === 'es' && latinAmericanRegions.has(tag.region)) return 'es_419';
+    if (tag.language === 'zh') {
+      const traditional = tag.script ? tag.script === 'Hant' : traditionalChineseRegions.has(tag.region);
+      return traditional ? 'zh_TW' : 'zh_CN';
+    }
+    return byCode.has(tag.language) ? tag.language : DEFAULT;
+  }
+
+  async function requestCatalog(lang) {
+    const runtime = extension()?.runtime;
+    const protocol = globalThis.location?.protocol;
+    if (protocol === 'chrome-extension:' || protocol === 'moz-extension:') {
+      const response = await fetch(runtime.getURL(`_locales/${lang}/messages.json`));
+      return response.ok ? response.json() : null;
+    }
+    // Content scripts read the packaged file through the extension, without exposing it to the page.
+    return runtime?.sendMessage?.({ type: 'apex-unf:loadLocale', lang });
+  }
+
+  function loadCatalog(lang) {
+    if (catalogs.has(lang)) return;
+    if (!pending.has(lang)) {
+      pending.set(lang, requestCatalog(lang)
+        .then((catalog) => {
+          if (catalog && typeof catalog === 'object' && !Array.isArray(catalog)) catalogs.set(lang, catalog);
+        })
+        .catch(() => { /* The English catalog covers failed locale loads. */ })
+        .finally(() => pending.delete(lang)));
+    }
+    return pending.get(lang);
+  }
+
+  function makeFormatter(Formatter, locale) {
+    const cache = new Map();
+    return (value, options) => {
+      const key = JSON.stringify(options);
+      if (!cache.has(key)) cache.set(key, new Formatter(locale, options));
+      return cache.get(key).format(value);
     };
   }
 
-  globalThis.ApexUnf_i18n = { make, resolve, DICT };
+  function message(lang, key) {
+    const catalog = catalogs.get(lang);
+    const value = catalog && Object.hasOwn(catalog, key) ? catalog[key]?.message : undefined;
+    return typeof value === 'string' && value.trim() ? value : undefined;
+  }
+
+  function make(preference) {
+    const lang = resolve(preference);
+    const { locale, dir } = byCode.get(lang);
+    const formatNumber = makeFormatter(Intl.NumberFormat, locale);
+    const formatDate = makeFormatter(Intl.DateTimeFormat, locale);
+    return {
+      lang, locale, dir,
+      t(key, vars) {
+        const catalogKey = key.replaceAll('.', '_');
+        const text = message(lang, catalogKey) ?? message(DEFAULT, catalogKey) ?? key;
+        return vars ? text.replace(/\{(\w+)\}/g, (_, token) => {
+          const value = Object.hasOwn(vars, token) ? vars[token] : undefined;
+          return typeof value === 'number' ? formatNumber(value) : (value ?? '');
+        }) : text;
+      },
+      number: formatNumber,
+      date: (value, options = { dateStyle: 'medium' }) => formatDate(value, options),
+      time: (value, options = { hour: '2-digit', minute: '2-digit' }) => formatDate(value, options),
+      percent: (value, options) => formatNumber(value, { style: 'percent', ...options }),
+    };
+  }
+
+  async function load(preference) {
+    const lang = resolve(preference);
+    await Promise.all([loadCatalog(DEFAULT), loadCatalog(lang)]);
+    return make(catalogs.has(lang) ? lang : DEFAULT);
+  }
+
+  globalThis.ApexUnf_i18n = { languages, normalizePreference, resolve, make, load };
 })();

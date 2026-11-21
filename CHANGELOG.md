@@ -2,6 +2,13 @@
 
 Wszystkie istotne zmiany w Apex Unfollowers dla Instagrama (do wersji 1.1.2: Apex IG Unfollowers). Format: [Keep a Changelog](https://keepachangelog.com/pl/1.1.0/), wersjonowanie: [SemVer](https://semver.org/lang/pl/).
 
+## [1.3.0] – 2026-11-21
+
+- Dodano 18 języków interfejsu i metadanych Chrome Web Store. Wybór w ustawieniach aktualizuje panel, okienko i ekran powitalny. Tryb automatyczny rozpoznaje warianty regionalne i używa angielskiego jako języka awaryjnego.
+- Dostosowano układ do dłuższych tłumaczeń i języka arabskiego. Daty, godziny, liczby i procenty w interfejsie używają reguł wybranego języka.
+- Z gotowych zgłoszeń problemów usunięto nazwy kont i surowe odpowiedzi Instagrama. Zaktualizowano informacje o źródle zdjęć profilowych i działaniu formularza zgłoszeń.
+- Dodano 20 opisów sklepowych, walidację katalogów i testy lokalizacji. GitHub Actions buduje ZIP do Chrome Web Store z kompletem tłumaczeń.
+
 ## [1.2.2] – 2026-11-14
 
 Dalsze poprawki po przeglądzie kodu.

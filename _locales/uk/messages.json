@@ -1,0 +1,626 @@
+{
+  "extName": {
+    "message": "Apex Unfollowers для Instagram"
+  },
+  "extShortName": {
+    "message": "Apex"
+  },
+  "extDescription": {
+    "message": "Дізнайтеся, хто не підписаний на вас у відповідь в Instagram і хто відписався. Працює локально, без запиту пароля й телеметрії."
+  },
+  "ext_name": {
+    "message": "Apex Unfollowers для Instagram"
+  },
+  "ext_tagline": {
+    "message": "Дізнайтеся, хто не підписаний на вас у відповідь в Instagram. Локально й безкоштовно."
+  },
+  "ui_resume": {
+    "message": "Продовжити сканування"
+  },
+  "ui_restart": {
+    "message": "Почати спочатку"
+  },
+  "ui_resumeInfo": {
+    "message": "Сканування від {date} перервано. Збережено акаунтів: {n}."
+  },
+  "scan_eta": {
+    "message": "Залишилося приблизно {t}"
+  },
+  "time_lessMin": {
+    "message": "менше хвилини"
+  },
+  "time_min": {
+    "message": "{n} хв"
+  },
+  "scan_resuming": {
+    "message": "Продовжуємо перерване сканування. Уже отримано акаунтів: {n}…"
+  },
+  "scan_paused": {
+    "message": "Сканування призупинено."
+  },
+  "scan_progressSaved": {
+    "message": "Перебіг збережено. Отримано акаунтів: {n}. Щоб завершити, натисніть «Продовжити сканування»."
+  },
+  "welcome_title": {
+    "message": "Вітаємо в Apex Unfollowers"
+  },
+  "welcome_lead": {
+    "message": "Розширення порівнює ваші підписки та підписників в Instagram. Воно працює у вашому браузері, не потребує окремого акаунта й не надсилає дані розробнику."
+  },
+  "welcome_step1": {
+    "message": "Увійдіть на instagram.com у цьому браузері."
+  },
+  "welcome_step2": {
+    "message": "Натисніть «Сканувати». Для великих акаунтів це може тривати кілька хвилин."
+  },
+  "welcome_step3": {
+    "message": "Перегляньте вкладки, фільтри й статистику. Відписуйтеся від акаунтів по одному."
+  },
+  "welcome_riskTitle": {
+    "message": "Безпека акаунта"
+  },
+  "welcome_riskText": {
+    "message": "Розширення використовує неофіційний API сайту Instagram. Умови використання Instagram забороняють автоматизований збір даних. Ви використовуєте розширення на власний ризик."
+  },
+  "welcome_risk1": {
+    "message": "Скануйте не частіше ніж раз на день у помірному темпі."
+  },
+  "welcome_risk2": {
+    "message": "Відписуйтеся без поспіху. Розширення робить паузи між діями й застосовує добовий ліміт."
+  },
+  "welcome_risk3": {
+    "message": "Якщо Instagram заблокує дії, зачекайте один або два дні."
+  },
+  "welcome_accept": {
+    "message": "Я розумію умови й хочу користуватися розширенням."
+  },
+  "welcome_start": {
+    "message": "Почати"
+  },
+  "welcome_privacy": {
+    "message": "Ваші дані залишаються в цьому браузері."
+  },
+  "welcome_more": {
+    "message": "Докладніше"
+  },
+  "set_about": {
+    "message": "Про розширення"
+  },
+  "set_authorTitle": {
+    "message": "Розробник і контакти"
+  },
+  "set_linkedin": {
+    "message": "Профіль LinkedIn"
+  },
+  "set_linkedinLabel": {
+    "message": "Профіль розробника в LinkedIn (відкриється в новій вкладці)"
+  },
+  "set_reportHint": {
+    "message": "Щось не працює? Звіт містить лише версію розширення, назву браузера й останню помилку. Імена користувачів до звіту не додаються."
+  },
+  "set_reportGithub": {
+    "message": "Повідомити про проблему"
+  },
+  "set_reportMail": {
+    "message": "Написати електронного листа"
+  },
+  "set_showWelcome": {
+    "message": "Показати екран привітання"
+  },
+  "report_button": {
+    "message": "Повідомити про проблему"
+  },
+  "report_buttonTitle": {
+    "message": "Відкрити заповнений звіт на GitHub (версія, браузер, помилка)"
+  },
+  "report_mailIntro": {
+    "message": "Опишіть, що сталося і що ви намагалися зробити."
+  },
+  "report_browser": {
+    "message": "Браузер"
+  },
+  "report_language": {
+    "message": "Мова"
+  },
+  "report_error": {
+    "message": "Остання помилка"
+  },
+  "report_subject": {
+    "message": "звіт про проблему"
+  },
+  "page_title": {
+    "message": "Вітаємо в Apex Unfollowers"
+  },
+  "page_tagline": {
+    "message": "Дізнайтеся, хто не підписаний на вас у відповідь в Instagram. Локально й безкоштовно."
+  },
+  "page_lead": {
+    "message": "Apex Unfollowers порівнює ваші підписки та підписників в Instagram. Ви бачите, хто не підписаний на вас у відповідь, на кого ви не підписані та хто від вас відписався. Розширення працює локально у браузері, не потребує окремого акаунта, не запитує пароль і не надсилає дані розробнику."
+  },
+  "page_howTitle": {
+    "message": "Як почати"
+  },
+  "page_featTitle": {
+    "message": "Що є на панелі"
+  },
+  "page_feat1": {
+    "message": "<strong>Не підписані у відповідь</strong> — зі списком винятків для відомих людей і брендів"
+  },
+  "page_feat2": {
+    "message": "<strong>Зміни</strong> — хто підписався та відписався після останнього сканування"
+  },
+  "page_feat3": {
+    "message": "<strong>Статистика</strong> — графік підписників і зміни за 7 і 30 днів"
+  },
+  "page_feat4": {
+    "message": "<strong>Відписатися</strong> — для одного акаунта за раз, з підтвердженням і добовим лімітом"
+  },
+  "page_open": {
+    "message": "Відкрити Instagram"
+  },
+  "page_done": {
+    "message": "Готово. Відкрийте Instagram і натисніть рожеву кнопку в правому нижньому куті."
+  },
+  "page_privacyTitle": {
+    "message": "Конфіденційність"
+  },
+  "page_privacyText": {
+    "message": "Результати сканування, історія й налаштування зберігаються в цьому браузері. Розширення отримує дані з Instagram. Фото профілів можуть завантажуватися із серверів зображень Instagram або Meta. Розширення не збирає телеметрію."
+  },
+  "page_policy": {
+    "message": "Політика конфіденційності"
+  },
+  "page_source": {
+    "message": "Вихідний код"
+  },
+  "err_abort": {
+    "message": "Сканування зупинено."
+  },
+  "err_network": {
+    "message": "Не вдалося підключитися до Instagram."
+  },
+  "err_checkpoint": {
+    "message": "Instagram хоче підтвердити вашу особу. Відкрийте instagram.com, пройдіть перевірку й спробуйте пізніше."
+  },
+  "err_login": {
+    "message": "Instagram просить увійти ще раз. Увійдіть і повторіть спробу."
+  },
+  "err_noAccess": {
+    "message": "Доступ заборонено. Переконайтеся, що ви ввійшли на instagram.com, і перезавантажте сторінку."
+  },
+  "err_unexpected": {
+    "message": "Instagram повернув неочікувану відповідь (HTTP {status})."
+  },
+  "err_ig": {
+    "message": "Помилка Instagram (HTTP {status}){msg}"
+  },
+  "err_ratelimit": {
+    "message": "Instagram усе ще обмежує запити. Зачекайте 15–30 хвилин і спробуйте знову в помірному темпі."
+  },
+  "err_format": {
+    "message": "Instagram змінив формат даних. Розширення потрібно оновити."
+  },
+  "err_noAccount": {
+    "message": "Не знайдено активного сеансу. Увійдіть на instagram.com і перезавантажте сторінку."
+  },
+  "note_pause": {
+    "message": "Коротка пауза ({s} с), щоб не перевантажувати Instagram…"
+  },
+  "note_retryNet": {
+    "message": "Проблема зі з’єднанням. Повторна спроба ({a}/{n})…"
+  },
+  "note_slowDown": {
+    "message": "Instagram обмежує запити (HTTP {status}). Продовжимо через {s} с…"
+  },
+  "note_fallback": {
+    "message": "Перший спосіб не спрацював. Спробуємо інший…"
+  },
+  "note_repair": {
+    "message": "Instagram повернув {got} із {expected} акаунтів. Отримуємо решту іншим способом…"
+  },
+  "scan_checking": {
+    "message": "Перевіряємо акаунт…"
+  },
+  "scan_followers": {
+    "message": "Підписники: {n}"
+  },
+  "scan_followersDone": {
+    "message": "Підписники: {n} ✓ · Далі — список підписок…"
+  },
+  "scan_following": {
+    "message": "Підписники: {f} ✓ · Підписки: {n}"
+  },
+  "scan_done": {
+    "message": "Готово"
+  },
+  "scan_result": {
+    "message": "Готово! Підписники: {fr}, підписки: {fg}."
+  },
+  "scan_first": {
+    "message": "Це перше сканування. Наступного разу ви побачите, хто від вас відписався."
+  },
+  "scan_changes": {
+    "message": "Зміна кількості підписників від попереднього сканування: −{lost} / +{gained} (див. «Зміни»)."
+  },
+  "scan_noChanges": {
+    "message": "Після попереднього сканування змін немає."
+  },
+  "scan_fewer": {
+    "message": "Отримано {got} із {expected} підписників за лічильником профілю. Невелика різниця можлива через заблоковані або деактивовані акаунти. Якщо різниця більша, повторіть сканування пізніше."
+  },
+  "scan_shortFollowing": {
+    "message": "За лічильником профілю отримано {got} із {expected} підписок. Instagram повернув неповний список, тому результати можуть бути неточними. Повторіть сканування через 15 хвилин у помірному темпі."
+  },
+  "scan_noCounts": {
+    "message": "Не вдалося прочитати лічильники профілю й перевірити, чи отримано повні списки."
+  },
+  "scan_aborted": {
+    "message": "Сканування зупинено. Попередні результати збережено."
+  },
+  "unf_duringScan": {
+    "message": "Зачекайте, доки завершиться сканування."
+  },
+  "unf_otherAccount": {
+    "message": "Ви ввійшли з іншого акаунта. Спочатку проскануйте поточний акаунт."
+  },
+  "unf_blockedUntil": {
+    "message": "Можливість відписуватися призупинено до {time}, оскільки Instagram обмежив дії у вашому акаунті."
+  },
+  "unf_limit": {
+    "message": "Досягнуто добового ліміту відписок ({used}/{limit} за 24 год). Його можна змінити в налаштуваннях."
+  },
+  "unf_cooldown": {
+    "message": "Зачекайте ще {s} с. Паузи між діями допомагають уникнути блокування."
+  },
+  "unf_done": {
+    "message": "Ви відписалися від @{user}. Сьогодні: {used}/{limit}."
+  },
+  "unf_blocked": {
+    "message": "Instagram заблокував цю дію через завелику кількість дій. Можливість відписуватися призупинено до {time}. Не повторюйте дію вручну в застосунку."
+  },
+  "unf_slow": {
+    "message": "Instagram просить знизити темп. Можливість відписуватися призупинено до {time}."
+  },
+  "unf_failed": {
+    "message": "Instagram не підтвердив відписку (HTTP {status}, {info}). Перевірте в профілі, чи досі ви підписані на цей акаунт."
+  },
+  "unf_noTokens": {
+    "message": "На сторінці не знайдено токенів сеансу Instagram. Перезавантажте сторінку (F5) і спробуйте знову."
+  },
+  "unf_still": {
+    "message": "Instagram відповів, але ви досі підписані на @{user}. Спробуйте пізніше або відкрийте профіль."
+  },
+  "unf_unconfirmed": {
+    "message": "Instagram прийняв запит, але розширення не змогло підтвердити відписку від @{user}. Перевірте в профілі."
+  },
+  "backup_exported": {
+    "message": "Резервну копію збережено. Кількість акаунтів: {n}."
+  },
+  "backup_imported": {
+    "message": "Резервну копію від {date} відновлено. Кількість акаунтів: {n}."
+  },
+  "backup_invalid": {
+    "message": "Файл не є резервною копією Apex Unfollowers або його пошкоджено."
+  },
+  "backup_tooBig": {
+    "message": "Файл резервної копії завеликий (щонайбільше {mb} МБ)."
+  },
+  "ui_stats": {
+    "message": "Статистика"
+  },
+  "ui_settings": {
+    "message": "Налаштування"
+  },
+  "ui_close": {
+    "message": "Закрити (Esc)"
+  },
+  "ui_scan": {
+    "message": "Сканувати"
+  },
+  "ui_stop": {
+    "message": "Зупинити"
+  },
+  "ui_speedTitle": {
+    "message": "Швидкість сканування"
+  },
+  "ui_speedSafe": {
+    "message": "Темп: помірний"
+  },
+  "ui_speedNormal": {
+    "message": "Темп: швидший"
+  },
+  "ui_search": {
+    "message": "Пошук за ім’ям…"
+  },
+  "ui_csvTitle": {
+    "message": "Завантажити видимий список у форматі CSV"
+  },
+  "ui_filterTitle": {
+    "message": "Фільтр"
+  },
+  "ui_sortTitle": {
+    "message": "Сортування"
+  },
+  "ui_hiddenTitle": {
+    "message": "Показати також приховані акаунти (список винятків)"
+  },
+  "ui_hidden": {
+    "message": "Приховані"
+  },
+  "ui_footer": {
+    "message": "Ваші дані залишаються лише у вашому браузері."
+  },
+  "ui_more": {
+    "message": "Показати більше ({n})"
+  },
+  "ui_lastScan": {
+    "message": "Останнє сканування: {date}"
+  },
+  "ui_noScan": {
+    "message": "Сканувань ще немає. Натисніть «Сканувати»."
+  },
+  "tab_notBack": {
+    "message": "Не підписані у відповідь"
+  },
+  "tab_fans": {
+    "message": "Ви не підписані"
+  },
+  "tab_mutual": {
+    "message": "Взаємні підписки"
+  },
+  "tab_changes": {
+    "message": "Зміни"
+  },
+  "tab_changesTitle": {
+    "message": "Акаунти, які відписалися від вас, за історією сканувань"
+  },
+  "filter_all": {
+    "message": "Усі акаунти"
+  },
+  "filter_verified": {
+    "message": "Підтверджені"
+  },
+  "filter_private": {
+    "message": "Приватні"
+  },
+  "filter_public": {
+    "message": "Публічні"
+  },
+  "filter_nopic": {
+    "message": "Без фото профілю"
+  },
+  "sort_default": {
+    "message": "Спочатку нові"
+  },
+  "sort_az": {
+    "message": "За ім’ям А–Я"
+  },
+  "sort_za": {
+    "message": "За ім’ям Я–А"
+  },
+  "set_lang": {
+    "message": "Мова"
+  },
+  "set_langAuto": {
+    "message": "Автоматично (мова браузера)"
+  },
+  "set_unf": {
+    "message": "Ліміт відписок"
+  },
+  "set_unfHint": {
+    "message": "Instagram обмежує кількість дій. Якщо відписатися від забагатьох акаунтів за короткий час, Instagram може заблокувати дії на кілька годин або днів. Розширення робить паузу 15 секунд між відписками."
+  },
+  "set_unfOption": {
+    "message": "{n} за 24 год"
+  },
+  "set_launcher": {
+    "message": "Кнопка на сторінці"
+  },
+  "set_launcherLabel": {
+    "message": "Показувати круглу кнопку на instagram.com"
+  },
+  "set_backup": {
+    "message": "Резервна копія"
+  },
+  "set_backupHint": {
+    "message": "Файл JSON із результатами сканувань, історією, списком винятків і налаштуваннями. Стане в пригоді під час переходу на інший комп’ютер або браузер."
+  },
+  "set_export": {
+    "message": "Зберегти копію"
+  },
+  "set_import": {
+    "message": "Відновити копію…"
+  },
+  "set_data": {
+    "message": "Дані цього акаунта"
+  },
+  "set_dataHint": {
+    "message": "Видаляє результати сканувань, історію, список винятків і лічильник відписок для поточного акаунта."
+  },
+  "set_wipe": {
+    "message": "Очистити дані"
+  },
+  "set_wipeConfirm": {
+    "message": "Натисніть ще раз для підтвердження"
+  },
+  "set_wiped": {
+    "message": "Збережені дані цього акаунта видалено."
+  },
+  "changes_group": {
+    "message": "Сканування від {date} (порівняння з {since})"
+  },
+  "changes_lost": {
+    "message": "Відписка"
+  },
+  "changes_gained": {
+    "message": "Нова підписка"
+  },
+  "row_hide": {
+    "message": "Приховати"
+  },
+  "row_unhide": {
+    "message": "Повернути"
+  },
+  "row_hideTitle": {
+    "message": "Додати до списку винятків (наприклад, бренди й відомих людей) і приховати на цій вкладці"
+  },
+  "row_unhideTitle": {
+    "message": "Вилучити зі списку винятків"
+  },
+  "row_unf": {
+    "message": "Відписатися"
+  },
+  "row_unfConfirm": {
+    "message": "Підтвердити?"
+  },
+  "row_unfTitle": {
+    "message": "Відписатися від цього акаунта (потрібне підтвердження)"
+  },
+  "empty_changes": {
+    "message": "Змін ще не зафіксовано. Повторіть сканування пізніше, щоб побачити тут нових підписників і тих, хто відписався."
+  },
+  "empty_firstScan": {
+    "message": "Спочатку запустіть сканування."
+  },
+  "empty_scanning": {
+    "message": "Отримуємо списки…"
+  },
+  "empty_loggedOut": {
+    "message": "Увійдіть до Instagram, щоб переглянути результати. Збережені сканування з’являться знову, коли ви ввійдете в той самий акаунт."
+  },
+  "empty_noScan": {
+    "message": "Натисніть «Сканувати», щоб отримати списки. Для великих акаунтів це може тривати кілька хвилин. Панель можна закрити, але залиште вкладку Instagram відкритою."
+  },
+  "empty_noResults": {
+    "message": "За цим пошуком або фільтром акаунтів немає."
+  },
+  "empty_notBack": {
+    "message": "Усі, на кого ви підписані, підписані на вас у відповідь 🎉"
+  },
+  "empty_fans": {
+    "message": "Ви підписані на всіх своїх підписників."
+  },
+  "empty_mutual": {
+    "message": "Взаємних підписок немає."
+  },
+  "stats_now": {
+    "message": "Зараз"
+  },
+  "stats_followers": {
+    "message": "Підписники"
+  },
+  "stats_following": {
+    "message": "Підписки"
+  },
+  "stats_mutual": {
+    "message": "Взаємні підписки ({p} від усіх підписок)"
+  },
+  "stats_notBack": {
+    "message": "Не підписані у відповідь"
+  },
+  "stats_vsPrev": {
+    "message": "{d} від попереднього сканування"
+  },
+  "stats_balance": {
+    "message": "Зміна кількості підписників"
+  },
+  "stats_balanceDays": {
+    "message": "За {days} дн.: +{gained} / −{lost}"
+  },
+  "stats_unf24": {
+    "message": "Відписки (24 год)"
+  },
+  "stats_chartTitle": {
+    "message": "Динаміка кількості підписників"
+  },
+  "stats_chartSub": {
+    "message": "Кількість сканувань: {n}"
+  },
+  "stats_chartEmpty": {
+    "message": "Графік з’явиться після другого сканування."
+  },
+  "stats_chartAria": {
+    "message": "Графік кількості підписників. Зараз: {n}"
+  },
+  "stats_history": {
+    "message": "Історія сканувань"
+  },
+  "stats_colDate": {
+    "message": "Дата"
+  },
+  "stats_colFollowers": {
+    "message": "Підписники"
+  },
+  "stats_colFollowing": {
+    "message": "Підписки"
+  },
+  "stats_colChange": {
+    "message": "Зміна"
+  },
+  "csv_empty": {
+    "message": "На цій вкладці нічого експортувати."
+  },
+  "csv_head": {
+    "message": "ім’я_користувача,повне_ім’я,посилання,підтверджений,приватний"
+  },
+  "csv_headChanges": {
+    "message": "зміна,дата"
+  },
+  "csv_yes": {
+    "message": "так"
+  },
+  "csv_no": {
+    "message": "ні"
+  },
+  "csv_lost": {
+    "message": "відписка"
+  },
+  "csv_gained": {
+    "message": "новий_підписник"
+  },
+  "csv_fileNotBack": {
+    "message": "не-підписані-у-відповідь"
+  },
+  "csv_fileFans": {
+    "message": "ви-не-підписані"
+  },
+  "csv_fileMutual": {
+    "message": "взаємні"
+  },
+  "csv_fileChanges": {
+    "message": "зміни"
+  },
+  "popup_opening": {
+    "message": "Відкриваємо панель…"
+  },
+  "popup_openTitle": {
+    "message": "Відкрити Instagram"
+  },
+  "popup_openText": {
+    "message": "Розширення працює на instagram.com. Увійдіть і натисніть значок розширення або рожеву кнопку в правому нижньому куті сторінки."
+  },
+  "popup_openBtn": {
+    "message": "Відкрити instagram.com"
+  },
+  "popup_reloadTitle": {
+    "message": "Перезавантажити Instagram"
+  },
+  "popup_reloadText": {
+    "message": "Розширення завантажиться після перезавантаження вкладки. Потім натисніть значок ще раз."
+  },
+  "popup_reloadBtn": {
+    "message": "Перезавантажити сторінку"
+  },
+  "row_unfBusy": {
+    "message": "Відписуємося…"
+  },
+  "report_unknown": {
+    "message": "Невідомо"
+  },
+  "err_noResponseType": {
+    "message": "невідомий тип відповіді"
+  },
+  "err_generic": {
+    "message": "Щось пішло не так."
+  }
+}

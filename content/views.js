@@ -59,14 +59,19 @@ function userRow(item) {
   const who = el('div', 'who');
   const line = el('div');
   const a = el('a', null, u.username);
+  a.dir = 'ltr';
   a.href = `${BASE}/${encodeURIComponent(u.username)}/`;
   a.target = '_blank';
   a.rel = 'noopener noreferrer';
   line.appendChild(a);
-  if (u.verified) { const v = el('span', 'ver', '✔'); v.title = t('filter.verified'); line.appendChild(v); }
-  if (u.priv) { const p = el('span', 'tag', '🔒'); p.title = t('filter.private'); line.appendChild(p); }
+  if (u.verified) line.appendChild(accountBadge('ver', '✔', t('filter.verified')));
+  if (u.priv) line.appendChild(accountBadge('tag', '🔒', t('filter.private')));
   who.appendChild(line);
-  if (u.name) who.appendChild(el('div', 'nm', u.name));
+  if (u.name) {
+    const name = el('div', 'nm', u.name);
+    name.dir = 'auto';
+    who.appendChild(name);
+  }
   li.appendChild(who);
 
   if (item.type === 'lost') li.appendChild(el('span', 'pill lost', t('changes.lost')));
@@ -82,13 +87,21 @@ function userRow(item) {
     const confirming = state.confirmId === u.id;
     const busy = state.busyId === u.id;
     const b = el('button', 'mini unf' + (confirming ? ' confirm' : ''),
-      busy ? '…' : confirming ? t('row.unfConfirm') : t('row.unf'));
+      busy ? t('row.unfBusy') : confirming ? t('row.unfConfirm') : t('row.unf'));
     b.title = t('row.unfTitle');
     b.disabled = busy || (!!state.busyId && !busy);
     b.addEventListener('click', userOnly(() => unfollow(u)));
     li.appendChild(b);
   }
   return li;
+}
+
+function accountBadge(className, symbol, label) {
+  const badge = el('span', className, symbol);
+  badge.title = label;
+  badge.setAttribute('role', 'img');
+  badge.setAttribute('aria-label', label);
+  return badge;
 }
 
 async function toggleWhitelist(id) {
@@ -167,7 +180,7 @@ function niceTicks(min, max, count) {
 // Wykres liniowy jednej serii (obserwujący w czasie): jedna oś, cienka linia, crosshair + tooltip.
 function buildChart(points) {
   const NS = 'http://www.w3.org/2000/svg';
-  const W = 400, H = 170, PL = 46, PR = 14, PT = 12, PB = 24;
+  const W = 400, H = 170, PT = 12, PB = 24;
   const mk = (tag, attrs, cls) => {
     const n = document.createElementNS(NS, tag);
     for (const [k, v] of Object.entries(attrs)) n.setAttribute(k, v);
@@ -177,23 +190,28 @@ function buildChart(points) {
   let x0 = points[0].ts, x1 = points[points.length - 1].ts;
   if (x0 === x1) { x0 -= 3600e3; x1 += 3600e3; }
   const ticks = niceTicks(Math.min(...points.map((p) => p.v)), Math.max(...points.map((p) => p.v)), 4);
+  const tickLabels = ticks.map(fmtNum);
+  const axisPad = Math.max(46, 10 + 7 * Math.max(...tickLabels.map((label) => label.length)));
+  const rtl = L.dir === 'rtl';
+  const left = rtl ? 14 : axisPad, right = W - (rtl ? axisPad : 14);
+  const start = rtl ? right : left, end = rtl ? left : right;
   const y0 = ticks[0], y1 = ticks[ticks.length - 1];
-  const X = (ts) => PL + ((ts - x0) / (x1 - x0)) * (W - PL - PR);
+  const X = (ts) => start + ((ts - x0) / (x1 - x0)) * (end - start);
   const Y = (v) => PT + (1 - (v - y0) / (y1 - y0)) * (H - PT - PB);
 
   const wrap = el('div', 'chart');
   const svg = mk('svg', { viewBox: `0 0 ${W} ${H}`, role: 'img', 'aria-label': t('stats.chartAria', { n: fmtNum(points[points.length - 1].v) }) });
-  for (const v of ticks) {
-    svg.appendChild(mk('line', { x1: PL, x2: W - PR, y1: Y(v), y2: Y(v) }, 'grid'));
-    const lbl = mk('text', { x: PL - 8, y: Y(v) + 3.5, 'text-anchor': 'end' }, 'axis');
-    lbl.textContent = fmtNum(v);
+  ticks.forEach((v, index) => {
+    svg.appendChild(mk('line', { x1: left, x2: right, y1: Y(v), y2: Y(v) }, 'grid'));
+    const lbl = mk('text', { x: start + (rtl ? 8 : -8), y: Y(v) + 3.5, 'text-anchor': rtl ? 'start' : 'end' }, 'axis');
+    lbl.textContent = tickLabels[index];
     svg.appendChild(lbl);
-  }
-  const first = mk('text', { x: PL, y: H - 6, 'text-anchor': 'start' }, 'axis');
+  });
+  const first = mk('text', { x: start, y: H - 6, 'text-anchor': rtl ? 'end' : 'start' }, 'axis');
   first.textContent = fmtDay(points[0].ts);
   svg.appendChild(first);
   if (points.length > 1) {
-    const last = mk('text', { x: W - PR, y: H - 6, 'text-anchor': 'end' }, 'axis');
+    const last = mk('text', { x: end, y: H - 6, 'text-anchor': rtl ? 'start' : 'end' }, 'axis');
     last.textContent = fmtDay(points[points.length - 1].ts);
     svg.appendChild(last);
   }
@@ -204,7 +222,7 @@ function buildChart(points) {
   // warstwa hover
   const cross = mk('line', { x1: 0, x2: 0, y1: PT, y2: H - PB, visibility: 'hidden' }, 'cross');
   const dot = mk('circle', { cx: 0, cy: 0, r: 4.5, visibility: 'hidden' }, 'pt');
-  const hit = mk('rect', { x: PL - 10, y: 0, width: W - PL - PR + 20, height: H, fill: 'transparent' });
+  const hit = mk('rect', { x: left - 10, y: 0, width: right - left + 20, height: H, fill: 'transparent' });
   svg.append(cross, dot, hit);
   const tip = el('div', 'tip hidden');
   wrap.append(svg, tip);
@@ -220,7 +238,8 @@ function buildChart(points) {
     tip.replaceChildren(el('b', null, fmtNum(best.v)), document.createTextNode(' · ' + fmtDate(best.ts)));
     tip.classList.remove('hidden');
     const scale = box.width / W;
-    tip.style.left = Math.min(Math.max(px * scale, 70), box.width - 70) + 'px';
+    const edge = tip.offsetWidth / 2 + 4;
+    tip.style.left = Math.min(Math.max(px * scale, edge), box.width - edge) + 'px';
     tip.style.top = py * scale + 'px';
   };
   const hide = () => {
@@ -269,7 +288,7 @@ function renderStats() {
   tiles.append(
     tile(fmtNum(c.followers), t('stats.followers'), prev ? last.followers - prev.followers : null),
     tile(fmtNum(c.following), t('stats.following'), prev ? last.following - prev.following : null),
-    tile(fmtNum(c.mutual), t('stats.mutual', { p: c.following ? Math.round((c.mutual / c.following) * 100) : 0 })),
+    tile(fmtNum(c.mutual), t('stats.mutual', { p: L.percent(c.following ? c.mutual / c.following : 0) })),
     tile(fmtNum(L2.notBack.length), t('stats.notBack')),
   );
   frag.appendChild(tiles);
@@ -280,7 +299,7 @@ function renderStats() {
     const b = balance(days);
     bal.appendChild(tile(signed(b.gained - b.lost), t('stats.balanceDays', { days, gained: b.gained, lost: b.lost })));
   }
-  bal.appendChild(tile(`${unfUsed()} / ${state.settings.unfLimit}`, t('stats.unf24')));
+  bal.appendChild(tile(`${fmtNum(unfUsed())} / ${fmtNum(state.settings.unfLimit)}`, t('stats.unf24')));
   frag.appendChild(bal);
 
   const card = el('div', 'card');
@@ -323,7 +342,7 @@ function render() {
 
   r.account.classList.toggle('has', !!state.scan);
   r.sub.textContent = state.scan
-    ? `${state.scan.username ? '@' + state.scan.username + ' · ' : ''}${t('ui.lastScan', { date: fmtDate(state.scan.ts) })}`
+    ? `${state.scan.username ? accountName('@' + state.scan.username) + ' · ' : ''}${t('ui.lastScan', { date: fmtDate(state.scan.ts) })}`
     : t('ui.noScan');
 
   r.controls.classList.toggle('hidden', view === 'welcome');
@@ -348,7 +367,7 @@ function render() {
 
 function exportCsv() {
   const items = currentItems().filter((i) => i.user);
-  if (!items.length) { ui.message(t('csv.empty'), 'warn'); return; }
+  if (!items.length) { ui.message(localized('csv.empty'), 'warn'); return; }
   const q = csvCell;   // cudzysłowy + ochrona przed formułami w arkuszach (content/backup.js)
   const changes = state.tab === 'changes';
   const head = t('csv.head').split(',');

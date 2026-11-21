@@ -13,7 +13,20 @@ ext.runtime.onMessage.addListener((msg, _sender, sendResponse) => {
   }
 });
 
-(async () => {
-  await loadSettings();
+var settingsReady = loadSettings().then(() => {
   if (!ui.host) ui.build();
-})();
+});
+
+ext.storage.onChanged?.addListener(async (changes, area) => {
+  if (area !== 'local' || !changes.settings) return;
+  const oldLang = I18N.normalizePreference(changes.settings.oldValue?.lang);
+  const newLang = I18N.normalizePreference(changes.settings.newValue?.lang);
+  if (oldLang === newLang) return;
+  await settingsReady;
+  await settingsWrites;
+  const saved = await store.get('settings', {});
+  const lang = I18N.normalizePreference(saved?.lang);
+  if (lang === state.settings.lang) return;
+  state.settings.lang = lang;
+  await updatePanelLanguage();
+});

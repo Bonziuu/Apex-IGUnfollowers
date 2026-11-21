@@ -1,0 +1,626 @@
+{
+  "extName": {
+    "message": "Apex Unfollowers voor Instagram"
+  },
+  "extShortName": {
+    "message": "Apex"
+  },
+  "extDescription": {
+    "message": "Bekijk wie je niet terugvolgt of heeft ontvolgd op Instagram. Werkt lokaal, zonder wachtwoordvraag of telemetrie."
+  },
+  "ext_name": {
+    "message": "Apex Unfollowers voor Instagram"
+  },
+  "ext_tagline": {
+    "message": "Bekijk wie je niet terugvolgt op Instagram – lokaal en gratis"
+  },
+  "ui_resume": {
+    "message": "Scan hervatten"
+  },
+  "ui_restart": {
+    "message": "Opnieuw beginnen"
+  },
+  "ui_resumeInfo": {
+    "message": "Scan van {date} onderbroken. Opgeslagen accounts: {n}."
+  },
+  "scan_eta": {
+    "message": "Nog ongeveer {t}"
+  },
+  "time_lessMin": {
+    "message": "minder dan een minuut"
+  },
+  "time_min": {
+    "message": "{n} min"
+  },
+  "scan_resuming": {
+    "message": "Onderbroken scan wordt hervat. Al opgehaalde accounts: {n}…"
+  },
+  "scan_paused": {
+    "message": "Scan gepauzeerd."
+  },
+  "scan_progressSaved": {
+    "message": "Voortgang opgeslagen. Opgehaalde accounts: {n}. Klik op ‘Scan hervatten’ om de scan af te ronden."
+  },
+  "welcome_title": {
+    "message": "Welkom bij Apex Unfollowers"
+  },
+  "welcome_lead": {
+    "message": "De extensie vergelijkt je Instagram-volgers met de accounts die je volgt. Alles gebeurt in je browser, zonder apart account en zonder gegevens naar de ontwikkelaar te sturen."
+  },
+  "welcome_step1": {
+    "message": "Log in op instagram.com in deze browser."
+  },
+  "welcome_step2": {
+    "message": "Klik op ‘Scannen’. Bij grote accounts kan dit enkele minuten duren."
+  },
+  "welcome_step3": {
+    "message": "Bekijk de tabbladen, filters en statistieken. Ontvolg één account tegelijk."
+  },
+  "welcome_riskTitle": {
+    "message": "Veiligheid van je account"
+  },
+  "welcome_riskText": {
+    "message": "De extensie gebruikt een onofficiële API van de Instagram-website. De voorwaarden van Instagram staan geautomatiseerde gegevensverzameling niet toe. Gebruik is op eigen risico."
+  },
+  "welcome_risk1": {
+    "message": "Scan maximaal één keer per dag in de voorzichtige modus."
+  },
+  "welcome_risk2": {
+    "message": "Neem de tijd bij het ontvolgen. De extensie houdt pauzes en een daglimiet aan."
+  },
+  "welcome_risk3": {
+    "message": "Wacht na een actieblokkade één of twee dagen."
+  },
+  "welcome_accept": {
+    "message": "Ik begrijp het en wil de extensie gebruiken."
+  },
+  "welcome_start": {
+    "message": "Aan de slag"
+  },
+  "welcome_privacy": {
+    "message": "Je gegevens blijven in deze browser."
+  },
+  "welcome_more": {
+    "message": "Meer informatie"
+  },
+  "set_about": {
+    "message": "Over de extensie"
+  },
+  "set_authorTitle": {
+    "message": "Ontwikkelaar en contact"
+  },
+  "set_linkedin": {
+    "message": "LinkedIn-profiel"
+  },
+  "set_linkedinLabel": {
+    "message": "LinkedIn-profiel van de ontwikkelaar (opent in een nieuw tabblad)"
+  },
+  "set_reportHint": {
+    "message": "Werkt iets niet? Een melding bevat alleen de extensieversie, je browser en de laatste fout. Er worden geen accountnamen meegestuurd."
+  },
+  "set_reportGithub": {
+    "message": "Probleem melden"
+  },
+  "set_reportMail": {
+    "message": "E-mail sturen"
+  },
+  "set_showWelcome": {
+    "message": "Welkomstscherm tonen"
+  },
+  "report_button": {
+    "message": "Probleem melden"
+  },
+  "report_buttonTitle": {
+    "message": "Vooraf ingevulde melding openen op GitHub (versie, browser en fout)"
+  },
+  "report_mailIntro": {
+    "message": "Beschrijf wat er gebeurde en wat je probeerde te doen."
+  },
+  "report_browser": {
+    "message": "Browser"
+  },
+  "report_language": {
+    "message": "Taal"
+  },
+  "report_error": {
+    "message": "Laatste fout"
+  },
+  "report_subject": {
+    "message": "probleemmelding"
+  },
+  "page_title": {
+    "message": "Welkom bij Apex Unfollowers"
+  },
+  "page_tagline": {
+    "message": "Bekijk wie je niet terugvolgt op Instagram – lokaal en gratis"
+  },
+  "page_lead": {
+    "message": "Apex Unfollowers vergelijkt je Instagram-volgers met de accounts die je volgt. Je ziet wie je niet terugvolgt, wie jij niet volgt en wie je heeft ontvolgd. De extensie werkt lokaal in je browser, vereist geen apart account, vraagt nooit om je wachtwoord en stuurt geen gegevens naar de ontwikkelaar."
+  },
+  "page_howTitle": {
+    "message": "Zo begin je"
+  },
+  "page_featTitle": {
+    "message": "Wat staat er in het paneel?"
+  },
+  "page_feat1": {
+    "message": "<strong>Volgen jou niet terug</strong> – met een uitzonderingslijst voor bijvoorbeeld bekende personen en merken"
+  },
+  "page_feat2": {
+    "message": "<strong>Wijzigingen</strong> – nieuwe en verloren volgers sinds de vorige scan"
+  },
+  "page_feat3": {
+    "message": "<strong>Statistieken</strong> – volgersgrafiek en saldo over 7 en 30 dagen"
+  },
+  "page_feat4": {
+    "message": "<strong>Ontvolgen</strong> – één account tegelijk, met bevestiging en daglimiet"
+  },
+  "page_open": {
+    "message": "Instagram openen"
+  },
+  "page_done": {
+    "message": "Alles staat klaar. Open Instagram en klik op de roze knop rechtsonder."
+  },
+  "page_privacyTitle": {
+    "message": "Privacy"
+  },
+  "page_privacyText": {
+    "message": "Scanresultaten, geschiedenis en instellingen blijven in deze browser. De extensie haalt gegevens op bij Instagram. Profielfoto’s kunnen van beeldservers van Instagram of Meta komen. De extensie verzamelt geen telemetrie."
+  },
+  "page_policy": {
+    "message": "Privacybeleid"
+  },
+  "page_source": {
+    "message": "Broncode"
+  },
+  "err_abort": {
+    "message": "Scan gestopt."
+  },
+  "err_network": {
+    "message": "Kan geen verbinding maken met Instagram."
+  },
+  "err_checkpoint": {
+    "message": "Instagram wil controleren of jij het bent. Open instagram.com, doorloop de controle en probeer het later opnieuw."
+  },
+  "err_login": {
+    "message": "Instagram vraagt je opnieuw in te loggen. Log in en probeer het opnieuw."
+  },
+  "err_noAccess": {
+    "message": "Geen toegang. Controleer of je ingelogd bent op instagram.com en laad de pagina opnieuw."
+  },
+  "err_unexpected": {
+    "message": "Instagram heeft een onverwacht antwoord gegeven (HTTP {status})."
+  },
+  "err_ig": {
+    "message": "Instagram-fout (HTTP {status}){msg}"
+  },
+  "err_ratelimit": {
+    "message": "Instagram beperkt het aantal verzoeken nog steeds. Wacht 15–30 minuten en probeer het opnieuw in de voorzichtige modus."
+  },
+  "err_format": {
+    "message": "Instagram heeft de gegevensindeling gewijzigd. De extensie moet worden bijgewerkt."
+  },
+  "err_noAccount": {
+    "message": "Geen ingelogd account gevonden. Log in op instagram.com en laad de pagina opnieuw."
+  },
+  "note_pause": {
+    "message": "Korte pauze ({s} s) om Instagram niet te overbelasten…"
+  },
+  "note_retryNet": {
+    "message": "Verbindingsprobleem. Nieuwe poging ({a}/{n})…"
+  },
+  "note_slowDown": {
+    "message": "Instagram beperkt de verzoeken (HTTP {status}). De scan gaat over {s} s verder…"
+  },
+  "note_fallback": {
+    "message": "De eerste methode is mislukt. De extensie probeert een andere methode…"
+  },
+  "note_repair": {
+    "message": "Instagram heeft {got} van de {expected} accounts teruggegeven. De overige accounts worden op een andere manier opgehaald…"
+  },
+  "scan_checking": {
+    "message": "Je account wordt gecontroleerd…"
+  },
+  "scan_followers": {
+    "message": "Volgers: {n}"
+  },
+  "scan_followersDone": {
+    "message": "Volgers: {n} ✓ · Hierna volgt de lijst met gevolgde accounts…"
+  },
+  "scan_following": {
+    "message": "Volgers: {f} ✓ · Gevolgde accounts: {n}"
+  },
+  "scan_done": {
+    "message": "Klaar"
+  },
+  "scan_result": {
+    "message": "Klaar! Volgers: {fr}. Gevolgde accounts: {fg}."
+  },
+  "scan_first": {
+    "message": "Dit is je eerste scan. Bij de volgende zie je wie je heeft ontvolgd."
+  },
+  "scan_changes": {
+    "message": "Sinds de vorige scan: −{lost} / +{gained} volgers (zie ‘Wijzigingen’)."
+  },
+  "scan_noChanges": {
+    "message": "Geen wijzigingen sinds de vorige scan."
+  },
+  "scan_fewer": {
+    "message": "Volgens de teller op je profiel zijn {got} van de {expected} volgers opgehaald. Een klein verschil is normaal bij geschorste of gedeactiveerde accounts. Scan later opnieuw als het verschil groter is."
+  },
+  "scan_shortFollowing": {
+    "message": "Volgens de teller op je profiel zijn {got} van de {expected} gevolgde accounts opgehaald. Instagram heeft de lijst niet volledig teruggegeven, waardoor de resultaten kunnen afwijken. Scan over 15 minuten opnieuw in de voorzichtige modus."
+  },
+  "scan_noCounts": {
+    "message": "De tellers op je profiel konden niet worden gelezen. De extensie kon daardoor niet controleren of de lijsten volledig zijn."
+  },
+  "scan_aborted": {
+    "message": "Scan gestopt. Eerdere resultaten zijn bewaard."
+  },
+  "unf_duringScan": {
+    "message": "Wacht tot de scan klaar is."
+  },
+  "unf_otherAccount": {
+    "message": "Je bent ingelogd met een ander account dan dat van deze resultaten. Scan eerst het huidige account."
+  },
+  "unf_blockedUntil": {
+    "message": "Ontvolgen is gepauzeerd tot {time}, omdat Instagram acties voor je account heeft beperkt."
+  },
+  "unf_limit": {
+    "message": "De daglimiet voor ontvolgen is bereikt ({used}/{limit} in 24 uur). Je kunt deze wijzigen bij Instellingen."
+  },
+  "unf_cooldown": {
+    "message": "Wacht nog {s} s. Pauzes tussen acties helpen een blokkade te voorkomen."
+  },
+  "unf_done": {
+    "message": "Je volgt @{user} niet meer. Vandaag: {used}/{limit}."
+  },
+  "unf_blocked": {
+    "message": "Instagram heeft de actie geblokkeerd vanwege te veel acties. Ontvolgen is gepauzeerd tot {time}. Probeer het ook niet handmatig in de app."
+  },
+  "unf_slow": {
+    "message": "Instagram vraagt om minder verzoeken. Ontvolgen is gepauzeerd tot {time}."
+  },
+  "unf_failed": {
+    "message": "Instagram heeft het ontvolgen niet bevestigd (HTTP {status}, {info}). Bekijk het profiel om te controleren of je dit account nog volgt."
+  },
+  "unf_noTokens": {
+    "message": "Er zijn geen Instagram-sessietokens op de pagina gevonden. Laad de pagina opnieuw (F5) en probeer het nog eens."
+  },
+  "unf_still": {
+    "message": "Instagram heeft gereageerd, maar je volgt @{user} nog steeds. Probeer het later opnieuw of open het profiel."
+  },
+  "unf_unconfirmed": {
+    "message": "Instagram heeft het verzoek geaccepteerd, maar de extensie kon niet bevestigen dat @{user} is ontvolgd. Controleer dit op het profiel."
+  },
+  "backup_exported": {
+    "message": "Back-up opgeslagen. Accounts: {n}."
+  },
+  "backup_imported": {
+    "message": "Back-up van {date} teruggezet. Accounts: {n}."
+  },
+  "backup_invalid": {
+    "message": "Het bestand is geen back-up van Apex Unfollowers of is beschadigd."
+  },
+  "backup_tooBig": {
+    "message": "Het back-upbestand is te groot (max. {mb} MB)."
+  },
+  "ui_stats": {
+    "message": "Statistieken"
+  },
+  "ui_settings": {
+    "message": "Instellingen"
+  },
+  "ui_close": {
+    "message": "Sluiten (Esc)"
+  },
+  "ui_scan": {
+    "message": "Scannen"
+  },
+  "ui_stop": {
+    "message": "Stoppen"
+  },
+  "ui_speedTitle": {
+    "message": "Scansnelheid"
+  },
+  "ui_speedSafe": {
+    "message": "Tempo: voorzichtig"
+  },
+  "ui_speedNormal": {
+    "message": "Tempo: sneller"
+  },
+  "ui_search": {
+    "message": "Zoeken op naam…"
+  },
+  "ui_csvTitle": {
+    "message": "Zichtbare lijst downloaden als CSV"
+  },
+  "ui_filterTitle": {
+    "message": "Filter"
+  },
+  "ui_sortTitle": {
+    "message": "Sortering"
+  },
+  "ui_hiddenTitle": {
+    "message": "Ook verborgen accounts tonen (uitzonderingslijst)"
+  },
+  "ui_hidden": {
+    "message": "Verborgen"
+  },
+  "ui_footer": {
+    "message": "Je gegevens blijven in je eigen browser."
+  },
+  "ui_more": {
+    "message": "Meer tonen ({n})"
+  },
+  "ui_lastScan": {
+    "message": "Laatste scan: {date}"
+  },
+  "ui_noScan": {
+    "message": "Nog geen scan. Klik op ‘Scannen’."
+  },
+  "tab_notBack": {
+    "message": "Volgen jou niet terug"
+  },
+  "tab_fans": {
+    "message": "Volg jij niet"
+  },
+  "tab_mutual": {
+    "message": "Wederzijds"
+  },
+  "tab_changes": {
+    "message": "Wijzigingen"
+  },
+  "tab_changesTitle": {
+    "message": "Accounts die je hebben ontvolgd volgens de scangeschiedenis"
+  },
+  "filter_all": {
+    "message": "Alle accounts"
+  },
+  "filter_verified": {
+    "message": "Geverifieerd"
+  },
+  "filter_private": {
+    "message": "Privé"
+  },
+  "filter_public": {
+    "message": "Openbaar"
+  },
+  "filter_nopic": {
+    "message": "Zonder profielfoto"
+  },
+  "sort_default": {
+    "message": "Nieuwste eerst"
+  },
+  "sort_az": {
+    "message": "Naam A–Z"
+  },
+  "sort_za": {
+    "message": "Naam Z–A"
+  },
+  "set_lang": {
+    "message": "Taal"
+  },
+  "set_langAuto": {
+    "message": "Automatisch (browsertaal)"
+  },
+  "set_unf": {
+    "message": "Limiet voor ontvolgen"
+  },
+  "set_unfHint": {
+    "message": "Instagram beperkt het aantal acties. Als je in korte tijd te veel accounts ontvolgt, kan Instagram acties uren of dagen blokkeren. De extensie houdt een pauze van 15 seconden aan tussen twee acties."
+  },
+  "set_unfOption": {
+    "message": "{n} per 24 uur"
+  },
+  "set_launcher": {
+    "message": "Knop op de pagina"
+  },
+  "set_launcherLabel": {
+    "message": "Ronde knop op instagram.com tonen"
+  },
+  "set_backup": {
+    "message": "Back-up"
+  },
+  "set_backupHint": {
+    "message": "Een JSON-bestand met scanresultaten, geschiedenis, uitzonderingslijst en instellingen. Handig bij het overstappen naar een andere computer of browser."
+  },
+  "set_export": {
+    "message": "Back-up opslaan"
+  },
+  "set_import": {
+    "message": "Back-up terugzetten…"
+  },
+  "set_data": {
+    "message": "Gegevens van dit account"
+  },
+  "set_dataHint": {
+    "message": "Hiermee verwijder je de scanresultaten, geschiedenis, uitzonderingslijst en ontvolgteller van dit account."
+  },
+  "set_wipe": {
+    "message": "Gegevens wissen"
+  },
+  "set_wipeConfirm": {
+    "message": "Klik nogmaals om te bevestigen"
+  },
+  "set_wiped": {
+    "message": "De opgeslagen gegevens van dit account zijn gewist."
+  },
+  "changes_group": {
+    "message": "Scan van {date} (vergeleken met {since})"
+  },
+  "changes_lost": {
+    "message": "Ontvolgd"
+  },
+  "changes_gained": {
+    "message": "Nieuw"
+  },
+  "row_hide": {
+    "message": "Verbergen"
+  },
+  "row_unhide": {
+    "message": "Weergeven"
+  },
+  "row_hideTitle": {
+    "message": "Toevoegen aan de uitzonderingslijst (bijvoorbeeld bekende personen of merken) en verbergen in dit tabblad"
+  },
+  "row_unhideTitle": {
+    "message": "Verwijderen uit de uitzonderingslijst"
+  },
+  "row_unf": {
+    "message": "Ontvolgen"
+  },
+  "row_unfConfirm": {
+    "message": "Weet je het zeker?"
+  },
+  "row_unfTitle": {
+    "message": "Dit account ontvolgen (bevestiging vereist)"
+  },
+  "empty_changes": {
+    "message": "Er zijn nog geen wijzigingen vastgelegd. Scan later opnieuw om te zien wie je is gaan volgen en wie je heeft ontvolgd."
+  },
+  "empty_firstScan": {
+    "message": "Voer eerst een scan uit."
+  },
+  "empty_scanning": {
+    "message": "Lijsten worden opgehaald…"
+  },
+  "empty_loggedOut": {
+    "message": "Log in bij Instagram om je resultaten te bekijken. Opgeslagen scans worden weer getoond zodra je met hetzelfde account inlogt."
+  },
+  "empty_noScan": {
+    "message": "Klik op ‘Scannen’ om de lijsten op te halen. Bij grote accounts kan dit enkele minuten duren. Je kunt het paneel sluiten, maar houd het Instagram-tabblad open."
+  },
+  "empty_noResults": {
+    "message": "Geen accounts gevonden voor deze zoekopdracht of dit filter."
+  },
+  "empty_notBack": {
+    "message": "Iedereen die je volgt, volgt jou terug 🎉"
+  },
+  "empty_fans": {
+    "message": "Je volgt al je volgers."
+  },
+  "empty_mutual": {
+    "message": "Je hebt geen wederzijdse volgers."
+  },
+  "stats_now": {
+    "message": "Nu"
+  },
+  "stats_followers": {
+    "message": "Volgers"
+  },
+  "stats_following": {
+    "message": "Gevolgde accounts"
+  },
+  "stats_mutual": {
+    "message": "Wederzijds ({p} van gevolgde accounts)"
+  },
+  "stats_notBack": {
+    "message": "Volgen jou niet terug"
+  },
+  "stats_vsPrev": {
+    "message": "{d} sinds de vorige scan"
+  },
+  "stats_balance": {
+    "message": "Volgerssaldo"
+  },
+  "stats_balanceDays": {
+    "message": "{days} dagen: +{gained} / −{lost}"
+  },
+  "stats_unf24": {
+    "message": "Ontvolgd (24 uur)"
+  },
+  "stats_chartTitle": {
+    "message": "Aantal volgers in de loop van de tijd"
+  },
+  "stats_chartSub": {
+    "message": "Aantal scans: {n}"
+  },
+  "stats_chartEmpty": {
+    "message": "De grafiek verschijnt na je tweede scan."
+  },
+  "stats_chartAria": {
+    "message": "Grafiek van het aantal volgers. Huidig aantal: {n}"
+  },
+  "stats_history": {
+    "message": "Scangeschiedenis"
+  },
+  "stats_colDate": {
+    "message": "Datum"
+  },
+  "stats_colFollowers": {
+    "message": "Volgers"
+  },
+  "stats_colFollowing": {
+    "message": "Gevolgde accounts"
+  },
+  "stats_colChange": {
+    "message": "Wijziging"
+  },
+  "csv_empty": {
+    "message": "Er valt niets te exporteren in dit tabblad."
+  },
+  "csv_head": {
+    "message": "gebruikersnaam,volledige_naam,link,geverifieerd,privé"
+  },
+  "csv_headChanges": {
+    "message": "wijziging,datum"
+  },
+  "csv_yes": {
+    "message": "ja"
+  },
+  "csv_no": {
+    "message": "nee"
+  },
+  "csv_lost": {
+    "message": "ontvolgd"
+  },
+  "csv_gained": {
+    "message": "nieuwe_volger"
+  },
+  "csv_fileNotBack": {
+    "message": "volgen-niet-terug"
+  },
+  "csv_fileFans": {
+    "message": "volg-jij-niet"
+  },
+  "csv_fileMutual": {
+    "message": "wederzijds"
+  },
+  "csv_fileChanges": {
+    "message": "wijzigingen"
+  },
+  "popup_opening": {
+    "message": "Paneel wordt geopend…"
+  },
+  "popup_openTitle": {
+    "message": "Instagram openen"
+  },
+  "popup_openText": {
+    "message": "De extensie werkt op instagram.com. Log in en klik vervolgens op het extensie-icoon of op de roze knop rechtsonder op de pagina."
+  },
+  "popup_openBtn": {
+    "message": "instagram.com openen"
+  },
+  "popup_reloadTitle": {
+    "message": "Instagram opnieuw laden"
+  },
+  "popup_reloadText": {
+    "message": "De extensie wordt geladen nadat het tabblad opnieuw is geladen. Klik daarna nog eens op het icoon."
+  },
+  "popup_reloadBtn": {
+    "message": "Pagina opnieuw laden"
+  },
+  "row_unfBusy": {
+    "message": "Bezig met ontvolgen…"
+  },
+  "report_unknown": {
+    "message": "Onbekend"
+  },
+  "err_noResponseType": {
+    "message": "onbekend antwoordtype"
+  },
+  "err_generic": {
+    "message": "Er is iets misgegaan."
+  }
+}

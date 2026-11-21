@@ -6,8 +6,7 @@ Zacznij od [checklisty zgłoszenia](SUBMISSION-CHECKLIST.pl.md). Teksty nie są 
 
 | Materiał | Plik |
 |---|---|
-| Nazwa, opis krótki i pełny PL | [listing-pl.md](listing-pl.md) |
-| Nazwa, opis krótki i pełny EN | [listing-en.md](listing-en.md) |
+| Nazwy, opisy, frazy i teksty na zrzuty w 20 językach | [Chrome Web Store](../chrome-web-store/README.md) |
 | Jedno przeznaczenie, uprawnienia, kod zdalny, użycie danych | [permissions-and-privacy.md](permissions-and-privacy.md) |
 | Zrzuty 1280×800 (PL, EN) | [`store/screenshots/`](../../store/screenshots) |
 | Grafiki promocyjne 440×280 i 1400×560 | [`store/promo/`](../../store/promo) |

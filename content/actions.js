@@ -22,7 +22,7 @@ async function startScan({ fresh = false } = {}) {
   state.ctx = ctx;
   ui.setScanning(true);
   ui.message(null);
-  ui.progress(null, t('scan.checking'));
+  ui.progress(null, localized('scan.checking'));
   render();
 
   let progress = null;   // { phase, users, maxId, followers }
@@ -44,7 +44,7 @@ async function startScan({ fresh = false } = {}) {
       await store.remove('resume:' + acc.id);
     }
     const cp = state.resume && state.resume.userId === acc.id ? state.resume : null;
-    if (cp) ui.note(t('scan.resuming', { n: fmtNum(savedCount(cp)) }));
+    if (cp) ui.note(localized('scan.resuming', { n: savedCount(cp) }));
 
     const totFr = acc.counts ? acc.counts.followers : 0;
     const totFg = acc.counts ? acc.counts.following : 0;
@@ -52,11 +52,11 @@ async function startScan({ fresh = false } = {}) {
     const frac = (n) => (total ? Math.min(1, n / total) : null);
     const of = (n, tot) => fmtNum(n) + (tot ? ' / ' + fmtNum(tot) : '');
     // szacowany czas: średni czas strony (z przerwami) × pozostałe strony; po co najmniej 3 stronach
-    const eta = (done) => {
-      if (!total || ctx.pages < 3) return '';
-      const perPage = (Date.now() - ctx.started) / ctx.pages;
-      const left = Math.max(0, total - done);
-      return ' · ' + t('scan.eta', { t: fmtDuration(Math.ceil(left / PAGE_SIZE) * perPage) });
+    const withEta = (key, vars, done) => {
+      const ready = total && ctx.pages >= 3;
+      const pagesLeft = Math.ceil(Math.max(0, total - done) / PAGE_SIZE);
+      const duration = ready ? pagesLeft * (Date.now() - ctx.started) / ctx.pages : null;
+      return () => t(key, vars()) + (duration === null ? '' : ' · ' + t('scan.eta', { t: fmtDuration(duration) }));
     };
 
     let followers;
@@ -67,7 +67,7 @@ async function startScan({ fresh = false } = {}) {
     } else {
       followers = await fetchComplete('followers', acc.id, ctx, totFr, (n) => {
         frCount = n;
-        ui.progress(frac(n), t('scan.followers', { n: of(n, totFr) }) + eta(n));
+        ui.progress(frac(n), withEta('scan.followers', () => ({ n: of(n, totFr) }), n));
       }, {
         resume: cp && cp.phase === 'followers' ? cp : null,
         onPage: (users, maxId) => { progress = { phase: 'followers', users, maxId }; saveProgress(); },
@@ -77,11 +77,11 @@ async function startScan({ fresh = false } = {}) {
     // obserwujący gotowi: punkt wznowienia od listy obserwowanych
     progress = { phase: 'following', users: [], maxId: null, followers };
     await saveProgress(true);
-    ui.progress(frac(frCount), t('scan.followersDone', { n: fmtNum(frCount) }));
+    ui.progress(frac(frCount), localized('scan.followersDone', { n: frCount }));
     await ctx.wait(rand(...ctx.speed.between));
 
     const following = await fetchComplete('following', acc.id, ctx, totFg, (n) => {
-      ui.progress(frac(frCount + n), t('scan.following', { f: fmtNum(frCount), n: of(n, totFg) }) + eta(frCount + n));
+      ui.progress(frac(frCount + n), withEta('scan.following', () => ({ f: frCount, n: of(n, totFg) }), frCount + n));
     }, {
       resume: cp && cp.phase === 'following' && cp.users.length ? cp : null,
       onPage: (users, maxId) => { progress = { phase: 'following', users, maxId, followers }; saveProgress(); },
@@ -121,24 +121,31 @@ async function startScan({ fresh = false } = {}) {
     });
     await store.remove('resume:' + acc.id);
 
-    ui.progress(1, t('scan.done'));
-    let msg = t('scan.result', { fr: fmtNum(followers.length), fg: fmtNum(following.length) });
-    if (!prev) msg += ' ' + t('scan.first');
-    else if (change) msg += ' ' + t('scan.changes', { lost: change.lost.length, gained: change.gained.length });
-    else msg += ' ' + t('scan.noChanges');
-    if (!acc.counts) msg += ' ' + t('scan.noCounts');
-    if (isShort(following.length, totFg)) {
-      msg += ' ' + t('scan.shortFollowing', { got: fmtNum(following.length), expected: fmtNum(totFg) });
-    } else if (isShort(followers.length, totFr)) {
-      msg += ' ' + t('scan.fewer', { got: fmtNum(followers.length), expected: fmtNum(totFr) });
-    }
-    const shortList = isShort(following.length, totFg) || isShort(followers.length, totFr);
-    ui.message(msg, shortList || !acc.counts ? 'warn' : 'ok');
+    ui.progress(1, localized('scan.done'));
+    const totalFollowers = followers.length, totalFollowing = following.length;
+    const shortFollowing = isShort(totalFollowing, totFg);
+    const shortFollowers = isShort(totalFollowers, totFr);
+    const firstScan = !prev;
+    const hasCounts = !!acc.counts;
+    const delta = change && { lost: change.lost.length, gained: change.gained.length };
+    ui.message(() => {
+      const parts = [t('scan.result', { fr: totalFollowers, fg: totalFollowing })];
+      if (firstScan) parts.push(t('scan.first'));
+      else if (delta) parts.push(t('scan.changes', delta));
+      else parts.push(t('scan.noChanges'));
+      if (!hasCounts) parts.push(t('scan.noCounts'));
+      if (shortFollowing) parts.push(t('scan.shortFollowing', { got: totalFollowing, expected: totFg }));
+      else if (shortFollowers) parts.push(t('scan.fewer', { got: totalFollowers, expected: totFr }));
+      return parts.join(' ');
+    }, shortFollowing || shortFollowers || !hasCounts ? 'warn' : 'ok');
   } catch (e) {
     if (progress) await saveProgress(true);
-    const saved = progress && state.resume ? t('scan.progressSaved', { n: fmtNum(savedCount(state.resume)) }) : '';
-    if (e.kind === 'abort') ui.message(saved ? t('scan.paused') + ' ' + saved : t('scan.aborted'), 'warn');
-    else ui.message([e.message || String(e), saved].filter(Boolean).join(' '), 'error', `scan ${e.kind || 'error'}${e.status ? ' HTTP ' + e.status : ''}`);
+    const count = progress && state.resume ? savedCount(state.resume) : 0;
+    const error = e instanceof ScanError ? e : null;
+    const paused = error?.kind === 'abort';
+    const message = paused ? localized(count ? 'scan.paused' : 'scan.aborted') : error?.localized || localized('err.generic');
+    ui.message(() => count ? message() + ' ' + t('scan.progressSaved', { n: count }) : message(),
+      paused ? 'warn' : 'error', `scan ${error?.kind || 'error'}${error?.status ? ' HTTP ' + error.status : ''}`, error?.report || message);
     console.warn('[Apex Unfollowers]', e);
   } finally {
     state.scanning = false;
@@ -163,13 +170,15 @@ async function unfollow(u) {
   const cookieId = getCookie('ds_user_id');
 
   let problem = null;
-  if (state.scanning) problem = [t('unf.duringScan'), 'warn'];
-  else if (!cookieId) problem = [t('err.login'), 'error'];
-  else if (cookieId !== state.userId) problem = [t('unf.otherAccount'), 'warn'];
-  else if (state.unfBlock && now < state.unfBlock) problem = [t('unf.blockedUntil', { time: fmtTime(state.unfBlock) }), 'error'];
-  else if (used >= limit) problem = [t('unf.limit', { used, limit }), 'warn'];
+  if (state.scanning) problem = [localized('unf.duringScan'), 'warn'];
+  else if (!cookieId) problem = [localized('err.login'), 'error'];
+  else if (cookieId !== state.userId) problem = [localized('unf.otherAccount'), 'warn'];
+  else if (state.unfBlock && now < state.unfBlock) {
+    const blockedUntil = state.unfBlock;
+    problem = [localized('unf.blockedUntil', () => ({ time: fmtTime(blockedUntil) })), 'error'];
+  } else if (used >= limit) problem = [localized('unf.limit', { used, limit }), 'warn'];
   else if (now - lastUnf() < UNF.cooldownMs) {
-    problem = [t('unf.cooldown', { s: Math.ceil((UNF.cooldownMs - (now - lastUnf())) / 1000) }), 'warn'];
+    problem = [localized('unf.cooldown', { s: Math.ceil((UNF.cooldownMs - (now - lastUnf())) / 1000) }), 'warn'];
   }
   if (problem) {
     state.confirmId = null;
@@ -199,25 +208,38 @@ async function unfollow(u) {
     state.unfLog = [{ ts: Date.now(), id: u.id, username: u.username }, ...state.unfLog].slice(0, MAX_UNF_LOG);
     state.scan.following = state.scan.following.filter((x) => x.id !== u.id);
     await store.setMany({ ['unf:' + state.userId]: state.unfLog, ['scan:' + state.userId]: state.scan });
-    ui.message(t('unf.done', { user: u.username, used: used + 1, limit }), 'ok');
+    const username = u.username;
+    ui.message(localized('unf.done', () => ({ user: accountName(username), used: used + 1, limit })), 'ok');
   } else {
     const block = r.kind === 'blocked' ? UNF.blockFeedbackMs : r.kind === 'slow' ? UNF.blockSlowMs : 0;
     if (block) {
       state.unfBlock = Date.now() + block;
       await store.set('unfBlock:' + state.userId, state.unfBlock);
     }
+    const blockedUntil = state.unfBlock;
+    const time = () => ({ time: fmtTime(blockedUntil) });
+    const username = u.username;
+    const user = () => ({ user: accountName(username) });
+    const status = String(r.status ?? '');
+    const reportType = r.reportType;
     const msgs = {
-      blocked: t('unf.blocked', { time: fmtTime(state.unfBlock) }),
-      slow: t('unf.slow', { time: fmtTime(state.unfBlock) }),
-      auth: t('err.login'),
-      checkpoint: t('err.checkpoint'),
-      network: t('err.network'),
-      http: t('unf.failed', { status: r.status, info: r.info || '' }),
-      tokens: t('unf.noTokens'),
-      still: t('unf.still', { user: u.username }),
-      unconfirmed: t('unf.unconfirmed', { user: u.username }),
+      blocked: localized('unf.blocked', time),
+      slow: localized('unf.slow', time),
+      auth: localized('err.login'),
+      checkpoint: localized('err.checkpoint'),
+      network: localized('err.network'),
+      http: localized('unf.failed', { status, info: r.info || '' }),
+      tokens: localized('unf.noTokens'),
+      still: localized('unf.still', user),
+      unconfirmed: localized('unf.unconfirmed', user),
     };
-    ui.message(msgs[r.kind] || msgs.http, 'error', `unfollow ${r.kind}${r.status ? ' HTTP ' + r.status : ''}${r.info ? ' ' + r.info : ''}`);
+    const reports = {
+      http: localized('unf.failed', () => ({ status, info: reportType || t('err.noResponseType') })),
+      still: localized('unf.still', { user: '…' }),
+      unconfirmed: localized('unf.unconfirmed', { user: '…' }),
+    };
+    ui.message(msgs[r.kind] || msgs.http, 'error',
+      `unfollow ${r.kind}${status ? ' HTTP ' + status : ''}${reportType ? ' ' + reportType : ''}`, reports[r.kind] || msgs[r.kind] || reports.http);
   }
   render();
 }
@@ -239,24 +261,26 @@ async function exportBackup() {
     `apex-unfollowers-backup-${new Date().toISOString().slice(0, 10)}.json`,
   );
   const accounts = Object.keys(data).filter((k) => k.startsWith('scan:')).length;
-  ui.message(t('backup.exported', { n: accounts }), 'ok');
+  ui.message(localized('backup.exported', { n: accounts }), 'ok');
 }
 
 async function importBackup(file) {
   try {
-    if (file.size > BACKUP_LIMITS.bytes) { ui.message(t('backup.tooBig', { mb: BACKUP_LIMITS.bytes / 1048576 }), 'error'); return; }
+    if (file.size > BACKUP_LIMITS.bytes) { ui.message(localized('backup.tooBig', { mb: BACKUP_LIMITS.bytes / 1048576 }), 'error'); return; }
     // cała kopia jest sprawdzana i oczyszczana przed zapisem; jeden zapis = wszystko albo nic
     const data = validateBackup(JSON.parse(await file.text()));
+    await settingsWrites;
     await store.setMany(data);
     await loadSettings();
     const id = getCookie('ds_user_id');
     await loadAccount(id);
     const accounts = Object.keys(data).filter((k) => k.startsWith('scan:')).length;
+    const restoredAt = Date.now();
     ui.rebuild();
-    ui.message(t('backup.imported', { date: fmtDate(Date.now()), n: accounts }), 'ok');
+    ui.message(localized('backup.imported', () => ({ date: fmtDate(restoredAt), n: accounts })), 'ok');
   } catch (e) {
     console.warn('[Apex Unfollowers] import', e);
-    ui.message(t('backup.invalid'), 'error');
+    ui.message(localized('backup.invalid'), 'error');
   }
 }
 
@@ -284,7 +308,7 @@ function browserInfo() {
     if (b) return `${b.brand} ${b.version}`;
   }
   const m = navigator.userAgent.match(/(Firefox|Edg|OPR|Chrome)\/(\d+)/);
-  return m ? `${({ Edg: 'Edge', OPR: 'Opera' })[m[1]] || m[1]} ${m[2]}` : 'unknown';
+  return m ? `${({ Edg: 'Edge', OPR: 'Opera' })[m[1]] || m[1]} ${m[2]}` : t('report.unknown');
 }
 
 function reportDetails() {
@@ -293,7 +317,7 @@ function reportDetails() {
     version: manifestVersion(),
     browser: browserInfo(),
     lang: L.lang,
-    error: e ? `${e.text}${e.detail ? '\n[' + e.detail + ']' : ''}` : '',
+    error: e ? `${displayText(e.text)}${e.detail ? '\n[' + e.detail + ']' : ''}` : '',
   };
 }
 
