@@ -24,7 +24,7 @@
     "message": "Unterbrochener Scan vom {date}. Gespeicherte Konten: {n}."
   },
   "scan_eta": {
-    "message": "Noch etwa {t}"
+    "message": "Geschätzte Restdauer: {t}"
   },
   "time_lessMin": {
     "message": "weniger als eine Minute"
@@ -96,7 +96,7 @@
     "message": "LinkedIn-Profil des Entwicklers (öffnet sich in einem neuen Tab)"
   },
   "set_reportHint": {
-    "message": "Funktioniert etwas nicht? Meldungen enthalten nur die Version der Erweiterung, deinen Browser und den letzten Fehler. Kontonamen sind nicht enthalten."
+    "message": "Funktioniert etwas nicht? Die Meldung enthält Angaben zur Diagnose, die Version der Erweiterung und den Browser. Im E-Mail-Entwurf steht auch die Sprache der Oberfläche. Kontonamen sind nicht enthalten."
   },
   "set_reportGithub": {
     "message": "Problem melden"
@@ -135,7 +135,7 @@
     "message": "Sieh, wer dir auf Instagram nicht zurückfolgt – lokal und kostenlos"
   },
   "page_lead": {
-    "message": "Apex Unfollowers vergleicht auf Instagram deine Follower mit den Konten, denen du folgst. Du siehst, wer dir nicht zurückfolgt, wem du nicht folgst und wer dir entfolgt ist. Die Erweiterung arbeitet lokal im Browser, benötigt kein separates Konto, fragt nie nach deinem Passwort und sendet keine Daten an den Entwickler."
+    "message": "Apex Unfollowers vergleicht auf Instagram deine Follower mit den Konten, denen du folgst. Du siehst, wer dir nicht zurückfolgt, welchen deiner Follower du nicht folgst und wer dir entfolgt ist. Die Erweiterung arbeitet lokal im Browser, benötigt kein separates Konto, fragt nie nach deinem Passwort und sendet keine Daten an den Entwickler."
   },
   "page_howTitle": {
     "message": "So legst du los"
@@ -273,7 +273,7 @@
     "message": "Warte noch {s} Sek. Pausen zwischen den Aktionen helfen, eine Kontosperre zu vermeiden."
   },
   "unf_done": {
-    "message": "Du folgst @{user} nicht mehr. Heute: {used}/{limit}."
+    "message": "Du folgst @{user} nicht mehr. In den letzten 24 Std.: {used}/{limit}."
   },
   "unf_blocked": {
     "message": "Instagram hat die Aktion wegen zu vieler Aktionen blockiert. Entfolgen ist bis {time} pausiert. Versuche es auch nicht manuell in der App."
@@ -294,10 +294,10 @@
     "message": "Instagram hat die Anfrage angenommen, die Erweiterung konnte das Entfolgen von @{user} aber nicht bestätigen. Prüfe es im Profil."
   },
   "backup_exported": {
-    "message": "Sicherung gespeichert. Konten: {n}."
+    "message": "Sicherung gespeichert. Konten mit Scanergebnissen: {n}."
   },
   "backup_imported": {
-    "message": "Sicherung vom {date} wiederhergestellt. Konten: {n}."
+    "message": "Sicherung am {date} wiederhergestellt. Konten mit Scanergebnissen: {n}."
   },
   "backup_invalid": {
     "message": "Die Datei ist keine Apex-Unfollowers-Sicherung oder ist beschädigt."
@@ -333,7 +333,7 @@
     "message": "Nach Namen suchen …"
   },
   "ui_csvTitle": {
-    "message": "Angezeigte Liste als CSV herunterladen"
+    "message": "Gefilterte Liste dieses Tabs als CSV herunterladen"
   },
   "ui_filterTitle": {
     "message": "Filter"
@@ -390,7 +390,7 @@
     "message": "Ohne Profilbild"
   },
   "sort_default": {
-    "message": "Neueste zuerst"
+    "message": "Standardreihenfolge"
   },
   "sort_az": {
     "message": "Name A–Z"
@@ -450,10 +450,10 @@
     "message": "Scan vom {date} (verglichen mit {since})"
   },
   "changes_lost": {
-    "message": "Entfolgt"
+    "message": "Folgt dir nicht mehr"
   },
   "changes_gained": {
-    "message": "Neu"
+    "message": "Neuer Follower"
   },
   "row_hide": {
     "message": "Ausblenden"
@@ -495,7 +495,7 @@
     "message": "Keine Konten entsprechen der Suche oder dem Filter."
   },
   "empty_notBack": {
-    "message": "Alle Konten, denen du folgst, folgen dir zurück 🎉"
+    "message": "Keine Konten in dieser Liste anzuzeigen."
   },
   "empty_fans": {
     "message": "Du folgst allen deinen Followern."
@@ -528,7 +528,7 @@
     "message": "{days} Tage: +{gained} / −{lost}"
   },
   "stats_unf24": {
-    "message": "Entfolgt (24 Std.)"
+    "message": "Von dir entfolgt (24 Std.)"
   },
   "stats_chartTitle": {
     "message": "Entwicklung der Followerzahl"

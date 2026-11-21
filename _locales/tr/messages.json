@@ -24,7 +24,7 @@
     "message": "{date} tarihli tarama yarıda kaldı. Kaydedilen hesap sayısı: {n}."
   },
   "scan_eta": {
-    "message": "Yaklaşık {t} kaldı"
+    "message": "Kalan tahmini süre: {t}"
   },
   "time_lessMin": {
     "message": "bir dakikadan az"
@@ -96,7 +96,7 @@
     "message": "Geliştiricinin LinkedIn profili (yeni sekmede açılır)"
   },
   "set_reportHint": {
-    "message": "Bir sorun mu var? Bildirimde yalnızca uzantının sürümü, tarayıcın ve son hata yer alır. Hesap adları gönderilmez."
+    "message": "Bir sorun mu var? Bildirim, tanılama bilgilerini, uzantı sürümünü ve tarayıcı bilgilerini içerir. E-posta taslağında arayüz dili de yer alır. Hesap adları eklenmez."
   },
   "set_reportGithub": {
     "message": "Sorun bildir"
@@ -135,7 +135,7 @@
     "message": "Instagram’da seni geri takip etmeyenleri gör. Tarayıcında çalışır ve ücretsizdir."
   },
   "page_lead": {
-    "message": "Apex Unfollowers, Instagram’daki takipçilerin ile takip ettiklerini karşılaştırır. Seni geri takip etmeyenleri, senin takip etmediklerini ve seni takip etmeyi bırakanları gösterir. Tarayıcında çalışır, ayrı bir hesap veya şifre istemez ve geliştiriciye veri göndermez."
+    "message": "Apex Unfollowers, Instagram’daki takipçilerin ile takip ettiğin hesapları karşılaştırır. Seni geri takip etmeyenleri, senin takip etmediğin takipçileri ve seni takip etmeyi bırakanları gösterir. Tarayıcında çalışır, ayrı bir hesap veya şifre istemez ve geliştiriciye veri göndermez."
   },
   "page_howTitle": {
     "message": "Nasıl başlanır?"
@@ -273,7 +273,7 @@
     "message": "{s} sn. daha bekle. İşlemler arasındaki bekleme süresi, hesabına engel konması riskini azaltır."
   },
   "unf_done": {
-    "message": "Artık @{user} hesabını takip etmiyorsun. Bugün: {used}/{limit}."
+    "message": "Artık @{user} hesabını takip etmiyorsun. Son 24 saatte: {used}/{limit}."
   },
   "unf_blocked": {
     "message": "Instagram, çok fazla işlem yapıldığı için bu işlemi engelledi. Takibi bırakma işlemleri {time} zamanına kadar duraklatıldı. Uygulamadan da elle tekrar deneme."
@@ -294,10 +294,10 @@
     "message": "Instagram isteği kabul etti ancak uzantı @{user} hesabının takibinin bırakıldığını doğrulayamadı. Hesap profilini kontrol et."
   },
   "backup_exported": {
-    "message": "Yedek kaydedildi. Hesap sayısı: {n}."
+    "message": "Yedek kaydedildi. Tarama sonucu olan hesap sayısı: {n}."
   },
   "backup_imported": {
-    "message": "{date} tarihli yedek geri yüklendi. Hesap sayısı: {n}."
+    "message": "Yedek {date} tarihinde geri yüklendi. Tarama sonucu olan hesap sayısı: {n}."
   },
   "backup_invalid": {
     "message": "Bu dosya bir Apex Unfollowers yedeği değil veya bozuk."
@@ -333,7 +333,7 @@
     "message": "Ada göre ara…"
   },
   "ui_csvTitle": {
-    "message": "Görünen listeyi CSV olarak indir"
+    "message": "Bu sekmedeki filtrelenmiş listeyi CSV olarak indir"
   },
   "ui_filterTitle": {
     "message": "Filtre"
@@ -390,7 +390,7 @@
     "message": "Profil fotoğrafı yok"
   },
   "sort_default": {
-    "message": "En yeni önce"
+    "message": "Varsayılan sıra"
   },
   "sort_az": {
     "message": "Ada göre A–Z"
@@ -450,10 +450,10 @@
     "message": "{date} tarihli tarama ({since} tarihli taramayla karşılaştırma)"
   },
   "changes_lost": {
-    "message": "Takibi bıraktı"
+    "message": "Seni takip etmeyi bıraktı"
   },
   "changes_gained": {
-    "message": "Yeni"
+    "message": "Yeni takipçi"
   },
   "row_hide": {
     "message": "Gizle"
@@ -495,7 +495,7 @@
     "message": "Bu arama veya filtreyle eşleşen hesap yok."
   },
   "empty_notBack": {
-    "message": "Takip ettiğin herkes seni geri takip ediyor 🎉"
+    "message": "Bu listede gösterilecek hesap yok."
   },
   "empty_fans": {
     "message": "Tüm takipçilerini takip ediyorsun."
@@ -528,7 +528,7 @@
     "message": "{days} günde: +{gained} / −{lost}"
   },
   "stats_unf24": {
-    "message": "Takibi bırakılanlar (24 sa.)"
+    "message": "Takibi bıraktığın hesaplar (24 sa.)"
   },
   "stats_chartTitle": {
     "message": "Zaman içinde takipçi sayısı"

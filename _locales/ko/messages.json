@@ -96,7 +96,7 @@
     "message": "개발자 LinkedIn 프로필(새 탭에서 열림)"
   },
   "set_reportHint": {
-    "message": "문제가 있나요? 신고에 포함되는 정보는 확장 프로그램 버전, 브라우저, 마지막 오류뿐입니다. 계정 이름은 포함되지 않습니다."
+    "message": "문제가 있나요? 문제 보고에는 확장 프로그램 버전, 브라우저, 진단 정보가 포함됩니다. 이메일에는 화면 언어도 포함됩니다. 계정 이름은 포함되지 않습니다."
   },
   "set_reportGithub": {
     "message": "문제 신고"
@@ -147,7 +147,7 @@
     "message": "<strong>나를 맞팔하지 않음</strong> — 유명인과 브랜드 등을 제외 목록에 추가할 수 있습니다"
   },
   "page_feat2": {
-    "message": "<strong>변동 내역</strong> — 지난 스캔 이후 나를 언팔로우하거나 새로 팔로우한 계정"
+    "message": "<strong>변동 내역</strong> — 지난 스캔 이후 나를 언팔로우하거나 나를 새로 팔로우한 계정"
   },
   "page_feat3": {
     "message": "<strong>통계</strong> — 팔로워 그래프와 최근 7일 및 30일 동안의 변동"
@@ -273,7 +273,7 @@
     "message": "{s}초 더 기다려 주세요. 언팔로우 사이에 간격을 두면 계정이 차단될 위험을 줄일 수 있습니다."
   },
   "unf_done": {
-    "message": "@{user} 계정을 언팔로우했습니다. 오늘 {used}/{limit}개."
+    "message": "@{user} 계정을 언팔로우했습니다. 최근 24시간: {used}/{limit}개."
   },
   "unf_blocked": {
     "message": "요청이 너무 많아 Instagram에서 이 작업을 차단했습니다. {time}까지 언팔로우가 일시 중지됩니다. 앱에서도 직접 다시 시도하지 마세요."
@@ -297,7 +297,7 @@
     "message": "백업을 저장했습니다(계정 {n}개)."
   },
   "backup_imported": {
-    "message": "{date}에 만든 백업을 복원했습니다(계정 {n}개)."
+    "message": "백업을 복원했습니다(복원일: {date}, 계정 {n}개)."
   },
   "backup_invalid": {
     "message": "Apex Unfollowers 백업 파일이 아니거나 파일이 손상되었습니다."
@@ -333,7 +333,7 @@
     "message": "이름으로 검색…"
   },
   "ui_csvTitle": {
-    "message": "현재 목록을 CSV로 다운로드"
+    "message": "현재 탭의 검색 및 필터 결과를 CSV로 다운로드"
   },
   "ui_filterTitle": {
     "message": "필터"
@@ -390,13 +390,13 @@
     "message": "프로필 사진 없음"
   },
   "sort_default": {
-    "message": "최신순"
+    "message": "기본 순서"
   },
   "sort_az": {
-    "message": "이름 오름차순"
+    "message": "사용자 이름 A–Z"
   },
   "sort_za": {
-    "message": "이름 내림차순"
+    "message": "사용자 이름 Z–A"
   },
   "set_lang": {
     "message": "언어"
@@ -450,7 +450,7 @@
     "message": "{date} 스캔({since}과 비교)"
   },
   "changes_lost": {
-    "message": "언팔로우함"
+    "message": "나를 언팔로우함"
   },
   "changes_gained": {
     "message": "새 팔로워"
@@ -477,7 +477,7 @@
     "message": "이 계정 언팔로우(확인 필요)"
   },
   "empty_changes": {
-    "message": "아직 기록된 변동이 없습니다. 나중에 다시 스캔하면 나를 언팔로우하거나 새로 팔로우한 계정이 여기에 표시됩니다."
+    "message": "아직 기록된 변동이 없습니다. 나중에 다시 스캔하면 나를 언팔로우하거나 나를 새로 팔로우한 계정이 여기에 표시됩니다."
   },
   "empty_firstScan": {
     "message": "먼저 첫 스캔을 실행하세요."
@@ -495,7 +495,7 @@
     "message": "검색 조건이나 필터에 맞는 계정이 없습니다."
   },
   "empty_notBack": {
-    "message": "내가 팔로우한 모든 계정이 나를 맞팔로우하고 있습니다 🎉"
+    "message": "이 목록에 표시할 계정이 없습니다."
   },
   "empty_fans": {
     "message": "내 모든 팔로워를 맞팔로우하고 있습니다."
@@ -573,7 +573,7 @@
     "message": "아니요"
   },
   "csv_lost": {
-    "message": "언팔로우"
+    "message": "나를 언팔로우함"
   },
   "csv_gained": {
     "message": "새 팔로워"

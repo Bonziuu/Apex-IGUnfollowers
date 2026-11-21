@@ -358,7 +358,7 @@ function render() {
   // przerwany skan do wznowienia
   const cp = !state.scanning && view !== 'welcome' ? state.resume : null;
   r.resumeRow.classList.toggle('hidden', !cp);
-  if (cp) r.resumeText.textContent = t('ui.resumeInfo', { date: fmtTime(cp.ts), n: fmtNum(savedCount(cp)) });
+  if (cp) r.resumeText.textContent = t('ui.resumeInfo', { date: fmtDate(cp.ts), n: fmtNum(savedCount(cp)) });
   if (!state.scanning) r.scan.textContent = state.resume ? t('ui.resume') : t('ui.scan');
 
   if (view === 'lists') renderLists();

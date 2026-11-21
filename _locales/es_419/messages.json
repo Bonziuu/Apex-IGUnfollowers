@@ -39,7 +39,7 @@
     "message": "Análisis en pausa."
   },
   "scan_progressSaved": {
-    "message": "Guardamos el progreso ({n} cuentas). Haz clic en «Reanudar análisis» para terminar."
+    "message": "Progreso guardado. Cuentas descargadas: {n}. Haz clic en «Reanudar análisis» para terminar."
   },
   "welcome_title": {
     "message": "Te damos la bienvenida a Apex Unfollowers"
@@ -54,7 +54,7 @@
     "message": "Haz clic en «Analizar». Si sigues muchas cuentas o tienes muchos seguidores, el proceso puede tardar unos minutos."
   },
   "welcome_step3": {
-    "message": "Consulta las pestañas, los filtros y las estadísticas. Deja de seguir las cuentas de una en una."
+    "message": "Explora las pestañas, los filtros y las estadísticas. Si decides dejar de seguir a alguien, hazlo una cuenta a la vez."
   },
   "welcome_riskTitle": {
     "message": "Seguridad de la cuenta"
@@ -96,7 +96,7 @@
     "message": "Perfil del autor en LinkedIn (se abre en una pestaña nueva)"
   },
   "set_reportHint": {
-    "message": "¿Algo no funciona? El reporte incluye la versión de la extensión, el navegador y el último error. Los nombres de las cuentas quedan fuera."
+    "message": "¿Algo no funciona? El reporte incluye datos de diagnóstico, la versión de la extensión y el navegador. No incluye nombres de cuentas."
   },
   "set_reportGithub": {
     "message": "Reportar un problema"
@@ -273,10 +273,10 @@
     "message": "Espera {s} s más. La pausa entre acciones ayuda a proteger tu cuenta."
   },
   "unf_done": {
-    "message": "Dejaste de seguir a @{user}. Hoy: {used}/{limit}."
+    "message": "Dejaste de seguir a @{user}. En las últimas 24 h: {used}/{limit}."
   },
   "unf_blocked": {
-    "message": "Instagram ha bloqueado la acción por exceso de actividad. No podrás dejar de seguir cuentas hasta las {time}. Evita repetir la acción en la aplicación."
+    "message": "Instagram bloqueó la acción por exceso de actividad. No podrás dejar de seguir cuentas hasta las {time}. Evita repetir la acción en la aplicación."
   },
   "unf_slow": {
     "message": "Instagram pide reducir el ritmo. La opción de dejar de seguir queda en pausa hasta las {time}."
@@ -297,7 +297,7 @@
     "message": "Respaldo guardado. Cuentas: {n}."
   },
   "backup_imported": {
-    "message": "Respaldo del {date} restaurado. Cuentas: {n}."
+    "message": "Respaldo restaurado el {date}. Cuentas: {n}."
   },
   "backup_invalid": {
     "message": "El archivo no corresponde a un respaldo de Apex Unfollowers o está dañado."
@@ -333,7 +333,7 @@
     "message": "Buscar por nombre…"
   },
   "ui_csvTitle": {
-    "message": "Descargar la lista visible en CSV"
+    "message": "Descarga la lista según los filtros aplicados en formato CSV"
   },
   "ui_filterTitle": {
     "message": "Filtrar"
@@ -390,7 +390,7 @@
     "message": "Sin foto de perfil"
   },
   "sort_default": {
-    "message": "Más recientes primero"
+    "message": "Orden predeterminado"
   },
   "sort_az": {
     "message": "Nombre A–Z"
@@ -495,7 +495,7 @@
     "message": "Ninguna cuenta coincide con la búsqueda o el filtro."
   },
   "empty_notBack": {
-    "message": "Todas las cuentas que sigues te siguen de vuelta 🎉"
+    "message": "No hay cuentas para mostrar en esta lista."
   },
   "empty_fans": {
     "message": "Sigues a todos tus seguidores."

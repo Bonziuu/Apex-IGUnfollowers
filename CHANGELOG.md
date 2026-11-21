@@ -8,6 +8,7 @@ Wszystkie istotne zmiany w Apex Unfollowers dla Instagrama (do wersji 1.1.2: Ape
 - Dostosowano układ do dłuższych tłumaczeń i języka arabskiego. Daty, godziny, liczby i procenty w interfejsie używają reguł wybranego języka.
 - Z gotowych zgłoszeń problemów usunięto nazwy kont i surowe odpowiedzi Instagrama. Zaktualizowano informacje o źródle zdjęć profilowych i działaniu formularza zgłoszeń.
 - Dodano 20 opisów sklepowych, walidację katalogów i testy lokalizacji. GitHub Actions buduje ZIP do Chrome Web Store z kompletem tłumaczeń.
+- Doprecyzowano kierunek relacji obserwowania, licznik z ostatnich 24 godzin, zakres eksportu CSV i znaczenie dat w komunikatach. Poprawiono zapis nazw kont i zmian liczbowych w arabskim RTL.
 
 ## [1.2.2] – 2026-11-14
 

@@ -34,7 +34,7 @@ The extension requests lists and sends unfollow requests to `https://www.instagr
 
 The background script opens the welcome screen and reads translation files included in the extension. Language preferences are stored locally.
 
-**Reporting a problem.** The "Report a problem" and "Send an e-mail" buttons open a GitHub issue form or an e-mail draft. The pre-filled text includes the extension version, browser name and version, interface language and diagnostic details such as an HTTP status. Account names, lists and raw Instagram responses are excluded. Opening the GitHub form passes these diagnostic details to GitHub. The user decides whether to submit the issue or send the e-mail.
+**Reporting a problem.** The "Report a problem" and "Send an e-mail" buttons open a GitHub issue form or an e-mail draft. The pre-filled text includes the extension version, browser name and version, and diagnostic details such as an HTTP status. The e-mail draft also includes the interface language. Account names, lists and raw Instagram responses are excluded. Opening the GitHub form passes its pre-filled information to GitHub. The user decides whether to submit the issue or send the e-mail.
 
 Apex Unfollowers has no publisher backend, analytics, ads or remotely loaded code. It does not sell data.
 
@@ -90,7 +90,7 @@ Wtyczka pobiera listy i wysyła żądania odobserwowania do `https://www.instagr
 
 Skrypt tła otwiera ekran powitalny i odczytuje tłumaczenia dołączone do rozszerzenia. Preferencja języka jest zapisywana lokalnie.
 
-**Zgłaszanie problemów.** Przyciski „Zgłoś problem” i „Napisz e-mail” otwierają formularz zgłoszenia na GitHubie lub szkic e-maila. Wstępnie uzupełniona treść zawiera wersję wtyczki, nazwę i wersję przeglądarki, język interfejsu oraz dane diagnostyczne, np. kod HTTP. Nazwy kont, listy i treść odpowiedzi Instagrama są pomijane. Otwarcie formularza na GitHubie przekazuje te dane diagnostyczne do GitHuba. Użytkownik decyduje, czy wysłać zgłoszenie lub wiadomość.
+**Zgłaszanie problemów.** Przyciski „Zgłoś problem” i „Napisz e-mail” otwierają formularz zgłoszenia na GitHubie lub szkic e-maila. Wstępnie uzupełniona treść zawiera wersję wtyczki, nazwę i wersję przeglądarki oraz dane diagnostyczne, np. kod HTTP. Szkic e-maila zawiera też język interfejsu. Nazwy kont, listy i treść odpowiedzi Instagrama są pomijane. Otwarcie formularza przekazuje wstępnie wypełniane informacje do GitHuba. Użytkownik decyduje, czy wysłać zgłoszenie lub wiadomość.
 
 Apex Unfollowers działa bez serwera wydawcy, analityki, reklam i zdalnie ładowanego kodu. Wtyczka nie sprzedaje danych.
 

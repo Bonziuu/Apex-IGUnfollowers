@@ -132,7 +132,7 @@ async function startScan({ fresh = false } = {}) {
       const parts = [t('scan.result', { fr: totalFollowers, fg: totalFollowing })];
       if (firstScan) parts.push(t('scan.first'));
       else if (delta) parts.push(t('scan.changes', delta));
-      else parts.push(t('scan.noChanges'));
+      else if (!shortFollowers) parts.push(t('scan.noChanges'));
       if (!hasCounts) parts.push(t('scan.noCounts'));
       if (shortFollowing) parts.push(t('scan.shortFollowing', { got: totalFollowing, expected: totFg }));
       else if (shortFollowers) parts.push(t('scan.fewer', { got: totalFollowers, expected: totFr }));
@@ -300,7 +300,7 @@ function download(blob, name) {
 }
 
 // ---------------------------------------------------------------- zgłaszanie problemów
-// Zgłoszenie zawiera tylko wersję, przeglądarkę, język i treść ostatniego błędu – bez nazw kont.
+// GitHub i szkic e-maila zawierają wersję, przeglądarkę i dane diagnostyczne. Język trafia do szkicu e-maila.
 function browserInfo() {
   const brands = navigator.userAgentData && navigator.userAgentData.brands;
   if (brands && brands.length) {

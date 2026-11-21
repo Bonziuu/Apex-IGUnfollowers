@@ -96,7 +96,7 @@
     "message": "Profil LinkedIn pengembang (terbuka di tab baru)"
   },
   "set_reportHint": {
-    "message": "Ada kendala? Laporan hanya memuat versi ekstensi, browser, dan pesan kesalahan terakhir, tanpa nama akun."
+    "message": "Ada kendala? Draf laporan memuat detail diagnostik, versi ekstensi, dan browser, tanpa nama akun. Draf email juga menyertakan bahasa antarmuka."
   },
   "set_reportGithub": {
     "message": "Laporkan masalah"
@@ -159,13 +159,13 @@
     "message": "Buka Instagram"
   },
   "page_done": {
-    "message": "Sudah siap. Buka Instagram dan klik tombol merah muda di pojok bawah halaman."
+    "message": "Sudah siap. Buka Instagram dan klik tombol merah muda di pojok kanan bawah halaman."
   },
   "page_privacyTitle": {
     "message": "Privasi"
   },
   "page_privacyText": {
-    "message": "Hasil pemindaian, riwayat, dan pengaturan tetap di browser ini. Daftar dimuat dari Instagram dan foto profil dari server Meta. Ekstensi ini tidak mengumpulkan data penggunaan."
+    "message": "Hasil pemindaian, riwayat, dan pengaturan tersimpan di browser ini. Ekstensi mengambil daftar dari Instagram dan mungkin memuat foto profil dari server gambar Instagram atau Meta. Ekstensi ini tidak mengumpulkan data penggunaan."
   },
   "page_policy": {
     "message": "Kebijakan privasi"
@@ -273,7 +273,7 @@
     "message": "Tunggu {s} dtk lagi. Jeda antar tindakan membantu melindungi akun Anda."
   },
   "unf_done": {
-    "message": "Berhenti mengikuti @{user}. Hari ini: {used}/{limit}."
+    "message": "Anda sudah berhenti mengikuti @{user}. Dalam 24 jam terakhir: {used}/{limit}."
   },
   "unf_blocked": {
     "message": "Instagram memblokir tindakan ini karena terlalu banyak aktivitas. Berhenti mengikuti dijeda hingga {time}. Jangan coba lagi secara manual di aplikasi."
@@ -297,7 +297,7 @@
     "message": "Cadangan tersimpan (akun: {n})."
   },
   "backup_imported": {
-    "message": "Cadangan dari {date} dipulihkan (akun: {n})."
+    "message": "Cadangan dipulihkan pada {date} (akun: {n})."
   },
   "backup_invalid": {
     "message": "Ini bukan cadangan Apex Unfollowers atau filenya rusak."
@@ -333,7 +333,7 @@
     "message": "Cari berdasarkan nama…"
   },
   "ui_csvTitle": {
-    "message": "Unduh daftar yang terlihat sebagai CSV"
+    "message": "Unduh hasil yang sesuai dengan filter di tab ini sebagai CSV"
   },
   "ui_filterTitle": {
     "message": "Filter"
@@ -363,7 +363,7 @@
     "message": "Tidak mengikuti balik"
   },
   "tab_fans": {
-    "message": "Tidak Anda ikuti"
+    "message": "Belum Anda ikuti balik"
   },
   "tab_mutual": {
     "message": "Saling mengikuti"
@@ -390,7 +390,7 @@
     "message": "Tanpa foto profil"
   },
   "sort_default": {
-    "message": "Terbaru dulu"
+    "message": "Urutan bawaan"
   },
   "sort_az": {
     "message": "Nama A–Z"
@@ -495,7 +495,7 @@
     "message": "Tidak ada akun yang cocok dengan pencarian atau filter ini."
   },
   "empty_notBack": {
-    "message": "Semua akun yang Anda ikuti juga mengikuti Anda 🎉"
+    "message": "Tidak ada akun untuk ditampilkan di daftar ini."
   },
   "empty_fans": {
     "message": "Anda mengikuti semua pengikut Anda."
@@ -597,7 +597,7 @@
     "message": "Buka Instagram"
   },
   "popup_openText": {
-    "message": "Ekstensi ini berfungsi di instagram.com. Masuk, lalu klik ikon ekstensi atau tombol merah muda di pojok bawah halaman."
+    "message": "Ekstensi ini berfungsi di instagram.com. Masuk, lalu klik ikon ekstensi atau tombol merah muda di pojok kanan bawah halaman."
   },
   "popup_openBtn": {
     "message": "Buka instagram.com"

@@ -8,7 +8,7 @@ Sprawdź, kto przestał Cię obserwować na Instagramie i kto nie obserwuje Cię
 
 Sprawdź, kto nie odwzajemnia Twojej obserwacji na Instagramie, których osób Ty nie obserwujesz i z kim obserwujecie się nawzajem. Uruchom skan, aby porównać listy. Przy kolejnym skanie Apex Unfollowers pokaże, kto przestał Cię obserwować i kto dołączył od ostatniego porównania.
 
-• Przeszukuj, sortuj i filtruj wyniki. Ukryj wybrane konta na liście osób, które Cię nie obserwują, i eksportuj widoczne wyniki do CSV.
+• Przeszukuj, sortuj i filtruj wyniki. Ukryj wybrane konta na liście osób, które Cię nie obserwują, i eksportuj przefiltrowane wyniki danej zakładki do CSV.
 • Sprawdzaj liczbę obserwujących na wykresie i w historii skanów oraz zobacz bilans z ostatnich 7 i 30 dni.
 • Możesz przestać obserwować jedno konto naraz. Każda akcja wymaga potwierdzenia, a rozszerzenie stosuje przerwę między akcjami i limit dzienny.
 • Zapisz lub przywróć lokalną kopię zapasową wyników, historii i ustawień w pliku JSON.

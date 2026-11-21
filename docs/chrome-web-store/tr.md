@@ -13,8 +13,8 @@ Instagram’da seni kim geri takip etmiyor? Apex Unfollowers, takipçilerin ile 
 • Listelerde ara ve sonuçları sırala. Doğrulanmış, gizli, herkese açık ya da profil fotoğrafı olmayan hesapları filtrele.
 • Marka ve tanınmış kişi hesapları gibi görmek istemediğin hesapları istisna listesine ekle.
 • Her seferinde bir hesabı takip etmeyi bırak. Her işlem onayını gerektirir. Uzantı işlemler arasında bekleme süresi ve günlük sınır uygular.
-• Yarım kalan taramayı sürdür, ekrandaki listeyi CSV olarak dışa aktar, geçmişi ve ayarları JSON dosyasına yedekle.
-• Türkçeyi veya diğer 19 arayüz dilinden birini seç. Açık ve koyu tema seçenekleri var.
+• Yarım kalan taramayı sürdür, sekmedeki filtrelenmiş sonuçların tümünü CSV olarak dışa aktar, geçmişi ve ayarları JSON dosyasına yedekle.
+• Türkçeyi veya diğer 19 arayüz dilinden birini seç. Açık veya koyu tema sistem ayarlarına göre uygulanır.
 
 Uzantı, tarayıcında açık olan Instagram oturumunu kullanır. Ayrı bir hesap gerekmez ve Apex şifreni istemez. Tarama sonuçları, geçmiş ve ayarlar tarayıcında işlenir ve saklanır. Uzantının kendi sunucusu yoktur, telemetri verisi toplamaz ve kaynak kodu GitHub’da herkese açıktır.
 
@@ -38,7 +38,7 @@ Apex Unfollowers bağımsız bir projedir. Instagram veya Meta ile bağlantısı
 
 ## Key benefits
 
-- Takipçileri, takip edilenleri ve karşılıklı takipleri ayrı listelerde gör.
+- Seni geri takip etmeyen hesapları, senin takip etmediğin takipçileri ve karşılıklı takipleri ayrı listelerde gör.
 - Son taramayla karşılaştır, 7 ve 30 günlük takipçi değişimini izle.
 - Verileri tarayıcında tut. Ayrı kayıt, şifre girişi ve telemetri yok.
 - Listelerde ara, filtrele, istisnaları belirle ve sonuçları CSV olarak dışa aktar.

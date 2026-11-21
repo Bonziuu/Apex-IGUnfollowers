@@ -6,11 +6,11 @@ Descubre quién no te sigue en Instagram y quién ha dejado de seguirte. Anális
 
 ## Full description
 
-Apex Unfollowers compara tus seguidores con las cuentas que sigues en Instagram. Descubre quién no te sigue de vuelta, a quién no sigues tú y con quién te sigues mutuamente. Al volver a analizar las listas, podrás ver quién ha empezado a seguirte y quién ha dejado de hacerlo desde el análisis anterior.
+Apex Unfollowers compara tus seguidores con las cuentas que sigues en Instagram. Descubre quién no te sigue de vuelta, a qué seguidores no sigues y qué cuentas te siguen a ti también. Al volver a analizar las listas, podrás ver quién ha empezado a seguirte y quién ha dejado de hacerlo desde el análisis anterior.
 
 - Encuentra cuentas por nombre, ordénalas y aplica filtros por tipo de perfil. Oculta marcas y otras cuentas mediante una lista de exclusión.
 - Consulta la evolución de tus seguidores en un gráfico y revisa el balance de 7 y 30 días. El historial se construye con los análisis que tú inicias.
-- Reanuda un análisis interrumpido, exporta la lista visible en CSV y guarda una copia de seguridad en JSON.
+- Reanuda un análisis interrumpido, exporta la lista filtrada en CSV y guarda una copia de seguridad en JSON.
 - Si decides dejar de seguir una cuenta, confirma la acción individualmente. La extensión aplica pausas y un límite diario.
 
 Para empezar, inicia sesión en instagram.com en tu navegador y abre el panel de Apex. La extensión utiliza tu sesión de Instagram. Funciona sin registro en Apex y sin pedirte la contraseña. Los resultados, el historial y los ajustes se guardan en tu navegador. El código fuente está disponible públicamente en GitHub y Apex no recopila datos de telemetría.

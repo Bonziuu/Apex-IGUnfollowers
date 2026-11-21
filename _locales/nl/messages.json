@@ -24,7 +24,7 @@
     "message": "Scan van {date} onderbroken. Opgeslagen accounts: {n}."
   },
   "scan_eta": {
-    "message": "Nog ongeveer {t}"
+    "message": "Geschatte resterende tijd: {t}"
   },
   "time_lessMin": {
     "message": "minder dan een minuut"
@@ -96,7 +96,7 @@
     "message": "LinkedIn-profiel van de ontwikkelaar (opent in een nieuw tabblad)"
   },
   "set_reportHint": {
-    "message": "Werkt iets niet? Een melding bevat alleen de extensieversie, je browser en de laatste fout. Er worden geen accountnamen meegestuurd."
+    "message": "Werkt er iets niet? De melding bevat diagnostische gegevens, de versie van de extensie en je browser. Het e-mailconcept vermeldt ook de interfacetaal. Accountnamen worden weggelaten."
   },
   "set_reportGithub": {
     "message": "Probleem melden"
@@ -135,7 +135,7 @@
     "message": "Bekijk wie je niet terugvolgt op Instagram – lokaal en gratis"
   },
   "page_lead": {
-    "message": "Apex Unfollowers vergelijkt je Instagram-volgers met de accounts die je volgt. Je ziet wie je niet terugvolgt, wie jij niet volgt en wie je heeft ontvolgd. De extensie werkt lokaal in je browser, vereist geen apart account, vraagt nooit om je wachtwoord en stuurt geen gegevens naar de ontwikkelaar."
+    "message": "Apex Unfollowers vergelijkt je Instagram-volgers met de accounts die je volgt. Je ziet wie je niet terugvolgt, welke volgers jij niet volgt en wie je heeft ontvolgd. De extensie werkt lokaal in je browser, vereist geen apart account, vraagt nooit om je wachtwoord en stuurt geen gegevens naar de ontwikkelaar."
   },
   "page_howTitle": {
     "message": "Zo begin je"
@@ -273,7 +273,7 @@
     "message": "Wacht nog {s} s. Pauzes tussen acties helpen een blokkade te voorkomen."
   },
   "unf_done": {
-    "message": "Je volgt @{user} niet meer. Vandaag: {used}/{limit}."
+    "message": "Je volgt @{user} niet meer. Afgelopen 24 uur: {used}/{limit}."
   },
   "unf_blocked": {
     "message": "Instagram heeft de actie geblokkeerd vanwege te veel acties. Ontvolgen is gepauzeerd tot {time}. Probeer het ook niet handmatig in de app."
@@ -294,10 +294,10 @@
     "message": "Instagram heeft het verzoek geaccepteerd, maar de extensie kon niet bevestigen dat @{user} is ontvolgd. Controleer dit op het profiel."
   },
   "backup_exported": {
-    "message": "Back-up opgeslagen. Accounts: {n}."
+    "message": "Back-up opgeslagen. Accounts met scanresultaten: {n}."
   },
   "backup_imported": {
-    "message": "Back-up van {date} teruggezet. Accounts: {n}."
+    "message": "Back-up teruggezet op {date}. Accounts met scanresultaten: {n}."
   },
   "backup_invalid": {
     "message": "Het bestand is geen back-up van Apex Unfollowers of is beschadigd."
@@ -333,7 +333,7 @@
     "message": "Zoeken op naam…"
   },
   "ui_csvTitle": {
-    "message": "Zichtbare lijst downloaden als CSV"
+    "message": "De gefilterde lijst van dit tabblad downloaden als CSV"
   },
   "ui_filterTitle": {
     "message": "Filter"
@@ -390,7 +390,7 @@
     "message": "Zonder profielfoto"
   },
   "sort_default": {
-    "message": "Nieuwste eerst"
+    "message": "Standaardvolgorde"
   },
   "sort_az": {
     "message": "Naam A–Z"
@@ -450,10 +450,10 @@
     "message": "Scan van {date} (vergeleken met {since})"
   },
   "changes_lost": {
-    "message": "Ontvolgd"
+    "message": "Volgt je niet meer"
   },
   "changes_gained": {
-    "message": "Nieuw"
+    "message": "Nieuwe volger"
   },
   "row_hide": {
     "message": "Verbergen"
@@ -495,13 +495,13 @@
     "message": "Geen accounts gevonden voor deze zoekopdracht of dit filter."
   },
   "empty_notBack": {
-    "message": "Iedereen die je volgt, volgt jou terug 🎉"
+    "message": "Geen accounts om in deze lijst te tonen."
   },
   "empty_fans": {
     "message": "Je volgt al je volgers."
   },
   "empty_mutual": {
-    "message": "Je hebt geen wederzijdse volgers."
+    "message": "Geen accounts die jou volgen en die jij volgt."
   },
   "stats_now": {
     "message": "Nu"
@@ -528,7 +528,7 @@
     "message": "{days} dagen: +{gained} / −{lost}"
   },
   "stats_unf24": {
-    "message": "Ontvolgd (24 uur)"
+    "message": "Door jou ontvolgd (24 uur)"
   },
   "stats_chartTitle": {
     "message": "Aantal volgers in de loop van de tijd"

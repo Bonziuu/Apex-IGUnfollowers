@@ -13,8 +13,8 @@ Vergleiche zwei Scans, um neue Follower und Konten zu sehen, die dir seit dem vo
 • Durchsuche und sortiere deine Listen. Filtere nach verifizierten, privaten oder öffentlichen Konten oder nach Konten ohne Profilbild.
 • Blende etwa Marken oder bekannte Personen mit der Ausnahmeliste aus.
 • Entfolge Konten einzeln. Jede Aktion erfordert deine Bestätigung. Die Erweiterung hält Pausen und ein Tageslimit ein.
-• Setze unterbrochene Scans fort, exportiere die angezeigte Liste als CSV und sichere Verlauf und Einstellungen als JSON.
-• Wähle Deutsch oder eine der weiteren 19 Oberflächensprachen. Es gibt ein helles und ein dunkles Design.
+• Setze unterbrochene Scans fort, exportiere alle gefilterten Ergebnisse des Tabs als CSV und sichere Verlauf und Einstellungen als JSON.
+• Wähle Deutsch oder eine der weiteren 19 Oberflächensprachen. Das helle oder dunkle Design richtet sich nach deinem System.
 
 Die Erweiterung verwendet die laufende Instagram-Sitzung in deinem Browser. Du brauchst kein separates Konto, und Apex fragt nicht nach deinem Passwort. Scanergebnisse, Verlauf und Einstellungen werden lokal im Browser verarbeitet und gespeichert. Die Erweiterung hat keinen eigenen Server, erhebt keine Telemetriedaten und stellt ihren Quellcode öffentlich auf GitHub bereit.
 
@@ -38,7 +38,7 @@ Apex Unfollowers ist ein unabhängiges Projekt. Es besteht keine Verbindung zu I
 
 ## Key benefits
 
-- Klarer Überblick über Follower, abonnierte Konten und gegenseitige Follows.
+- Eigene Listen für Konten, die dir nicht zurückfolgen, Follower, denen du nicht folgst, und gegenseitige Follows.
 - Vergleich mit dem letzten Scan und Follower-Bilanz über 7 und 30 Tage.
 - Lokale Speicherung ohne Passwortabfrage, Registrierung oder Telemetrie.
 - Durchsuchbare Listen mit Filtern, CSV-Export und einer Ausnahmeliste.

@@ -239,7 +239,7 @@ test('odobserwowanie: potwierdzenie, zapis, odstęp między akcjami', { timeout:
     assert.equal(posts.length, 0);
     await first.locator('.mini.unf').click();
     await root.locator('[data-ref=msg]', { hasText: 'Przestałeś obserwować' }).waitFor();
-    assert.match(await msg(), /@konto\.131\. Dziś: 1\/30/);
+    assert.match(await msg(), /@konto\.131\. Ostatnie 24 h: 1\/30/);
     assert.deepEqual(posts.map((p) => [p.path, p.userId, p.csrf, p.claim, p.ajax, p.asbd, p.fbDtsg]),
       [['/api/v1/friendships/destroy/131/', '131', 'abc', 'hmac.TEST', '1029384', '359341', 'DTSG:abc']]);
     assert.match(posts[0].session, /^[a-z0-9]{6}:[a-z0-9]{6}:[a-z0-9]{6}$/);
@@ -384,6 +384,8 @@ test('wznawianie skanu po zatrzymaniu, szacowany czas', { timeout: 120_000 }, as
     const saved = await page.evaluate(() => window.__mem['resume:999']);
     assert.equal(saved.phase, 'following');
     assert.equal(saved.followers.length, 130);
+    const savedAt = await page.evaluate((ts) => new Intl.DateTimeFormat('pl-PL', { dateStyle: 'medium', timeStyle: 'short' }).format(ts), saved.ts);
+    assert.ok((await root.locator('[data-ref=resumeText]').textContent()).includes(savedAt));
 
     const before = requests.filter((p) => p.endsWith('/followers/')).length;
     await root.locator('[data-ref=scan]').click();

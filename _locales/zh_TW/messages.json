@@ -96,7 +96,7 @@
     "message": "開發者的 LinkedIn 個人檔案（在新分頁開啟）"
   },
   "set_reportHint": {
-    "message": "遇到問題嗎？回報只會包含擴充功能版本、瀏覽器和最近一次錯誤，不包含帳號名稱。"
+    "message": "遇到問題嗎？回報包含擴充功能版本、瀏覽器和診斷資訊，不包含帳號名稱。透過電子郵件回報時也會包含介面語言。"
   },
   "set_reportGithub": {
     "message": "回報問題"
@@ -273,7 +273,7 @@
     "message": "請再等候 {s} 秒。保留操作間隔有助於降低帳號受限的風險。"
   },
   "unf_done": {
-    "message": "已取消追蹤 @{user}。今天已操作 {used}/{limit} 次。"
+    "message": "已取消追蹤 @{user}。過去 24 小時：{used}/{limit} 次。"
   },
   "unf_blocked": {
     "message": "操作次數過多，Instagram 已封鎖此操作。取消追蹤功能暫停至 {time}。請勿在應用程式中手動重試。"
@@ -297,7 +297,7 @@
     "message": "備份已儲存（{n} 個帳號）。"
   },
   "backup_imported": {
-    "message": "已還原 {date} 的備份（{n} 個帳號）。"
+    "message": "已還原備份（還原日期：{date}，共 {n} 個帳號）。"
   },
   "backup_invalid": {
     "message": "這個檔案並非 Apex Unfollowers 備份，或檔案已損毀。"
@@ -333,7 +333,7 @@
     "message": "依名稱搜尋…"
   },
   "ui_csvTitle": {
-    "message": "將目前的名單下載為 CSV"
+    "message": "將目前分頁的篩選結果下載為 CSV"
   },
   "ui_filterTitle": {
     "message": "篩選"
@@ -390,13 +390,13 @@
     "message": "無大頭貼照"
   },
   "sort_default": {
-    "message": "最新優先"
+    "message": "預設順序"
   },
   "sort_az": {
-    "message": "名稱遞增"
+    "message": "使用者名稱 A–Z"
   },
   "sort_za": {
-    "message": "名稱遞減"
+    "message": "使用者名稱 Z–A"
   },
   "set_lang": {
     "message": "語言"
@@ -450,7 +450,7 @@
     "message": "{date} 的掃描（與 {since} 比較）"
   },
   "changes_lost": {
-    "message": "已取消追蹤"
+    "message": "已取消對你的追蹤"
   },
   "changes_gained": {
     "message": "新粉絲"
@@ -495,7 +495,7 @@
     "message": "沒有符合搜尋或篩選條件的帳號。"
   },
   "empty_notBack": {
-    "message": "你追蹤的帳號都有回追你 🎉"
+    "message": "這個清單沒有可顯示的帳號。"
   },
   "empty_fans": {
     "message": "你已回追所有粉絲。"
@@ -573,7 +573,7 @@
     "message": "否"
   },
   "csv_lost": {
-    "message": "取消追蹤"
+    "message": "已取消對你的追蹤"
   },
   "csv_gained": {
     "message": "新粉絲"

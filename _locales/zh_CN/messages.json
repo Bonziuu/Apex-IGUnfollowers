@@ -96,7 +96,7 @@
     "message": "开发者的 LinkedIn 个人资料（在新标签页中打开）"
   },
   "set_reportHint": {
-    "message": "遇到问题？报告只包含扩展版本、浏览器和最近一次错误，不含账号名。"
+    "message": "遇到问题？报告包含扩展版本、浏览器和诊断信息，不含账号名。通过电子邮件报告还会包含界面语言。"
   },
   "set_reportGithub": {
     "message": "报告问题"
@@ -273,7 +273,7 @@
     "message": "请再等 {s} 秒。留出操作间隔有助于降低账号受限的风险。"
   },
   "unf_done": {
-    "message": "已取消关注 @{user}。今日进度：{used}/{limit}。"
+    "message": "已取消关注 @{user}。过去 24 小时：{used}/{limit}。"
   },
   "unf_blocked": {
     "message": "操作次数过多，Instagram 已阻止此操作。取消关注功能暂停至 {time}。请勿在应用中手动重试。"
@@ -297,7 +297,7 @@
     "message": "备份已保存（{n} 个账号）。"
   },
   "backup_imported": {
-    "message": "已还原 {date} 的备份（{n} 个账号）。"
+    "message": "已还原备份（还原日期：{date}，共 {n} 个账号）。"
   },
   "backup_invalid": {
     "message": "此文件并非 Apex Unfollowers 备份，或文件已损坏。"
@@ -333,7 +333,7 @@
     "message": "按名称搜索…"
   },
   "ui_csvTitle": {
-    "message": "将当前列表下载为 CSV"
+    "message": "将当前标签页的筛选结果下载为 CSV"
   },
   "ui_filterTitle": {
     "message": "筛选"
@@ -390,13 +390,13 @@
     "message": "无头像"
   },
   "sort_default": {
-    "message": "最新优先"
+    "message": "默认顺序"
   },
   "sort_az": {
-    "message": "名称升序"
+    "message": "用户名 A–Z"
   },
   "sort_za": {
-    "message": "名称降序"
+    "message": "用户名 Z–A"
   },
   "set_lang": {
     "message": "语言"
@@ -450,7 +450,7 @@
     "message": "{date} 的扫描（与 {since} 对比）"
   },
   "changes_lost": {
-    "message": "已取关"
+    "message": "已取关你"
   },
   "changes_gained": {
     "message": "新粉丝"
@@ -495,7 +495,7 @@
     "message": "没有符合搜索或筛选条件的账号。"
   },
   "empty_notBack": {
-    "message": "你关注的账号都回关了你 🎉"
+    "message": "此列表没有可显示的账号。"
   },
   "empty_fans": {
     "message": "你已回关所有粉丝。"
@@ -573,7 +573,7 @@
     "message": "否"
   },
   "csv_lost": {
-    "message": "取关"
+    "message": "已取关你"
   },
   "csv_gained": {
     "message": "新粉丝"

@@ -96,7 +96,7 @@
     "message": "Hồ sơ LinkedIn của nhà phát triển (mở trong thẻ mới)"
   },
   "set_reportHint": {
-    "message": "Tiện ích gặp sự cố? Báo cáo chỉ chứa phiên bản tiện ích, trình duyệt và lỗi gần nhất, không kèm tên tài khoản."
+    "message": "Tiện ích gặp sự cố? Bản nháp báo cáo có thông tin chẩn đoán, phiên bản tiện ích và trình duyệt, không kèm tên tài khoản. Bản nháp email cũng có thông tin về ngôn ngữ giao diện."
   },
   "set_reportGithub": {
     "message": "Báo cáo sự cố"
@@ -159,13 +159,13 @@
     "message": "Mở Instagram"
   },
   "page_done": {
-    "message": "Đã xong. Mở Instagram rồi nhấn nút màu hồng ở góc dưới trang."
+    "message": "Đã xong. Mở Instagram rồi nhấn nút màu hồng ở góc dưới bên phải trang."
   },
   "page_privacyTitle": {
     "message": "Quyền riêng tư"
   },
   "page_privacyText": {
-    "message": "Kết quả quét, lịch sử và cài đặt được lưu trong trình duyệt này. Tiện ích lấy danh sách từ Instagram và ảnh đại diện từ máy chủ Meta. Tiện ích không thu thập dữ liệu sử dụng."
+    "message": "Kết quả quét, lịch sử và cài đặt được lưu trong trình duyệt này. Tiện ích lấy danh sách từ Instagram và có thể tải ảnh đại diện từ máy chủ hình ảnh của Instagram hoặc Meta. Tiện ích không thu thập dữ liệu sử dụng."
   },
   "page_policy": {
     "message": "Chính sách quyền riêng tư"
@@ -273,7 +273,7 @@
     "message": "Đợi thêm {s} giây. Khoảng chờ giữa các lần bỏ theo dõi giúp bảo vệ tài khoản của bạn."
   },
   "unf_done": {
-    "message": "Đã bỏ theo dõi @{user}. Hôm nay: {used}/{limit}."
+    "message": "Đã bỏ theo dõi @{user}. Trong 24 giờ qua: {used}/{limit}."
   },
   "unf_blocked": {
     "message": "Instagram đã chặn thao tác do có quá nhiều hoạt động. Tạm dừng bỏ theo dõi đến {time}. Đừng thử lại thủ công trong ứng dụng."
@@ -297,7 +297,7 @@
     "message": "Đã lưu bản sao lưu ({n} tài khoản)."
   },
   "backup_imported": {
-    "message": "Đã khôi phục bản sao lưu ngày {date} ({n} tài khoản)."
+    "message": "Đã khôi phục bản sao lưu vào {date} ({n} tài khoản)."
   },
   "backup_invalid": {
     "message": "Đây không phải bản sao lưu Apex Unfollowers hoặc tệp đã bị hỏng."
@@ -333,7 +333,7 @@
     "message": "Tìm theo tên…"
   },
   "ui_csvTitle": {
-    "message": "Tải danh sách đang hiển thị dưới dạng CSV"
+    "message": "Tải kết quả khớp với bộ lọc trong thẻ này xuống dưới dạng CSV"
   },
   "ui_filterTitle": {
     "message": "Bộ lọc"
@@ -363,7 +363,7 @@
     "message": "Không theo dõi lại"
   },
   "tab_fans": {
-    "message": "Chưa theo dõi"
+    "message": "Bạn chưa theo dõi lại"
   },
   "tab_mutual": {
     "message": "Đang theo dõi lẫn nhau"
@@ -390,7 +390,7 @@
     "message": "Không có ảnh đại diện"
   },
   "sort_default": {
-    "message": "Mới nhất trước"
+    "message": "Thứ tự mặc định"
   },
   "sort_az": {
     "message": "Tên A–Z"
@@ -495,7 +495,7 @@
     "message": "Không có tài khoản nào khớp với tìm kiếm hoặc bộ lọc."
   },
   "empty_notBack": {
-    "message": "Mọi tài khoản bạn theo dõi đều theo dõi lại bạn 🎉"
+    "message": "Danh sách này không có tài khoản nào để hiển thị."
   },
   "empty_fans": {
     "message": "Bạn đang theo dõi lại tất cả người theo dõi mình."
@@ -597,7 +597,7 @@
     "message": "Mở Instagram"
   },
   "popup_openText": {
-    "message": "Tiện ích hoạt động trên instagram.com. Đăng nhập rồi nhấn biểu tượng tiện ích hoặc nút màu hồng ở góc dưới trang."
+    "message": "Tiện ích hoạt động trên instagram.com. Đăng nhập rồi nhấn biểu tượng tiện ích hoặc nút màu hồng ở góc dưới bên phải trang."
   },
   "popup_openBtn": {
     "message": "Mở instagram.com"

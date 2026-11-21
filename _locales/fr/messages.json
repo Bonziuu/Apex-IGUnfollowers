@@ -39,7 +39,7 @@
     "message": "Analyse en pause."
   },
   "scan_progressSaved": {
-    "message": "Progression enregistrée ({n} comptes). Cliquez sur « Reprendre l’analyse » pour terminer."
+    "message": "Progression enregistrée. Comptes récupérés : {n}. Cliquez sur « Reprendre l’analyse » pour terminer."
   },
   "welcome_title": {
     "message": "Bienvenue dans Apex Unfollowers"
@@ -54,7 +54,7 @@
     "message": "Cliquez sur « Analyser ». L’opération peut prendre quelques minutes pour les comptes de grande taille."
   },
   "welcome_step3": {
-    "message": "Explorez les onglets, les filtres et les statistiques. Désabonnez-vous d’un compte à la fois."
+    "message": "Explorez les onglets, les filtres et les statistiques. Si vous souhaitez vous désabonner, faites-le un compte à la fois."
   },
   "welcome_riskTitle": {
     "message": "Sécurité du compte"
@@ -96,7 +96,7 @@
     "message": "Profil LinkedIn du développeur (s’ouvre dans un nouvel onglet)"
   },
   "set_reportHint": {
-    "message": "Un problème ? Le rapport contient la version de l’extension, le navigateur et la dernière erreur. Les noms de comptes en sont exclus."
+    "message": "Un problème ? Le signalement contient des informations de diagnostic, la version de l’extension et votre navigateur. Il ne contient aucun nom de compte."
   },
   "set_reportGithub": {
     "message": "Signaler un problème"
@@ -135,7 +135,7 @@
     "message": "Découvrez qui ne vous suit pas en retour sur Instagram, gratuitement et depuis votre navigateur"
   },
   "page_lead": {
-    "message": "Apex Unfollowers compare vos abonnés et vos abonnements sur Instagram. Voyez qui ne vous suit pas en retour, qui vous ne suivez pas et qui s’est désabonné. L’extension fonctionne localement dans votre navigateur, sans compte Apex, sans saisir votre mot de passe et sans transmettre vos données au développeur."
+    "message": "Apex Unfollowers compare vos abonnés et vos abonnements sur Instagram. Voyez qui ne vous suit pas en retour, quels abonnés vous ne suivez pas et qui s’est désabonné. L’extension fonctionne localement dans votre navigateur, sans compte Apex, sans saisir votre mot de passe et sans transmettre vos données au développeur."
   },
   "page_howTitle": {
     "message": "Premiers pas"
@@ -273,7 +273,7 @@
     "message": "Attendez encore {s} s. Les pauses entre les désabonnements aident à protéger votre compte."
   },
   "unf_done": {
-    "message": "Vous ne suivez plus @{user}. Aujourd’hui : {used}/{limit}."
+    "message": "Vous ne suivez plus @{user}. Sur les dernières 24 h : {used}/{limit}."
   },
   "unf_blocked": {
     "message": "Instagram a bloqué l’action en raison d’une activité trop importante. Les désabonnements sont suspendus jusqu’à {time}. Évitez de retenter cette action dans l’application."
@@ -291,13 +291,13 @@
     "message": "Instagram a répondu, mais vous suivez toujours @{user}. Réessayez plus tard ou depuis le profil."
   },
   "unf_unconfirmed": {
-    "message": "Instagram a accepté la demande, mais le désabonnement de @{user} n’a pas pu être confirmé. Vérifiez sur le profil."
+    "message": "Instagram a accepté la demande, mais l’extension n’a pas pu confirmer que vous ne suivez plus @{user}. Vérifiez sur le profil."
   },
   "backup_exported": {
     "message": "Sauvegarde enregistrée. Comptes : {n}."
   },
   "backup_imported": {
-    "message": "Sauvegarde du {date} restaurée. Comptes : {n}."
+    "message": "Sauvegarde restaurée le {date}. Comptes : {n}."
   },
   "backup_invalid": {
     "message": "Le fichier ne correspond pas à une sauvegarde Apex Unfollowers ou il est endommagé."
@@ -333,7 +333,7 @@
     "message": "Rechercher par nom…"
   },
   "ui_csvTitle": {
-    "message": "Télécharger la liste affichée en CSV"
+    "message": "Télécharger la liste filtrée au format CSV"
   },
   "ui_filterTitle": {
     "message": "Filtrer"
@@ -390,7 +390,7 @@
     "message": "Sans photo de profil"
   },
   "sort_default": {
-    "message": "Les plus récents d’abord"
+    "message": "Ordre par défaut"
   },
   "sort_az": {
     "message": "Nom A–Z"
@@ -495,7 +495,7 @@
     "message": "Aucun compte ne correspond à la recherche ou au filtre."
   },
   "empty_notBack": {
-    "message": "Tous les comptes que vous suivez vous suivent en retour 🎉"
+    "message": "Aucun compte à afficher dans cette liste."
   },
   "empty_fans": {
     "message": "Vous suivez tous vos abonnés."
@@ -573,7 +573,7 @@
     "message": "non"
   },
   "csv_lost": {
-    "message": "désabonnement"
+    "message": "abonné_perdu"
   },
   "csv_gained": {
     "message": "nouvel_abonné"

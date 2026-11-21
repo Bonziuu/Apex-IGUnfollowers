@@ -13,8 +13,8 @@ Vergelijk twee scans om te zien wie je is gaan volgen en wie je heeft ontvolgd s
 • Doorzoek en sorteer je lijsten. Filter op geverifieerde, openbare of privéaccounts, of op accounts zonder profielfoto.
 • Gebruik de uitzonderingslijst om bijvoorbeeld merken en bekende personen te verbergen.
 • Ontvolg één account tegelijk. Voor elke actie is je bevestiging nodig. De extensie houdt pauzes en een daglimiet aan.
-• Hervat onderbroken scans, exporteer de zichtbare lijst als CSV en bewaar je geschiedenis en instellingen in een JSON-back-up.
-• Gebruik de extensie in het Nederlands of een van de 19 andere talen, met een lichte of donkere weergave.
+• Hervat onderbroken scans, exporteer alle gefilterde resultaten van het tabblad als CSV en bewaar je geschiedenis en instellingen in een JSON-back-up.
+• Gebruik de extensie in het Nederlands of een van de 19 andere talen. De lichte of donkere weergave volgt de instellingen van je systeem.
 
 De extensie gebruikt je actieve Instagram-sessie in de browser. Je hebt geen apart account nodig en Apex vraagt niet om je wachtwoord. Scanresultaten, geschiedenis en instellingen worden lokaal in je browser verwerkt en bewaard. De extensie heeft geen eigen server, verzamelt geen telemetrie en heeft openbare broncode op GitHub.
 
@@ -38,7 +38,7 @@ Apex Unfollowers is een onafhankelijk project zonder banden met Instagram of Met
 
 ## Key benefits
 
-- Overzicht van volgers, gevolgde accounts en wederzijdse volgers.
+- Aparte lijsten met accounts die je niet terugvolgen, volgers die jij niet volgt en accounts waarmee je elkaar volgt.
 - Vergelijking met je vorige scan en een volgerssaldo over 7 en 30 dagen.
 - Lokale opslag zonder wachtwoordvraag, registratie of telemetrie.
 - Doorzoekbare lijsten met filters, CSV-export en een uitzonderingslijst.

@@ -71,7 +71,7 @@ var fmtDay = (ts) => L.date(ts, { day: 'numeric', month: 'short' });
 var fmtTime = (ts) => L.time(ts, { hour: '2-digit', minute: '2-digit' });
 var fmtNum = (n) => L.number(n);
 var signed = (n) => {
-  if (L.dir === 'rtl' && n !== 0) return L.number(n, { signDisplay: 'always' });
+  if (L.dir === 'rtl') return L.number(n, { signDisplay: 'exceptZero' });
   return (n > 0 ? '+' : n < 0 ? '−' : '±') + fmtNum(Math.abs(n));
 };
 var accountName = (username) => L.dir === 'rtl' ? '\u2066' + username + '\u2069' : username;

@@ -6,7 +6,7 @@
     "message": "Apex"
   },
   "extDescription": {
-    "message": "Instagramでフォローバックしていない相手やフォローを外した相手を確認。ブラウザ内で処理され、パスワードの入力は不要です。"
+    "message": "Instagramであなたをフォローバックしていない相手や、あなたへのフォローを解除した相手を確認。ブラウザ内で処理され、パスワードの入力は不要です。"
   },
   "ext_name": {
     "message": "Apex Unfollowers – Instagramのフォロー管理"
@@ -96,7 +96,7 @@
     "message": "開発者のLinkedInプロフィール（新しいタブで開く）"
   },
   "set_reportHint": {
-    "message": "問題が発生しましたか？報告には拡張機能のバージョン、ブラウザ、直近のエラーのみが含まれます。アカウント名は含まれません。"
+    "message": "問題が発生しましたか？報告には拡張機能のバージョン、ブラウザ、診断情報が含まれます。メールには画面の表示言語も含まれます。アカウント名は含まれません。"
   },
   "set_reportGithub": {
     "message": "問題を報告"
@@ -135,7 +135,7 @@
     "message": "Instagramで自分をフォローバックしていない相手を無料で確認。データはブラウザ内に保存されます。"
   },
   "page_lead": {
-    "message": "Apex UnfollowersはInstagramのフォロワーとフォロー中のリストを比較し、フォローバックしていない相手、自分がフォローバックしていない相手、フォローを外した相手を表示します。処理はブラウザ内で完結します。拡張機能への登録は不要で、パスワードを求めたり、開発者にデータを送信したりすることもありません。"
+    "message": "Apex UnfollowersはInstagramのフォロワーとフォロー中のリストを比較します。あなたをフォローバックしていない相手、あなたがフォローしていないフォロワー、あなたへのフォローを解除した相手を確認できます。処理はブラウザ内で行われ、拡張機能への登録やパスワードの入力は不要です。開発者にデータが送信されることもありません。"
   },
   "page_howTitle": {
     "message": "使い方"
@@ -144,7 +144,7 @@
     "message": "パネルの主な機能"
   },
   "page_feat1": {
-    "message": "<strong>フォローバックなし</strong> — 有名人やブランドなどを除外リストに追加できます"
+    "message": "<strong>あなたへのフォローバックなし</strong> — 有名人やブランドなどを除外リストに追加できます"
   },
   "page_feat2": {
     "message": "<strong>変化</strong> — 前回のスキャン以降に増えた、または減ったフォロワー"
@@ -237,7 +237,7 @@
     "message": "スキャン完了！ フォロワー：{fr}、フォロー中：{fg}。"
   },
   "scan_first": {
-    "message": "初回スキャンが完了しました。次回からフォローを外した相手を確認できます。"
+    "message": "初回スキャンが完了しました。次回は、あなたへのフォローを解除した相手を確認できます。"
   },
   "scan_changes": {
     "message": "前回のスキャン以降のフォロワー増減：−{lost} / +{gained}（「変化」タブを参照）。"
@@ -273,7 +273,7 @@
     "message": "あと{s}秒お待ちください。操作の間隔を空けることで、アカウント制限を受けにくくなります。"
   },
   "unf_done": {
-    "message": "@{user}のフォローを解除しました。本日：{used}/{limit}件。"
+    "message": "@{user}のフォローを解除しました。直近24時間：{used}/{limit}件。"
   },
   "unf_blocked": {
     "message": "操作回数が多いため、Instagramがこの操作をブロックしました。{time}までフォロー解除を一時停止します。アプリから手動でやり直さないでください。"
@@ -297,7 +297,7 @@
     "message": "バックアップを保存しました（{n}件のアカウント）。"
   },
   "backup_imported": {
-    "message": "{date}のバックアップを復元しました（{n}件のアカウント）。"
+    "message": "バックアップを復元しました（復元日：{date}、対象アカウント：{n}件）。"
   },
   "backup_invalid": {
     "message": "ファイルが壊れているか、Apex Unfollowersのバックアップではありません。"
@@ -333,7 +333,7 @@
     "message": "名前で検索…"
   },
   "ui_csvTitle": {
-    "message": "表示中のリストをCSVでダウンロード"
+    "message": "現在のタブの検索・絞り込み結果をCSVでダウンロード"
   },
   "ui_filterTitle": {
     "message": "絞り込み"
@@ -360,10 +360,10 @@
     "message": "まだスキャンしていません。「スキャン」をクリックしてください。"
   },
   "tab_notBack": {
-    "message": "フォローバックなし"
+    "message": "あなたへのフォローバックなし"
   },
   "tab_fans": {
-    "message": "自分が未フォロー"
+    "message": "未フォローのフォロワー"
   },
   "tab_mutual": {
     "message": "相互フォロー"
@@ -372,7 +372,7 @@
     "message": "変化"
   },
   "tab_changesTitle": {
-    "message": "フォローを外したアカウント数（スキャン履歴に基づく）"
+    "message": "あなたへのフォローを解除したアカウント数（スキャン履歴に基づく）"
   },
   "filter_all": {
     "message": "すべてのアカウント"
@@ -390,13 +390,13 @@
     "message": "プロフィール写真なし"
   },
   "sort_default": {
-    "message": "新しい順"
+    "message": "既定の順序"
   },
   "sort_az": {
-    "message": "名前の昇順"
+    "message": "ユーザー名（A–Z）"
   },
   "sort_za": {
-    "message": "名前の降順"
+    "message": "ユーザー名（Z–A）"
   },
   "set_lang": {
     "message": "言語"
@@ -450,10 +450,10 @@
     "message": "{date}のスキャン（{since}と比較）"
   },
   "changes_lost": {
-    "message": "解除された"
+    "message": "あなたへのフォローを解除"
   },
   "changes_gained": {
-    "message": "新規"
+    "message": "新規フォロワー"
   },
   "row_hide": {
     "message": "非表示"
@@ -477,7 +477,7 @@
     "message": "このアカウントのフォローを解除します（要確認）"
   },
   "empty_changes": {
-    "message": "まだ変化が記録されていません。次回スキャンすると、新しいフォロワーやフォローを外した相手がここに表示されます。"
+    "message": "まだ変化が記録されていません。次回スキャンすると、新しいフォロワーや、あなたへのフォローを解除した相手がここに表示されます。"
   },
   "empty_firstScan": {
     "message": "まず初回スキャンを行ってください。"
@@ -495,7 +495,7 @@
     "message": "検索条件やフィルターに一致するアカウントはありません。"
   },
   "empty_notBack": {
-    "message": "フォローしている全員があなたをフォローバックしています 🎉"
+    "message": "このリストに表示するアカウントはありません。"
   },
   "empty_fans": {
     "message": "すべてのフォロワーをフォローバックしています。"
@@ -516,7 +516,7 @@
     "message": "相互フォロー（フォロー中の{p}）"
   },
   "stats_notBack": {
-    "message": "フォローバックなし"
+    "message": "あなたへのフォローバックなし"
   },
   "stats_vsPrev": {
     "message": "前回スキャンから {d}"
@@ -573,16 +573,16 @@
     "message": "いいえ"
   },
   "csv_lost": {
-    "message": "フォロー解除"
+    "message": "あなたへのフォローを解除"
   },
   "csv_gained": {
     "message": "新規フォロワー"
   },
   "csv_fileNotBack": {
-    "message": "フォローバックなし"
+    "message": "あなたへのフォローバックなし"
   },
   "csv_fileFans": {
-    "message": "自分が未フォロー"
+    "message": "未フォローのフォロワー"
   },
   "csv_fileMutual": {
     "message": "相互フォロー"
